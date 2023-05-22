@@ -10,5 +10,5 @@ public class TgApplication{
 	public static void main(String[] args) {
 		SpringApplication.run(TgApplication.class, args);
 	}
-
+	
 }
