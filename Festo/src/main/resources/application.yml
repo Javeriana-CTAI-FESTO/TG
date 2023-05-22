@@ -22,5 +22,3 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
-    url: jdbc:ucanaccess://${DATABASE_FILE:c:/users/nbayo/downloads/tg/tg/database.accdb};openExclusive=false;ignoreCase=true;showSchema=true
-    driver-class-name: net.ucanaccess.jdbc.UcanaccessDrive

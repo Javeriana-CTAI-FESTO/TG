@@ -16,8 +16,14 @@
 	<properties>
 		<java.version>17</java.version>
 		<ucanaccess.version>5.0.0</ucanaccess.version>
+		<c3p0.version>0.9.5.3</c3p0.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,6 +46,12 @@
 			<groupId>net.sf.ucanaccess</groupId>
 			<artifactId>ucanaccess</artifactId>
 			<version>${ucanaccess.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>${c3p0.version}</version>
 		</dependency>
 
 	</dependencies>
