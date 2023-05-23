@@ -1,7 +1,9 @@
 package co.edu.javeriana.tg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +22,9 @@ public class WorkPlanController {
     private WorkPlanService workPlanService;
 
     @GetMapping
-    public Mono<ServerResponse> getAll() {
+    public Flux<WorkPlanDTO> getAll() {
         Flux<WorkPlanDTO> workPlans=workPlanService.getAllWorkPlans();
-        Mono<ServerResponse> response = ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(workPlans, WorkPlanDTO.class);
-        return response;
+        return workPlans;
     }
 
 }

@@ -1,9 +1,10 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.WorkPlan;
-import lombok.Getter;
 
-@Getter
+import co.edu.javeriana.tg.entities.WorkPlan;
+import lombok.Data;
+
+@Data
 public class WorkPlanDTO {
     private Long work_plan_number;
     private String description;
