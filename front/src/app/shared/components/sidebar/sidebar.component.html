@@ -1,0 +1,34 @@
+<mat-nav-list>
+    <div class="profile-card">
+        <div class="header">
+            <h2>Pepito Pérez</h2>
+            <h4>Administrador</h4>
+        </div>
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h2 mat-subheader>Maquina</h2>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">Dashboard</a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts">WorkPlans</a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/productions">Cola de Producción</a>
+
+    
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Clientes</h2>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+        <mat-icon>import_contacts</mat-icon>
+        Ver Clientes
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+        <mat-icon>contact_phone</mat-icon>
+        Crear Clientes
+    </a>
+
+</mat-nav-list>
+
