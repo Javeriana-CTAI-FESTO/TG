@@ -9,21 +9,14 @@ export class DashboardService {
 
   bigChart() {
     return [{
-      name: 'Asia',
-      data: [502, 635, 809, 947, 1402, 3634, 5268]
-    }, {
-      name: 'Africa',
-      data: [106, 107, 111, 133, 221, 767, 1766]
-    }, {
-      name: 'Europe',
-      data: [163, 203, 276, 408, 547, 729, 628]
-    }, {
-      name: 'America',
-      data: [18, 31, 54, 156, 339, 818, 1201]
-    }, {
-      name: 'Oceania',
-      data: [2, 2, 2, 6, 13, 30, 46]
-    }]
+      type: 'column',
+      name: 'Estacion',
+      borderRadius: 5,
+      colorByPoint: true,
+      data: [5, 8, 4, 3, 3, 2, 10, 7,
+          5, 2.8, 3.6, 2.8, 1.45, 6.9,4.5],
+      showInLegend: false
+  }]
   }
 
   cards() {
@@ -32,34 +25,29 @@ export class DashboardService {
 
   pieChart() {
     return [{
-      name: 'Chrome',
-      y: 70.67,
-      sliced: true,
-      selected: true
+      name: 'Workplan 1',
+      y: 70
     }, {
-      name: 'Edge',
-      y: 14.77
+      name: 'Workplan 2',
+      y: 14
     }, {
-      name: 'Firefox',
-      y: 4.86
+      name: 'Workplan 3',
+      y: 4
     }, {
-      name: 'Safari',
-      y: 2.63
+      name: 'Workplan 4',
+      y: 2
     }, {
-      name: 'Internet Explorer',
-      y: 1.53
+      name: 'Workplan 5',
+      y: 1
     }, {
-      name: 'Opera',
-      y: 1.40
+      name: 'Workplan 6',
+      y: 1
     }, {
-      name: 'Sogou Explorer',
-      y: 0.84
+      name: 'Workplan 7',
+      y: 1
     }, {
-      name: 'QQ',
-      y: 0.51
-    }, {
-      name: 'Other',
-      y: 2.6
+      name: 'Workplan 8',
+      y: 2
     }]
   }
 }

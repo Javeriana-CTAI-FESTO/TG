@@ -17,68 +17,58 @@ export class AreaComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartOptions = {
-      chart: {
-        type: 'area'
-      },
       title: {
-        text: 'Radnom DATA',
-        align: 'left'
+          text: 'Rendimiento de las Estaciones de la maquina',
+          align: 'left'
       },
-      subtitle: {
-        text: 'Source: ' +
-          '<a href="https://www.ssb.no/en/statbank/table/09288/"' +
-          'target="_blank">SSB</a>',
-        align: 'left'
-      },
-      yAxis: {
-        title: {
-          useHTML: true,
-          text: 'Million tonnes CO<sub>2</sub>-equivalents'
-        }
-      },
-      tooltip: {
-        shared: true,
-        headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>'
-      },
-      plotOptions: {
-        series: {
-          pointStart: 2012
-        },
-        area: {
-          stacking: 'normal',
-          lineColor: '#666666',
-          lineWidth: 1,
-          marker: {
-            lineWidth: 1,
-            lineColor: '#666666'
-          }
-        }
-      },
+      colors: [
+        '#4caefe',
+        '#3fbdf3',
+        '#35c3e8',
+        '#2bc9dc',
+        '#20cfe1',
+        '#16d4e6',
+        '#0dd9db',
+        '#03dfd0',
+        '#00e4c5',
+        '#00e9ba',
+        '#00eeaf',
+        '#23e274',
+        '#5ddc5d',
+        '#a4d44f',
+        '#e1c517',
+      ],
       credits: {
         enabled: false
       },
       exporting: {
         enabled: true
       },
-      series: [{
-        name: 'Ocean transport',
-        data: [13234, 12729, 11533, 17798, 10398, 12811, 15483, 16196, 16214]
-      }, {
-        name: 'Households',
-        data: [6685, 6535, 6389, 6384, 6251, 5725, 5631, 5047, 5039]
+      tooltip: {
+        pointFormatter: function (this:{y:number}): string {
+          return 'Rendimiento'+': ' + this.y + ' min';
+        }
+      },
+      xAxis: {
+        title: {
+          text: 'Estaciones'
+        },
+  
+          categories: ['primera', 'segunda', 'tercer', 'cuarta', 'quinta', 'sexta', 'septima', 'Octava', 'Novena', 'Decima', 'Undecima', 'Duodecima', 'Decimotercera', 'Decimocuarta', 'Decimoquinta']
+      },
+      yAxis: {
+          title: {
+              text: 'tiempo (Minutos)'
+          },
+          labels: {
+              formatter: function (this:{value:number}): string {
+                  return this.value.toFixed(2) + ' min';
+              }
+            }
+      },
+      series: this.data
+  };
 
-      }, {
-        name: 'Agriculture and hunting',
-        data: [4752, 4820, 4877, 4925, 5006, 4976, 4946, 4911, 4913]
-      }, {
-        name: 'Air transport',
-        data: [3164, 3541, 3898, 4115, 3388, 3569, 3887, 4593, 1550]
-
-      }, {
-        name: 'Construction',
-        data: [2019, 2189, 2150, 2217, 2175, 2257, 2344, 2176, 2186]
-      }]
-    };
 
     HC_exporting(Highcharts);
     setTimeout(() => {

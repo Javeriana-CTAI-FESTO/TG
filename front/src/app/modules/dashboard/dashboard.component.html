@@ -6,19 +6,19 @@
 
 
 <br>
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards" >
-    
-    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45"  >
-        <app-widget-card label="New Users" total="18k" percentage="50" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45" >
-        <app-widget-card label="Users Retention" total="18k" percentage="40" [data]="cards"></app-widget-card>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+
+    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
+        <app-widget-card label="Usuarios Nuevos" total="18k" percentage="50" [data]="cards"></app-widget-card>
     </mat-card>
     <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
-        <app-widget-card label="Users" total="18k" percentage="50" [data]="cards"></app-widget-card>
+        <app-widget-card label="Workplans Nuevos" total="18k" percentage="40" [data]="cards"></app-widget-card>
     </mat-card>
     <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
-        <app-widget-card label="Referral" total="6k" percentage="30%" [data]="cards"></app-widget-card>
+        <app-widget-card label="Workplans Ejecutados" total="18k" percentage="50" [data]="cards"></app-widget-card>
+    </mat-card>
+    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
+        <app-widget-card label="Uso de la Maquina" total="6k" percentage="30%" [data]="cards"></app-widget-card>
     </mat-card>
 </div>
 
@@ -27,10 +27,14 @@
 <mat-divider></mat-divider>
 <br>
 
-<div fxLayout.gt-sm="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+
+<div fxLayout.gt-sm="row" fxLayout.lt-sm="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
     <div fxFlex.gt-sm="60" fxFlex.lt-sm="100">
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource">
+                <caption>
+                    <h2>Estado de las estaciones</h2>
+                </caption> <!-- Agregar el elemento caption con el título -->
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="position">
@@ -40,20 +44,27 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <th mat-header-cell *matHeaderCellDef> Nommbre </th>
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
 
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                    <th mat-header-cell *matHeaderCellDef> Weight </th>
-                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <!-- code Column -->
+                <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef> Codigo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
                 </ng-container>
 
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                <!-- state Column -->
+                <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngIf="element.state === 'True'">
+                            <mat-icon class="check">check_circle</mat-icon>
+                        </span>
+                        <span *ngIf="element.state === 'False'">
+                            <mat-icon class="deny">cancel</mat-icon>
+                        </span>
+                    </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

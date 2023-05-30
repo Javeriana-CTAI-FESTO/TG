@@ -23,11 +23,11 @@ export class PieComponent implements OnInit {
           type: 'pie'
       },
       title: {
-          text: 'RANDOM DATA',
-          align: 'left'
+          text: 'WORKPLANS REALIZADOS',
+          align: 'center'
       },
       tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       accessibility: {
           point: {
@@ -40,7 +40,7 @@ export class PieComponent implements OnInit {
               cursor: 'pointer',
               dataLabels: {
                   enabled: true,
-                  format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                  format: '<b>{point.name}</b>: {point.y}'
               }
           }
       },

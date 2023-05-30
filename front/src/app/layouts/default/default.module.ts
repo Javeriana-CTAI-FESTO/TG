@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 import { HelpComponent } from 'src/app/modules/help/help.component';
 import { ListComponent } from 'src/app/modules/list/list.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ListComponent } from 'src/app/modules/list/list.component';
     MatSidenavModule,
     MatDividerModule,
     FlexLayoutModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [
     DashboardService

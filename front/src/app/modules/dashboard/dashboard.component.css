@@ -65,3 +65,12 @@ table {
       margin-right: 0;
     }
   }
+/* Icono de verificación verde */
+.check{
+  color: green;
+}
+
+/* Icono de cancelación rojo */
+.deny {
+  color: red;
+}
