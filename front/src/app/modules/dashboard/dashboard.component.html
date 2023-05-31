@@ -6,20 +6,8 @@
 
 
 <br>
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
-
-    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
-        <app-widget-card label="Usuarios Nuevos" total="18" percentage="50" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
-        <app-widget-card label="Workplans Nuevos" total="18" percentage="40" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
-        <app-widget-card label="Workplans Ejecutados" total="18" percentage="50" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex.gt-sm="23" fxFlex.lt-md="45">
-        <app-widget-card label="Uso de la Maquina" total="6" percentage="30%" [data]="cards"></app-widget-card>
-    </mat-card>
+<div>
+    <app-widget-card label="Cola De Producción"></app-widget-card>
 </div>
 
 <br>
@@ -31,11 +19,11 @@
 <div fxLayout.gt-sm="row" fxLayout.lt-sm="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
     <div fxFlex.gt-sm="60" fxFlex.lt-sm="100">
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
-                <caption>
-                    <h2>Estado de las estaciones</h2>
-                </caption> <!-- Agregar el elemento caption con el título -->
+            <h2 style="text-align: center;">Estado de las estaciones</h2>
 
+
+            <table mat-table [dataSource]="dataSource">
+               
                 <!-- Position Column -->
                 <ng-container matColumnDef="position">
                     <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -81,3 +69,5 @@
         <app-widget-pie-chart [data]="pieChart"></app-widget-pie-chart>
     </div>
 </div>
+
+<br>

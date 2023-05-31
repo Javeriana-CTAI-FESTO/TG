@@ -13,7 +13,8 @@ import { DashboardService } from 'src/app/modules/dashboard.service';
 import { HelpComponent } from 'src/app/modules/help/help.component';
 import { ListComponent } from 'src/app/modules/list/list.component';
 import { MatIconModule } from '@angular/material/icon';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatDividerModule,
     FlexLayoutModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    DragDropModule,
+    MatMenuModule
   ],
   providers: [
     DashboardService

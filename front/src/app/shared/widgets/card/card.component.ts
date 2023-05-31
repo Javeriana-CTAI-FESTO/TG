@@ -9,9 +9,8 @@ import HC_exporting from 'highcharts/modules/exporting';
 })
 export class CardComponent implements OnInit {
 
+
   @Input() label: string='';
-  @Input() total: string='';
-  @Input() percentage: string='';
 
   Highcharts = Highcharts;
   chartOptions = {};
@@ -21,67 +20,56 @@ export class CardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.chartOptions = {
-      chart: {
-        type: 'area',
-        backgroundColor: null,
-        borderWidth: 0,
-        margin: [2, 2, 2, 2],
-        height: 60
-      },
-      title: {
-        text: null
-      },
-      subtitle: {
-        text: null
-      },
-      tooltip: {
-        split: true,
-        outside: true
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false,
-      },
-      xAxis: {
-        labels: {
-          enabled: false,
-        },
-        title: {
-          text: null
-        },
-        startOnTick: false,
-        endOnTick: false,
-        tickOptions: []
-      },
-      yAxis: {
-        labels: {
-          enabled: false,
-        },
-        title: {
-          text: null
-        },
-        startOnTick: false,
-        endOnTick: false,
-        tickOptions: []
-      },
-      series: [{
-        data: this.data
-      }]
-    };
-
-    HC_exporting(Highcharts);
-
-    setTimeout(() => {
-      window.dispatchEvent(
-        new Event('resize')
-      );
-    }, 300);
   }
 
+
+
+  cards = [
+    {
+      id: 1,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 2,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 3,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 4,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 5,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 6,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 7,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 8,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    },
+    {
+      id: 9,
+      title: 'WorkPlan',
+      imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+    }
+  ];
 }
+

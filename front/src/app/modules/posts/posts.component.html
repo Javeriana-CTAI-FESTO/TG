@@ -1,1 +1,41 @@
-<p>posts works!</p>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<div class="cont mt-5 mb-5">
+    <div cdkDropListGroup>
+        <div class="example-container">
+            <h3>Disponibles</h3>
+            <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.name}} {{item.state}}
+                </div>
+            </div>
+        </div>
+        <div class="example-container">
+            <h3>Elegidos</h3>
+            <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.name}} {{item.price}}
+                    <button mat-icon-button [matMenuTriggerFor]="menu1">
+                        <mat-icon>list</mat-icon>
+                      </button>
+                      <mat-menu #menu1="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon><span class="material-icons">
+                                extension
+                                </span></mat-icon>
+                            <span>Pieza 1</span>
+                        </button>
+
+                        <button mat-menu-item>
+                            <mat-icon><span class="material-icons">
+                                extension
+                                </span></mat-icon>
+                            <span>Pieza 2</span>
+                        </button>
+                      </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
