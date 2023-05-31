@@ -79,9 +79,7 @@ public class UCanAccessDialect extends SQLServerDialect {
 
     @Override
     public boolean supportsSequences() {
-        // TODO Hibernate bug? It does call this method, but then it tries to
-        // use Sequences anyway.
-        // System.out.println("-> Hibernate is checking support for Sequences.");
+        // It does call this method, but then it tries to use Sequences anyway.
         return false;
     }
     
