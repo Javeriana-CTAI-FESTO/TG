@@ -21,3 +21,8 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+.spinner-border.custom-sm {
+    height: 1.5rem;
+    width: 1.5rem;
+
+  }
