@@ -1,1 +1,57 @@
-<p>list works!</p>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+
+<div class="mat-elevation-z8 ">
+  <div style="background-color: #FFFFFF;">
+    <h2 style="text-align: center;">Lista de Clientes</h2>
+    <input class="filter-input" style="width: 100%;" (keyup)=" applyFilter($event)" placeholder="Filter">
+  </div>
+  <table mat-table [dataSource]="dataSource">
+    <!-- ID Column -->
+    <ng-container matColumnDef="ID">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let persona"> {{ persona.ID }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let persona"> {{ persona.nombre }} </td>
+    </ng-container>
+
+    <!-- Apellido Column -->
+    <ng-container matColumnDef="apellido">
+      <th mat-header-cell *matHeaderCellDef> Apellido </th>
+      <td mat-cell *matCellDef="let persona"> {{ persona.apellido }} </td>
+    </ng-container>
+
+    <!-- Edad Column -->
+    <ng-container matColumnDef="edad">
+      <th mat-header-cell *matHeaderCellDef> Edad </th>
+      <td mat-cell *matCellDef="let persona"> {{ persona.edad }} </td>
+    </ng-container>
+    <!-- Operacioens Column -->
+    <ng-container matColumnDef="Operaciones">
+      <th mat-header-cell *matHeaderCellDef> Operaciones </th>
+      <td mat-cell *matCellDef="let persona">
+        <button type="button" class="btn btn-outline-success">Editar</button>
+        <button  type="button" class="btn btn-outline-danger">Eliminar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+
+
+
+</div>
+<br>
+
+<button type="button" class="btn btn-success" (click)="openDialog()">Agregar persona</button>

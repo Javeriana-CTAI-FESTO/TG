@@ -17,6 +17,10 @@ import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -36,7 +40,11 @@ import { MatTableModule } from '@angular/material/table';
     MatMenuModule,
     MatListModule,
     RouterModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    FormsModule,
+    MatSelectModule,
+    MatInputModule,
+
   ],
   exports: [
     HeaderComponent,
@@ -46,7 +54,9 @@ import { MatTableModule } from '@angular/material/table';
     CardComponent,
     PieComponent,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+
   ]
 })
 export class SharedModule { }
