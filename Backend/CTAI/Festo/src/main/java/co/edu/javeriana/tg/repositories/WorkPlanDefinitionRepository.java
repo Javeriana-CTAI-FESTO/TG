@@ -8,4 +8,6 @@ import co.edu.javeriana.tg.entities.WorkPlanDefinition;
 
 public interface WorkPlanDefinitionRepository extends CrudRepository<WorkPlanDefinition, Long>{
     List<WorkPlanDefinition> findAll();
+
+    List<WorkPlanDefinition> findByWorkPlanTypeTypeNumber(Long type);
 }

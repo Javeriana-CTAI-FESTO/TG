@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.javeriana.tg.entities.dtos.MachineReportDTO;
+import co.edu.javeriana.tg.entities.dtos.ReportDTO;
 import co.edu.javeriana.tg.services.MachineReportService;
 
 @RestController
@@ -26,4 +28,14 @@ public class MachineReportController {
             status = HttpStatus.NO_CONTENT;
         return new ResponseEntity<List<MachineReportDTO>>(reports, status);
     }
+
+    @GetMapping("/{resourceId}")
+    public ResponseEntity<List<ReportDTO>> getForMachine(@PathVariable Long resourceId) {
+        List<ReportDTO> reports = reportService.getForMachine(resourceId);
+        HttpStatus status = HttpStatus.OK;
+        if (reports.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<List<ReportDTO>>(reports, status);
+    }
+
 }

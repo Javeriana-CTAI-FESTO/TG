@@ -9,4 +9,6 @@ import co.edu.javeriana.tg.entities.MachineReportPK;
 
 public interface MachineReportRepository extends CrudRepository<MachineReport, MachineReportPK>{
     List<MachineReport> findAll();
+
+    List<MachineReport> findByResourceId(Long resourceId);
 }

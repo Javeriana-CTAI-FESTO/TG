@@ -1,11 +1,13 @@
 package co.edu.javeriana.tg.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,24 @@ public class WorkPlanController {
     @GetMapping
     public ResponseEntity<List<WorkPlanDTO>> getAll() {
         List<WorkPlanDTO> workPlans = workPlanService.getAll();
+        HttpStatus status = HttpStatus.OK;
+        if (workPlans.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
+    }
+
+    @GetMapping("/type")
+    public ResponseEntity<Map<Long, String>> getAllTypes() {
+        Map<Long, String> workPlans = workPlanService.getTypes();
+        HttpStatus status = HttpStatus.OK;
+        if (workPlans.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Map<Long, String>>(workPlans, status);
+    }
+
+    @GetMapping("/type/{operationId}")
+    public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlansByType(@PathVariable Long operationId) {
+        List<WorkPlanDTO> workPlans = workPlanService.getOrdersByType(operationId);
         HttpStatus status = HttpStatus.OK;
         if (workPlans.isEmpty())
             status = HttpStatus.NO_CONTENT;

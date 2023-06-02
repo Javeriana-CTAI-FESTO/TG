@@ -15,12 +15,13 @@
 	<artifactId>tg</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tg</name>
-	<description>Aplicación para la automatización de el uso de dispositivos en CTAI, especificamente FESTO</description>
+	<description>FESTO automation API</description>
 
 	<properties>
 		<java.version>11</java.version>
 		<ucanaccess.version>5.0.0</ucanaccess.version>
 		<c3p0.version>0.9.5.3</c3p0.version>
+		<springdoc.version>1.7.0</springdoc.version>
 	</properties>
 
 	<dependencies>
@@ -51,6 +52,12 @@
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>${c3p0.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 
 	</dependencies>
