@@ -4,7 +4,7 @@
 </head>
 
 <div class="container mt-5 mb-5">
-  <h1 class="modal-title">Agregar Cliente</h1>
+  <h1 class="modal-title mb-4">Agregar Cliente</h1>
   <form id="form" (submit)="$event.preventDefault(); onSubmit(nombre.value, apellido.value, +edad.value, ID.value)">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
@@ -23,7 +23,7 @@
       <input type="text" class="form-control" id="ID" name="ID" placeholder="ID" #ID>
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
-    <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="closeDialog()">
+    <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button btn btn-secondary" (click)="closeDialog()">
       <mat-icon>close</mat-icon>
     </button>
   </form>

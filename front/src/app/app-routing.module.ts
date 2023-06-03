@@ -5,6 +5,8 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { PostsComponent } from './modules/posts/posts.component';
 import { HelpComponent } from './modules/help/help.component';
 import { ListComponent } from './modules/list/list.component';
+import { LoginComponent } from './login/login.component';
+
 const routes: Routes = [{
   path: '',
   component: DefaultComponent,
@@ -20,7 +22,10 @@ const routes: Routes = [{
   }, {
     path: 'list',
     component: ListComponent
-  }]
+  }],
+}, {
+  path: 'login',
+  component: LoginComponent,
 }];
 
 @NgModule({

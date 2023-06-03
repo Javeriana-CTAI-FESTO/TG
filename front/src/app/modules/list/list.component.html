@@ -37,12 +37,16 @@
     <ng-container matColumnDef="Operaciones">
       <th mat-header-cell *matHeaderCellDef> Operaciones </th>
       <td mat-cell *matCellDef="let persona">
+        <button type="button" class="btn btn-outline-info" (click)="openInfoDialog(persona)">
+          <mat-icon >visibility</mat-icon>
+        </button>
         <button type="button" class="btn btn-outline-success" (click)="openEditDialog(persona)">
           <mat-icon>edit</mat-icon>
         </button>
         <button type="button" class="btn btn-outline-danger" (click)="eliminarPersona(persona)">
           <mat-icon>delete</mat-icon>
         </button>
+        
       </td>
     </ng-container>
 
@@ -55,4 +59,4 @@
 </div>
 <br>
 
-<button type="button" class="btn btn-success" (click)="openDialog()">Agregar persona</button>
+<button type="button" class="btn btn-primary btn-lg" (click)="openDialog()">Agregar persona</button>

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { PersonasService, Persona } from '../list/personas.service';
 import { ToastrService } from 'ngx-toastr';
 import { EditComponent } from './Dialogs/edit/edit.component';
+import { PersonaDialogComponent } from './Dialogs/persona-dialog/persona-dialog.component';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -47,6 +48,16 @@ export class ListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+  openInfoDialog(persona: Persona){
+    const dialogRef = this.dialog.open(PersonaDialogComponent, {
+      data: persona
+    });
+  
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
+
   }
 
   openEditDialog(persona: Persona) {

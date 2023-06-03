@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ToastrModule } from 'ngx-toastr';
 import { FormComponent } from '../modules/list/Dialogs/form/form.component';
 import { EditComponent } from '../modules/list/Dialogs/edit/edit.component';
+import { PersonaDialogComponent } from '../modules/list/Dialogs/persona-dialog/persona-dialog.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -34,6 +35,8 @@ import { EditComponent } from '../modules/list/Dialogs/edit/edit.component';
     PieComponent,
     FormComponent,
     EditComponent,
+    PersonaDialogComponent
+
   ],
   imports: [
     CommonModule,
