@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PersonasService {
   personas: Persona[] = [];
   personaAgregada = new Subject<Persona>();
+
+
+  eliminarPersona(index: string) {
+ 
+    this.personas.splice(parseInt(index), 1);
+    
+
+  }
 
   agregarPersona(persona: Persona) {
     this.personas.push(persona);

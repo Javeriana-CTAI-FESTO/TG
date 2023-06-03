@@ -37,8 +37,12 @@
     <ng-container matColumnDef="Operaciones">
       <th mat-header-cell *matHeaderCellDef> Operaciones </th>
       <td mat-cell *matCellDef="let persona">
-        <button type="button" class="btn btn-outline-success">Editar</button>
-        <button  type="button" class="btn btn-outline-danger">Eliminar</button>
+        <button type="button" class="btn btn-outline-success" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="eliminarPersona(persona)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 
@@ -48,9 +52,6 @@
 
   <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons aria-label="Select page of periodic elements">
   </mat-paginator>
-
-
-
 </div>
 <br>
 

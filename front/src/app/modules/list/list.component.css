@@ -6,3 +6,7 @@
     width: 200px;
 }
 
+.btn-outline-success,
+.btn-outline-danger {
+  margin-right: 10px;
+}

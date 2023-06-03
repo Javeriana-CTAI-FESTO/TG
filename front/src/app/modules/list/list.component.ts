@@ -5,6 +5,7 @@ import { FormComponent } from './Dialogs/form/form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { PersonasService, Persona } from '../list/personas.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -21,7 +22,7 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   personaAgregadaSubscription: Subscription;
 
-  constructor(private dialog: MatDialog, private personasService: PersonasService) {
+  constructor(private dialog: MatDialog, private personasService: PersonasService, private toastr: ToastrService) {
     this.dataSource = new MatTableDataSource<Persona>(this.personas);
     this.personaAgregadaSubscription = this.personasService.personaAgregada.subscribe((persona: Persona) => {
       this.dataSource.data = this.personasService.getPersonas();
@@ -47,6 +48,21 @@ export class ListComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  eliminarPersona(index: string) {
+    if (!confirm('¿Está seguro de eliminar esta persona?')) {
+      this.toastr.error('Operación Cancelada', 'Error');
+
+      return;
+    }
+    else{
+    }   
+    this.personasService.eliminarPersona(index);
+    this.toastr.success('Persona eliminada', 'Éxito');
+    this.dataSource.data = this.personasService.getPersonas();
+
+  }
+  
 
   ngOnDestroy() {
     this.personaAgregadaSubscription.unsubscribe();
