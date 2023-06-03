@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { PersonasService, Persona } from '../list/personas.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { EditComponent } from './Dialogs/edit/edit.component';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -46,6 +46,21 @@ export class ListComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openEditDialog(persona: Persona) {
+    const personaCopy = Object.assign({}, persona); // create a copy of the object
+    const dialogRef = this.dialog.open(EditComponent, {
+      data: personaCopy // pass the copy to the EditComponent
+    });
+  
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.toastr.success('Persona editada', 'Éxito');
+        this.personasService.editarPersona(persona, result); // update the original object with the changes
+        this.dataSource.data = this.personasService.getPersonas();
+      }
     });
   }
 

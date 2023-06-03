@@ -21,8 +21,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { Toast, ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { FormComponent } from '../modules/list/Dialogs/form/form.component';
+import { EditComponent } from '../modules/list/Dialogs/edit/edit.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -31,7 +32,8 @@ import { FormComponent } from '../modules/list/Dialogs/form/form.component';
     AreaComponent,
     CardComponent,
     PieComponent,
-    FormComponent
+    FormComponent,
+    EditComponent,
   ],
   imports: [
     CommonModule,

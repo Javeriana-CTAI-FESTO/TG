@@ -29,6 +29,12 @@ export class PersonasService {
     this.personas.push(new Persona('María', 'González', 30, '87654321'));
     this.personas.push(new Persona('Pedro', 'Rodríguez', 40, '45678901'));
   }
+  editarPersona(personaOriginal: Persona, personaNueva: Persona): void {
+    const index = this.personas.findIndex(p => p.ID === personaOriginal.ID);
+    if (index !== -1) {
+      this.personas[index] = personaNueva;
+    }
+  }
 }
 
 export class Persona {
@@ -47,4 +53,5 @@ export class Persona {
   esValido(): boolean {
     return this.nombre.length > 0 && this.apellido.length > 0 && this.edad > 0 && this.ID.length > 0;
   }
+  
 }
