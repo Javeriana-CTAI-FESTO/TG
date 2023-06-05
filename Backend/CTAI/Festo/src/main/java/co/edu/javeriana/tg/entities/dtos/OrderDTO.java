@@ -28,6 +28,7 @@ public class OrderDTO {
     private Boolean error;
     private String status;
     private Long orderPartNumber;
+    private String timeNeeded;
 
     public OrderDTO() {
     }
@@ -236,6 +237,27 @@ public class OrderDTO {
         this.error = order.getError();
         this.orderPartNumber = order.getOrderPartNumber();
     }
+    
+    public OrderDTO(OrderPosition order, ClientDTO client, Long time) {
+        this.orderNumber = order.getOrder().getOrderNumber();
+        this.orderState = order.getOrder().getState();
+        this.enabled = order.getOrder().getEnabled();
+        this.release = order.getOrder().getRelease();
+        this.orderPosition = order.getOrderPosition();
+        this.timeNeeded = time + "s";
+        this.workPlanNumber = order.getWorkPlanNumber();
+        this.stepNumber = order.getStepNumber();
+        this.mainOrderPosition = order.getMainOrderPosition();
+        this.state = order.getState();
+        this.client = client;
+        this.resourceNumber = order.getResourceNumber();
+        this.operationNumber = order.getOperationNumber();
+        this.workOrderNumber = order.getWorkOrderNumber();
+        this.part = new PartDTO(order.getPart());
+        this.subOrderBlocked = order.getSubOrderBlocked();
+        this.error = order.getError();
+        this.orderPartNumber = order.getOrderPartNumber();
+    }
 
     public OrderDTO(Order order, ClientDTO client){
         this.orderNumber = order.getOrderNumber();
@@ -263,5 +285,13 @@ public class OrderDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTimeNeeded() {
+        return timeNeeded;
+    }
+
+    public void setTimeNeeded(String timeNeeded) {
+        this.timeNeeded = timeNeeded;
     }
 }

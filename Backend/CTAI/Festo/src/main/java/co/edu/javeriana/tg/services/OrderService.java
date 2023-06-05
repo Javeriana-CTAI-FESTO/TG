@@ -27,6 +27,9 @@ public class OrderService {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private ResourceForOperationService resourceForOperationService;
+
     public List<OrderDTO> getAll() {
         return orderRepository.findAll().stream()
                 .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
@@ -92,7 +95,14 @@ public class OrderService {
 
     public List<OrderDTO> getOrdersWithStatus() {
         return orderPositionRepository.findAll().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getOrder().getClientNumber()), this.evaluateStatus(order)))
+                .map(order -> new OrderDTO(order, clientService.getClient(order.getOrder().getClientNumber()),
+                        this.evaluateStatus(order)))
+                .collect(Collectors.toList());
+    }
+
+    public List<OrderDTO> getOrdersWithTime() {
+        return orderPositionRepository.findAll().stream()
+                .map(order -> new OrderDTO(order, clientService.getClient(order.getOrder().getClientNumber()), resourceForOperationService.timeForWorkPlan(order.getWorkPlanNumber())))
                 .collect(Collectors.toList());
     }
 
@@ -100,7 +110,9 @@ public class OrderService {
         return Map.of(1L, "Unstarted", 2L, "In process", 3L, "Finished");
     }
 
-    public List<OrderDTO> filterByStatus(Long status) {
+    public List<OrderDTO> filterByStatus(Long status) throws Exception {
+        if (status > 3 || status < 0)
+            throw new Exception("Invalid");
         return (status == 1) ? getAllUnstartedOrders()
                 : (status == 2) ? getAllInProcessOrders() : (status == 3) ? getAllFinishedOrders() : null;
     }

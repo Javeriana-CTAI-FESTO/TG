@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.controllers.student;
+package co.edu.javeriana.tg.controllers.teacher;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +19,8 @@ import co.edu.javeriana.tg.services.OrderService;
 import co.edu.javeriana.tg.services.WorkPlanService;
 
 @RestController
-@RequestMapping("/api/students")
-public class StudentController {
+@RequestMapping("/api/teacher")
+public class TeacherController {
 
     @Autowired
     private WorkPlanService workPlanService;
@@ -74,42 +73,12 @@ public class StudentController {
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
 
-    @PostMapping("/products/new-order")
-    public ResponseEntity<OrderDTO> newOrder(@RequestParam Long workPlanNumber, @RequestParam Long clientNumber) {
-        OrderDTO workPlans = null;
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        try {
-            workPlans = workPlanService.generateNewOrder(workPlanNumber, clientNumber);
-            status = HttpStatus.OK;
-            if (workPlans == null)
-                status = HttpStatus.IM_USED;
-        } catch (Exception e) {
-            status = HttpStatus.NOT_FOUND;
-        }
-        return new ResponseEntity<OrderDTO>(workPlans, status);
-    }
-
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> getAllWorkPlanStatus() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
             workPlans = orderService.getOrdersWithStatus();
-            status = HttpStatus.OK;
-            if (workPlans.isEmpty())
-                status = HttpStatus.NO_CONTENT;
-        } catch (Exception e) {
-            status = HttpStatus.NOT_FOUND;
-        }
-        return new ResponseEntity<List<OrderDTO>>(workPlans, status);
-    }
-
-    @GetMapping("/orders/time")
-    public ResponseEntity<List<OrderDTO>> getAllWorkPlanTime() {
-        List<OrderDTO> workPlans = null;
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        try {
-            workPlans = orderService.getOrdersWithTime();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
