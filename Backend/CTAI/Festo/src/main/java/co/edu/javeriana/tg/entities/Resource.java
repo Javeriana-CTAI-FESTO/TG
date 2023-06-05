@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblResource")
+//Recursos disponibles en la planta (PLC)
 public class Resource {
     @Id
     @Column(name = "ResourceID")

@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblParts")
+// Partes disponibles en la planta
 public class Part {
     @Id
     @Column(name = "PNo")

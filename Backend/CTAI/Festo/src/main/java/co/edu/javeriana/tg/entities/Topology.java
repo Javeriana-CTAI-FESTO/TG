@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblTopology")
 @IdClass(TopologyPK.class)
+// Topologias de los modulos (Conexiones entre los modulos)
 public class Topology {
     @Id
     @ManyToOne

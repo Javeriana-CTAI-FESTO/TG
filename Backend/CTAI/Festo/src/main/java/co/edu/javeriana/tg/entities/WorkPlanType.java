@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblWorkPlanType")
+// Tipo de plan de trabajo
 public class WorkPlanType {
     @Id
     @Column(name = "Type", nullable = false)

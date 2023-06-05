@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblOperation")
+// Operaciones que pueden llegar a realizarse
 public class Operation {
 
     @Id

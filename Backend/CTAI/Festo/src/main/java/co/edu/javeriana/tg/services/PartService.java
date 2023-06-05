@@ -14,7 +14,7 @@ public class PartService {
     @Autowired
     private PartRepository partRepository;
 
-    public List<PartDTO> getAll(){
+    public List<PartDTO> getAll() {
         return partRepository.findAll().stream().map(PartDTO::new).collect(Collectors.toList());
     }
 }

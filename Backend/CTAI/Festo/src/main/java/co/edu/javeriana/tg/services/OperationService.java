@@ -14,7 +14,7 @@ public class OperationService {
     @Autowired
     private OperationRepository operationRepository;
 
-    public List<OperationDTO> getAll(){
+    public List<OperationDTO> getAll() {
         return operationRepository.findAll().stream().map(OperationDTO::new).collect(Collectors.toList());
     }
 }

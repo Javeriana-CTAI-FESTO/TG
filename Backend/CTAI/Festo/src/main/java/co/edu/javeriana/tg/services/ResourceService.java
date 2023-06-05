@@ -14,7 +14,7 @@ public class ResourceService {
     @Autowired
     private ResourceRepository resourceRepository;
 
-    public List<ResourceDTO> getAll(){
+    public List<ResourceDTO> getAll() {
         return resourceRepository.findAll().stream().map(ResourceDTO::new).collect(Collectors.toList());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.WorkPlanType;
+import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.repositories.WorkPlanDefinitionRepository;
 import co.edu.javeriana.tg.repositories.WorkPlanTypeRepository;
@@ -20,15 +21,24 @@ public class WorkPlanService {
     @Autowired
     private WorkPlanTypeRepository workPlanTypeRepository;
 
-    public List<WorkPlanDTO> getAll(){
+    @Autowired
+    private OrderService orderService;
+
+    public List<WorkPlanDTO> getAll() {
         return workPlanRepository.findAll().stream().map(WorkPlanDTO::new).collect(Collectors.toList());
     }
 
-    public Map<Long, String> getTypes(){
-       return workPlanTypeRepository.findAll().stream().collect(Collectors.toMap(WorkPlanType::getTypeNumber, WorkPlanType::getDescription));
+    public Map<Long, String> getTypes() {
+        return workPlanTypeRepository.findAll().stream()
+                .collect(Collectors.toMap(WorkPlanType::getTypeNumber, WorkPlanType::getDescription));
     }
 
-    public List<WorkPlanDTO> getOrdersByType(Long type){
-        return workPlanRepository.findByWorkPlanTypeTypeNumber(type).stream().map(WorkPlanDTO::new).collect(Collectors.toList());
+    public List<WorkPlanDTO> getWorkPlansByType(Long type) {
+        return workPlanRepository.findByWorkPlanTypeTypeNumber(type).stream().map(WorkPlanDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public OrderDTO generateNewOrder(Long workPlanNumber, Long clientNumber) {
+        return orderService.generateNewOrder(workPlanNumber, clientNumber);
     }
 }

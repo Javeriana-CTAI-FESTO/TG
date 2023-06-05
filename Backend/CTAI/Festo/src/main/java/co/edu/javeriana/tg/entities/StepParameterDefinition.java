@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblStepParameterDef")
 @IdClass(StepParameterDefinitionPK.class)
+// Parametros de la lista de operaciones de los planes de trabajo
 public class StepParameterDefinition {
     @Id
     @Column(name = "WPNo")

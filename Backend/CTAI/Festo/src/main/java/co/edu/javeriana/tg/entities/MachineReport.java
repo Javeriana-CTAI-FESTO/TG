@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblMachineReport")
 @IdClass(MachineReportPK.class)
+// Reporte de los recursos en un momento determinado
 public class MachineReport {
     @Id
     @ManyToOne

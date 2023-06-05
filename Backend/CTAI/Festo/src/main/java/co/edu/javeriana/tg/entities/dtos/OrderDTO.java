@@ -2,10 +2,12 @@ package co.edu.javeriana.tg.entities.dtos;
 
 import java.util.Date;
 
+import co.edu.javeriana.tg.entities.Order;
 import co.edu.javeriana.tg.entities.OrderPosition;
 
 public class OrderDTO {
     private Long orderNumber;
+    private ClientDTO client;
     private Long orderState;
     private Boolean enabled;
     private Date release;
@@ -24,6 +26,7 @@ public class OrderDTO {
     private PartDTO part;
     private Boolean subOrderBlocked;
     private Boolean error;
+    private String status;
     private Long orderPartNumber;
 
     public OrderDTO() {
@@ -189,7 +192,7 @@ public class OrderDTO {
         this.release = release;
     }
 
-    public OrderDTO(OrderPosition order) {
+    public OrderDTO(OrderPosition order, ClientDTO client) {
         this.orderNumber = order.getOrder().getOrderNumber();
         this.orderState = order.getOrder().getState();
         this.enabled = order.getOrder().getEnabled();
@@ -203,6 +206,7 @@ public class OrderDTO {
         this.stepNumber = order.getStepNumber();
         this.mainOrderPosition = order.getMainOrderPosition();
         this.state = order.getState();
+        this.client = client;
         this.resourceNumber = order.getResourceNumber();
         this.operationNumber = order.getOperationNumber();
         this.workOrderNumber = order.getWorkOrderNumber();
@@ -210,5 +214,54 @@ public class OrderDTO {
         this.subOrderBlocked = order.getSubOrderBlocked();
         this.error = order.getError();
         this.orderPartNumber = order.getOrderPartNumber();
+    }
+
+    public OrderDTO(OrderPosition order, ClientDTO client, String status) {
+        this.orderNumber = order.getOrder().getOrderNumber();
+        this.orderState = order.getOrder().getState();
+        this.enabled = order.getOrder().getEnabled();
+        this.release = order.getOrder().getRelease();
+        this.orderPosition = order.getOrderPosition();
+        this.status = status;
+        this.workPlanNumber = order.getWorkPlanNumber();
+        this.stepNumber = order.getStepNumber();
+        this.mainOrderPosition = order.getMainOrderPosition();
+        this.state = order.getState();
+        this.client = client;
+        this.resourceNumber = order.getResourceNumber();
+        this.operationNumber = order.getOperationNumber();
+        this.workOrderNumber = order.getWorkOrderNumber();
+        this.part = new PartDTO(order.getPart());
+        this.subOrderBlocked = order.getSubOrderBlocked();
+        this.error = order.getError();
+        this.orderPartNumber = order.getOrderPartNumber();
+    }
+
+    public OrderDTO(Order order, ClientDTO client){
+        this.orderNumber = order.getOrderNumber();
+        this.orderState = order.getState();
+        this.enabled = order.getEnabled();
+        this.release = order.getRelease();
+        this.client = client;
+    }
+
+    public ClientDTO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientDTO client) {
+        this.client = client;
+    }
+
+    public void setPart(PartDTO part) {
+        this.part = part;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblOrderPos")
 @IdClass(OrderPositionPK.class)
+// Posiciones de las ordenes pendientes por ser procesadas
 public class OrderPosition {
     @Id
     @ManyToOne

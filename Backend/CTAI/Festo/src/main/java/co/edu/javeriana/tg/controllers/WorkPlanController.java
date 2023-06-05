@@ -39,13 +39,12 @@ public class WorkPlanController {
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
-    @GetMapping("/type/{operationId}")
-    public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlansByType(@PathVariable Long operationId) {
-        List<WorkPlanDTO> workPlans = workPlanService.getOrdersByType(operationId);
+    @GetMapping("/type/{typeId}")
+    public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlansByType(@PathVariable Long typeId) {
+        List<WorkPlanDTO> workPlans = workPlanService.getWorkPlansByType(typeId);
         HttpStatus status = HttpStatus.OK;
         if (workPlans.isEmpty())
             status = HttpStatus.NO_CONTENT;
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
-
 }

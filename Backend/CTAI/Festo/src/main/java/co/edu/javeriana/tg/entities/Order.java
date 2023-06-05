@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblOrder")
+// Ordenes pendientes por ser procesadas
 public class Order {
     @Id
     @Column(name = "ONo")
@@ -24,7 +25,7 @@ public class Order {
     @Column(name = "State")
     private Long state;
     @Column(name = "CNo")
-    private Long cNumber;
+    private Long clientNumber;
     @Column(name = "Enabled")
     private Boolean enabled;
     @Column(name = "Release")
@@ -65,11 +66,11 @@ public class Order {
     public void setState(Long state) {
         this.state = state;
     }
-    public Long getcNumber() {
-        return cNumber;
+    public Long getClientNumber() {
+        return clientNumber;
     }
-    public void setcNumber(Long cNumber) {
-        this.cNumber = cNumber;
+    public void setClientNumber(Long cNumber) {
+        this.clientNumber = cNumber;
     }
     public Boolean getEnabled() {
         return enabled;

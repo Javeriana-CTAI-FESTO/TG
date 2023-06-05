@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(StepDefinitionPK.class)
 @Table(name = "tblStepDef")
+// Lista de operaciones que componen cada plan de trabajo
 public class StepDefinition {
     @Id
     @ManyToOne

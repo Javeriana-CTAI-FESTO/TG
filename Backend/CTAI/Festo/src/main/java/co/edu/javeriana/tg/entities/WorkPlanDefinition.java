@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblWorkPlanDef")
+// Planes de trabajo (Posibles productos) que pueden hacerse en la planta
 public class WorkPlanDefinition {
     @Id
     @Column(name = "WPNo", nullable = false)

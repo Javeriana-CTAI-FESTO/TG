@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblBufferPos")
 @IdClass(BufferPositionPK.class)
+// Posiciones (Cantidad de elementos) en un almacenamiento
 public class BufferPosition {
     @Id
     @Column(name = "ResourceId")

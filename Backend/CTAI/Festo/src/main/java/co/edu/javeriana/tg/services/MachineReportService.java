@@ -15,7 +15,7 @@ public class MachineReportService {
     @Autowired
     private MachineReportRepository reportRepository;
 
-    public List<MachineReportDTO> getAll(){
+    public List<MachineReportDTO> getAll() {
         return reportRepository.findAll().stream().map(MachineReportDTO::new).collect(Collectors.toList());
     }
 

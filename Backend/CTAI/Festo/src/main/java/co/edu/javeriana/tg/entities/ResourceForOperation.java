@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tblResourceOperation")
+// Operaciones que los recursos pueden hacer
 @IdClass(ResourceForOperationPK.class)
 public class ResourceForOperation {
     @Id

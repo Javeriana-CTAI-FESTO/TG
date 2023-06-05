@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tblBuffer")
 @IdClass(BufferPK.class)
+// Almacenamiento asociado a un recurso
 public class Buffer {
 
     @Id
