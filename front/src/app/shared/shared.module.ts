@@ -24,7 +24,12 @@ import { MatInputModule } from '@angular/material/input';
 import { ToastrModule } from 'ngx-toastr';
 import { FormComponent } from '../modules/list/Dialogs/form/form.component';
 import { EditComponent } from '../modules/list/Dialogs/edit/edit.component';
+import { DefaultSettingsComponent } from 'src/app/modules/parts/Dialogs/default-settings/default-settings.component';
+
 import { PersonaDialogComponent } from '../modules/list/Dialogs/persona-dialog/persona-dialog.component';
+import { DefaultWorkPlanComponent } from '../modules/parts/Dialogs/default-work-plan/default-work-plan.component';
+import { DefaultMRPComponent } from '../modules/parts/Dialogs/default-mrp/default-mrp.component';
+import { DefaultOtherSettingsComponent } from '../modules/parts/Dialogs/default-other-settings/default-other-settings.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -35,7 +40,11 @@ import { PersonaDialogComponent } from '../modules/list/Dialogs/persona-dialog/p
     PieComponent,
     FormComponent,
     EditComponent,
-    PersonaDialogComponent
+    PersonaDialogComponent,
+    DefaultSettingsComponent,
+    DefaultWorkPlanComponent,
+    DefaultMRPComponent,
+    DefaultOtherSettingsComponent
 
   ],
   imports: [

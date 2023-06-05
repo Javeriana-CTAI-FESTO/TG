@@ -6,6 +6,7 @@ import { PostsComponent } from './modules/posts/posts.component';
 import { HelpComponent } from './modules/help/help.component';
 import { ListComponent } from './modules/list/list.component';
 import { LoginComponent } from './login/login.component';
+import { PartsComponent } from './modules/parts/parts.component';
 
 const routes: Routes = [{
   path: '',
@@ -22,6 +23,9 @@ const routes: Routes = [{
   }, {
     path: 'list',
     component: ListComponent
+  }, {
+    path: 'parts',
+    component: PartsComponent
   }],
 }, {
   path: 'login',

@@ -15,6 +15,9 @@ import { ListComponent } from 'src/app/modules/list/list.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
+import { PartsComponent } from 'src/app/modules/parts/parts.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { MatMenuModule } from '@angular/material/menu';
     DashboardComponent,
     PostsComponent,
     HelpComponent,
-    ListComponent
+    ListComponent,
+    PartsComponent,
+
   ],
   imports: [
     CommonModule,
@@ -34,10 +39,12 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCardModule,
     MatIconModule,
     DragDropModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule
   ],
   providers: [
     DashboardService
   ],
 })
 export class DefaultModule { }
+

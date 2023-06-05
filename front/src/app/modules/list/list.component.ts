@@ -88,7 +88,6 @@ export class ListComponent implements OnInit {
     this.dataSource.data = this.personasService.getPersonas();
 
   }
-  
 
   ngOnDestroy() {
     this.personaAgregadaSubscription.unsubscribe();

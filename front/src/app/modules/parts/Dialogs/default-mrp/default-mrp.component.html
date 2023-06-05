@@ -1,0 +1,38 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<div class="container mt-5 mb-5">
+  <h1 class="modal-title">MRP</h1>
+  <div class="container mt-5 mb-5">
+    <div class="mb-3">
+      <label for="Type" class="form-label">MRP Type</label>
+      <select class="form-select" id="MRPtype" name="MRPtype" [(ngModel)]="pieza.MRPType">
+        <option value="value1">Valor 1</option>
+        <option value="value2">Valor 2</option>
+        <option value="value3">Valor 3 </option>
+        <option value="value4">Valor 4</option>
+        <option value="value5">Valor 5</option>
+        <option value="value6">Valor 6</option>
+        <option value="value7">Valor 7</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Safetely Stock Level</label>
+      <input type="number" class="form-control" id="Stock" name="Stock" placeholder="Stock Level"
+        [(ngModel)]="pieza.stock" min="0">
+    </div>
+
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Let Size</label>
+      <input type="number" class="form-control" id="Size" name="Size" placeholder="Let Size" [(ngModel)]="pieza.size"
+        min="0">
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onEditClick()">Guardar</button>
+    <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button"
+      (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
