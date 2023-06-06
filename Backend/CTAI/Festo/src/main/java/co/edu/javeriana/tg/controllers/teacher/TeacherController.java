@@ -8,15 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.services.OrderService;
 import co.edu.javeriana.tg.services.WorkPlanService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api/teacher")
@@ -41,6 +44,36 @@ public class TeacherController {
             status = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
+    }
+
+    @PostMapping("/products")
+    public ResponseEntity<WorkPlanDTO> createWorkPlan(@RequestBody CreateWorkPlanAux createRequest) {
+        WorkPlanDTO workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = workPlanService.createWorkPlan(createRequest);
+            status = HttpStatus.OK;
+            if (workPlans==null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<WorkPlanDTO>(workPlans, status);
+    }
+
+    @GetMapping("/products/{id}")
+    public ResponseEntity<WorkPlanDTO> getWorkPlansById(@PathVariable Long id) {
+        WorkPlanDTO workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = workPlanService.getById(id);
+            status = HttpStatus.OK;
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<WorkPlanDTO>(workPlans, status);
     }
 
     @GetMapping("/products/type")

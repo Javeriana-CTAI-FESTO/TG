@@ -9,7 +9,7 @@ public class MachineReportDTO {
     public MachineReportDTO() {
     }
 
-    public MachineReportDTO(MachineReport report){
+    public MachineReportDTO(MachineReport report) {
         this.resource = new ResourceDTO(report.getResource());
         this.report = new ReportDTO(report);
     }

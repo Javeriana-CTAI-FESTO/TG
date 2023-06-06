@@ -10,4 +10,6 @@ public interface StepDefinitionRepository extends CrudRepository<StepDefinition,
     List<StepDefinition> findAll();
 
     List<StepDefinition> findByWorkPlanWorkPlanNumber(Long workPlanNumber);
+
+    Long countByWorkPlanWorkPlanNumber(Long workPlanNumber);
 }

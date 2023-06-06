@@ -13,12 +13,16 @@ import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
+import co.edu.javeriana.tg.repositories.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.ResourceForOperationRepository;
 
 @Service
 public class ResourceForOperationService {
     @Autowired
     private ResourceForOperationRepository resourceForOperationRepository;
+
+    @Autowired
+    private OrderPositionRepository orderPositionRepository;
 
     @Autowired
     private StepService stepService;
@@ -68,6 +72,13 @@ public class ResourceForOperationService {
         WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
         Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                 .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation.getId())).sum();
-        return timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime();
+        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime());
+    }
+
+    public Long timeForOrder(Long orderNumber) {
+        WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
+        Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
+                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation.getId())).sum();
+        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime()) * orderPositionRepository.countByOrderOrderNumber(orderNumber);
     }
 }

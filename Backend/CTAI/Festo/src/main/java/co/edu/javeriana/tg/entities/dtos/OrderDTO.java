@@ -237,7 +237,7 @@ public class OrderDTO {
         this.error = order.getError();
         this.orderPartNumber = order.getOrderPartNumber();
     }
-    
+
     public OrderDTO(OrderPosition order, ClientDTO client, Long time) {
         this.orderNumber = order.getOrder().getOrderNumber();
         this.orderState = order.getOrder().getState();
@@ -259,12 +259,30 @@ public class OrderDTO {
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(Order order, ClientDTO client){
+    public OrderDTO(Order order, ClientDTO client) {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
         this.release = order.getRelease();
         this.client = client;
+    }
+
+    public OrderDTO(Order order, ClientDTO client, String status) {
+        this.orderNumber = order.getOrderNumber();
+        this.orderState = order.getState();
+        this.enabled = order.getEnabled();
+        this.release = order.getRelease();
+        this.client = client;
+        this.status = status;
+    }
+
+    public OrderDTO(Order order, ClientDTO client, Long time) {
+        this.orderNumber = order.getOrderNumber();
+        this.orderState = order.getState();
+        this.enabled = order.getEnabled();
+        this.release = order.getRelease();
+        this.client = client;
+        this.timeNeeded = time + "s";
     }
 
     public ClientDTO getClient() {

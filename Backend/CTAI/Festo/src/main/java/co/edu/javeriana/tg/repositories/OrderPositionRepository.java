@@ -13,4 +13,5 @@ public interface OrderPositionRepository extends CrudRepository<OrderPosition, O
     List<OrderPosition> findAll();
     @Query("select o.plannedEnd from OrderPosition o")
     List<Date> findPlannedEnd();
+    Long countByOrderOrderNumber(Long orderNumber);
 }

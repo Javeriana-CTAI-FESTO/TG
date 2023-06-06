@@ -44,6 +44,21 @@ public class StudentController {
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
 
+    @GetMapping("/products/{id}")
+    public ResponseEntity<WorkPlanDTO> getWorkPlansById(@PathVariable Long id) {
+        WorkPlanDTO workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = workPlanService.getById(id);
+            status = HttpStatus.OK;
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<WorkPlanDTO>(workPlans, status);
+    }
+
     @GetMapping("/products/type")
     public ResponseEntity<Map<Long, String>> getAllWorkPlanTypes() {
         Map<Long, String> workPlans = null;
@@ -75,11 +90,11 @@ public class StudentController {
     }
 
     @PostMapping("/products/new-order")
-    public ResponseEntity<OrderDTO> newOrder(@RequestParam Long workPlanNumber, @RequestParam Long clientNumber) {
+    public ResponseEntity<OrderDTO> newOrder(@RequestParam Long workPlanNumber, @RequestParam Long clientNumber, @RequestParam Long positions) {
         OrderDTO workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.generateNewOrder(workPlanNumber, clientNumber);
+            workPlans = workPlanService.generateNewOrder(workPlanNumber, clientNumber, positions);
             status = HttpStatus.OK;
             if (workPlans == null)
                 status = HttpStatus.IM_USED;

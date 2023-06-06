@@ -30,6 +30,9 @@ public class OrderService {
     @Autowired
     private ResourceForOperationService resourceForOperationService;
 
+    @Autowired
+    private StepService stepService;
+
     public List<OrderDTO> getAll() {
         return orderRepository.findAll().stream()
                 .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
@@ -58,20 +61,24 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO generateNewOrder(Long workPlanNumber, Long clientNumber) {
+    public OrderDTO generateNewOrder(Long workPlanNumber, Long clientNumber, Long positions) {
         OrderDTO orderDTO = null;
         try {
+            if (stepService.getWorkPlanOperationsCount(workPlanNumber)<1)
+                throw new Exception("Order has no steps");
             Order order = new Order();
             Long orderNumber = getNextOrderNumber();
             order.setOrderNumber(orderNumber);
             order.setClientNumber(clientNumber);
             orderRepository.save(order);
-            OrderPosition orderPosition = new OrderPosition();
-            // No entiendo el OPos
-            orderPosition.setOrderPosition(1L);
-            orderPosition.setWorkPlanNumber(workPlanNumber);
-            orderPosition.setOrder(order);
-            orderPositionRepository.save(orderPosition);
+            OrderPosition orderPosition = null;
+            for (Long i = 1L; i <= positions; i++) {
+                orderPosition = new OrderPosition();
+                orderPosition.setOrderPosition(i);
+                orderPosition.setWorkPlanNumber(workPlanNumber);
+                orderPosition.setOrder(order);
+                orderPositionRepository.save(orderPosition);
+            }
             orderDTO = new OrderDTO(order, clientService.getClient(clientNumber));
         } catch (Exception e) {
         }
@@ -82,7 +89,7 @@ public class OrderService {
         return orderRepository.getAllOrderNumbers().get(0) + 1;
     }
 
-    private String evaluateStatus(OrderPosition order) {
+    private String evaluateStatus(Order order) {
         String status;
         if (order.getRealStart() != null && order.getRealEnd() == null)
             status = "In process";
@@ -94,15 +101,16 @@ public class OrderService {
     }
 
     public List<OrderDTO> getOrdersWithStatus() {
-        return orderPositionRepository.findAll().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getOrder().getClientNumber()),
+        return orderRepository.findAll().stream()
+                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber()),
                         this.evaluateStatus(order)))
                 .collect(Collectors.toList());
     }
 
     public List<OrderDTO> getOrdersWithTime() {
-        return orderPositionRepository.findAll().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getOrder().getClientNumber()), resourceForOperationService.timeForWorkPlan(order.getWorkPlanNumber())))
+        return orderRepository.findAll().stream()
+                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber()),
+                        resourceForOperationService.timeForOrder(order.getOrderNumber())))
                 .collect(Collectors.toList());
     }
 
