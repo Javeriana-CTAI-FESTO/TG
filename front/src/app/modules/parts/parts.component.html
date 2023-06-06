@@ -37,12 +37,13 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: columnas;" (click)="mostrarInfo(row)"></mat-row>
+            <mat-row *matRowDef="let row; columns: columnas;" (click)="mostrarInfo(row)"  ></mat-row>
         </mat-table>
 
             <mat-paginator [pageSizeOptions]="[5,10, 25, 100]" showFirstLastButtons></mat-paginator>
  
     </div>
+
 
     <div style="flex: 0.5;">
         <!-- Right column -->

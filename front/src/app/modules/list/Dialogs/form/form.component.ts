@@ -3,7 +3,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { PersonasService, Persona } from '../../personas.service';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -11,17 +10,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FormComponent implements OnInit {
   
-
   constructor(public dialogRef: MatDialogRef<FormComponent>, private personasService: PersonasService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     
   }
   
-
   onSubmit(nombre: string, apellido: string, edad: number, ID: string) {
-    let persona = new Persona(nombre, apellido, edad, ID);
-    if (persona.esValido()) {
+    let persona: Persona = { nombre, apellido, edad, ID };
+    if (esValido(persona)) {
       this.personasService.agregarPersona(persona);
       this.toastr.success('Persona agregada', 'Éxito');
     } else {
@@ -33,4 +30,8 @@ export class FormComponent implements OnInit {
     this.dialogRef.close();
   }
 
+}
+
+function esValido(persona: Persona): boolean {
+  return persona.nombre.length > 0 && persona.apellido.length > 0 && persona.edad > 0 && persona.ID.length > 0;
 }

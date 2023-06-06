@@ -1,9 +1,9 @@
 .cont {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-  }
+}
 .example-container{
     width: 530px;
     max-width: 100%;
@@ -23,8 +23,8 @@
     padding: 20px 30px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
+    /* remove display: flex; */
+    /* flex-direction: row; */
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
@@ -59,4 +59,9 @@
     text-align: center;
     font-size: 12px;
     line-height: 1.42857;
+}
+
+
+.end-step-container {
+    margin-left: 153px;
 }

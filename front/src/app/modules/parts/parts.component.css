@@ -18,3 +18,8 @@ mat-cell img {
     height: 26rem;
 }
 
+mat-row{
+  cursor: pointer;
+  
+}
+
