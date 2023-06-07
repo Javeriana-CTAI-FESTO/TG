@@ -23,6 +23,16 @@ export class WorkplanServiceService {
     this.workplans.push({ id: '10', name: 'WorkPlan10', description: 'Descripcion WorkPlan 10', steps: [{step: 35, nextStep: 40, firstStep: false, endStep: false, resources: '56789012', TransportTime: 0, WorkingTime: 0, energy: 0, energy2: 0,operation: 'No definida'}]});
     this.workplans.push({ id: '11', name: 'WorkPlan11', description: 'Descripcion WorkPlan 11', steps: [{step: 40, nextStep: 40, firstStep: false, endStep: true, resources: '34567890', TransportTime: 0, WorkingTime: 0, energy: 0, energy2: 0,operation: 'No definida'}]});
   }
+  addWorkPlan(workplan: Workplan): void {
+    this.workplans.push(workplan);
+    this.workplanAgregado.next(workplan);
+  }
+  editarWorkPlan(workplanOriginal: Workplan, workplanNuevo: Workplan): void {
+    const index = this.workplans.findIndex(p => p.id === workplanOriginal.id);
+    if (index !== -1) {
+      this.workplans[index] = workplanNuevo;
+    }
+  }
 
 }
 

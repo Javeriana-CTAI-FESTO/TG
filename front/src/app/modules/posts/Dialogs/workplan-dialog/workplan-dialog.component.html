@@ -1,0 +1,44 @@
+<div class="container mt-5 mb-5">
+    <h1 class="modal-title">{{data.name}}</h1>
+    <p>ID: {{data.id}}</p>
+    <p>Descripción: {{data.description}}</p>
+    <p>Pasos:</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Recursos</th>
+                    <th>Paso</th>
+                    <th>Siguiente Paso</th>
+                    <th>Primer Paso</th>
+                    <th>Último Paso</th>
+
+                    <th>Operación</th>
+                    <th>Tiempo de Transporte</th>
+                    <th>Tiempo de Trabajo</th>
+                    <th>Energía</th>
+                    <th>Energía 2</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let step of data.steps">
+                    <td>{{step.resources}}</td>
+                    <td>{{step.step}}</td>
+                    <td>{{step.nextStep}}</td>
+                    <td>{{step.firstStep}}</td>
+                    <td>{{step.endStep}}</td>
+
+                    <td>{{step.operation}}</td>
+                    <td>{{step.TransportTime}}</td>
+                    <td>{{step.WorkingTime}}</td>
+                    <td>{{step.energy}}</td>
+                    <td>{{step.energy2}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+</button>

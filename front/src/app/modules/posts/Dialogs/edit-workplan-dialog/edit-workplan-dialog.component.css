@@ -1,9 +1,19 @@
-.cont {
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+  }
+  .test {
+    overflow-y: auto;
+    max-height: calc(100vh - 300px);
+  }
+  .cont {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+  }
 .example-container{
     width: 530px;
     max-width: 100%;
@@ -23,8 +33,8 @@
     padding: 20px 30px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
-    /* remove display: flex; */
-    /* flex-direction: row; */
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
@@ -60,41 +70,3 @@
     font-size: 12px;
     line-height: 1.42857;
 }
-
-
-.end-step-container {
-    margin-left: 153px;
-}
-
-.mat-column-nombre {
-    text-align: left;
-  }
-
-  .mat-column-operaciones {
-    text-align: center;
-  }
-
-
-
-  .filter-input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-    font-size: 16px;
-    width: 200px;
-}
-
-.btn-outline-success,
-.btn-outline-danger,
-.btn-outline-info {
-  margin-right: 10px;
-}
-
-.btn-outline-info:hover {
-  color: white;
-}
-
-button:hover mat-icon {
-  color: white;
-}
-

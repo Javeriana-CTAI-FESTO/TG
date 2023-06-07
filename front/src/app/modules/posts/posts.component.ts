@@ -8,13 +8,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { WorkplanServiceService, Workplan, pasos } from './workplan-service.service';
+import { WorkplanDialogComponent } from './Dialogs/workplan-dialog/workplan-dialog.component';
+import { EditWorkplanDialogComponent } from './Dialogs/edit-workplan-dialog/edit-workplan-dialog.component';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent implements OnInit{
+export class PostsComponent implements OnInit {
   showWorkplan = false;
 
   nombre: string = "";
@@ -22,10 +24,10 @@ export class PostsComponent implements OnInit{
   descripcion: string = "";
   workplans: Workplan[] = [];
   dataSource: MatTableDataSource<Workplan>;
-  columnas: string[] = ['ID', 'nombre'];
+  columnas: string[] = ['ID', 'nombre', 'Operaciones'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  constructor(private dashboardService: DashboardService, private workplanService: WorkplanServiceService, private toastr: ToastrService) { 
+  constructor(private dashboardService: DashboardService, private workplanService: WorkplanServiceService, private toastr: ToastrService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Workplan>(this.workplans);
   }
 
@@ -38,7 +40,7 @@ export class PostsComponent implements OnInit{
       this.todo = data;
       console.log(this.todo);
     });
-    
+
   }
 
   applyFilter(event: Event) {
@@ -48,52 +50,53 @@ export class PostsComponent implements OnInit{
 
 
   todo: any[] = [
-    
+
   ];
 
   done: any[] = [
   ];
 
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+                        
+      if (event.container.id === 'done') {
+        this.done[event.currentIndex].state = 'done';
+      } else {
+        this.todo[event.currentIndex].state = 'todo';
+      }
     }
   }
-  
+
   toggleWorkplan() {
     this.showWorkplan = !this.showWorkplan;
   }
-  
-  addWorkplan(id: string, name: string, description: string, steps: pasos[]) {
-    const newWorkplan: Workplan = { id, name, description, steps };
-    console.log(newWorkplan);
-    this.workplans.push(newWorkplan);
-    this.dataSource.data = this.workplans;
-  }
+
+
 
   onSubmitWorkplan(form: NgForm) {
     const id = form.value.id;
     const name = form.value.nombre;
     const description = form.value.descripcion;
     const steps: pasos[] = [];
-  
+
     // Iterate over the done list and create a new pasos object for each item
     for (let item of this.done) {
       // Check if the value of item.firstStep is null or undefined, and if so, set it to false
       if (item.firstStep === null || item.firstStep === undefined) {
         item.firstStep = false;
       }
-  
+
       // Check if the value of item.endStep is null or undefined, and if so, set it to false
       if (item.endStep === null || item.endStep === undefined) {
         item.endStep = false;
       }
-  
+
       const step: pasos = {
         step: item.step,
         nextStep: item.nextStep,
@@ -108,12 +111,50 @@ export class PostsComponent implements OnInit{
       };
       steps.push(step);
     }
-  
-    this.addWorkplan(id, name, description, steps);
+
+    const newWorkplan: Workplan = {
+      id: id,
+      name: name,
+      description: description,
+      steps: steps
+    };
+
+    this.workplanService.addWorkPlan(newWorkplan);
     this.toggleWorkplan();
     this.done = [];
     form.reset();
     this.toastr.success('Workplan creado con éxito', 'Workplan creado');
+
+    this.workplans = this.workplanService.getWorkplans();
+    this.dataSource.data = this.workplans;
   }
+
+  openDialog(workplan: Workplan): void {
+    const dialogRef = this.dialog.open(WorkplanDialogComponent, {
+      width: '500px',
+      data: workplan
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditDialog(workplan: Workplan): void {
+    const personaCopy = Object.assign({}, workplan); // create a copy of the object
+    const dialogRef = this.dialog.open(EditWorkplanDialogComponent, {
+      data: personaCopy // pass the copy to the EditComponent
+    });
+  
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.toastr.success('Persona editada', 'Éxito');
+        this.workplanService.editarWorkPlan(workplan, result); // update the original object with the changes
+        this.dataSource.data = this.workplanService.getWorkplans();
+      }
+    });
+  }
+
+  
 
 }

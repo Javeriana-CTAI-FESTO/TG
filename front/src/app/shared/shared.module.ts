@@ -25,11 +25,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormComponent } from '../modules/list/Dialogs/form/form.component';
 import { EditComponent } from '../modules/list/Dialogs/edit/edit.component';
 import { DefaultSettingsComponent } from 'src/app/modules/parts/Dialogs/default-settings/default-settings.component';
-
 import { PersonaDialogComponent } from '../modules/list/Dialogs/persona-dialog/persona-dialog.component';
 import { DefaultWorkPlanComponent } from '../modules/parts/Dialogs/default-work-plan/default-work-plan.component';
 import { DefaultMRPComponent } from '../modules/parts/Dialogs/default-mrp/default-mrp.component';
 import { DefaultOtherSettingsComponent } from '../modules/parts/Dialogs/default-other-settings/default-other-settings.component';
+import { WorkplanDialogComponent } from '../modules/posts/Dialogs/workplan-dialog/workplan-dialog.component';
+import { EditWorkplanDialogComponent } from '../modules/posts/Dialogs/edit-workplan-dialog/edit-workplan-dialog.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -44,7 +47,9 @@ import { DefaultOtherSettingsComponent } from '../modules/parts/Dialogs/default-
     DefaultSettingsComponent,
     DefaultWorkPlanComponent,
     DefaultMRPComponent,
-    DefaultOtherSettingsComponent
+    DefaultOtherSettingsComponent,
+    WorkplanDialogComponent,
+    EditWorkplanDialogComponent
 
   ],
   imports: [
@@ -59,6 +64,7 @@ import { DefaultOtherSettingsComponent } from '../modules/parts/Dialogs/default-
     RouterModule,
     HighchartsChartModule,
     FormsModule,
+    DragDropModule,
     MatSelectModule,
     MatInputModule,
     ToastrModule.forRoot(),

@@ -4,31 +4,60 @@
 </head>
 
 
-<div class="mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 mat-table-responsive">
+<div class="mat-elevation-z8 ">
+    <div style="background-color: #FFFFFF;">
+        <h2 style="text-align: center;">Lista de WorkPlans</h2>
+        <input class="filter-input" style="width: 100%;" (keyup)=" applyFilter($event)" placeholder="Filter">
+    </div>
+    <table mat-table [dataSource]="dataSource">
+
         <ng-container matColumnDef="ID">
-            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-            <mat-cell *matCellDef="let workplan"> {{workplan.id}} </mat-cell>
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let workplan"> {{ workplan.id }} </td>
         </ng-container>
+
 
         <ng-container matColumnDef="nombre">
-            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-            <mat-cell *matCellDef="let workplan"> {{workplan.name}} </mat-cell>
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let workplan"> {{ workplan.name }} </td>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
-    </mat-table>
+        <ng-container matColumnDef="Descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let workplan"> {{ workplan.description }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Operaciones">
+            <th mat-header-cell *matHeaderCellDef> Operaciones </th>
+            <td mat-cell *matCellDef="let workplan">
+                <button type="button" class="btn btn-outline-info" (click)="openDialog(workplan)">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button type="button" class="btn btn-outline-success" (click)="openEditDialog(workplan)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button type="button" class="btn btn-outline-danger">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 
+
 <br>
+
 <button type="button" class="btn btn-primary btn-lg mat-elevation-z8" (click)="toggleWorkplan()">
     {{ showWorkplan ? 'Cancelar' : 'Crear Workplan' }}
 </button>
 <div *ngIf="showWorkplan">
-    <form #f="ngForm" (ngSubmit)="onSubmitWorkplan(f)">
+    <form id="myForm"  #f="ngForm" (ngSubmit)="onSubmitWorkplan(f)">
         <div class="container mt-5 mb-5">
 
             <h2>
@@ -36,106 +65,105 @@
             </h2>
 
             <div class="mb-3">
+                <label for="ID" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" name="id" placeholder="ID" [(ngModel)]="id">
+            </div>
+            <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"
                     [(ngModel)]="nombre">
-            </div>
-            <div class="mb-3">
-                <label for="ID" class="form-label">ID</label>
-                <input type="text" class="form-control" id="id" name="id" placeholder="ID" [(ngModel)]="id">
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
                 <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"
                     [(ngModel)]="descripcion">
             </div>
+           <!--<button type="submit" class="btn btn-primary botn">Crear Nuevo Workplan</button>-->
+        </div>
+    </form>
+    <div class="container mt-5 mb-5">
+    <h2>
+        Arrastre las Estaciones para empezar a crear el Workplan
+    </h2>
 
-            <h2>
-                Arrastre las Estaciones para empezar a crear el Workplan
-            </h2>
-
-            <div cdkDropListGroup>
-                <div class="example-container">
-                    <h3>Disponibles</h3>
-                    <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.name}} {{item.state}}
+    <div cdkDropListGroup>
+        <div class="example-container">
+            <h3>Disponibles</h3>
+            <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.name}}</div>
+            </div>
+        </div>
+        <div class="example-container">
+            <h3>Elegidos</h3>
+            <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of done" cdkDrag>
+                    <div style="display: block;"><strong>{{item.name}}</strong></div>
+                    <div style="display: block;">
+                        <div class="mb-3 d-flex">
+                            <div class="flex-grow-1">
+                                <label for="ID" class="form-label">Step </label>
+                                <input type="number" class="form-control" id="step" name="step" min="0"
+                                    placeholder="Step" [(ngModel)]="item.step">
+                            </div>
+                            <div class="flex-grow-1">
+                                <label for="ID" class="form-label">Next Step</label>
+                                <input type="number" class="form-control" id="NextStep" name="NextStep" min="0"
+                                    placeholder="Next Step" [(ngModel)]="item.nextStep">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="example-container">
-                    <h3>Elegidos</h3>
-                    <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of done" cdkDrag>
-                            <div style="display: block;"><strong>{{item.name}}</strong></div>
-                            <div style="display: block;">
-                                <div class="mb-3 d-flex">
-                                    <div class="flex-grow-1">
-                                        <label for="ID" class="form-label">Step </label>
-                                        <input type="number" class="form-control" id="step" name="step" min="0"
-                                            placeholder="Step" [(ngModel)]="item.step">
+                        <div class="mb-3 d-flex">
+                            <div class="mb-3">
+                                <div ngInit="item.firstStep = false">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="FirsStep" name="FirsStep"
+                                            [(ngModel)]="item.firstStep">
+                                        <label class="form-check-label" for="FirsStep">First Step</label>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <label for="ID" class="form-label">Next Step</label>
-                                        <input type="number" class="form-control" id="NextStep" name="NextStep" min="0"
-                                            placeholder="Next Step" [(ngModel)]="item.nextStep">
-                                    </div>
-                                </div>
-                                <div class="mb-3 d-flex">
-                                    <div class="mb-3">
-                                        <div ngInit="item.firstStep = false">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="FirsStep"
-                                                    name="FirsStep" [(ngModel)]="item.firstStep">
-                                                <label class="form-check-label" for="FirsStep">First Step</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 end-step-container">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="FirsStep"
-                                                name="FirsStep" [(ngModel)]="item.endStep">
-                                            <label class="form-check-label" for="FirsStep">End Step</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="Type" class="form-label">Operation</label>
-                                    <select class="form-select" id="type" name="type" [(ngModel)]="item.operation">
-                                        <option value="value1">Valor 1</option>
-                                        <option value="value2">Valor 2</option>
-                                        <option value="value3">Valor 3 </option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ID" class="form-label">Transport Time</label>
-                                    <input type="number" class="form-control" id="TransportTime" name="TransportTime"
-                                        placeholder="Transport Time" min="0" [(ngModel)]="item.TransportTime">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ID" class="form-label">Working Time</label>
-                                    <input type="number" class="form-control" id="WorkingTime" name="WorkingTime"
-                                        placeholder="Working Time" min="0" [(ngModel)]="item.WorkingTime">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ID" class="form-label">Energy</label>
-                                    <input type="number" class="form-control" id="Energy" name="Energy"
-                                        placeholder="Energy" min="0" [(ngModel)]="item.energy">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ID" class="form-label">Energy 2</label>
-                                    <input type="number" class="form-control" id="Energy2" name="Energy2"
-                                        placeholder="Energy 2" min="0" [(ngModel)]="item.energy2">
                                 </div>
                             </div>
+                            <div class="mb-3 end-step-container">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="FirsStep" name="FirsStep"
+                                        [(ngModel)]="item.endStep">
+                                    <label class="form-check-label" for="FirsStep">End Step</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Type" class="form-label">Operation</label>
+                            <select class="form-select" id="type" name="type" [(ngModel)]="item.operation">
+                                <option value="value1">Valor 1</option>
+                                <option value="value2">Valor 2</option>
+                                <option value="value3">Valor 3 </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ID" class="form-label">Transport Time</label>
+                            <input type="number" class="form-control" id="TransportTime" name="TransportTime"
+                                placeholder="Transport Time" min="0" [(ngModel)]="item.TransportTime">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ID" class="form-label">Working Time</label>
+                            <input type="number" class="form-control" id="WorkingTime" name="WorkingTime"
+                                placeholder="Working Time" min="0" [(ngModel)]="item.WorkingTime">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ID" class="form-label">Energy</label>
+                            <input type="number" class="form-control" id="Energy" name="Energy" placeholder="Energy"
+                                min="0" [(ngModel)]="item.energy">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ID" class="form-label">Energy 2</label>
+                            <input type="number" class="form-control" id="Energy2" name="Energy2" placeholder="Energy 2"
+                                min="0" [(ngModel)]="item.energy2">
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Crear Nuevo Workplan</button>
-
         </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="onSubmitWorkplan(f)">Crear Nuevo Workplan</button></div>
 
 
-    </form>
 
-</div>
+

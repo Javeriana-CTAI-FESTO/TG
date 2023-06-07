@@ -26,8 +26,7 @@ import { FormsModule } from '@angular/forms';
     PostsComponent,
     HelpComponent,
     ListComponent,
-    PartsComponent,
-
+    PartsComponent
   ],
   imports: [
     CommonModule,
