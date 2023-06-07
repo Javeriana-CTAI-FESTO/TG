@@ -28,99 +28,114 @@
     {{ showWorkplan ? 'Cancelar' : 'Crear Workplan' }}
 </button>
 <div *ngIf="showWorkplan">
-    <div class="container mt-5 mb-5">
+    <form #f="ngForm" (ngSubmit)="onSubmitWorkplan(f)">
+        <div class="container mt-5 mb-5">
 
-        <h2>
-            Digita la siguiente información para crear un Nuevo Workplan
-        </h2>
+            <h2>
+                Digita la siguiente información para crear un Nuevo Workplan
+            </h2>
 
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-        </div>
-        <div class="mb-3">
-            <label for="ID" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" name="id" placeholder="ID">
-        </div>
-        <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripción</label>
-            <input type="text" class="form-control" id="descripcion" name="Descripción" placeholder="Descripción">
-        </div>
-        <h2>
-            Arrastre las Estaciones para empezar a crear el Workplan
-        </h2>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"
+                    [(ngModel)]="nombre">
+            </div>
+            <div class="mb-3">
+                <label for="ID" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" name="id" placeholder="ID" [(ngModel)]="id">
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"
+                    [(ngModel)]="descripcion">
+            </div>
 
-        <div cdkDropListGroup>
-            <div class="example-container">
-                <h3>Disponibles</h3>
-                <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.name}} {{item.state}}
+            <h2>
+                Arrastre las Estaciones para empezar a crear el Workplan
+            </h2>
+
+            <div cdkDropListGroup>
+                <div class="example-container">
+                    <h3>Disponibles</h3>
+                    <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.name}} {{item.state}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="example-container">
-                <h3>Elegidos</h3>
-                <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of done" cdkDrag>
-                        <div style="display: block;"><strong>{{item.name}}</strong></div>
-                        <div style="display: block;">
-                            <div class="mb-3 d-flex">
-                                <div class="flex-grow-1">
-                                    <label for="ID" class="form-label">Step</label>
-                                    <input type="number" class="form-control" id="step" name="step" min="0"
-                                        placeholder="Step">
+                <div class="example-container">
+                    <h3>Elegidos</h3>
+                    <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of done" cdkDrag>
+                            <div style="display: block;"><strong>{{item.name}}</strong></div>
+                            <div style="display: block;">
+                                <div class="mb-3 d-flex">
+                                    <div class="flex-grow-1">
+                                        <label for="ID" class="form-label">Step </label>
+                                        <input type="number" class="form-control" id="step" name="step" min="0"
+                                            placeholder="Step" [(ngModel)]="item.step">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <label for="ID" class="form-label">Next Step</label>
+                                        <input type="number" class="form-control" id="NextStep" name="NextStep" min="0"
+                                            placeholder="Next Step" [(ngModel)]="item.nextStep">
+                                    </div>
                                 </div>
-                                <div class="flex-grow-1">
-                                    <label for="ID" class="form-label">Next Step</label>
-                                    <input type="number" class="form-control" id="NextStep" name="NextStep" min="0"
-                                        placeholder="Next Step">
+                                <div class="mb-3 d-flex">
+                                    <div class="mb-3">
+                                        <div ngInit="item.firstStep = false">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="FirsStep"
+                                                    name="FirsStep" [(ngModel)]="item.firstStep">
+                                                <label class="form-check-label" for="FirsStep">First Step</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 end-step-container">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="FirsStep"
+                                                name="FirsStep" [(ngModel)]="item.endStep">
+                                            <label class="form-check-label" for="FirsStep">End Step</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-3 d-flex">
                                 <div class="mb-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="FirsStep" name="FirsStep">
-                                        <label class="form-check-label" for="FirsStep">First Step</label>
-                                    </div>
+                                    <label for="Type" class="form-label">Operation</label>
+                                    <select class="form-select" id="type" name="type" [(ngModel)]="item.operation">
+                                        <option value="value1">Valor 1</option>
+                                        <option value="value2">Valor 2</option>
+                                        <option value="value3">Valor 3 </option>
+                                    </select>
                                 </div>
-                                <div class="mb-3 end-step-container">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="FirsStep" name="FirsStep">
-                                        <label class="form-check-label" for="FirsStep">End Step</label>
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="ID" class="form-label">Transport Time</label>
+                                    <input type="number" class="form-control" id="TransportTime" name="TransportTime"
+                                        placeholder="Transport Time" min="0" [(ngModel)]="item.TransportTime">
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Type" class="form-label">Operation</label>
-                                <select class="form-select" id="type" name="type">
-                                    <option value="value1">Valor 1</option>
-                                    <option value="value2">Valor 2</option>
-                                    <option value="value3">Valor 3 </option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="ID" class="form-label">Transport Time</label>
-                                <input type="number" class="form-control" id="TransportTime" name="TransportTime" placeholder="Transport Time" min="0">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ID" class="form-label">Working Time</label>
-                                <input type="number" class="form-control" id="WorkingTime" name="WorkingTime" placeholder="Working Time" min="0">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ID" class="form-label">Energy</label>
-                                <input type="number" class="form-control" id="Energy" name="Energy" placeholder="Energy" min="0">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ID" class="form-label">Energy 2</label>
-                                <input type="number" class="form-control" id="Energy2" name="Energy2" placeholder="Energy 2" min="0">
+                                <div class="mb-3">
+                                    <label for="ID" class="form-label">Working Time</label>
+                                    <input type="number" class="form-control" id="WorkingTime" name="WorkingTime"
+                                        placeholder="Working Time" min="0" [(ngModel)]="item.WorkingTime">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ID" class="form-label">Energy</label>
+                                    <input type="number" class="form-control" id="Energy" name="Energy"
+                                        placeholder="Energy" min="0" [(ngModel)]="item.energy">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ID" class="form-label">Energy 2</label>
+                                    <input type="number" class="form-control" id="Energy2" name="Energy2"
+                                        placeholder="Energy 2" min="0" [(ngModel)]="item.energy2">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <button type="submit" class="btn btn-primary">Crear Nuevo Workplan</button>
+
         </div>
-    </div>
-    <div class="container mt-5 mb-5">
-        <button class="btn btn-outline-success">Crear Nuevo WorkPlan</button>
-    </div>
+
+
+    </form>
+
 </div>

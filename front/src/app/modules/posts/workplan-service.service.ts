@@ -35,7 +35,7 @@ export interface Workplan {
   
 }
 
-interface pasos{
+export interface pasos{
   step: number;
   nextStep: number;
   firstStep: boolean;
