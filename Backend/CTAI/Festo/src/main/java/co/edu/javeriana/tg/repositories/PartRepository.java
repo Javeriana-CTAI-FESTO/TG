@@ -8,4 +8,6 @@ import co.edu.javeriana.tg.entities.Part;
 
 public interface PartRepository extends CrudRepository<Part, Long> {
     List<Part> findAll();
+
+    List<Part> findByType(Long typeId);
 }
