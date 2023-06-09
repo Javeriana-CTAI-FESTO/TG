@@ -28,31 +28,23 @@ export class DashboardService {
 
   pieChart() {
     return [{
-      name: 'Workplan 1',
-      y: 70
+      name: 'estado 1',
+      y: 70,
+      color: '#ff0000' // red
     }, {
-      name: 'Workplan 2',
-      y: 14
+      name: 'estado 2',
+      y: 14,
+      color: '#00ff00' // green
     }, {
-      name: 'Workplan 3',
-      y: 4
+      name: 'estado 3',
+      y: 4,
+      color: '#0000ff' // blue
     }, {
-      name: 'Workplan 4',
-      y: 2
-    }, {
-      name: 'Workplan 5',
-      y: 1
-    }, {
-      name: 'Workplan 6',
-      y: 1
-    }, {
-      name: 'Workplan 7',
-      y: 1
-    }, {
-      name: 'Workplan 8',
-      y: 2
+      name: 'estado 4',
+      y: 2,
+      color: '#ffff00' // yellow
     }]
-  }
+}
 
   private ELEMENT_DATA: Estations[] = [
     { position: 1, name: 'Primera estación', code: 10079, state: 'True' },

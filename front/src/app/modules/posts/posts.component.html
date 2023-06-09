@@ -36,12 +36,14 @@
                 <button type="button" class="btn btn-outline-success" (click)="openEditDialog(workplan)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button type="button" class="btn btn-outline-danger">
+                <button type="button" class="btn btn-outline-danger" (click)="eliminarWorkplan(workplan) ">
                     <mat-icon>delete</mat-icon>
                 </button>
 
             </td>
         </ng-container>
+
+        
 
         <tr mat-header-row *matHeaderRowDef="columnas"></tr>
         <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
@@ -78,7 +80,6 @@
                 <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"
                     [(ngModel)]="descripcion">
             </div>
-           <!--<button type="submit" class="btn btn-primary botn">Crear Nuevo Workplan</button>-->
         </div>
     </form>
     <div class="container mt-5 mb-5">

@@ -44,7 +44,21 @@ export class EditWorkplanDialogComponent implements OnInit {
     this.dashboardService.getStations().subscribe(data => {
       this.todo = data;
     });
-    this.done = this.workplan.steps;
+    this.done = this.workplan.steps.map(step => {
+      const item = {
+        step: step.step,
+        nextStep: step.nextStep,
+        firstStep: step.firstStep,
+        endStep: step.endStep,
+        name: step.resources, // asignar steps.resources a item.name
+        operation: step.operation,
+        TransportTime: step.TransportTime,
+        WorkingTime: step.WorkingTime,
+        energy: step.energy,
+        energy2: step.energy2
+      };
+      return item;
+    });
   }
 
   onNoClick(): void {

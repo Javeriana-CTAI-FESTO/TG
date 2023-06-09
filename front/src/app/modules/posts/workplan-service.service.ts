@@ -33,6 +33,10 @@ export class WorkplanServiceService {
       this.workplans[index] = workplanNuevo;
     }
   }
+  eliminarWorkPlan(index: String){
+    this.workplans.splice(Number(index), 1);
+  }
+
 
 }
 

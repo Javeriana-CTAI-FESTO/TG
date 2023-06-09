@@ -23,7 +23,7 @@ export class PieComponent implements OnInit {
           type: 'pie'
       },
       title: {
-          text: 'WORKPLANS REALIZADOS',
+          text: 'ESTADOS',
           align: 'center'
       },
       tooltip: {

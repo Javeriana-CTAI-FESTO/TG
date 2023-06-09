@@ -5,7 +5,7 @@
 
 <div class="container mt-5 mb-5">
   <h1 class="modal-title mb-4">Agregar Cliente</h1>
-  <form id="form" (submit)="$event.preventDefault(); onSubmit(nombre.value, apellido.value, +edad.value, ID.value)">
+  <form id="form" (submit)="$event.preventDefault(); onSubmit(nombre.value, apellido.value, +edad.value, ID.value, address.value, phone.value, email.value, company.value)">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" #nombre>
@@ -22,6 +22,23 @@
       <label for="ID" class="form-label">ID</label>
       <input type="text" class="form-control" id="ID" name="ID" placeholder="ID" #ID>
     </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" #address>
+    </div>
+    <div class="mb-3">
+      <label for="Phone" class="form-label">Phone</label>
+      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" #phone>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" class="form-control" id="email" name="email" placeholder="Email" #email>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Company</label>
+      <input type="text" class="form-control" id="Company" name="Company" placeholder="Company" #company>
+    </div>
+
     <button type="submit" class="btn btn-primary">Enviar</button>
     <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="closeDialog()">
       <mat-icon>close</mat-icon>

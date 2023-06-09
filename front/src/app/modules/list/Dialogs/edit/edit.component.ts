@@ -15,11 +15,11 @@ export class EditComponent implements OnInit {
     public dialogRef: MatDialogRef<EditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Persona
   ) { 
-    this.persona = Object.assign({}, data); // create a copy of the object
+    this.persona = Object.assign({}, data);
   }
 
   ngOnInit(): void {
-    // no need to assign the data to persona here
+
   }
 
   onNoClick(): void {
@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
   }
 
   onEditClick(): void {
-    this.dialogRef.close(this.persona); // return the copy of the object with the changes
+    this.dialogRef.close(this.persona);
   }
 
 }

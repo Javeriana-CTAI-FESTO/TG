@@ -24,7 +24,7 @@ export class PostsComponent implements OnInit {
   descripcion: string = "";
   workplans: Workplan[] = [];
   dataSource: MatTableDataSource<Workplan>;
-  columnas: string[] = ['ID', 'nombre', 'Operaciones'];
+  columnas: string[] = ['ID', 'nombre','Descripcion', 'Operaciones'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(private dashboardService: DashboardService, private workplanService: WorkplanServiceService, private toastr: ToastrService, private dialog: MatDialog) {
@@ -154,7 +154,16 @@ export class PostsComponent implements OnInit {
       }
     });
   }
-
-  
+  eliminarWorkplan(index: String) {
+    if(!confirm('¿Estás seguro de eliminar este workplan?')) {
+      this.toastr.error('Workplan no eliminado', 'Error');
+      return;
+    }
+    else {
+      this.workplanService.eliminarWorkPlan(index);
+      this.toastr.success('Workplan eliminado', 'Éxito');
+      this.dataSource.data = this.workplanService.getWorkplans();
+    }
+  }
 
 }

@@ -16,8 +16,8 @@ export class FormComponent implements OnInit {
     
   }
   
-  onSubmit(nombre: string, apellido: string, edad: number, ID: string) {
-    let persona: Persona = { nombre, apellido, edad, ID };
+  onSubmit(nombre: string, apellido: string, edad: number, ID: string, address: string, phone: string, email: string, company: string) {
+    let persona: Persona = { nombre, apellido, edad, ID, address, phone, email,company };
     if (esValido(persona)) {
       this.personasService.agregarPersona(persona);
       this.toastr.success('Persona agregada', 'Éxito');
