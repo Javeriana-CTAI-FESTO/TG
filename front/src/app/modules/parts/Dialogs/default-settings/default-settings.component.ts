@@ -13,7 +13,7 @@ export class DefaultSettingsComponent implements OnInit {
     public dialogRef: MatDialogRef<DefaultSettingsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Pieza
   ) { 
-    this.pieza = Object.assign({}, data); // create a copy of the object
+    this.pieza = Object.assign({}, data);
   }
   
 
@@ -25,7 +25,7 @@ export class DefaultSettingsComponent implements OnInit {
   }
 
   onEditClick(): void {
-    this.dialogRef.close(this.pieza); // return the copy of the object with the changes
+    this.dialogRef.close(this.pieza);
   }
 
 }

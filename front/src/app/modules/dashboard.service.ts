@@ -30,19 +30,19 @@ export class DashboardService {
     return [{
       name: 'estado 1',
       y: 70,
-      color: '#ff0000' // red
+     // color: '#ff0000' // red
     }, {
       name: 'estado 2',
       y: 14,
-      color: '#00ff00' // green
+      //color: '#00ff00' // green
     }, {
       name: 'estado 3',
       y: 4,
-      color: '#0000ff' // blue
+     // color: '#0000ff' // blue
     }, {
       name: 'estado 4',
       y: 2,
-      color: '#ffff00' // yellow
+     // color: '#ffff00' // yellow
     }]
 }
 

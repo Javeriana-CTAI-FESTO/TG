@@ -17,6 +17,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
 import { PartsComponent } from 'src/app/modules/parts/parts.component';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     DragDropModule,
     MatMenuModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
   ],
   providers: [
     DashboardService

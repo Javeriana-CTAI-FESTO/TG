@@ -49,7 +49,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DefaultMRPComponent,
     DefaultOtherSettingsComponent,
     WorkplanDialogComponent,
-    EditWorkplanDialogComponent
+    EditWorkplanDialogComponent,
+   
 
   ],
   imports: [
@@ -80,7 +81,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatPaginatorModule,
     MatTableModule,
     MatDialogModule
-
   ]
 })
 export class SharedModule { }
