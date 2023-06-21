@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.Order;
@@ -18,20 +17,25 @@ import co.edu.javeriana.tg.repositories.OrderRepository;
 @Service
 public class OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    private OrderPositionRepository orderPositionRepository;
+    private final OrderPositionRepository orderPositionRepository;
 
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
 
-    @Autowired
-    private ResourceForOperationService resourceForOperationService;
+    private final ResourceForOperationService resourceForOperationService;
 
-    @Autowired
-    private StepService stepService;
+    private final StepService stepService;
+
+    public OrderService(OrderRepository orderRepository, OrderPositionRepository orderPositionRepository,
+            ClientService clientService, ResourceForOperationService resourceForOperationService,
+            StepService stepService) {
+        this.orderRepository = orderRepository;
+        this.orderPositionRepository = orderPositionRepository;
+        this.clientService = clientService;
+        this.resourceForOperationService = resourceForOperationService;
+        this.stepService = stepService;
+    }
 
     public List<OrderDTO> getAll() {
         return orderRepository.findAll().stream()

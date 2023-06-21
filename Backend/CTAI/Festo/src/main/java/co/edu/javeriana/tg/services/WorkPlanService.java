@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.WorkPlanDefinition;
@@ -17,17 +16,22 @@ import co.edu.javeriana.tg.repositories.WorkPlanTypeRepository;
 
 @Service
 public class WorkPlanService {
-    @Autowired
-    private WorkPlanDefinitionRepository workPlanRepository;
 
-    @Autowired
-    private WorkPlanTypeRepository workPlanTypeRepository;
+    private final WorkPlanDefinitionRepository workPlanRepository;
 
-    @Autowired
-    private OrderService orderService;
+    private final WorkPlanTypeRepository workPlanTypeRepository;
 
-    @Autowired
-    private StepService stepService;
+    private final OrderService orderService;
+
+    private final StepService stepService;
+
+    public WorkPlanService(WorkPlanDefinitionRepository workPlanRepository,
+            WorkPlanTypeRepository workPlanTypeRepository, OrderService orderService, StepService stepService) {
+        this.workPlanRepository = workPlanRepository;
+        this.workPlanTypeRepository = workPlanTypeRepository;
+        this.orderService = orderService;
+        this.stepService = stepService;
+    }
 
     public List<WorkPlanDTO> getAll() {
         return workPlanRepository.findAll().stream().map(WorkPlanDTO::new).collect(Collectors.toList());

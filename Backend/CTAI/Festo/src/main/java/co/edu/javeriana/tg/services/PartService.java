@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.Part;
@@ -14,8 +13,12 @@ import co.edu.javeriana.tg.repositories.PartRepository;
 
 @Service
 public class PartService {
-    @Autowired
-    private PartRepository partRepository;
+    
+    private final PartRepository partRepository;
+
+    public PartService(PartRepository partRepository) {
+        this.partRepository = partRepository;
+    }
 
     public List<PartDTO> getAll() {
         return partRepository.findAll().stream().map(PartDTO::new).collect(Collectors.toList());

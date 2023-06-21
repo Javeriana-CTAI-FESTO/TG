@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.Operation;
@@ -18,14 +17,19 @@ import co.edu.javeriana.tg.repositories.ResourceForOperationRepository;
 
 @Service
 public class ResourceForOperationService {
-    @Autowired
-    private ResourceForOperationRepository resourceForOperationRepository;
+    
+    private final ResourceForOperationRepository resourceForOperationRepository;
 
-    @Autowired
-    private OrderPositionRepository orderPositionRepository;
+    private final OrderPositionRepository orderPositionRepository;
 
-    @Autowired
-    private StepService stepService;
+    private final StepService stepService;
+
+    public ResourceForOperationService(ResourceForOperationRepository resourceForOperationRepository,
+            OrderPositionRepository orderPositionRepository, StepService stepService) {
+        this.resourceForOperationRepository = resourceForOperationRepository;
+        this.orderPositionRepository = orderPositionRepository;
+        this.stepService = stepService;
+    }
 
     public ResourceForOperationDTO convertToDTO(List<ResourceForOperation> resources) {
         ResourceForOperationDTO resourceDTO = null;

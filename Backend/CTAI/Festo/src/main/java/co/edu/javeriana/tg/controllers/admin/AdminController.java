@@ -3,7 +3,6 @@ package co.edu.javeriana.tg.controllers.admin;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
+import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.MachineReportDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.ReportDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
+import co.edu.javeriana.tg.interfaces.AdminInterface;
 import co.edu.javeriana.tg.services.MachineReportService;
 import co.edu.javeriana.tg.services.OrderService;
 import co.edu.javeriana.tg.services.PartService;
@@ -26,22 +27,27 @@ import co.edu.javeriana.tg.services.WorkPlanService;
 
 @RestController
 @RequestMapping("/api/admin")
-public class AdminController {
+public class AdminController implements AdminInterface {
 
-    @Autowired
-    private PartService partService;
+    private final PartService partService;
     
-    @Autowired
-    private WorkPlanService workPlanService;
+    private final WorkPlanService workPlanService;
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
-    @Autowired
-    private MachineReportService reportService;
+    private final MachineReportService reportService;
 
+    public AdminController(PartService partService, WorkPlanService workPlanService, OrderService orderService,
+            MachineReportService reportService) {
+        this.partService = partService;
+        this.workPlanService = workPlanService;
+        this.orderService = orderService;
+        this.reportService = reportService;
+    }
+
+    // View machines status
     @GetMapping("/reports")
-    public ResponseEntity<List<MachineReportDTO>> getAll() {
+    public ResponseEntity<List<MachineReportDTO>> getAllReports() {
         List<MachineReportDTO> reports = reportService.getAll();
         HttpStatus status = HttpStatus.OK;
         if (reports.isEmpty())
@@ -50,14 +56,16 @@ public class AdminController {
     }
 
     @GetMapping("/reports/{resourceId}")
-    public ResponseEntity<List<ReportDTO>> getForMachine(@PathVariable Long resourceId) {
+    public ResponseEntity<List<ReportDTO>> getReportsForMachine(@PathVariable Long resourceId) {
         List<ReportDTO> reports = reportService.getForMachine(resourceId);
         HttpStatus status = HttpStatus.OK;
         if (reports.isEmpty())
             status = HttpStatus.NO_CONTENT;
         return new ResponseEntity<List<ReportDTO>>(reports, status);
     }
+    //
 
+    //View product plans
     @GetMapping("/products")
     public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlans() {
         List<WorkPlanDTO> workPlans = null;
@@ -71,6 +79,21 @@ public class AdminController {
             status = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
+    }
+
+    @GetMapping("/products/{id}")
+    public ResponseEntity<WorkPlanDTO> getWorkPlansById(@PathVariable Long id) {
+        WorkPlanDTO workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = workPlanService.getById(id);
+            status = HttpStatus.OK;
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<WorkPlanDTO>(workPlans, status);
     }
 
     @GetMapping("/products/type")
@@ -102,35 +125,33 @@ public class AdminController {
         }
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
+    //
 
+    // Create product plans
+    @PostMapping("/products")
+    public ResponseEntity<WorkPlanDTO> createWorkPlan(@RequestBody CreateWorkPlanAux createRequest) {
+        WorkPlanDTO workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = workPlanService.createWorkPlan(createRequest);
+            status = HttpStatus.OK;
+            if (workPlans==null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<WorkPlanDTO>(workPlans, status);
+    }
+    //
+
+    // View Stock
     @GetMapping("/parts")
     public ResponseEntity<List<PartDTO>> getAllParts() {
-        List<PartDTO> workPlans = null;
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        try {
-            workPlans = partService.getAll();
-            status = HttpStatus.OK;
-            if (workPlans.isEmpty())
-                status = HttpStatus.NO_CONTENT;
-        } catch (Exception e) {
-            status = HttpStatus.NOT_FOUND;
-        }
-        return new ResponseEntity<List<PartDTO>>(workPlans, status);
-    }
-
-    @PostMapping("/parts")
-    public ResponseEntity<PartDTO> createPart(@RequestBody CreatePartAux createPart) {
-        PartDTO workPlans = null;
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        try {
-            workPlans = partService.createPart(createPart);
-            status = HttpStatus.OK;
-            if (workPlans == null)
-                status = HttpStatus.NO_CONTENT;
-        } catch (Exception e) {
-            status = HttpStatus.NOT_FOUND;
-        }
-        return new ResponseEntity<PartDTO>(workPlans, status);
+        List<PartDTO> resources = partService.getAll();
+        HttpStatus status = HttpStatus.OK;
+        if (resources.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<List<PartDTO>>(resources, status);
     }
 
     @GetMapping("/parts/type")
@@ -162,7 +183,26 @@ public class AdminController {
         }
         return new ResponseEntity<List<PartDTO>>(workPlans, status);
     }
+    //
 
+    // Create Stock Materials
+    @PostMapping("/parts")
+    public ResponseEntity<PartDTO> createPart(@RequestBody CreatePartAux createPart) {
+        PartDTO workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = partService.createPart(createPart);
+            status = HttpStatus.OK;
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<PartDTO>(workPlans, status);
+    }    
+    //
+
+    // View indicators
     @GetMapping("/indicators")
     public ResponseEntity<List<IndicatorAux>> getAllIndicators() {
         List<IndicatorAux> workPlans = null;
@@ -177,4 +217,5 @@ public class AdminController {
         }
         return new ResponseEntity<List<IndicatorAux>>(workPlans, status);
     }
+    //
 }

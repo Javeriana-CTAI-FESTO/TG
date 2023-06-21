@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.Operation;
@@ -17,11 +16,14 @@ import co.edu.javeriana.tg.repositories.StepDefinitionRepository;
 @Service
 public class StepService {
 
-    @Autowired
-    private StepDefinitionRepository stepDefinitionRepository;
+    private final StepDefinitionRepository stepDefinitionRepository;
 
-    @Autowired
-    private OperationService operationService;
+    private final OperationService operationService;
+
+    public StepService(StepDefinitionRepository stepDefinitionRepository, OperationService operationService) {
+        this.stepDefinitionRepository = stepDefinitionRepository;
+        this.operationService = operationService;
+    }
 
     public List<StepDefinitionDTO> getAll() {
         return stepDefinitionRepository.findAll().stream().map(StepDefinitionDTO::new).collect(Collectors.toList());
