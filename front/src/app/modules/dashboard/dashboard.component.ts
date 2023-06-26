@@ -18,11 +18,12 @@ export class DashboardComponent implements OnInit {
 
   bigChart:any = [];
   pieChart:any = [];
+  ganttChart:any = [];
 
-  displayedColumns: string[] = ['position', 'name', 'code', 'state'];
+  /*displayedColumns: string[] = ['position', 'name', 'code', 'state'];
   dataSource = new MatTableDataSource<Estations>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;*/
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -30,11 +31,12 @@ export class DashboardComponent implements OnInit {
     
     this.bigChart = this.dashboardService.bigChart();
     this.pieChart = this.dashboardService.pieChart();
+    this.ganttChart = this.dashboardService.ganttChart();
 
-    this.dashboardService.getStations().subscribe(data => {
+   /* this.dashboardService.getStations().subscribe(data => {
       this.dataSource.data = data;
     });
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;*/
   }
 
 }

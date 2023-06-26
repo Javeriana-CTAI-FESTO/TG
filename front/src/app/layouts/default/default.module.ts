@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PartsComponent } from 'src/app/modules/parts/parts.component';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { ResourcesComponent } from 'src/app/modules/resources/resources.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
     PostsComponent,
     HelpComponent,
     ListComponent,
-    PartsComponent
+    PartsComponent,
+    ResourcesComponent
   ],
   imports: [
     CommonModule,

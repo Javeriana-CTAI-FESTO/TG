@@ -11,18 +11,24 @@
 
     <h2 mat-subheader>Operaciones</h2>
 
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/resources">
+        <mat-icon>settings</mat-icon>
+        Resources
+    </a>
+
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
         <mat-icon>dashboard</mat-icon>
         Dashboard
-    </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/parts">
-        <mat-icon>extension</mat-icon>
-        Parts
     </a>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts">
         <mat-icon>assignment</mat-icon>
         WorkPlans
     </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/parts">
+        <mat-icon>extension</mat-icon>
+        Parts
+    </a>
+
    
     <!--<mat-divider></mat-divider>
 
@@ -30,8 +36,9 @@
 
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/list">
         <mat-icon>contact_phone</mat-icon>
-        Clientes
+        Clients
     </a>
 
 </mat-nav-list>
+
 

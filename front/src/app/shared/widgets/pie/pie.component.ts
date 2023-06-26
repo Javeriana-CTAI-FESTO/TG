@@ -17,32 +17,32 @@ export class PieComponent implements OnInit {
   ngOnInit(): void {
     this.chartOptions = {
       chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie'
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
       },
       title: {
-          text: 'ESTADOS',
-          align: 'center'
+        text: 'ESTADOS',
+        align: 'center'
       },
       tooltip: {
-          pointFormat: '{series.name}: <b>{point.y}</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       accessibility: {
-          point: {
-              valueSuffix: '%'
-          }
+        point: {
+          valueSuffix: '%'
+        }
       },
       plotOptions: {
-          pie: {
-              allowPointSelect: true,
-              cursor: 'pointer',
-              dataLabels: {
-                  enabled: true,
-                  format: '<b>{point.name}</b>: {point.y}'
-              }
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.y}'
           }
+        }
       },
       exporting: {
         enabled: true
@@ -51,11 +51,11 @@ export class PieComponent implements OnInit {
         enabled: false
       },
       series: [{
-          name: 'Brands',
-          colorByPoint: true,
-          data: this.data
+        name: 'Brands',
+        colorByPoint: true,
+        data: this.data
       }]
-  };
+    };
 
     HC_exporting(Highcharts);
 
@@ -65,5 +65,5 @@ export class PieComponent implements OnInit {
       );
     }, 300);
   }
-    
+
 }

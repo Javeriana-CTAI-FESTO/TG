@@ -32,6 +32,7 @@ import { DefaultOtherSettingsComponent } from '../modules/parts/Dialogs/default-
 import { WorkplanDialogComponent } from '../modules/posts/Dialogs/workplan-dialog/workplan-dialog.component';
 import { EditWorkplanDialogComponent } from '../modules/posts/Dialogs/edit-workplan-dialog/edit-workplan-dialog.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { GanttComponent } from './widgets/gantt/gantt.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DefaultOtherSettingsComponent,
     WorkplanDialogComponent,
     EditWorkplanDialogComponent,
+    GanttComponent,
    
 
   ],
@@ -80,7 +82,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     PieComponent,
     MatPaginatorModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    GanttComponent
   ]
 })
 export class SharedModule { }

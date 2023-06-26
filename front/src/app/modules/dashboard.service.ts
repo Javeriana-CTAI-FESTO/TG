@@ -21,16 +21,16 @@ export class DashboardService {
       borderRadius: 5,
       colorByPoint: true,
       data: [5, 8, 4, 3, 3, 2, 10, 7,
-          5, 2.8, 3.6, 2.8, 1.45, 6.9,4.5],
+        5, 2.8, 3.6, 2.8, 1.45, 6.9, 4.5],
       showInLegend: false
-  }]
+    }]
   }
 
   pieChart() {
     return [{
       name: 'estado 1',
       y: 70,
-     // color: '#ff0000' // red
+      // color: '#ff0000' // red
     }, {
       name: 'estado 2',
       y: 14,
@@ -38,13 +38,40 @@ export class DashboardService {
     }, {
       name: 'estado 3',
       y: 4,
-     // color: '#0000ff' // blue
+      // color: '#0000ff' // blue
     }, {
       name: 'estado 4',
       y: 2,
-     // color: '#ffff00' // yellow
+      // color: '#ffff00' // yellow
     }]
-}
+  }
+  ganttChart() {
+    return [
+      {
+        name: "Tarea 1",
+        start: Date.UTC(2014, 10, 18),
+        end: Date.UTC(2014, 10, 25),
+        completed: 0.25
+      },
+      {
+        name: "Tarea 2",
+        start: Date.UTC(2014, 10, 27),
+        end: Date.UTC(2014, 10, 29)
+      },
+      {
+        name: "Tarea 3",
+        start: Date.UTC(2014, 10, 20),
+        end: Date.UTC(2014, 10, 25),
+        completed: 0.12
+      },
+      {
+        name: "Tarea 4",
+        start: Date.UTC(2014, 10, 23),
+        end: Date.UTC(2014, 10, 26)
+      }
+
+    ]
+  }
 
   private ELEMENT_DATA: Estations[] = [
     { position: 1, name: 'Primera estación', code: 10079, state: 'True' },
