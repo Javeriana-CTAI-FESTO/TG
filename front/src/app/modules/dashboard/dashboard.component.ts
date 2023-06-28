@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 
 export interface Estations {
   name: string;
@@ -20,11 +18,6 @@ export class DashboardComponent implements OnInit {
   pieChart:any = [];
   ganttChart:any = [];
 
-  /*displayedColumns: string[] = ['position', 'name', 'code', 'state'];
-  dataSource = new MatTableDataSource<Estations>();
-
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;*/
-
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
@@ -33,10 +26,6 @@ export class DashboardComponent implements OnInit {
     this.pieChart = this.dashboardService.pieChart();
     this.ganttChart = this.dashboardService.ganttChart();
 
-   /* this.dashboardService.getStations().subscribe(data => {
-      this.dataSource.data = data;
-    });
-    this.dataSource.paginator = this.paginator;*/
   }
 
 }

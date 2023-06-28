@@ -1,9 +1,12 @@
 .card{
-    border: 0;
+    padding: 1.5em .5em .5em;
+    border-radius: 2em;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 2px 4px 0 rgba(0,0,0,0.19);
 }
 .card-title{
-    min-height: 3rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5em;
 }
 .card-text{
     min-height: 10rem;
@@ -26,3 +29,12 @@
     width: 1.5rem;
 
   }
+  img{
+    width: 65%;
+    border-radius: 50%;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+.test{
+    background-color: white;
+}

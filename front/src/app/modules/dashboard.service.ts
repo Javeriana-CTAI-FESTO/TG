@@ -4,7 +4,14 @@ export interface Estations {
   name: string;
   position: number;
   code: number;
-  state: string;
+  state1: string;
+  state2: string;
+  state3: string;
+  state4: string;
+  state5: string;
+  state6: string;
+  state7: string;
+  state8: string;
 }
 
 @Injectable({
@@ -46,49 +53,62 @@ export class DashboardService {
     }]
   }
   ganttChart() {
-    return [
-      {
-        name: "Tarea 1",
-        start: Date.UTC(2014, 10, 18),
-        end: Date.UTC(2014, 10, 25),
-        completed: 0.25
+    return [{
+      start: Date.UTC(2017, 11, 1),
+      end: Date.UTC(2018, 1, 2),
+      completed: {
+        amount: 0.95
       },
-      {
-        name: "Tarea 2",
-        start: Date.UTC(2014, 10, 27),
-        end: Date.UTC(2014, 10, 29)
+      name: 'Prototyping'
+    }, {
+      start: Date.UTC(2018, 1, 2),
+      end: Date.UTC(2018, 11, 5),
+      completed: {
+        amount: 0.5
       },
-      {
-        name: "Tarea 3",
-        start: Date.UTC(2014, 10, 20),
-        end: Date.UTC(2014, 10, 25),
-        completed: 0.12
+      name: 'Development'
+    }, {
+      start: Date.UTC(2018, 11, 8),
+      end: Date.UTC(2018, 11, 9),
+      completed: {
+        amount: 0.15
       },
-      {
-        name: "Tarea 4",
-        start: Date.UTC(2014, 10, 23),
-        end: Date.UTC(2014, 10, 26)
-      }
-
-    ]
+      name: 'Testing'
+    }, {
+      start: Date.UTC(2018, 11, 9),
+      end: Date.UTC(2018, 11, 19),
+      completed: {
+        amount: 0.3,
+        fill: '#fa0'
+      },
+      name: 'Development'
+    }, {
+      start: Date.UTC(2018, 11, 10),
+      end: Date.UTC(2018, 11, 23),
+      name: 'Testing'
+    }, {
+      start: Date.UTC(2018, 11, 25, 8),
+      end: Date.UTC(2018, 11, 25, 16),
+      name: 'Release'
+    }]
   }
 
   private ELEMENT_DATA: Estations[] = [
-    { position: 1, name: 'Primera estación', code: 10079, state: 'True' },
-    { position: 2, name: 'Segunda estación', code: 40026, state: 'True' },
-    { position: 3, name: 'Tercera estación', code: 6941, state: 'True' },
-    { position: 4, name: 'Cuarta estación', code: 90122, state: 'False' },
-    { position: 5, name: 'Quinta estación', code: 10811, state: 'True' },
-    { position: 6, name: 'Sexta estación', code: 120107, state: 'False' },
-    { position: 7, name: 'Septima estación', code: 140067, state: 'False' },
-    { position: 8, name: 'Octava estación', code: 159994, state: 'True' },
-    { position: 9, name: 'Novena estación', code: 189984, state: 'True' },
-    { position: 10, name: 'Decima estación', code: 201797, state: 'True' },
-    { position: 11, name: 'Undecima estación', code: 229897, state: 'True' },
-    { position: 12, name: 'Duodecima estación', code: 24305, state: 'False' },
-    { position: 13, name: 'Decimotercera estación', code: 269815, state: 'True' },
-    { position: 14, name: 'Decimocuarta estación', code: 280855, state: 'True' },
-    { position: 15, name: 'Decimoquinta estación', code: 309738, state: 'False' }
+    { position: 1, name: 'Primera estación', code: 10079, state1: 'True', state2: 'False', state3: 'True', state4: 'False', state5: 'True', state6: 'False', state7: 'True', state8: 'False' },
+    { position: 2, name: 'Segunda estación', code: 40026, state1: 'True', state2: 'False', state3: 'True', state4: 'False', state5: 'True', state6: 'False', state7: 'True', state8: 'False' },
+    { position: 3, name: 'Tercera estación', code: 6941, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'False', state8: 'True' },
+    { position: 4, name: 'Cuarta estación', code: 90122, state1: 'False', state2: 'False', state3: 'False', state4: 'False', state5: 'False', state6: 'False', state7: 'False', state8: 'False' },
+    { position: 5, name: 'Quinta estación', code: 10811, state1: 'True',  state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 6, name: 'Sexta estación', code: 120107, state1: 'False', state2: 'False', state3: 'False', state4: 'False', state5: 'False', state6: 'False', state7: 'False', state8: 'False' },
+    { position: 7, name: 'Septima estación', code: 140067, state1: 'False', state2: 'False', state3: 'False', state4: 'False', state5: 'False', state6: 'False', state7: 'False', state8: 'False' },
+    { position: 8, name: 'Octava estación', code: 159994, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 9, name: 'Novena estación', code: 189984, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 10, name: 'Decima estación', code: 201797, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 11, name: 'Undecima estación', code: 229897, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 12, name: 'Duodecima estación', code: 24305, state1: 'False', state2: 'False', state3: 'False', state4: 'False', state5: 'False', state6: 'False', state7: 'False', state8: 'False' },
+    { position: 13, name: 'Decimotercera estación', code: 269815, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 14, name: 'Decimocuarta estación', code: 280855, state1: 'True', state2: 'True', state3: 'True', state4: 'True', state5: 'True', state6: 'True', state7: 'True', state8: 'True' },
+    { position: 15, name: 'Decimoquinta estación', code: 309738, state1: 'False', state2: 'False', state3: 'False', state4: 'False', state5: 'False', state6: 'False', state7: 'False', state8: 'False' },
   ];
 
 

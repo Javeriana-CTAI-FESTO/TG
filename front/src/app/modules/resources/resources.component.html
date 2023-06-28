@@ -1,1 +1,126 @@
-<p>resources works!</p>
+<div class="mat-elevation-z8">
+    <div style="background-color: #FFFFFF;">
+      <h2 style="text-align: center;">Estado de las Estaciones</h2>
+      <input class="filter-input" style="width: 99%;" (keyup)=" applyFilter($event)" placeholder="Filter">
+
+    </div>
+    <table mat-table [dataSource]="dataSource">
+  
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nommbre </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="state1">
+        <th mat-header-cell *matHeaderCellDef> Estado 1</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.state1 === 'True'">
+            <mat-icon class="check">check_circle</mat-icon>
+          </span>
+          <span *ngIf="element.state1 === 'False'">
+            <mat-icon class="deny">cancel</mat-icon>
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="state2">
+        <th mat-header-cell *matHeaderCellDef> Estado 2</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.state2 === 'True'">
+            <mat-icon class="check">check_circle</mat-icon>
+          </span>
+          <span *ngIf="element.state2 === 'False'">
+            <mat-icon class="deny">cancel</mat-icon>
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="state3">
+        <th mat-header-cell *matHeaderCellDef> Estado 3</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.state3 === 'True'">
+            <mat-icon class="check">check_circle</mat-icon>
+          </span>
+          <span *ngIf="element.state3 === 'False'">
+            <mat-icon class="deny">cancel</mat-icon>
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="state4">
+        <th mat-header-cell *matHeaderCellDef> Estado 4</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.state4 === 'True'">
+            <mat-icon class="check">check_circle</mat-icon>
+          </span>
+          <span *ngIf="element.state4 === 'False'">
+            <mat-icon class="deny">cancel</mat-icon>
+          </span>
+        </td>
+      </ng-container>
+
+        <ng-container matColumnDef="state5">
+            <th mat-header-cell *matHeaderCellDef> Estado 5</th>
+            <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.state5 === 'True'">
+                <mat-icon class="check">check_circle</mat-icon>
+            </span>
+            <span *ngIf="element.state5 === 'False'">
+                <mat-icon class="deny">cancel</mat-icon>
+            </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="state6">
+            <th mat-header-cell *matHeaderCellDef> Estado 6</th>
+            <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.state6 === 'True'">
+                <mat-icon class="check">check_circle</mat-icon>
+            </span>
+            <span *ngIf="element.state6 === 'False'">
+                <mat-icon class="deny">cancel</mat-icon>
+            </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="state7">
+            <th mat-header-cell *matHeaderCellDef> Estado 7</th>
+            <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.state7 === 'True'">
+                <mat-icon class="check">check_circle</mat-icon>
+            </span>
+            <span *ngIf="element.state7 === 'False'">
+                <mat-icon class="deny">cancel</mat-icon>
+            </span>
+            </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="state8">
+            <th mat-header-cell *matHeaderCellDef> Estado 8</th>
+            <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.state8 === 'True'">
+                <mat-icon class="check">check_circle</mat-icon>
+            </span>
+            <span *ngIf="element.state8 === 'False'">
+                <mat-icon class="deny">cancel</mat-icon>
+            </span>
+            </td>
+        </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
