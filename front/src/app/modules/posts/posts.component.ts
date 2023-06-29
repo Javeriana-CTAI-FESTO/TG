@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { WorkplanServiceService, Workplan, pasos } from './workplan-service.service';
 import { WorkplanDialogComponent } from './Dialogs/workplan-dialog/workplan-dialog.component';
 import { EditWorkplanDialogComponent } from './Dialogs/edit-workplan-dialog/edit-workplan-dialog.component';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 
 @Component({
   selector: 'app-posts',
@@ -85,14 +87,11 @@ export class PostsComponent implements OnInit {
     const description = form.value.descripcion;
     const steps: pasos[] = [];
 
-    // Iterate over the done list and create a new pasos object for each item
     for (let item of this.done) {
-      // Check if the value of item.firstStep is null or undefined, and if so, set it to false
       if (item.firstStep === null || item.firstStep === undefined) {
         item.firstStep = false;
       }
 
-      // Check if the value of item.endStep is null or undefined, and if so, set it to false
       if (item.endStep === null || item.endStep === undefined) {
         item.endStep = false;
       }
@@ -141,15 +140,15 @@ export class PostsComponent implements OnInit {
   }
 
   openEditDialog(workplan: Workplan): void {
-    const personaCopy = Object.assign({}, workplan); // create a copy of the object
+    const personaCopy = Object.assign({}, workplan); 
     const dialogRef = this.dialog.open(EditWorkplanDialogComponent, {
-      data: personaCopy // pass the copy to the EditComponent
+      data: personaCopy 
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         this.toastr.success('Persona editada', 'Éxito');
-        this.workplanService.editarWorkPlan(workplan, result); // update the original object with the changes
+        this.workplanService.editarWorkPlan(workplan, result); 
         this.dataSource.data = this.workplanService.getWorkplans();
       }
     });

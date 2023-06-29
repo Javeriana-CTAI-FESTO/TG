@@ -1,12 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 
-export interface Estations {
-  name: string;
-  position: number;
-  code: number;
-  state: string;
-}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

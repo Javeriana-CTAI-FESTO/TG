@@ -9,11 +9,9 @@ import HC_exporting from 'highcharts/modules/exporting';
 })
 export class CardComponent implements OnInit {
 
-
-  @Input() label: string='';
-
   Highcharts = Highcharts;
   chartOptions = {};
+  
 
   @Input() data = [];
 

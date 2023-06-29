@@ -13,7 +13,12 @@ export interface Estations {
   state7: string;
   state8: string;
 }
-
+export interface Card {
+  id: number;
+  title: string;
+  state: string;
+  imageUrl: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +37,8 @@ export class DashboardService {
       showInLegend: false
     }]
   }
+
+ 
 
   pieChart() {
     return [{
@@ -52,6 +59,7 @@ export class DashboardService {
       // color: '#ffff00' // yellow
     }]
   }
+
   ganttChart() {
     return [{
       start: Date.UTC(2017, 11, 1),
