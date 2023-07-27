@@ -33,6 +33,8 @@ import { WorkplanDialogComponent } from '../modules/posts/Dialogs/workplan-dialo
 import { EditWorkplanDialogComponent } from '../modules/posts/Dialogs/edit-workplan-dialog/edit-workplan-dialog.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GanttComponent } from './widgets/gantt/gantt.component';
+import { WorkPlanProgressDialogComponent } from './widgets/card/Dialogs/work-plan-progress-dialog/work-plan-progress-dialog.component';
+import { AddWorkPlanToProductionComponent } from './widgets/card/Dialogs/add-work-plan-to-production/add-work-plan-to-production.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { GanttComponent } from './widgets/gantt/gantt.component';
     WorkplanDialogComponent,
     EditWorkplanDialogComponent,
     GanttComponent,
+    WorkPlanProgressDialogComponent,
+    AddWorkPlanToProductionComponent,
    
 
   ],

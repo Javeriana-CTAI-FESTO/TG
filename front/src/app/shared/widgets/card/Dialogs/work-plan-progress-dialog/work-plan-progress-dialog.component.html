@@ -1,0 +1,66 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous">
+  </head>
+  
+  <div class="container mt-5 mb-5">
+    <h2>Pasos:</h2>
+    <div class="row justify-content-center">
+      <div *ngFor="let step of steps; let i = index" class="col-12 col-sm-6 col-md-4 mt-2">
+        <div class="card p-4">
+          <div class="card-title">
+            <h3>{{ step.operation }}</h3>
+            <div class="progress">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                [attr.aria-valuenow]="step.progressValue"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [style.width.%]="step.progressValue">
+              </div>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="step.showDetails">
+            <label><strong>Paso:</strong></label>
+            <span class="card-text">{{ step.step }}</span>
+            <br>
+            <label><strong>Siguiente paso:</strong></label>
+            <span class="card-text">{{ step.nextStep }}</span>
+            <br>
+            <label><strong>Primer paso:</strong></label>
+            <span class="card-text">{{ step.firstStep }}</span>
+            <br>
+            <label><strong>Último paso:</strong></label>
+            <span class="card-text">{{ step.endStep }}</span>
+            <br>
+            <label><strong>Recursos:</strong></label>
+            <span class="card-text">{{ step.resources }}</span>
+            <br>
+            <label><strong>Transporte:</strong></label>
+            <span class="card-text">{{ step.TransportTime }}</span>
+            <br>
+            <label><strong>Tiempo de trabajo:</strong></label>
+            <span class="card-text">{{ step.WorkingTime}}</span>
+            <br>
+            <label><strong>Energía:</strong></label>
+            <span class="card-text">{{ step.energy}}</span>
+            <br>
+            <label><strong>Energía 2:</strong></label>
+            <span class="card-text">{{ step.energy2 }}</span>
+          </div>
+          <button mat-icon-button mat-dialog-close (click)="step.showDetails = !step.showDetails">
+            <mat-icon>{{ step.showDetails ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+  
+  

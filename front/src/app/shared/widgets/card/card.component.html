@@ -7,7 +7,7 @@
 <div class="test">
     <div class="d-flex align-items-center">
         <h2>Cola De Producción</h2>
-        <button mat-icon-button style="margin-bottom: 15px;">
+        <button mat-icon-button style="margin-bottom: 15px;" (click)="openAddDialog()">
             <mat-icon>add</mat-icon>
         </button>
     </div>
@@ -22,11 +22,11 @@
                             <span class="badge bg-primary">id: {{ card.id }}</span>
                             <br><br>
                             <div class="d-flex flex-column">
-                                <mat-icon *ngIf="card.state === 'Completed'"
-                                    class="text-success fs-4">check_circle</mat-icon>
                                 <mat-icon *ngIf="card.state === 'Incomplete'" class="text-danger fs-4">cancel</mat-icon>
-                                <div *ngIf="card.state === 'Going'">
+                                <div *ngIf="card.state === 'Going'" class="d-flex flex-column">
                                     <span class="spinner-border text-primary custom-sm"></span>
+                                    <br>
+                                    <button type="button" class="btn btn-primary "(click)="openProgressDialog()">Ver Progreso</button>                      
                                 </div>
                             </div>
                         </div>
