@@ -3,7 +3,17 @@
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <div class="container mt-5 mb-5">
-    <p>add-work-plan-to-production works!</p>
+    <mat-form-field>
+        <mat-label>Select a workplan</mat-label>
+        <mat-select [(ngModel)]="selectedWorkplan">
+            <mat-option *ngFor="let workplan of workplans" [value]="workplan">{{workplan.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="number" placeholder="Quantity" [(ngModel)]="quantity" name="quantity" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click)="addWorkplan()">Add</button>
+
 </div>
 <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">
     <mat-icon>close</mat-icon>

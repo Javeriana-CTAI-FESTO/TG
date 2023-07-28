@@ -3,6 +3,8 @@ import { WorkplanServiceService, Workplan } from 'src/app/modules/posts/workplan
 import { MatDialog } from '@angular/material/dialog';
 import { WorkPlanProgressDialogComponent } from './Dialogs/work-plan-progress-dialog/work-plan-progress-dialog.component';
 import { AddWorkPlanToProductionComponent } from './Dialogs/add-work-plan-to-production/add-work-plan-to-production.component';
+import { Card } from 'src/app/modules/dashboard.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-widget-card',
   templateUrl: './card.component.html',
@@ -12,7 +14,7 @@ export class CardComponent implements OnInit {
 
   cards: { id: number, title: string, state: string, imageUrl: string }[] = [];
 
-  constructor(private workplanService: WorkplanServiceService, private dialog: MatDialog) { }
+  constructor(private workplanService: WorkplanServiceService, private dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.workplanService.getWorkPlansPorDefecto(); 
@@ -20,7 +22,7 @@ export class CardComponent implements OnInit {
     const indices = [0, 1, 3, 4, 5, 6, 7, 8, 9];
     this.cards = workplans.filter((workplan, index) => indices.includes(index)).map((workplan, index) => { 
       return {
-        id: Number(workplan.id),
+        id: workplan.id,
         title: workplan.name,
         state: index === 0 ? 'Going' : 'Incomplete',
         imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
@@ -33,9 +35,20 @@ export class CardComponent implements OnInit {
       width: '250px',
       data: {}
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result) {
+        const cards = result as Card[];
+        cards.forEach(card => {
+          this.cards.push({
+            id: card.id,
+            title: card.title,
+            state: 'Incomplete',
+            imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+          });
+        });
+        this.toastr.success(`Se agregó el workplan "${cards[cards.length - 1].title}" un total de ${cards.length} veces a la producción`);
+      }
     });
   }
 

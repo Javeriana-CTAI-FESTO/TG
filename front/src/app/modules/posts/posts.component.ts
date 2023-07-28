@@ -5,12 +5,10 @@ import { NgForm } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { WorkplanServiceService, Workplan, pasos } from './workplan-service.service';
 import { WorkplanDialogComponent } from './Dialogs/workplan-dialog/workplan-dialog.component';
 import { EditWorkplanDialogComponent } from './Dialogs/edit-workplan-dialog/edit-workplan-dialog.component';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
