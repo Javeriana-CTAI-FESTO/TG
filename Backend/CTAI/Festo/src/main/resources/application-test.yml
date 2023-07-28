@@ -5,6 +5,7 @@ server:
 
 # Configuracion de Spring
 spring:
+  
   # Configuracion propia de la base de datos
   h2:
     console:

@@ -40,33 +40,4 @@ public class StepService {
     public Long getWorkPlanOperationsCount(Long workPlanNumber) {
         return stepDefinitionRepository.countByWorkPlan(workPlanNumber);
     }
-
-    public StepDefinitionDTO saveStep(Long workPlan, Long stepNumber, String description,
-            Long operationNumber, Long nextStepNumber,
-            Long nextWhenError, Long newPartNumber, Long operationNumberType, Long resourceId, Long transportTime,
-            String sqlToWrite, Long electricEnergy, Long compressedAir, Long workingTime, String freeString) {
-        StepDefinitionDTO stepDefinitionDTO = null;
-        try {
-            StepDefinition stepDefinition = new StepDefinition();
-            stepDefinition.setWorkPlan(workPlan);
-            stepDefinition.setStepNumber(stepNumber);
-            stepDefinition.setDescription(description);
-            stepDefinition.setOperationNumber(operationNumber);
-            stepDefinition.setNextStepNumber(nextStepNumber);
-            stepDefinition.setFirstStep(stepNumber == 1);
-            stepDefinition.setNextWhenError(nextWhenError);
-            stepDefinition.setNewPartNumber(newPartNumber);
-            stepDefinition.setTransportTime(transportTime);
-            stepDefinition.setSqlToWrite(sqlToWrite);
-            stepDefinition.setCalculatedElectricEnergy(electricEnergy);
-            stepDefinition.setCalculatedCompressedAir(compressedAir);
-            stepDefinition.setCalculatedWorkingTime(workingTime);
-            stepDefinition.setFreeText(freeString);
-            stepDefinition.setResource(resourceId);
-            stepDefinitionRepository.save(stepDefinition);
-            stepDefinitionDTO = new StepDefinitionDTO(stepDefinition, workPlanService.getById(workPlan), operationService.get(operationNumber));
-        } catch (Exception e) {
-        }
-        return stepDefinitionDTO;
-    }
 }

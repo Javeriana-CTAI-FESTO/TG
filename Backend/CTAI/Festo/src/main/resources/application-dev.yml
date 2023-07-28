@@ -5,6 +5,8 @@ server:
 
 # Configuracion de Spring
 spring:
+  main:
+    allow-circular-references: true
   # Configuración de Spring JPA
   jpa:
     generate-ddl: false

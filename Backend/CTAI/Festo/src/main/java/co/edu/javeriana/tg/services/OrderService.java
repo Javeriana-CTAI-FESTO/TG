@@ -8,11 +8,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
+import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
+import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
 @Service
 public class OrderService {
@@ -23,17 +25,17 @@ public class OrderService {
 
     private final ClientService clientService;
 
-    private final ResourceForOperationService resourceForOperationService;
+    private final ResourceForOperationRepository resourceForOperationRepository;
 
     private final StepService stepService;
 
     public OrderService(OrderRepository orderRepository, OrderPositionRepository orderPositionRepository,
-            ClientService clientService, ResourceForOperationService resourceForOperationService,
+            ClientService clientService, ResourceForOperationRepository resourceForOperationRepository,
             StepService stepService) {
         this.orderRepository = orderRepository;
         this.orderPositionRepository = orderPositionRepository;
         this.clientService = clientService;
-        this.resourceForOperationService = resourceForOperationService;
+        this.resourceForOperationRepository = resourceForOperationRepository;
         this.stepService = stepService;
     }
 
@@ -88,7 +90,7 @@ public class OrderService {
         }
         return orderDTO;
     }
-
+    
     private Long getNextOrderNumber() {
         return orderRepository.getAllOrderNumbers().get(0) + 1;
     }
@@ -114,7 +116,7 @@ public class OrderService {
     public List<OrderDTO> getOrdersWithTime() {
         return orderRepository.findAll().stream()
                 .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber()),
-                        resourceForOperationService.timeForOrder(order.getOrderNumber())))
+                        this.timeForOrder(order.getOrderNumber())))
                 .collect(Collectors.toList());
     }
 
@@ -149,5 +151,12 @@ public class OrderService {
                 "This is the amount of orders processed by the system");
         return indicators.entrySet().stream().map(entry -> new IndicatorAux(entry.getKey(), entry.getValue(),
                 this.evaluateNameToGetIndicator(entry.getKey()))).collect(Collectors.toList());
+    }
+
+    public Long timeForOrder(Long orderNumber) {
+        WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
+        Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
+                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation)).sum();
+        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime()) * orderPositionRepository.countByOrder(orderNumber);
     }
 }

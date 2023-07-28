@@ -11,7 +11,6 @@ import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
-import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
 @Service
@@ -19,18 +18,14 @@ public class ResourceForOperationService {
     
     private final ResourceForOperationRepository resourceForOperationRepository;
 
-    private final OrderPositionRepository orderPositionRepository;
-
     private final StepService stepService;
 
     private final OperationService operationService;
 
     private final ResourceService resourceService;
 
-    public ResourceForOperationService(ResourceForOperationRepository resourceForOperationRepository,
-            OrderPositionRepository orderPositionRepository, StepService stepService, OperationService operationService, ResourceService resourceService) {
+    public ResourceForOperationService(ResourceForOperationRepository resourceForOperationRepository, StepService stepService, OperationService operationService, ResourceService resourceService) {
         this.resourceForOperationRepository = resourceForOperationRepository;
-        this.orderPositionRepository = orderPositionRepository;
         this.stepService = stepService;
         this.operationService=operationService;
         this.resourceService=resourceService;
@@ -82,12 +77,5 @@ public class ResourceForOperationService {
         Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                 .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation)).sum();
         return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime());
-    }
-
-    public Long timeForOrder(Long orderNumber) {
-        WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
-        Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
-                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation)).sum();
-        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime()) * orderPositionRepository.countByOrder(orderNumber);
     }
 }
