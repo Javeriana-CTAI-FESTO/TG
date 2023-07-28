@@ -38,7 +38,7 @@ public class WorkPlanService {
     public List<WorkPlanDTO> getAll() {
         return workPlanRepository.findAll().stream()
                 .map(workPlan -> new WorkPlanDTO(workPlan,
-                        workPlanTypeRepository.findDescriptionByTypeNumber(workPlan.getWorkPlanType())))
+                        workPlanTypeRepository.findByTypeNumber(workPlan.getWorkPlanType()).getDescription()))
                 .collect(Collectors.toList());
     }
 
@@ -59,7 +59,7 @@ public class WorkPlanService {
             workplanEntity.setPartNumber(createRequest.getPartNumber());
             workPlanRepository.save(workplanEntity);
             workPlan = new WorkPlanDTO(workplanEntity,
-                    workPlanTypeRepository.findDescriptionByTypeNumber(createRequest.getWorkPlanType()));
+                    workPlanTypeRepository.findByTypeNumber(createRequest.getWorkPlanType()).getDescription());
             for (int i = 1; i <= createRequest.getOperations().length; i++) {
                 this.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf(i),
                         createRequest.getOperations()[i].getDescription(),
@@ -113,7 +113,7 @@ public class WorkPlanService {
     public List<WorkPlanDTO> getWorkPlansByType(Long type) {
         return workPlanRepository.findByWorkPlanType(type).stream()
                 .map(workPlan -> new WorkPlanDTO(workPlan,
-                        workPlanTypeRepository.findDescriptionByTypeNumber(workPlan.getWorkPlanType())))
+                        workPlanTypeRepository.findByTypeNumber(workPlan.getWorkPlanType()).getDescription()))
                 .collect(Collectors.toList());
     }
 
@@ -121,7 +121,7 @@ public class WorkPlanService {
         WorkPlanDTO workPlan = null;
         try {
             workPlan = new WorkPlanDTO(workPlanRepository.findById(id).get(), workPlanTypeRepository
-                    .findDescriptionByTypeNumber(workPlanRepository.findById(id).get().getWorkPlanType()));
+                    .findByTypeNumber(workPlanRepository.findById(id).get().getWorkPlanType()).getDescription());
         } catch (Exception e) {
         }
         return workPlan;

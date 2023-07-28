@@ -9,5 +9,5 @@ import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 public interface WorkPlanTypeRepository extends CrudRepository<WorkPlanType, Long>{
     List<WorkPlanType> findAll();
 
-    String findDescriptionByTypeNumber(Long typeNumber);
+    WorkPlanType findByTypeNumber(Long typeNumber);
 }

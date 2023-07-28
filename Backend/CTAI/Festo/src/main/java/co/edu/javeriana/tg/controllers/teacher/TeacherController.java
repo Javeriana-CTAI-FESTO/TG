@@ -40,6 +40,16 @@ public class TeacherController implements TeacherInterface {
         this.partService = partService;
     }
 
+    @GetMapping
+    public ResponseEntity<String> home() {
+        String resources = "Hello world";
+        HttpStatus status = HttpStatus.OK;
+        if (resources.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<String>(resources, status);
+    }
+
+
     // View Stock
     @GetMapping("/parts")
     public ResponseEntity<List<PartDTO>> getAllParts() {
@@ -92,6 +102,7 @@ public class TeacherController implements TeacherInterface {
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             status = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
