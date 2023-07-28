@@ -101,7 +101,7 @@ public class StudentController implements StudentInterface{
         OrderDTO workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.generateNewOrder(workPlanNumber, clientNumber, positions);
+            workPlans = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
             status = HttpStatus.OK;
             if (workPlans == null)
                 status = HttpStatus.IM_USED;
