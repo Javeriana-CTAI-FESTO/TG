@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.AutomaticOrder;
+import co.edu.javeriana.tg.entities.managed.AutomaticOrder;
 
 public class AutomaticOrderDTO {
     private Long resourceId;
@@ -23,7 +23,7 @@ public class AutomaticOrderDTO {
     public AutomaticOrderDTO() {
     }
 
-    public AutomaticOrderDTO(AutomaticOrder order) {
+    public AutomaticOrderDTO(AutomaticOrder order, String description) {
         this.resourceId = order.getResourceId();
         this.partNumber = order.getPartNumber();
         this.lowLimit = order.getLowLimit();
@@ -35,7 +35,7 @@ public class AutomaticOrderDTO {
         this.active = order.getActive();
         this.description = order.getDescription();
         this.noOrderNumber = order.getNoOrderNumber();
-        this.autoOrderType = order.getAutoOrderType().getDescription();
+        this.autoOrderType = description;
         this.id = order.getId();
         this.resourceThatSendMessageId = order.getResourceThatSendMessageId();
         this.partNumberToCheck = order.getPartNumberToCheck();

@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Topology;
+import co.edu.javeriana.tg.entities.managed.Topology;
 
 public class TopologyDTO {
     private ResourceDTO source;
@@ -12,9 +12,9 @@ public class TopologyDTO {
     public TopologyDTO() {
     }
     
-    public TopologyDTO (Topology topology){
-        this.source = new ResourceDTO(topology.getSource());
-        this.target = new ResourceDTO(topology.getTarget());
+    public TopologyDTO (Topology topology, ResourceDTO source, ResourceDTO target){
+        this.source = source;
+        this.target = target;
         this.sourcePosition = topology.getSourcePosition();
         this.targetPosition = topology.getTargetPosition();
         this.shunt = topology.getShunt();

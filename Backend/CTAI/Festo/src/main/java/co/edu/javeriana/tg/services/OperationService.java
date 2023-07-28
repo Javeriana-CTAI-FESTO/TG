@@ -5,9 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import co.edu.javeriana.tg.entities.Operation;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
-import co.edu.javeriana.tg.repositories.OperationRepository;
+import co.edu.javeriana.tg.repositories.interfaces.OperationRepository;
 
 @Service
 public class OperationService {
@@ -22,7 +21,13 @@ public class OperationService {
         return operationRepository.findAll().stream().map(OperationDTO::new).collect(Collectors.toList());
     }
 
-    Operation get(Long operationNumber){
-        return operationRepository.findById(operationNumber).get();
+    OperationDTO get(Long operationNumber){
+        OperationDTO operation=null;
+        try{
+            operation = new OperationDTO(operationRepository.findById(operationNumber).get());
+        } catch (Exception e){
+
+        }
+        return operation;
     }
 }

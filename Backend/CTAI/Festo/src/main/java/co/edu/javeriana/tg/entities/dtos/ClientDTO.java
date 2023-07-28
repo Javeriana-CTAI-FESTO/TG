@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Client;
+import co.edu.javeriana.tg.entities.managed.Client;
 
 public class ClientDTO {
     private Long clientNumber;

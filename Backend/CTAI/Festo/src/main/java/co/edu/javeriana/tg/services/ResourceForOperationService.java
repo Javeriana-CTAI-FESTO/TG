@@ -6,14 +6,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import co.edu.javeriana.tg.entities.Operation;
-import co.edu.javeriana.tg.entities.ResourceForOperation;
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
-import co.edu.javeriana.tg.repositories.OrderPositionRepository;
-import co.edu.javeriana.tg.repositories.ResourceForOperationRepository;
+import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
+import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
 @Service
 public class ResourceForOperationService {
@@ -24,19 +23,25 @@ public class ResourceForOperationService {
 
     private final StepService stepService;
 
+    private final OperationService operationService;
+
+    private final ResourceService resourceService;
+
     public ResourceForOperationService(ResourceForOperationRepository resourceForOperationRepository,
-            OrderPositionRepository orderPositionRepository, StepService stepService) {
+            OrderPositionRepository orderPositionRepository, StepService stepService, OperationService operationService, ResourceService resourceService) {
         this.resourceForOperationRepository = resourceForOperationRepository;
         this.orderPositionRepository = orderPositionRepository;
         this.stepService = stepService;
+        this.operationService=operationService;
+        this.resourceService=resourceService;
     }
 
     public ResourceForOperationDTO convertToDTO(List<ResourceForOperation> resources) {
         ResourceForOperationDTO resourceDTO = null;
         try {
-            OperationDTO operation = new OperationDTO(resources.get(0).getOperation());
+            OperationDTO operation = operationService.get(resources.get(0).getOperation());
             List<ResourceDTO> resourceDTOs = resources.stream()
-                    .map(resourceForOperation -> new ResourceDTO(resourceForOperation.getResource()))
+                    .map(resourceForOperation -> resourceService.getById(resourceForOperation.getResource()))
                     .collect(Collectors.toList());
             resourceDTO = new ResourceForOperationDTO(operation, resourceDTOs);
         } catch (Exception e) {
@@ -45,15 +50,15 @@ public class ResourceForOperationService {
     }
 
     public ResourceForOperationDTO getResourcesGivenOperation(Long operationNumber) {
-        List<ResourceForOperation> resources = resourceForOperationRepository.findByOperationId(operationNumber);
+        List<ResourceForOperation> resources = resourceForOperationRepository.findByOperation(operationNumber);
         return convertToDTO(resources);
     }
 
     public List<ResourceForOperationDTO> getResourcesGivenResource(Long resourceId) {
-        List<ResourceForOperation> resources = resourceForOperationRepository.findByResourceId(resourceId);
+        List<ResourceForOperation> resources = resourceForOperationRepository.findByResource(resourceId);
         List<ResourceForOperation> operationResources = new ArrayList<>();
         List<ResourceForOperationDTO> operationResourcesDTOs = new ArrayList<>();
-        Operation operationToCompare = null;
+        Long operationToCompare = null;
         boolean needToStartAgain = true;
         for (int i = 0; i < resources.size();) {
             if (needToStartAgain) {
@@ -75,14 +80,14 @@ public class ResourceForOperationService {
     public Long timeForWorkPlan(Long workPlanNumber) {
         WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
         Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
-                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation.getId())).sum();
+                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation)).sum();
         return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime());
     }
 
     public Long timeForOrder(Long orderNumber) {
         WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
         Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
-                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation.getId())).sum();
-        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime()) * orderPositionRepository.countByOrderOrderNumber(orderNumber);
+                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation)).sum();
+        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime()) * orderPositionRepository.countByOrder(orderNumber);
     }
 }

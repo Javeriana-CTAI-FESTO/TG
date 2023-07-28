@@ -2,7 +2,7 @@ package co.edu.javeriana.tg.entities.dtos;
 
 import java.util.Date;
 
-import co.edu.javeriana.tg.entities.BufferPosition;
+import co.edu.javeriana.tg.entities.managed.BufferPosition;
 
 public class BufferPositionDTO {
     private Long resource;

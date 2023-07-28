@@ -23,6 +23,7 @@
 		<c3p0.version>0.9.5.3</c3p0.version>
 		<springdoc.version>1.7.0</springdoc.version>
 		<mockito.version>5.3.1</mockito.version>
+		<h2.version>2.2.220</h2.version>
 	</properties>
 
 	<dependencies>
@@ -68,8 +69,21 @@
 			<scope>test</scope>
 		</dependency>
 
-	</dependencies>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>test</scope>
+		</dependency>
 
+
+	</dependencies>
 	<build>
 		<plugins>
 
@@ -82,33 +96,6 @@
 					</profiles>
 				</configuration>
 			</plugin>
-
-			<!--
-			<plugin>
-				<groupId>com.iluwatar.urm</groupId>
-				<artifactId>urm-maven-plugin</artifactId>
-				<version>1.4.8</version>
-				<configuration>
-					<outputDirectory>${project.basedir}/target</outputDirectory>
-					<packages>
-						<param>co.edu.javeriana.tg</param>
-					</packages>
-					<ignores>
-					</ignores>
-					<includeMainDirectory>true</includeMainDirectory>
-					<includeTestDirectory>false</includeTestDirectory>
-					<presenter>graphviz</presenter>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>map</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			-->
 
 		</plugins>
 	</build>

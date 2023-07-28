@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Buffer;
+import co.edu.javeriana.tg.entities.managed.Buffer;
 
 public class BufferDTO {
     private ResourceDTO resource;
@@ -15,8 +15,8 @@ public class BufferDTO {
     public BufferDTO() {
     }
 
-    public BufferDTO(Buffer buffer) {
-        this.resource = new ResourceDTO(buffer.getResource());
+    public BufferDTO(Buffer buffer, ResourceDTO resource) {
+        this.resource = resource;
         this.bufferNumber = buffer.getBufferNumber();
         this.description = buffer.getDescription();
         this.type = buffer.getType();

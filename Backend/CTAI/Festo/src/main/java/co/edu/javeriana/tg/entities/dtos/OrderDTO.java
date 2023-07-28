@@ -2,8 +2,8 @@ package co.edu.javeriana.tg.entities.dtos;
 
 import java.util.Date;
 
-import co.edu.javeriana.tg.entities.Order;
-import co.edu.javeriana.tg.entities.OrderPosition;
+import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.OrderPosition;
 
 public class OrderDTO {
     private Long orderNumber;
@@ -193,11 +193,11 @@ public class OrderDTO {
         this.release = release;
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client) {
-        this.orderNumber = order.getOrder().getOrderNumber();
-        this.orderState = order.getOrder().getState();
-        this.enabled = order.getOrder().getEnabled();
-        this.release = order.getOrder().getRelease();
+    public OrderDTO(OrderPosition order, ClientDTO client, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+        this.orderNumber = order.getOrder();
+        this.orderState = orderState;
+        this.enabled = orderEnabled;
+        this.release = orderRelease;
         this.orderPosition = order.getOrderPosition();
         this.plannedStart = order.getPlannedStart();
         this.plannedEnd = order.getPlannedEnd();
@@ -211,17 +211,17 @@ public class OrderDTO {
         this.resourceNumber = order.getResourceNumber();
         this.operationNumber = order.getOperationNumber();
         this.workOrderNumber = order.getWorkOrderNumber();
-        this.part = new PartDTO(order.getPart());
+        this.part = part;
         this.subOrderBlocked = order.getSubOrderBlocked();
         this.error = order.getError();
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, String status) {
-        this.orderNumber = order.getOrder().getOrderNumber();
-        this.orderState = order.getOrder().getState();
-        this.enabled = order.getOrder().getEnabled();
-        this.release = order.getOrder().getRelease();
+    public OrderDTO(OrderPosition order, ClientDTO client, String status, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+        this.orderNumber = order.getOrder();
+        this.orderState = orderState;
+        this.enabled = orderEnabled;
+        this.release = orderRelease;
         this.orderPosition = order.getOrderPosition();
         this.status = status;
         this.workPlanNumber = order.getWorkPlanNumber();
@@ -232,17 +232,17 @@ public class OrderDTO {
         this.resourceNumber = order.getResourceNumber();
         this.operationNumber = order.getOperationNumber();
         this.workOrderNumber = order.getWorkOrderNumber();
-        this.part = new PartDTO(order.getPart());
+        this.part = part;
         this.subOrderBlocked = order.getSubOrderBlocked();
         this.error = order.getError();
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, Long time) {
-        this.orderNumber = order.getOrder().getOrderNumber();
-        this.orderState = order.getOrder().getState();
-        this.enabled = order.getOrder().getEnabled();
-        this.release = order.getOrder().getRelease();
+    public OrderDTO(OrderPosition order, ClientDTO client, Long time, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+        this.orderNumber = order.getOrder();
+        this.orderState = orderState;
+        this.enabled = orderEnabled;
+        this.release = orderRelease;
         this.orderPosition = order.getOrderPosition();
         this.timeNeeded = time + "s";
         this.workPlanNumber = order.getWorkPlanNumber();
@@ -253,7 +253,7 @@ public class OrderDTO {
         this.resourceNumber = order.getResourceNumber();
         this.operationNumber = order.getOperationNumber();
         this.workOrderNumber = order.getWorkOrderNumber();
-        this.part = new PartDTO(order.getPart());
+        this.part = part;
         this.subOrderBlocked = order.getSubOrderBlocked();
         this.error = order.getError();
         this.orderPartNumber = order.getOrderPartNumber();

@@ -1,0 +1,33 @@
+
+# Configuracion del servidor
+server:
+  port: ${SERVERTEST__PORT:8088}
+
+# Configuracion de Spring
+spring:
+  # Configuracion propia de la base de datos
+  h2:
+    console:
+      enabled: false
+  # Configuracion del datasource para Spring JPA
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+    password:
+  # Configuración de Spring JPA
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    # Propiedades de Spring JPA
+    properties:
+      # Propiedades de Hibernate
+      hibernate:
+        ddl-auto: create-drop
+        dialect: org.hibernate.dialect.H2Dialect
+        globally_quoted_identifiers: true
+    # Configuración de Hibernate
+    hibernate:
+      naming:
+        physical-strategy: co.edu.javeriana.tg.CustomPhysicalNamingStrategy
+

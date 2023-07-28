@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import co.edu.javeriana.tg.entities.WorkPlanDefinition;
-import co.edu.javeriana.tg.entities.WorkPlanType;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
-import co.edu.javeriana.tg.repositories.WorkPlanDefinitionRepository;
-import co.edu.javeriana.tg.repositories.WorkPlanTypeRepository;
+import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
+import co.edu.javeriana.tg.entities.managed.WorkPlanType;
+import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
 
 @Service
 public class WorkPlanService {
@@ -34,7 +34,10 @@ public class WorkPlanService {
     }
 
     public List<WorkPlanDTO> getAll() {
-        return workPlanRepository.findAll().stream().map(WorkPlanDTO::new).collect(Collectors.toList());
+        return workPlanRepository.findAll().stream()
+                .map(workPlan -> new WorkPlanDTO(workPlan,
+                        workPlanTypeRepository.findDescriptionByTypeNumber(workPlan.getWorkPlanType())))
+                .collect(Collectors.toList());
     }
 
     public Map<Long, String> getTypes() {
@@ -47,15 +50,17 @@ public class WorkPlanService {
         try {
             WorkPlanDefinition workplanEntity = new WorkPlanDefinition();
             workplanEntity.setWorkPlanNumber(createRequest.getWorkPlanNumber());
-            workplanEntity.setWorkPlanType(workPlanTypeRepository.findById(createRequest.getWorkPlanType()).get());
+            workplanEntity.setWorkPlanType(createRequest.getWorkPlanType());
             workplanEntity.setDescription(createRequest.getDescription());
             workplanEntity.setShortDescription(createRequest.getShortDescription());
             workplanEntity.setPictureNumber(createRequest.getPictureNumber());
             workplanEntity.setPartNumber(createRequest.getPartNumber());
             workPlanRepository.save(workplanEntity);
-            workPlan = new WorkPlanDTO(workplanEntity);
+            workPlan = new WorkPlanDTO(workplanEntity,
+                    workPlanTypeRepository.findDescriptionByTypeNumber(createRequest.getWorkPlanType()));
             for (int i = 1; i <= createRequest.getOperations().length; i++) {
-                stepService.saveStep(workplanEntity, Long.valueOf(i), createRequest.getOperations()[i].getDescription(),
+                stepService.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf(i),
+                        createRequest.getOperations()[i].getDescription(),
                         createRequest.getOperations()[i].getOperationNumber(),
                         createRequest.getOperations()[i].getNextStepNumber(),
                         createRequest.getOperations()[i].getErrorStepNumber(),
@@ -75,7 +80,9 @@ public class WorkPlanService {
     }
 
     public List<WorkPlanDTO> getWorkPlansByType(Long type) {
-        return workPlanRepository.findByWorkPlanTypeTypeNumber(type).stream().map(WorkPlanDTO::new)
+        return workPlanRepository.findByWorkPlanType(type).stream()
+                .map(workPlan -> new WorkPlanDTO(workPlan,
+                        workPlanTypeRepository.findDescriptionByTypeNumber(workPlan.getWorkPlanType())))
                 .collect(Collectors.toList());
     }
 
@@ -84,6 +91,12 @@ public class WorkPlanService {
     }
 
     public WorkPlanDTO getById(Long id) {
-        return new WorkPlanDTO(workPlanRepository.findById(id).get());
+        WorkPlanDTO workPlan = null;
+        try {
+            workPlan = new WorkPlanDTO(workPlanRepository.findById(id).get(), workPlanTypeRepository
+                    .findDescriptionByTypeNumber(workPlanRepository.findById(id).get().getWorkPlanType()));
+        } catch (Exception e) {
+        }
+        return workPlan;
     }
 }

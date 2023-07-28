@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import co.edu.javeriana.tg.entities.Order;
-import co.edu.javeriana.tg.entities.OrderPosition;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
-import co.edu.javeriana.tg.repositories.OrderPositionRepository;
-import co.edu.javeriana.tg.repositories.OrderRepository;
+import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 
 @Service
 public class OrderService {
@@ -80,7 +80,7 @@ public class OrderService {
                 orderPosition = new OrderPosition();
                 orderPosition.setOrderPosition(i);
                 orderPosition.setWorkPlanNumber(workPlanNumber);
-                orderPosition.setOrder(order);
+                orderPosition.setOrder(order.getOrderNumber());
                 orderPositionRepository.save(orderPosition);
             }
             orderDTO = new OrderDTO(order, clientService.getClient(clientNumber));

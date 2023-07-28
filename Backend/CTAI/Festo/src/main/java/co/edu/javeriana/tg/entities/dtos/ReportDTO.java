@@ -2,7 +2,7 @@ package co.edu.javeriana.tg.entities.dtos;
 
 import java.util.Date;
 
-import co.edu.javeriana.tg.entities.MachineReport;
+import co.edu.javeriana.tg.entities.managed.MachineReport;
 
 public class ReportDTO {
 

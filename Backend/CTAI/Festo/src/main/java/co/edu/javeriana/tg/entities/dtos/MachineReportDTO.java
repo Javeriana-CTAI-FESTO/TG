@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.MachineReport;
+import co.edu.javeriana.tg.entities.managed.MachineReport;
 
 public class MachineReportDTO {
     private ResourceDTO resource;
@@ -9,8 +9,8 @@ public class MachineReportDTO {
     public MachineReportDTO() {
     }
 
-    public MachineReportDTO(MachineReport report) {
-        this.resource = new ResourceDTO(report.getResource());
+    public MachineReportDTO(MachineReport report, ResourceDTO resource) {
+        this.resource = resource;
         this.report = new ReportDTO(report);
     }
 

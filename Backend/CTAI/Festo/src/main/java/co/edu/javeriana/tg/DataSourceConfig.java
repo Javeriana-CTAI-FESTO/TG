@@ -10,22 +10,23 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 public class DataSourceConfig {
+
     @Profile(value = {"dev"})
     @Bean
     public DataSource createDataSourceDev() throws Exception {
         ComboPooledDataSource ds = new ComboPooledDataSource();        
         ds.setJdbcUrl("\"jdbc:ucanaccess://\"+\"C:\\\\Users\\\\n" + //
-            "bayo\\\\Desktop\\\\TG\\\\Backend\\\\CTAI\\\\Festo\"+\"/FestoMES_be.accdb;showSchema=true\"");
+            "bayo\\\\Desktop\\\\TG\\\\Backend\\\\CTAI\\\\Festo\"+\"/FestoMES.accdb;showSchema=true\"");
         ds.setDriverClass("net.ucanaccess.jdbc.UcanaccessDriver");
         return ds;
     }
 
-    @Profile(value = {"test"})
+    @Profile(value = {"testdriver"})
     @Bean
     public DataSource createDataSourceTest() throws Exception {
         ComboPooledDataSource ds = new ComboPooledDataSource();        
         ds.setJdbcUrl("\"jdbc:ucanaccess://\"+\"C:\\\\Users\\\\n" + //
-            "bayo\\\\Desktop\\\\TG\\\\Backend\\\\CTAI\\\\Festo\"+\"/FestoMES_be.accdb;showSchema=true\"");
+            "bayo\\\\Desktop\\\\TG\\\\Backend\\\\CTAI\\\\Festo\"+\"/FestoMES_test.accdb;showSchema=true\"");
         ds.setDriverClass("net.ucanaccess.jdbc.UcanaccessDriver");
         return ds;
     }

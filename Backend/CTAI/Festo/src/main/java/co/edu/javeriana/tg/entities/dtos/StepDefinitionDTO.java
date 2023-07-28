@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.StepDefinition;
+import co.edu.javeriana.tg.entities.managed.StepDefinition;
 
 public class StepDefinitionDTO {
 
@@ -25,11 +25,11 @@ public class StepDefinitionDTO {
     public StepDefinitionDTO() {
     }
 
-    public StepDefinitionDTO(StepDefinition step){
+    public StepDefinitionDTO(StepDefinition step, WorkPlanDTO workPlan, OperationDTO operation){
         this.stepNumber = step.getStepNumber();
         this.description = step.getDescription();
-        this.workPlan = new WorkPlanDTO(step.getWorkPlan());
-        this.operation = new OperationDTO(step.getOperation());
+        this.workPlan = workPlan;
+        this.operation = operation;
         this.nextStepNumber = step.getNextStepNumber();
         this.firstStep = step.getFirstStep();
         this.nextWhenError = step.getNextWhenError();

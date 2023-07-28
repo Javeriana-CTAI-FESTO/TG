@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Operation;
+import co.edu.javeriana.tg.entities.managed.Operation;
 
 public class OperationDTO {
 

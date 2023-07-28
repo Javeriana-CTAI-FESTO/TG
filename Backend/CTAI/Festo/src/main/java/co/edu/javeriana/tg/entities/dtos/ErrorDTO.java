@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Error;
+import co.edu.javeriana.tg.entities.managed.Error;
 
 public class ErrorDTO {
     private Long id;

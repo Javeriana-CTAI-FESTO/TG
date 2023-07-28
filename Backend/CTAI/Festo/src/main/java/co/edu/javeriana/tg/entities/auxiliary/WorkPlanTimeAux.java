@@ -2,22 +2,20 @@ package co.edu.javeriana.tg.entities.auxiliary;
 
 import java.util.List;
 
-import co.edu.javeriana.tg.entities.Operation;
-
 public class WorkPlanTimeAux {
     private Long transportTime;
-    private List<Operation> operationsInvolved;
+    private List<Long> operationsInvolvedIds;
 
-    public WorkPlanTimeAux(Long transportTime, List<Operation> operationsInvolved) {
+    public WorkPlanTimeAux(Long transportTime, List<Long> operationsInvolved) {
         this.transportTime = transportTime;
-        this.operationsInvolved = operationsInvolved;
+        this.operationsInvolvedIds = operationsInvolved;
     }
 
     public Long getTransportTime() {
         return transportTime;
     }
 
-    public List<Operation> getOperationsInvolved() {
-        return operationsInvolved;
+    public List<Long> getOperationsInvolved() {
+        return operationsInvolvedIds;
     }
 }

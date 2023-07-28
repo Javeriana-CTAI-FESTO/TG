@@ -3,7 +3,7 @@ package co.edu.javeriana.tg.services;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.dtos.ClientDTO;
-import co.edu.javeriana.tg.repositories.ClientRepository;
+import co.edu.javeriana.tg.repositories.interfaces.ClientRepository;
 
 @Service
 public class ClientService {

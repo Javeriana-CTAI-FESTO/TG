@@ -1,7 +1,7 @@
 package co.edu.javeriana.tg.entities.dtos;
 
 
-import co.edu.javeriana.tg.entities.WorkPlanDefinition;
+import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 
 public class WorkPlanDTO {
     private Long workPlanNumber;
@@ -14,10 +14,10 @@ public class WorkPlanDTO {
     public WorkPlanDTO() {
     }
 
-    public WorkPlanDTO(WorkPlanDefinition work_plan){
+    public WorkPlanDTO(WorkPlanDefinition work_plan, String description){
         this.workPlanNumber = work_plan.getWorkPlanNumber();
         this.description = work_plan.getDescription();
-        this.workPlanType = work_plan.getWorkPlanType().getDescription();
+        this.workPlanType = description;
         this.shortDescription = work_plan.getShortDescription();
         this.pictureNumber = work_plan.getPictureNumber();
         this.partNumber = work_plan.getPartNumber();

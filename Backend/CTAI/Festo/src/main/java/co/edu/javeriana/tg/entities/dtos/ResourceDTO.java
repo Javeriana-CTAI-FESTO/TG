@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Resource;
+import co.edu.javeriana.tg.entities.managed.Resource;
 
 public class ResourceDTO {
     private Long id;

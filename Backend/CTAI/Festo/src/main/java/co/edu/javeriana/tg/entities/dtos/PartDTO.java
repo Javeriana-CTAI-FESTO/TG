@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import co.edu.javeriana.tg.entities.Part;
+import co.edu.javeriana.tg.entities.managed.Part;
 
 public class PartDTO {
     private Long partNumber;

@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import co.edu.javeriana.tg.entities.Part;
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
-import co.edu.javeriana.tg.repositories.PartRepository;
+import co.edu.javeriana.tg.entities.managed.Part;
+import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 
 @Service
 public class PartService {
