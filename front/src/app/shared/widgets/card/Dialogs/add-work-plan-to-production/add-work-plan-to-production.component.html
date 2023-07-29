@@ -12,7 +12,7 @@
     <mat-form-field>
         <input matInput type="number" placeholder="Quantity" [(ngModel)]="quantity" name="quantity" required>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" (click)="addWorkplan()">Add</button>
+    <button type="button" class="btn btn-primary" (click)="addWorkplan()">Add</button>
 
 </div>
 <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">

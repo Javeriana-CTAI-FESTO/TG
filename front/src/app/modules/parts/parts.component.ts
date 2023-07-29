@@ -19,6 +19,9 @@ export class PartsComponent implements OnInit {
   dataSource: MatTableDataSource<Pieza>;
   columnas: string[] = ['imagen', 'nombre', 'ID'];
 
+  selectedRow: any;
+  
+  
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
@@ -36,7 +39,9 @@ export class PartsComponent implements OnInit {
   piezaSeleccionada: Pieza | null = null;
 
   seleccionarPieza(pieza: Pieza | null): void {
+    this.selectedRow = pieza;
     this.piezaSeleccionada = pieza;
+
   }
 
   mostrarInfo(pieza: Pieza): void {

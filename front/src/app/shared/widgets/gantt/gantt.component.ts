@@ -17,7 +17,7 @@ export class GanttComponent implements OnInit {
   ngOnInit(): void {
     this.chartOptions = {
       title: {
-        text: "Tiempo de ejecución de tareas"
+        text: "Hidtorial de ejecución de tareas"
       },
       xAxis: {
         min: Date.UTC(2014, 10, 17),

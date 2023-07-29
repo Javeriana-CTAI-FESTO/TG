@@ -21,3 +21,6 @@ mat-cell img {
 mat-row{
   cursor: pointer;
 }
+.selected {
+  border-left: 4px solid #1976d2;
+}

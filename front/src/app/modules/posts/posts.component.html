@@ -3,7 +3,7 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <div class="mat-elevation-z8 ">
-<div *ngIf="!showWorkplan">
+    <div *ngIf="!showWorkplan">
 
         <div style="background-color: #FFFFFF;">
             <h2 style="text-align: center;">Lista de WorkPlans</h2>
@@ -46,10 +46,9 @@
             <tr mat-header-row *matHeaderRowDef="columnas"></tr>
             <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
         </table>
-   
-</div>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [hidden]="showWorkplan"></mat-paginator>
 </div>
 <br>
 
