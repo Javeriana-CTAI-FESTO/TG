@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public interface ResourceForOperationRepository extends CrudRepository<ResourceForOperation, ResourceForOperationPK>{
+    List<ResourceForOperation> findAll();
     List<ResourceForOperation> findByOperation(Long operationNumber);
     List<ResourceForOperation> findByResource(Long resourceId);
 
