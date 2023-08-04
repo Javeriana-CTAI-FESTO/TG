@@ -14,6 +14,11 @@ public class ClientService {
     }
 
     public ClientDTO getClient(Long clientNumber) {
-        return new ClientDTO(clientRepository.findByClientNumber(clientNumber));
+        try {
+            return new ClientDTO(clientRepository.findByClientNumber(clientNumber));
+        } catch (Exception e) {
+        }
+        return null;
+
     }
 }

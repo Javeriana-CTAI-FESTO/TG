@@ -21,7 +21,7 @@ public class OperationService {
         return operationRepository.findAll().stream().map(OperationDTO::new).collect(Collectors.toList());
     }
 
-    OperationDTO get(Long operationNumber){
+    public OperationDTO get(Long operationNumber){
         OperationDTO operation=null;
         try{
             operation = new OperationDTO(operationRepository.findById(operationNumber).get());

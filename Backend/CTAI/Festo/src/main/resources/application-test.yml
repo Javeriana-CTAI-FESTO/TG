@@ -1,7 +1,7 @@
 
 # Configuracion del servidor
 server:
-  port: ${SERVERTEST__PORT:8088}
+  port: 9999
 
 # Configuracion de Spring
 spring:
