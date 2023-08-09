@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
 
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
@@ -23,6 +25,8 @@ import co.edu.javeriana.tg.services.WorkPlanService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
+@Profile("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StudentControllerTest {
     @LocalServerPort

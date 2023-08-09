@@ -1,7 +1,6 @@
-
 # Configuracion del servidor
 server:
-  port: 9999
+  port: ${SERVERTEST__PORT:8088}
 
 # Configuracion de Spring
 spring:
@@ -27,4 +26,3 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
-

@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.managed.Client;
@@ -15,6 +17,8 @@ import co.edu.javeriana.tg.repositories.interfaces.ClientRepository;
 import co.edu.javeriana.tg.services.ClientService;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
+@Profile("test")
 @SpringBootTest
 public class ClientServiceTest {
 

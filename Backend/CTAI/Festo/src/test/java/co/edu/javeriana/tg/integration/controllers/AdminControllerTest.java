@@ -1,135 +1,66 @@
 package co.edu.javeriana.tg.integration.controllers;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.*;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import co.edu.javeriana.tg.entities.dtos.MachineReportDTO;
-import co.edu.javeriana.tg.repositories.interfaces.MachineReportRepository;
-import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
-import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
-import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
-import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
-import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
-import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
-import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
-import co.edu.javeriana.tg.services.ClientService;
+import co.edu.javeriana.tg.controllers.web.admin.AdminController;
 import co.edu.javeriana.tg.services.MachineReportService;
-import co.edu.javeriana.tg.services.OperationService;
 import co.edu.javeriana.tg.services.OrderService;
 import co.edu.javeriana.tg.services.PartService;
-import co.edu.javeriana.tg.services.ResourceService;
-import co.edu.javeriana.tg.services.StepService;
 import co.edu.javeriana.tg.services.WorkPlanService;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import java.util.List;
+
+import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@Profile("test")
+@AutoConfigureJsonTesters
+@WebMvcTest(AdminController.class)
 public class AdminControllerTest {
 
-    /*@Test
-    public void main(){
-        assertTrue(true);
-    }
-    @LocalServerPort
-    private int port;
-
-    private TestRestTemplate restTemplate = new TestRestTemplate();
-
-     * @Autowired
-     * private PartService partService;
-     * 
-     * @Autowired
-     * private WorkPlanService workPlanService;
-     * 
-     * @Autowired
-     * private OrderService orderService;
-     * 
-     * @Autowired
-     * private MachineReportService machineReportService;
-     * 
-     * @Autowired
-     * private OperationService operationService;
-     * 
-     * @Autowired
-     * private StepService stepService;
-     * 
-     * @Autowired
-     * private ClientService clientService;
-     * 
-     * @Autowired
-     * private ResourceService resourceService;
-     * 
-     * @Autowired
-     * private PartRepository partRepository;
-     * 
-     * @Autowired
-     * private WorkPlanDefinitionRepository workPlanRepository;
-     * 
-     * @Autowired
-     * private WorkPlanTypeRepository workPlanTypeRepository;
-     * 
-     * @Autowired
-     * private StepDefinitionRepository stepDefinitionRepository;
-     * 
-     * @Autowired
-     * private OrderRepository orderRepository;
-     * 
-     * @Autowired
-     * private OrderPositionRepository orderPositionRepository;
-     * 
-     * @Autowired
-     * private ResourceForOperationRepository resourceForOperationRepository;
-     * 
-     * @Autowired
-     * private MachineReportRepository reportRepository;
+    @Autowired
+    private MockMvc mvc;
     
-
-    private static HttpHeaders headers;
+    @MockBean
+    private PartService partService;
     
-    @BeforeAll
-    public static void init() {
-        headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-    }
+    @MockBean
+    private WorkPlanService workPlanService;
 
-    private String createURLWithPort(String uri) {
-        return "http://localhost:" + port + "/api/admin" + uri;
-    }
+    @MockBean
+    private OrderService orderService;
 
-    // View machines status
+    @MockBean
+    private MachineReportService reportService;
+
+    private static final String BASEURI = "/api/admin";
+
     @Test
-    public void testGetAllReports() {
-        HttpEntity<List<MachineReportDTO>> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<List<MachineReportDTO>> reportsResponse = restTemplate.exchange(
-                createURLWithPort(""),
-                HttpMethod.GET,
-                entity,
-                new ParameterizedTypeReference<List<MachineReportDTO>>() {
-                });
-        List<MachineReportDTO> reports = reportsResponse.getBody();
-        /*
-         * Long initialReports = reportRepository.count();
-         * if (initialReports == 0){
-         * assertTrue(reports.isEmpty());
-         * assertEquals(HttpStatus.NO_CONTENT, reportsResponse.getStatusCode());
-         * } else{
-         * assertEquals(HttpStatus.OK, reportsResponse.getStatusCode());
-         * }
-         
-    } */
+    public void testEmptyGetAllReports() {
+        try {
+            when(reportService.getAll()).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
 
     /*
      * @GetMapping("/reports/{resourceId}")
@@ -141,54 +72,5 @@ public class AdminControllerTest {
      * status = HttpStatus.NO_CONTENT;
      * return new ResponseEntity<List<ReportDTO>>(reports, status);
      * }
-     */
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    @Autowired
-    private WorkPlanService workPlanService;
-
-    @Autowired
-    private OrderService orderService;
-    
-    @Autowired
-    private OperationService operationService;
-
-    @Autowired
-    private StepService stepService;
-    
-    @Autowired
-    private ClientService clientService;
-
-    @Autowired
-    private ResourceService resourceService;
-
-    @Autowired
-    private WorkPlanDefinitionRepository workPlanRepository;
-
-    @Autowired
-    private WorkPlanTypeRepository workPlanTypeRepository;
-
-    @Autowired
-    private StepDefinitionRepository stepDefinitionRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderPositionRepository orderPositionRepository;
-
-    @Autowired
-    private ResourceForOperationRepository resourceForOperationRepository;
-
-    private static HttpHeaders headers;
-
-    @BeforeAll
-    public static void init() {
-        headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-    }
+        */
 }

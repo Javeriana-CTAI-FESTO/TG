@@ -19,12 +19,12 @@ public class DataSourceConfig {
         ds.setDriverClass("net.ucanaccess.jdbc.UcanaccessDriver");
         return ds;
     }
-    /* @Profile(value = {"test"})
+    @Profile(value = {"test"})
     @Bean
     public DataSource createDataSourceTest() throws Exception {
         ComboPooledDataSource ds = new ComboPooledDataSource();        
         ds.setJdbcUrl("jdbc:ucanaccess://"+"C:\\Users\\nbayo\\Desktop\\TG\\Backend\\CTAI\\Festo"+"/FestoMES_test.accdb;showSchema=true");
-        ds.setDriverClass("");
+        ds.setDriverClass("net.ucanaccess.jdbc.UcanaccessDriver");
         return ds;
-    } */
+    }
 }

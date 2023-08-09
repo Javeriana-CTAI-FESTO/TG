@@ -87,12 +87,17 @@ public class OrderService {
             }
             orderDTO = new OrderDTO(order, clientService.getClient(clientNumber));
         } catch (Exception e) {
+            
         }
         return orderDTO;
     }
     
     private Long getNextOrderNumber() {
+        try{
         return orderRepository.getAllOrderNumbers().get(0) + 1;
+        } catch (Exception e){
+            return 1l;
+        }
     }
 
     private String evaluateStatus(Order order) {
