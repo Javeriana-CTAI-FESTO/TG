@@ -24,7 +24,7 @@ public interface StudentInterface {
 
     public ResponseEntity<List<Date>> getAllPlannedEnds();
 
-    public ResponseEntity<List<OrderDTO>> getAllWorkPlanTime();
+    public ResponseEntity<List<OrderDTO>> getAllOrdersTime();
 
     public ResponseEntity<Map<Long, String>> getStatus();
 

@@ -1,6 +1,0 @@
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] ------------------------< co.edu.javeriana:tg >-------------------------
-[INFO] Building tg 0.0.1-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-Terminate batch job (Y/N)? Terminate batch job (Y/N)? 
