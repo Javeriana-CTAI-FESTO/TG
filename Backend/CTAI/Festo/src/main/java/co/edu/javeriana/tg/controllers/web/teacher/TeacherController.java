@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.javeriana.tg.controllers.interfaces.TeacherInterface;
@@ -39,16 +38,6 @@ public class TeacherController implements TeacherInterface {
         this.orderService = orderService;
         this.partService = partService;
     }
-
-    @GetMapping
-    public ResponseEntity<String> home() {
-        String resources = "Hello world";
-        HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<String>(resources, status);
-    }
-
 
     // View Stock
     @GetMapping("/parts")
@@ -212,7 +201,7 @@ public class TeacherController implements TeacherInterface {
     }
 
     @GetMapping("/orders/status/{orderStatus}")
-    public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@RequestParam Long orderStatus) {
+    public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@PathVariable Long orderStatus) {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
@@ -226,6 +215,22 @@ public class TeacherController implements TeacherInterface {
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
     //
+
+    // Calculate production time
+    @GetMapping("/orders/time")
+    public ResponseEntity<List<OrderDTO>> getAllOrdersTime() {
+        List<OrderDTO> workPlans = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        try {
+            workPlans = orderService.getOrdersWithTime();
+            status = HttpStatus.OK;
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<List<OrderDTO>>(workPlans, status);
+    }
 
     // View indicators
     @GetMapping("/indicators")

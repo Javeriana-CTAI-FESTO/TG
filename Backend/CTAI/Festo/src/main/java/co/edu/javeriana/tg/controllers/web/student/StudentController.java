@@ -104,7 +104,7 @@ public class StudentController implements StudentInterface{
             workPlans = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
             status = HttpStatus.OK;
             if (workPlans == null)
-                status = HttpStatus.IM_USED;
+                status = HttpStatus.NO_CONTENT;
         } catch (Exception e) {
             status = HttpStatus.NOT_FOUND;
         }
@@ -153,7 +153,7 @@ public class StudentController implements StudentInterface{
     }
 
     @GetMapping("/orders/status/{orderStatus}")
-    public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@RequestParam Long orderStatus) {
+    public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@PathVariable Long orderStatus) {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
@@ -170,7 +170,7 @@ public class StudentController implements StudentInterface{
 
     // Calculate production time
     @GetMapping("/orders/time")
-    public ResponseEntity<List<OrderDTO>> getAllWorkPlanTime() {
+    public ResponseEntity<List<OrderDTO>> getAllOrdersTime() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {

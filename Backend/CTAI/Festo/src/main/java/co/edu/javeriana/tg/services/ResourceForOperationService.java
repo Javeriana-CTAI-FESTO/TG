@@ -49,7 +49,7 @@ public class ResourceForOperationService {
         return convertToDTO(resources);
     }
 
-    public List<ResourceForOperationDTO> getResourcesGivenResource(Long resourceId) {
+    public List<ResourceForOperationDTO> getOperationsGivenResource(Long resourceId) {
         List<ResourceForOperation> resources = resourceForOperationRepository.findByResource(resourceId);
         List<ResourceForOperation> operationResources = new ArrayList<>();
         List<ResourceForOperationDTO> operationResourcesDTOs = new ArrayList<>();
