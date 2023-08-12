@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ob-spring-security-jwt" />
-        <module name="tgsecurity" />
         <module name="alarma-comunitaria-backend" />
       </profile>
     </annotationProcessing>
