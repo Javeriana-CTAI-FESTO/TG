@@ -13,7 +13,7 @@ import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 
 @Service
 public class PartService {
-    
+
     private final PartRepository partRepository;
 
     public PartService(PartRepository partRepository) {
@@ -29,17 +29,19 @@ public class PartService {
         if (long1 == 0)
             retorno = "Nothing";
         else if (long1 == 99)
-            retorno = "Part";
+            retorno = "Undefined";
         else if (long1 == 1)
-            retorno = "Raw";
+            retorno = "Raw Part";
         else if (long1 == 3)
-            retorno = "Production";
+            retorno = "Production Part";
         else if (long1 == 9)
-            retorno = "Part";
+            retorno = "Box";
+        else if (long1 == 10)
+            retorno = "Carrier";
         else if (long1 == 11)
-            retorno = "Part";
+            retorno = "Pallet";
         else if (long1 == 90)
-            retorno = "Part";
+            retorno = "Spare Part";
         return retorno;
     }
 

@@ -20,14 +20,19 @@ public class StepService {
 
     private final OperationService operationService;
 
-    public StepService(StepDefinitionRepository stepDefinitionRepository, WorkPlanService workPlanService, OperationService operationService) {
+    public StepService(StepDefinitionRepository stepDefinitionRepository, WorkPlanService workPlanService,
+            OperationService operationService) {
         this.stepDefinitionRepository = stepDefinitionRepository;
         this.workPlanService = workPlanService;
         this.operationService = operationService;
     }
 
     public List<StepDefinitionDTO> getAll() {
-        return stepDefinitionRepository.findAll().stream().map(stepDefinition -> new StepDefinitionDTO(stepDefinition, workPlanService.getById(stepDefinition.getWorkPlan()), operationService.get(stepDefinition.getOperation()))).collect(Collectors.toList());
+        return stepDefinitionRepository.findAll().stream()
+                .map(stepDefinition -> new StepDefinitionDTO(stepDefinition,
+                        workPlanService.getById(stepDefinition.getWorkPlan()),
+                        operationService.get(stepDefinition.getOperation())))
+                .collect(Collectors.toList());
     }
 
     public WorkPlanTimeAux getWorkPlanTime(Long workPlanNumber) {
@@ -39,5 +44,24 @@ public class StepService {
 
     public Long getWorkPlanOperationsCount(Long workPlanNumber) {
         return stepDefinitionRepository.countByWorkPlan(workPlanNumber);
+    }
+
+    public List<StepDefinitionDTO> stepsByWorkplan(Long workPlanNumber) {
+        return stepDefinitionRepository.findByWorkPlan(workPlanNumber).stream()
+                .map(stepDefinition -> new StepDefinitionDTO(stepDefinition,
+                        workPlanService.getById(stepDefinition.getWorkPlan()),
+                        operationService.get(stepDefinition.getOperation())))
+                .collect(Collectors.toList());
+    }
+
+    public StepDefinitionDTO firstStepByWorkplan(Long workPlanNumber) {
+        try {
+            StepDefinition first = stepDefinitionRepository.findFirstByWorkPlan(workPlanNumber);
+            return new StepDefinitionDTO(first, workPlanService.getById(first.getWorkPlan()),
+                    operationService.get(first.getOperation()));
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 }

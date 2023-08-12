@@ -108,19 +108,20 @@ public class ResourceForOperationServiceTest {
 
     @Test
     public void testEmptyTimeForWorkplan(){
-        Long workPlanTime = 1l;
-        Long operationID = 1l;
-        when(stepService.getWorkPlanTime(workPlanTime)).thenReturn(new WorkPlanTimeAux(4l, List.of(operationID)));
-        when(resourceForOperationRepository.timeTakenByOperation(operationID)).thenReturn(2l);
-        assertTrue(6l == resourceForOperationService.timeForWorkPlan(workPlanTime));
+        assertNull(resourceForOperationService.timeForWorkPlan(1l));
     }
 
     @Test
     public void testNonEmptyTimeForWorkplan(){
-        Long workPlanTime = 1l;
-        Long operationID = 1l;
-        when(stepService.getWorkPlanTime(workPlanTime)).thenReturn(new WorkPlanTimeAux(0l, List.of(operationID)));
-        when(resourceForOperationRepository.timeTakenByOperation(operationID)).thenReturn(0l);
-        assertTrue(0l == resourceForOperationService.timeForWorkPlan(workPlanTime));
+        Long workPlanNumber = 1l;
+        Long transportTime = 1l;
+        Long operationNumber = 1l;
+        Long result = transportTime * 2;
+        WorkPlanTimeAux aux = new WorkPlanTimeAux(transportTime, List.of(operationNumber));
+        when(stepService.getWorkPlanTime(workPlanNumber)).thenReturn(aux);
+        ResourceForOperation resourceForOperation = new ResourceForOperation(new ResourceForOperationPK(transportTime, operationNumber));
+        resourceForOperation.setWorkingTime(transportTime);
+        when(resourceForOperationRepository.minorTimeOperation(operationNumber)).thenReturn(resourceForOperation);
+        assertEquals(result, resourceForOperationService.timeForWorkPlan(workPlanNumber));
     }        
 }

@@ -1,5 +1,7 @@
 package co.edu.javeriana.tg.services;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
+import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
@@ -70,32 +73,56 @@ public class OrderService {
     public OrderDTO generateNewOrder(Long workPlanNumber, Long clientNumber, Long positions) {
         OrderDTO orderDTO = null;
         try {
-            if (stepService.getWorkPlanOperationsCount(workPlanNumber)<1)
+            if (stepService.getWorkPlanOperationsCount(workPlanNumber) < 1)
                 throw new Exception("Order has no steps");
             Order order = new Order();
+            Date start = Date.from(Instant.now());
             Long orderNumber = getNextOrderNumber();
             order.setOrderNumber(orderNumber);
+            order.setPlannedStart(start);
+            Long hoursToAdd = 0l;
+            Long minutesToAdd = 1l;
+            Long secondsToAdd = 1l;
+            Date end = Date.from(Instant.now().plus(hoursToAdd, ChronoUnit.HOURS).plus(minutesToAdd, ChronoUnit.MINUTES)
+                    .plus(secondsToAdd, ChronoUnit.SECONDS));
+            order.setPlannedEnd(end);
             order.setClientNumber(clientNumber);
+            order.setState(0l);
+            order.setEnabled(false);
+            order.setRelease(end);
             orderRepository.save(order);
             OrderPosition orderPosition = null;
             for (Long i = 1L; i <= positions; i++) {
+                StepDefinitionDTO firstStep = stepService.firstStepByWorkplan(workPlanNumber);
                 orderPosition = new OrderPosition();
                 orderPosition.setOrderPosition(i);
                 orderPosition.setWorkPlanNumber(workPlanNumber);
+                orderPosition.setPart(workPlanNumber);
+                orderPosition.setOrderPartNumber(workPlanNumber);
                 orderPosition.setOrder(order.getOrderNumber());
+                orderPosition.setPlannedStart(start);
+                orderPosition.setPlannedEnd(end);
+                orderPosition.setMainOrderPosition(0l);
+                orderPosition.setStepNumber(firstStep.getStepNumber());
+                orderPosition.setState(0l);
+                orderPosition.setResourceNumber(resourceForOperationRepository
+                        .minorTimeOperation(firstStep.getOperation().getOperationNumber()).getResource());
+                orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
+                orderPosition.setError(false);
+                orderPosition.setSubOrderBlocked(false);
                 orderPositionRepository.save(orderPosition);
             }
             orderDTO = new OrderDTO(order, clientService.getClient(clientNumber));
         } catch (Exception e) {
-            
+
         }
         return orderDTO;
     }
-    
+
     private Long getNextOrderNumber() {
-        try{
-        return orderRepository.getAllOrderNumbers().get(0) + 1;
-        } catch (Exception e){
+        try {
+            return orderRepository.getAllOrderNumbers().get(0) + 1;
+        } catch (Exception e) {
             return 1l;
         }
     }
@@ -133,7 +160,7 @@ public class OrderService {
         if (status > 3 || status < 0)
             throw new Exception("Invalid");
         return (status == 1) ? getAllUnstartedOrders()
-                : (status == 2) ? getAllInProcessOrders() : (status == 3) ? getAllFinishedOrders() : null;
+                : (status == 2) ? getAllInProcessOrders() : getAllFinishedOrders();
     }
 
     private Long evaluateNameToGetIndicator(String name) {
@@ -159,9 +186,17 @@ public class OrderService {
     }
 
     public Long timeForOrder(Long orderNumber) {
-        WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
-        Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
-                .mapToLong(operation -> resourceForOperationRepository.timeTakenByOperation(operation)).sum();
-        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime()) * orderPositionRepository.countByOrder(orderNumber);
+        try {
+            WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
+            Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
+                    .mapToLong(
+                            operation -> resourceForOperationRepository.minorTimeOperation(operation).getWorkingTime())
+                    .sum();
+            return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime())
+                    * orderPositionRepository.countByOrder(orderNumber);
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 }

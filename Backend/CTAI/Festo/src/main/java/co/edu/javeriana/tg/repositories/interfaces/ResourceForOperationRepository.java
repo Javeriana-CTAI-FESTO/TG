@@ -14,6 +14,6 @@ public interface ResourceForOperationRepository extends CrudRepository<ResourceF
     List<ResourceForOperation> findByOperation(Long operationNumber);
     List<ResourceForOperation> findByResource(Long resourceId);
 
-    @Query("select sum(r.workingTime) from ResourceForOperation r where r.operation = ?1")
-    Long timeTakenByOperation(Long operationNumber);
+    @Query("select r from ResourceForOperation r where r.operation = ?1 and r.resource > 0 order by r.workingTime")
+    ResourceForOperation minorTimeOperation(Long operationNumber);
 }

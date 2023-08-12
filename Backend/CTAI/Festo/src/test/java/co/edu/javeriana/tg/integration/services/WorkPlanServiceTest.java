@@ -75,7 +75,7 @@ public class WorkPlanServiceTest {
         WorkPlanType t = new WorkPlanType(id);
         t.setDescription(description);
         when(workPlanTypeRepository.findAll()).thenReturn(List.of(t));
-        assertEquals(description,workPlanService.getTypes().get(id));
+        assertEquals(description, workPlanService.getTypes().get(id));
     }
 
     @Test
@@ -103,8 +103,39 @@ public class WorkPlanServiceTest {
     }
 
     @Test
+    public void testNonEmptyCreateWorkPlanWithOperations() {
+        Long id = 1l;
+        CreateWorkPlanAux plan = new CreateWorkPlanAux();
+        plan.setWorkPlanNumber(id);
+        plan.setWorkPlanType(id);
+        plan.setDescription("Test");
+        plan.setShortDescription("T");
+        plan.setPictureNumber(1l);
+        plan.setPartNumber(1l);
+        OperationToPerformByWorkPlanAux[] aux = {
+                new OperationToPerformByWorkPlanAux(-1l, -1l, -1l,
+                        "", -1l, -1l, false, -1l,
+                        -1l, -1l, false, "", -1l,
+                        -1l, -1l, "") };
+        plan.setOperations(aux);
+        WorkPlanType t = new WorkPlanType(id);
+        t.setDescription("Test");
+        WorkPlanDefinition w = new WorkPlanDefinition(id);
+        w.setWorkPlanType(id);
+        when(workPlanTypeRepository.findByTypeNumber(id)).thenReturn(t);
+        assertNotNull(workPlanService.createWorkPlan(plan));
+    }
+
+    @Test
     public void testSaveStep() {
-        assertDoesNotThrow(() -> workPlanService.saveStep(-1l,-1l,"",-1l,-1l,-1l,-1l,-1l,-1l,-1l,"",-1l,-1l,-1l,""));
+        assertDoesNotThrow(
+                () -> workPlanService.saveStep(-1l, -1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
+        assertDoesNotThrow(
+                () -> workPlanService.saveStep(-1l, 1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
+        when(operationService.get(-1l)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(
+                () -> workPlanService.saveStep(-1l, 1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
+        assertNull(workPlanService.saveStep(-1l, 1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
     }
 
     @Test

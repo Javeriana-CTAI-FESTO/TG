@@ -3,6 +3,7 @@ package co.edu.javeriana.tg.integration.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -16,7 +17,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
+import co.edu.javeriana.tg.entities.dtos.ClientDTO;
+import co.edu.javeriana.tg.entities.dtos.OperationDTO;
+import co.edu.javeriana.tg.entities.dtos.OrderDTO;
+import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.managed.Client;
+import co.edu.javeriana.tg.entities.managed.Operation;
 import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
+import co.edu.javeriana.tg.entities.managed.ResourceForOperationPK;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
@@ -75,11 +84,47 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testNonEmptyGenerateNewOrder() {
-        Long testID = 1l;
-        when(stepService.getWorkPlanOperationsCount(testID)).thenReturn(1l);
-        when(orderRepository.getAllOrderNumbers()).thenReturn(List.of(2l, 1l));
-        assertNotNull(orderService.generateNewOrder(testID, 0l, 2l));
+    public void testNonEmptyGenerateNewOrderWithEmptyOperations() {
+        Long workPlanNumber = 1l;
+        Long clientNumber = 1L;
+        Long positions = 1L;
+        when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(0l);
+        assertNull(orderService.generateNewOrder(workPlanNumber,clientNumber ,positions ));
+    }
+
+    @Test
+    public void testNonEmptyGenerateNewOrderOperations() {
+        Long workPlanNumber = 1l;
+        Long clientNumber = 1L;
+        Long positions = 1L;
+        Long lastONumber = 0l;
+        when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
+        when(orderRepository.getAllOrderNumbers()).thenReturn(List.of(lastONumber));
+        StepDefinitionDTO firstStep = new StepDefinitionDTO();
+        firstStep.setStepNumber(lastONumber);
+        firstStep.setOperation(new OperationDTO(new Operation(lastONumber)));
+        when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
+        when(clientService.getClient(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
+        when(resourceForOperationRepository.minorTimeOperation(firstStep.getOperation().getOperationNumber())).thenReturn(new ResourceForOperation(new ResourceForOperationPK(positions, firstStep.getOperation().getOperationNumber())));
+        OrderDTO order = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
+        assertEquals(lastONumber + 1, order.getOrderNumber());
+    }
+
+    @Test
+    public void testNonEmptyGenerateNewOrderNoOrderNumbers() {
+        Long workPlanNumber = 1l;
+        Long clientNumber = 1L;
+        Long positions = 1L;
+        Long stepNumber = 0l;
+        when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
+        StepDefinitionDTO firstStep = new StepDefinitionDTO();
+        firstStep.setStepNumber(stepNumber);
+        firstStep.setOperation(new OperationDTO(new Operation(stepNumber)));
+        when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
+        when(clientService.getClient(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
+        when(resourceForOperationRepository.minorTimeOperation(firstStep.getOperation().getOperationNumber())).thenReturn(new ResourceForOperation(new ResourceForOperationPK(positions, firstStep.getOperation().getOperationNumber())));
+        OrderDTO order = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
+        assertEquals(stepNumber + 1, order.getOrderNumber());
     }
 
     @Test
@@ -89,8 +134,13 @@ public class OrderServiceTest {
 
     @Test
     public void testNonEmptyGetOrdersWithStatus() {
-        when(orderRepository.findAll()).thenReturn(List.of(new Order(1L)));
+        Order order = new Order(1L);
+        when(orderRepository.findAll()).thenReturn(List.of(order));
         assertEquals("Unstarted", orderService.getOrdersWithStatus().get(0).getStatus());
+        order.setRealStart(Date.from(Instant.now()));
+        assertEquals("In process", orderService.getOrdersWithStatus().get(0).getStatus());
+        order.setRealEnd(Date.from(Instant.now()));
+        assertEquals("Finished", orderService.getOrdersWithStatus().get(0).getStatus());
     }
 
     @Test
@@ -100,9 +150,17 @@ public class OrderServiceTest {
 
     @Test
     public void testNonEmptyGetOrdersWithTime() {
-        when(orderRepository.findAll()).thenReturn(List.of(new Order(1L)));
-        when (stepService.getWorkPlanTime(1l)).thenReturn(new WorkPlanTimeAux(1l, List.of(1l)));
-        assertEquals("0s",orderService.getOrdersWithTime().get(0).getTimeNeeded());
+        Order o = new Order(1L);
+        o.setClientNumber(1l);
+        when(orderRepository.findAll()).thenReturn(List.of(o));
+        when(clientService.getClient(1l)).thenReturn(new ClientDTO(new Client(1l)));
+        when(stepService.getWorkPlanTime(1l)).thenReturn(new WorkPlanTimeAux(1l, List.of(1l)));
+        ResourceForOperation resourceForOperation = new ResourceForOperation(new ResourceForOperationPK(1l, 1l));
+        resourceForOperation.setWorkingTime(1l);
+        when(resourceForOperationRepository.minorTimeOperation(1l)).thenReturn(resourceForOperation);
+        when(orderPositionRepository.countByOrder(1l)).thenReturn(0L);
+        assertEquals(1, orderService.getOrdersWithTime().size());
+        assertEquals("0s",orderService.getOrdersWithTime().get(0).getTimeNeeded()); 
     }
 
     @Test
@@ -119,11 +177,55 @@ public class OrderServiceTest {
     @Test
     public void testEmptyFilterByStatus() {
         assertThrows(Exception.class, () -> orderService.filterByStatus(-1l));
+        assertThrows(Exception.class, () -> orderService.filterByStatus(4l));
     }
 
     @Test
-    public void testNonEmptyFilterByStatus() {
-        assertEquals("Unstarted", orderService.getPossibleStatus().get(1l));
+    public void testNonEmptyFilterByStatusUnstarted() {
+        Long status = 1l;
+        Order unstarted = new Order(1l);
+        Order inProcess = new Order(2l);
+        Order finished = new Order(3l);
+        when(orderRepository.finishedOrders()).thenReturn(List.of(finished));
+        when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
+        when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
+        try {
+            assertEquals(1l, orderService.filterByStatus(status).get(0).getOrderNumber());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyFilterByStatusInProcess() {
+        Long status = 2l;
+        Order unstarted = new Order(1l);
+        Order inProcess = new Order(2l);
+        Order finished = new Order(3l);
+        when(orderRepository.finishedOrders()).thenReturn(List.of(finished));
+        when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
+        when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
+        try {
+            assertEquals(2l, orderService.filterByStatus(status).get(0).getOrderNumber());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyFilterByStatusFinished() {
+        Long status = 3l;
+        Order unstarted = new Order(1l);
+        Order inProcess = new Order(2l);
+        Order finished = new Order(3l);
+        when(orderRepository.finishedOrders()).thenReturn(List.of(finished));
+        when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
+        when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
+        try {
+            assertEquals(3l, orderService.filterByStatus(status).get(0).getOrderNumber());
+        } catch (Exception e) {
+            fail();
+        }
     }
 
     @Test
@@ -138,5 +240,10 @@ public class OrderServiceTest {
             if (aux.getIndicatorName().startsWith("Unstarted"))
                 assertEquals(1, aux.getIndicatorValue());
         }
+    }
+
+    @Test
+    public void testEmptyTimeForOrder(){
+        assertNull(orderService.timeForOrder(1l));
     }
 }

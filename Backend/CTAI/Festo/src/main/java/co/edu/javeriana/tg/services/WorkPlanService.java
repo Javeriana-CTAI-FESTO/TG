@@ -60,8 +60,8 @@ public class WorkPlanService {
             workPlanRepository.save(workplanEntity);
             workPlan = new WorkPlanDTO(workplanEntity,
                     workPlanTypeRepository.findByTypeNumber(createRequest.getWorkPlanType()).getDescription());
-            for (int i = 1; i <= createRequest.getOperations().length; i++) {
-                this.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf(i),
+            for (int i = 0; i < createRequest.getOperations().length; i++) {
+                this.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf(i+1),
                         createRequest.getOperations()[i].getDescription(),
                         createRequest.getOperations()[i].getOperationNumber(),
                         createRequest.getOperations()[i].getNextStepNumber(),

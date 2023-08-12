@@ -53,7 +53,31 @@ public class PartServiceTest {
         Long type = 99l;
         p.setType(type);
         when(partRepository.findAll()).thenReturn(List.of(p));
-        assertEquals(1, partService.getAllTypes().size());
+        assertEquals("Undefined", partService.getAllTypes().get(type));
+        type = 0l;
+        p.setType(type);
+        assertEquals("Nothing", partService.getAllTypes().get(type));
+        type = 1l;
+        p.setType(type);
+        assertEquals("Raw Part", partService.getAllTypes().get(type));
+        type = 3l;
+        p.setType(type);
+        assertEquals("Production Part", partService.getAllTypes().get(type));
+        type = 9l;
+        p.setType(type);
+        assertEquals("Box", partService.getAllTypes().get(type));
+        type = 10l;
+        p.setType(type);
+        assertEquals("Carrier", partService.getAllTypes().get(type));
+        type = 11l;
+        p.setType(type);
+        assertEquals("Pallet", partService.getAllTypes().get(type));
+        type = 90l;
+        p.setType(type);
+        assertEquals("Spare Part", partService.getAllTypes().get(type));
+        type = 92l;
+        p.setType(type);
+        assertEquals("", partService.getAllTypes().get(type));
     }
 
     @Test
@@ -91,5 +115,21 @@ public class PartServiceTest {
         a.setSafetyStock(1l);
         a.setType(1l);
         assertNotNull(partService.createPart(a));
+    }
+
+    @Test
+    public void testNonEmptyCreatePartProd() {
+        CreatePartAux a = new CreatePartAux();
+        a.setBasePallet(1l);
+        a.setDefaultResourceId(1l);
+        a.setDescription("Test");
+        a.setLotSize(1l);
+        a.setPartNumber(1l);
+        a.setMrpType(1l);
+        a.setPicture("Test");
+        a.setPartNumber(1l);
+        a.setSafetyStock(1l);
+        a.setType(3l);
+        assertEquals(a.getWorkPlanNumber(), partService.createPart(a).getWorkPlanNumber());
     }
 }
