@@ -15,6 +15,7 @@ import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
@@ -24,6 +25,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    private final FinishedOrderRepository finishedOrderRepository;
+
     private final OrderPositionRepository orderPositionRepository;
 
     private final ClientService clientService;
@@ -32,9 +35,10 @@ public class OrderService {
 
     private final StepService stepService;
 
-    public OrderService(OrderRepository orderRepository, OrderPositionRepository orderPositionRepository,
+    public OrderService(FinishedOrderRepository finishedOrderRepository,OrderRepository orderRepository, OrderPositionRepository orderPositionRepository,
             ClientService clientService, ResourceForOperationRepository resourceForOperationRepository,
             StepService stepService) {
+                this.finishedOrderRepository = finishedOrderRepository;
         this.orderRepository = orderRepository;
         this.orderPositionRepository = orderPositionRepository;
         this.clientService = clientService;
@@ -53,7 +57,7 @@ public class OrderService {
     }
 
     private List<OrderDTO> getAllFinishedOrders() {
-        return orderRepository.finishedOrders().stream()
+        return finishedOrderRepository.finishedOrders().stream()
                 .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
                 .collect(Collectors.toList());
     }
@@ -170,7 +174,7 @@ public class OrderService {
         else if (name.equals("In process"))
             value = orderRepository.inProcessOrdersCount();
         else if (name.equals("Finished"))
-            value = orderRepository.finishedOrdersCount();
+            value = finishedOrderRepository.finishedOrdersCount();
         else
             value = orderRepository.allOrdersCount();
         return value;

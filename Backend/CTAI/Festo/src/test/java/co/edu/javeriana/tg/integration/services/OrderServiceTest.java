@@ -22,10 +22,12 @@ import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Client;
+import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.Operation;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperationPK;
+import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
@@ -43,6 +45,9 @@ public class OrderServiceTest {
 
     @MockBean
     private OrderRepository orderRepository;
+
+    @MockBean
+    private FinishedOrderRepository finishedOrderRepository;
 
     @MockBean
     private OrderPositionRepository orderPositionRepository;
@@ -185,8 +190,8 @@ public class OrderServiceTest {
         Long status = 1l;
         Order unstarted = new Order(1l);
         Order inProcess = new Order(2l);
-        Order finished = new Order(3l);
-        when(orderRepository.finishedOrders()).thenReturn(List.of(finished));
+        FinishedOrder finished = new FinishedOrder(3l);
+        when(finishedOrderRepository.finishedOrders()).thenReturn(List.of(finished));
         when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
         when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
         try {
@@ -201,8 +206,8 @@ public class OrderServiceTest {
         Long status = 2l;
         Order unstarted = new Order(1l);
         Order inProcess = new Order(2l);
-        Order finished = new Order(3l);
-        when(orderRepository.finishedOrders()).thenReturn(List.of(finished));
+        FinishedOrder finished = new FinishedOrder(3l);
+        when(finishedOrderRepository.finishedOrders()).thenReturn(List.of(finished));
         when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
         when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
         try {
@@ -217,8 +222,8 @@ public class OrderServiceTest {
         Long status = 3l;
         Order unstarted = new Order(1l);
         Order inProcess = new Order(2l);
-        Order finished = new Order(3l);
-        when(orderRepository.finishedOrders()).thenReturn(List.of(finished));
+        FinishedOrder finished = new FinishedOrder(3l);
+        when(finishedOrderRepository.finishedOrders()).thenReturn(List.of(finished));
         when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
         when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
         try {

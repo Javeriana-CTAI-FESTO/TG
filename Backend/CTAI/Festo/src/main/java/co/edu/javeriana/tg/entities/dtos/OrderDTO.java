@@ -2,6 +2,7 @@ package co.edu.javeriana.tg.entities.dtos;
 
 import java.util.Date;
 
+import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
 
@@ -260,6 +261,14 @@ public class OrderDTO {
     }
 
     public OrderDTO(Order order, ClientDTO client) {
+        this.orderNumber = order.getOrderNumber();
+        this.orderState = order.getState();
+        this.enabled = order.getEnabled();
+        this.release = order.getRelease();
+        this.client = client;
+    }
+
+    public OrderDTO(FinishedOrder order, ClientDTO client) {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
