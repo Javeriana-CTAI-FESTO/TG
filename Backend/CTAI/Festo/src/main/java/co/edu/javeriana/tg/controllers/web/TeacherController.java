@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.controllers.web.teacher;
+package co.edu.javeriana.tg.controllers.web;
 
 import java.util.Date;
 import java.util.List;
@@ -12,37 +12,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.javeriana.tg.controllers.interfaces.TeacherInterface;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
-import co.edu.javeriana.tg.services.OrderService;
-import co.edu.javeriana.tg.services.PartService;
-import co.edu.javeriana.tg.services.WorkPlanService;
+import co.edu.javeriana.tg.services.users.TeacherService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api/teacher")
-public class TeacherController implements TeacherInterface {
+public class TeacherController {
 
-    private final WorkPlanService workPlanService;
+    private final TeacherService teacherService;
 
-    private final OrderService orderService;
-
-    private final PartService partService;
-
-    public TeacherController(WorkPlanService workPlanService, OrderService orderService, PartService partService) {
-        this.workPlanService = workPlanService;
-        this.orderService = orderService;
-        this.partService = partService;
+    public TeacherController(TeacherService teacherService) {
+        this.teacherService = teacherService;
     }
 
     // View Stock
     @GetMapping("/parts")
     public ResponseEntity<List<PartDTO>> getAllParts() {
-        List<PartDTO> resources = partService.getAll();
+        List<PartDTO> resources = teacherService.getAllParts();
         HttpStatus status = HttpStatus.OK;
         if (resources.isEmpty())
             status = HttpStatus.NO_CONTENT;
@@ -54,7 +45,7 @@ public class TeacherController implements TeacherInterface {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = partService.getAllTypes();
+            workPlans = teacherService.getAllPartsTypes();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -69,7 +60,7 @@ public class TeacherController implements TeacherInterface {
         List<PartDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = partService.getAllByType(typeId);
+            workPlans = teacherService.getAllPartsByType(typeId);
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -86,7 +77,7 @@ public class TeacherController implements TeacherInterface {
         List<WorkPlanDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.getAll();
+            workPlans = teacherService.getAllWorkPlans();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -102,7 +93,7 @@ public class TeacherController implements TeacherInterface {
         WorkPlanDTO workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.getById(id);
+            workPlans = teacherService.getWorkPlanById(id);
             status = HttpStatus.OK;
             if (workPlans == null)
                 status = HttpStatus.NO_CONTENT;
@@ -117,7 +108,7 @@ public class TeacherController implements TeacherInterface {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.getTypes();
+            workPlans = teacherService.getAllWorkPlansTypes();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -132,7 +123,7 @@ public class TeacherController implements TeacherInterface {
         List<WorkPlanDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.getWorkPlansByType(typeId);
+            workPlans = teacherService.getWorkPlansByType(typeId);
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -149,7 +140,7 @@ public class TeacherController implements TeacherInterface {
         WorkPlanDTO workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = workPlanService.createWorkPlan(createRequest);
+            workPlans = teacherService.createWorkPlan(createRequest);
             status = HttpStatus.OK;
             if (workPlans==null)
                 status = HttpStatus.NO_CONTENT;
@@ -166,7 +157,7 @@ public class TeacherController implements TeacherInterface {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = orderService.getOrdersWithStatus();
+            workPlans = teacherService.getOrdersWithStatus();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -178,7 +169,7 @@ public class TeacherController implements TeacherInterface {
 
     @GetMapping("/orders/ends")
     public ResponseEntity<List<Date>> getAllPlannedEnds(){
-        List<Date> workPlans = orderService.getAllPlannedEnds();
+        List<Date> workPlans = teacherService.getAllOrdersPlannedEnds();
         HttpStatus status = HttpStatus.OK;
         if (workPlans.isEmpty())
             status = HttpStatus.NO_CONTENT;
@@ -190,7 +181,7 @@ public class TeacherController implements TeacherInterface {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = orderService.getPossibleStatus();
+            workPlans = teacherService.getOrdersPossibleStatus();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -205,7 +196,7 @@ public class TeacherController implements TeacherInterface {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = orderService.filterByStatus(orderStatus);
+            workPlans = teacherService.filterOrdersByStatus(orderStatus);
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -222,7 +213,7 @@ public class TeacherController implements TeacherInterface {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = orderService.getOrdersWithTime();
+            workPlans = teacherService.getOrdersWithTime();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
@@ -238,7 +229,7 @@ public class TeacherController implements TeacherInterface {
         List<IndicatorAux> workPlans = null;
         HttpStatus status = HttpStatus.NOT_FOUND;
         try {
-            workPlans = orderService.getIndicators();
+            workPlans = teacherService.getProductionIndicators();
             status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;

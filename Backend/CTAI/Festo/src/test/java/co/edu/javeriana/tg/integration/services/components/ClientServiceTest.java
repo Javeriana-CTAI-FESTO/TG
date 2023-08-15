@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.repositories.interfaces.ClientRepository;
-import co.edu.javeriana.tg.services.ClientService;
+import co.edu.javeriana.tg.services.components.ClientService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -37,5 +37,17 @@ public class ClientServiceTest {
     @Test
     public void testEmptyGetClient() {
         assertNull(clientService.getClient(1l));
+    }
+
+    @Test
+    public void testEmptyCreateClient() {
+        Client c = new Client();
+        when(clientRepository.save(c)).thenThrow(RuntimeException.class);
+        assertNull(clientService.createClient(c));
+    }
+
+     @Test
+    public void testCreateClient() {
+        assertNotNull(clientService.createClient(new Client(1l)));
     }
 }

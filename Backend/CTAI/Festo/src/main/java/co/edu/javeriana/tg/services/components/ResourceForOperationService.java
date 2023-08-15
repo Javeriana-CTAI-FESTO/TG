@@ -1,10 +1,10 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
@@ -13,7 +13,7 @@ import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
-@Service
+@Component
 public class ResourceForOperationService {
     
     private final ResourceForOperationRepository resourceForOperationRepository;

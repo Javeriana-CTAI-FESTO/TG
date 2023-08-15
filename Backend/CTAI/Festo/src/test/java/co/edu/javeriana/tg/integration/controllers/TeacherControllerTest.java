@@ -15,15 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.google.gson.Gson;
 
-import co.edu.javeriana.tg.controllers.web.teacher.TeacherController;
+import co.edu.javeriana.tg.controllers.web.TeacherController;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
-import co.edu.javeriana.tg.services.OrderService;
-import co.edu.javeriana.tg.services.PartService;
-import co.edu.javeriana.tg.services.WorkPlanService;
+import co.edu.javeriana.tg.services.users.TeacherService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -47,13 +45,7 @@ public class TeacherControllerTest {
     private MockMvc mvc;
     
     @MockBean
-    private PartService partService;
-    
-    @MockBean
-    private WorkPlanService workPlanService;
-
-    @MockBean
-    private OrderService orderService;
+    private TeacherService teacherService;
 
     private static final Gson gson = new Gson();
     private static final String BASEURI = "/api/teacher";
@@ -61,7 +53,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllParts() {
         try {
-            when(partService.getAll()).thenReturn(new ArrayList<>(0));
+            when(teacherService.getAllParts()).thenReturn(new ArrayList<>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -73,7 +65,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetAllParts() {
         try {
-            when(partService.getAll()).thenReturn(List.of(new PartDTO()));
+            when(teacherService.getAllParts()).thenReturn(List.of(new PartDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -85,7 +77,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllPartsType() {
         try {
-            when(partService.getAllTypes()).thenReturn(new HashMap<Long, String>(0));
+            when(teacherService.getAllPartsTypes()).thenReturn(new HashMap<Long, String>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -98,7 +90,7 @@ public class TeacherControllerTest {
     public void testNonEmptyGetAllPartsType() {
         try {
             Long type = 1l;
-            when(partService.getAllTypes()).thenReturn(Map.of(type, "Test"));
+            when(teacherService.getAllPartsTypes()).thenReturn(Map.of(type, "Test"));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -110,7 +102,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetAllPartsType() {
         try {
-            when(partService.getAllTypes()).thenThrow(new RuntimeException());
+            when(teacherService.getAllPartsTypes()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -123,7 +115,7 @@ public class TeacherControllerTest {
     public void testEmptyGetAllPartsByType() {
         try {
             Long type = 1l;
-            when(partService.getAllByType(type)).thenReturn(new ArrayList<PartDTO>(0));
+            when(teacherService.getAllPartsByType(type)).thenReturn(new ArrayList<PartDTO>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -136,7 +128,7 @@ public class TeacherControllerTest {
     public void testNonEmptyGetAllPartsByType() {
         try {
             Long type = 1l;
-            when(partService.getAllByType(type)).thenReturn(List.of(new PartDTO()));
+            when(teacherService.getAllPartsByType(type)).thenReturn(List.of(new PartDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -149,7 +141,7 @@ public class TeacherControllerTest {
     public void testNotFoundGetAllPartsByType() {
         try {
             Long type = 1l;
-            when(partService.getAllByType(type)).thenThrow(new RuntimeException());
+            when(teacherService.getAllPartsByType(type)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -161,7 +153,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllWorkPlans() {
         try {
-            when(workPlanService.getAll()).thenReturn(new ArrayList<>(0));
+            when(teacherService.getAllWorkPlans()).thenReturn(new ArrayList<>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -173,7 +165,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetAllWorkPlans() {
         try {
-            when(workPlanService.getAll()).thenReturn(List.of(new WorkPlanDTO()));
+            when(teacherService.getAllWorkPlans()).thenReturn(List.of(new WorkPlanDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -185,7 +177,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetAllWorkPlans() {
         try {
-            when(workPlanService.getAll()).thenThrow(new RuntimeException());
+            when(teacherService.getAllWorkPlans()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -198,7 +190,7 @@ public class TeacherControllerTest {
     public void testEmptyGetWorkPlansById() {
         try {
             Long product = 1l;
-            when(workPlanService.getById(product)).thenReturn(null);
+            when(teacherService.getWorkPlanById(product)).thenReturn(null);
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -211,7 +203,7 @@ public class TeacherControllerTest {
     public void testNonEmptyGetWorkPlansById() {
         try {
             Long product = 1l;
-            when(workPlanService.getById(product)).thenReturn(new WorkPlanDTO());
+            when(teacherService.getWorkPlanById(product)).thenReturn(new WorkPlanDTO());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -224,7 +216,7 @@ public class TeacherControllerTest {
     public void testNotFoundGetWorkPlansById() {
         try {
             Long product = 1l;
-            when(workPlanService.getById(product)).thenThrow(new RuntimeException());
+            when(teacherService.getWorkPlanById(product)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -236,7 +228,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetWorkPlanTypes() {
         try {
-            when(workPlanService.getTypes()).thenReturn(new HashMap<Long, String>(0));
+            when(teacherService.getAllWorkPlansTypes()).thenReturn(new HashMap<Long, String>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -248,7 +240,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetWorkPlanTypes() {
         try {
-            when(workPlanService.getTypes()).thenReturn(Map.of(1l, "Test"));
+            when(teacherService.getAllWorkPlansTypes()).thenReturn(Map.of(1l, "Test"));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -260,7 +252,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetWorkPlanTypes() {
         try {
-            when(workPlanService.getTypes()).thenThrow(new RuntimeException());
+            when(teacherService.getAllWorkPlansTypes()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -273,7 +265,7 @@ public class TeacherControllerTest {
     public void testEmptyGetWorkPlansByType() {
         try {
             Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenReturn(new ArrayList<WorkPlanDTO>(0));
+            when(teacherService.getWorkPlansByType(type)).thenReturn(new ArrayList<WorkPlanDTO>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -286,7 +278,7 @@ public class TeacherControllerTest {
     public void testNonEmptyGetWorkPlansByType() {
         try {
             Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenReturn(List.of(new WorkPlanDTO()));
+            when(teacherService.getWorkPlansByType(type)).thenReturn(List.of(new WorkPlanDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -299,7 +291,7 @@ public class TeacherControllerTest {
     public void testNotFoundGetWorkPlansByType() {
         try {
             Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenThrow(new RuntimeException());
+            when(teacherService.getWorkPlansByType(type)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -312,7 +304,7 @@ public class TeacherControllerTest {
     public void testEmptyCreateWorkPlan() {
         try {
             CreateWorkPlanAux aux = new CreateWorkPlanAux();
-            when(workPlanService.createWorkPlan(aux)).thenReturn(null);
+            when(teacherService.createWorkPlan(aux)).thenReturn(null);
             MockHttpServletResponse response = mvc.perform(post(BASEURI+"/products")
             .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -325,7 +317,7 @@ public class TeacherControllerTest {
     public void testNonEmptyCreateWorkPlan() {
         try {
             CreateWorkPlanAux aux = new CreateWorkPlanAux();
-            when(workPlanService.createWorkPlan(aux)).thenReturn(new WorkPlanDTO());
+            when(teacherService.createWorkPlan(aux)).thenReturn(new WorkPlanDTO());
             MockHttpServletResponse response = mvc.perform(post(BASEURI+"/products")
             .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -338,7 +330,7 @@ public class TeacherControllerTest {
     public void testNotFoundCreateWorkPlan() {
         try {
            CreateWorkPlanAux aux = new CreateWorkPlanAux();
-            when(workPlanService.createWorkPlan(aux)).thenThrow(new RuntimeException());
+            when(teacherService.createWorkPlan(aux)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(post(BASEURI+"/products")
             .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -350,7 +342,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllWorkPlanStatus() {
         try {
-            when(orderService.getOrdersWithStatus()).thenReturn(new ArrayList<OrderDTO>(0));
+            when(teacherService.getOrdersWithStatus()).thenReturn(new ArrayList<OrderDTO>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -362,7 +354,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetAllWorkPlanStatus() {
         try {
-            when(orderService.getOrdersWithStatus()).thenReturn(List.of(new OrderDTO()));
+            when(teacherService.getOrdersWithStatus()).thenReturn(List.of(new OrderDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -374,7 +366,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetAllWorkPlanStatus() {
         try {
-            when(orderService.getOrdersWithStatus()).thenThrow(new RuntimeException());
+            when(teacherService.getOrdersWithStatus()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -386,7 +378,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllPlannedEnds() {
         try {
-            when(orderService.getAllPlannedEnds()).thenReturn(new ArrayList<Date>(0));
+            when(teacherService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<Date>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -398,7 +390,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetAllPlannedEnds() {
         try {
-            when(orderService.getAllPlannedEnds()).thenReturn(List.of(new Date()));
+            when(teacherService.getAllOrdersPlannedEnds()).thenReturn(List.of(new Date()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -410,7 +402,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetStatus() {
         try {
-            when(orderService.getPossibleStatus()).thenReturn(new HashMap<Long, String>(0));
+            when(teacherService.getOrdersPossibleStatus()).thenReturn(new HashMap<Long, String>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -422,7 +414,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetStatus() {
         try {
-            when(orderService.getPossibleStatus()).thenReturn(Map.of(1l, "Test"));
+            when(teacherService.getOrdersPossibleStatus()).thenReturn(Map.of(1l, "Test"));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -434,7 +426,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetStatus() {
         try {
-            when(orderService.getPossibleStatus()).thenThrow(new RuntimeException());
+            when(teacherService.getOrdersPossibleStatus()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -447,7 +439,7 @@ public class TeacherControllerTest {
     public void testEmptyGetOrdersByStatus() {
         try {
             Long status = 1l;
-            when(orderService.filterByStatus(status)).thenReturn(new ArrayList<OrderDTO>(0));
+            when(teacherService.filterOrdersByStatus(status)).thenReturn(new ArrayList<OrderDTO>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -460,7 +452,7 @@ public class TeacherControllerTest {
     public void testNonEmptyGetOrdersByStatus() {
         try {
             Long status = 1l;
-            when(orderService.filterByStatus(status)).thenReturn(List.of(new OrderDTO()));
+            when(teacherService.filterOrdersByStatus(status)).thenReturn(List.of(new OrderDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -473,7 +465,7 @@ public class TeacherControllerTest {
     public void testNotFoundGetOrdersByStatus() {
         try {
             Long status = 1l;
-            when(orderService.filterByStatus(status)).thenThrow(new RuntimeException());
+            when(teacherService.filterOrdersByStatus(status)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -485,7 +477,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetOrdersTime() {
         try {
-            when(orderService.getOrdersWithTime()).thenReturn(new ArrayList<OrderDTO>(0));
+            when(teacherService.getOrdersWithTime()).thenReturn(new ArrayList<OrderDTO>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -497,7 +489,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetOrdersTime() {
         try {
-            when(orderService.getOrdersWithTime()).thenReturn(List.of(new OrderDTO()));
+            when(teacherService.getOrdersWithTime()).thenReturn(List.of(new OrderDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -509,7 +501,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetOrdersTime() {
         try {
-            when(orderService.getOrdersWithTime()).thenThrow(new RuntimeException());
+            when(teacherService.getOrdersWithTime()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
@@ -521,7 +513,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllIndicators() {
         try {
-            when(orderService.getIndicators()).thenReturn(new ArrayList<IndicatorAux>(0));
+            when(teacherService.getProductionIndicators()).thenReturn(new ArrayList<IndicatorAux>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -533,7 +525,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetAllIndicators() {
         try {
-            when(orderService.getIndicators()).thenReturn(List.of(new IndicatorAux()));
+            when(teacherService.getProductionIndicators()).thenReturn(List.of(new IndicatorAux()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -545,7 +537,7 @@ public class TeacherControllerTest {
     @Test
     public void testNotFoundGetAllIndicators() {
         try {
-            when(orderService.getIndicators()).thenThrow(new RuntimeException());
+            when(teacherService.getProductionIndicators()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());

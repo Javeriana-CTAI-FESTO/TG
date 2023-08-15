@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -22,8 +22,8 @@ import co.edu.javeriana.tg.entities.managed.MachineReportPK;
 import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.repositories.interfaces.MachineReportRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
-import co.edu.javeriana.tg.services.MachineReportService;
-import co.edu.javeriana.tg.services.ResourceService;
+import co.edu.javeriana.tg.services.components.MachineReportService;
+import co.edu.javeriana.tg.services.components.ResourceService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -41,6 +41,33 @@ public class MachineReportServiceTest {
 
     @MockBean
     private ResourceRepository resourceRepository;
+
+    @Test
+    public void testEmptyGetAllFails() {
+        assertEquals(0, machineReportService.getAllFails().size());
+    }
+
+    @Test
+    public void testNonEmptyGetAllFails() {
+        MachineReportPK primaryKey = new MachineReportPK(1l, 1l, Date.from(Instant.now()));
+        when(resourceRepository.findById(1l)).thenReturn(Optional.of(new Resource(1l)));
+        when(reportRepository.findFails()).thenReturn(List.of(new MachineReport(primaryKey)));
+        assertEquals(1, machineReportService.getAllFails().size());
+    }
+
+    @Test
+    public void testEmptyGetAllFailsForMachine() {
+        Long resourceID = 1l;
+        assertEquals(0, machineReportService.getAllFailsForMachine(resourceID).size());
+    }
+
+    @Test
+    public void testNonEmptyGetAllFailsForMachine() {
+        Long resourceID = 1l;
+        MachineReportPK primaryKey = new MachineReportPK(1l, resourceID, Date.from(Instant.now()));
+        when(reportRepository.findFailsByResource(resourceID)).thenReturn(List.of(new MachineReport(primaryKey)));
+        assertEquals(1, machineReportService.getAllFailsForMachine(resourceID).size());
+    }
 
     @Test
     public void testEmptyGetAll() {

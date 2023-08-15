@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import org.junit.runner.RunWith;
 
@@ -20,9 +20,9 @@ import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
-import co.edu.javeriana.tg.services.OperationService;
-import co.edu.javeriana.tg.services.StepService;
-import co.edu.javeriana.tg.services.WorkPlanService;
+import co.edu.javeriana.tg.services.components.OperationService;
+import co.edu.javeriana.tg.services.components.StepService;
+import co.edu.javeriana.tg.services.components.WorkPlanService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")

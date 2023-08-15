@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import org.junit.runner.RunWith;
 
@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.managed.Operation;
 import co.edu.javeriana.tg.repositories.interfaces.OperationRepository;
-import co.edu.javeriana.tg.services.OperationService;
+import co.edu.javeriana.tg.services.components.OperationService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")

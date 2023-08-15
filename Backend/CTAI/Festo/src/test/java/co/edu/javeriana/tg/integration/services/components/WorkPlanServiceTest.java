@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import org.junit.runner.RunWith;
 
@@ -23,8 +23,8 @@ import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
-import co.edu.javeriana.tg.services.OperationService;
-import co.edu.javeriana.tg.services.WorkPlanService;
+import co.edu.javeriana.tg.services.components.OperationService;
+import co.edu.javeriana.tg.services.components.WorkPlanService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")

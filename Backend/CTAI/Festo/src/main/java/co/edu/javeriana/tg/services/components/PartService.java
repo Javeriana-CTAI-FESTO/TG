@@ -1,17 +1,17 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 
-@Service
+@Component
 public class PartService {
 
     private final PartRepository partRepository;
@@ -75,4 +75,14 @@ public class PartService {
         }
         return createdPart;
     }
+
+    public Long getWorkPlanNumberByPart(Long partNumber) {
+        try {
+            return partRepository.findById(partNumber).get().getWorkPlanNumber();
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
 }

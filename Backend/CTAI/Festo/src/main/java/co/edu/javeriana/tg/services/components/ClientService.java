@@ -1,11 +1,12 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.ClientDTO;
+import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.repositories.interfaces.ClientRepository;
 
-@Service
+@Component
 public class ClientService {
     private final ClientRepository clientRepository;
 
@@ -20,5 +21,14 @@ public class ClientService {
         }
         return null;
 
+    }
+
+    public ClientDTO createClient(Client client){
+        try {
+            clientRepository.save(client);
+            return new ClientDTO(client);
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

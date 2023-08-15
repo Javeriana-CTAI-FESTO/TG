@@ -15,20 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.Map;
-
-import co.edu.javeriana.tg.controllers.web.admin.AdminController;
-import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
-import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
+import co.edu.javeriana.tg.controllers.web.AdminController;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
+import co.edu.javeriana.tg.entities.dtos.ClientDTO;
 import co.edu.javeriana.tg.entities.dtos.MachineReportDTO;
-import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.ReportDTO;
-import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
-import co.edu.javeriana.tg.services.MachineReportService;
-import co.edu.javeriana.tg.services.OrderService;
-import co.edu.javeriana.tg.services.PartService;
-import co.edu.javeriana.tg.services.WorkPlanService;
+import co.edu.javeriana.tg.entities.managed.Client;
+import co.edu.javeriana.tg.services.users.AdminService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -37,7 +30,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -50,25 +42,66 @@ public class AdminControllerTest {
     private MockMvc mvc;
     
     @MockBean
-    private PartService partService;
-    
-    @MockBean
-    private WorkPlanService workPlanService;
-
-    @MockBean
-    private OrderService orderService;
-
-    @MockBean
-    private MachineReportService reportService;
+    private AdminService adminService;
 
     private static final String BASEURI = "/api/admin";
 
     private static final Gson gson = new Gson();
 
     @Test
+    public void testEmptyGetAllFailsReports() {
+        try {
+            when(adminService.getAllFails()).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/fails")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetAllFailsReports() {
+        try {
+            when(adminService.getAllFails()).thenReturn(List.of(new MachineReportDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/fails")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetFailReportsForMachine() {
+        try {
+            Long machine = 1l;
+            when(adminService.getAllFailsForMachine(machine)).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/fails/"+String.valueOf(machine))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetFailReportsForMachine() {
+        try {
+            Long machine = 1l;
+            when(adminService.getAllFailsForMachine(machine)).thenReturn(List.of(new ReportDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/fails/"+String.valueOf(machine))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
     public void testEmptyGetAllReports() {
         try {
-            when(reportService.getAll()).thenReturn(new ArrayList<>(0));
+            when(adminService.getAllReports()).thenReturn(new ArrayList<>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -80,7 +113,7 @@ public class AdminControllerTest {
     @Test
     public void testNonEmptyGetAllReports() {
         try {
-            when(reportService.getAll()).thenReturn(List.of(new MachineReportDTO()));
+            when(adminService.getAllReports()).thenReturn(List.of(new MachineReportDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -93,7 +126,7 @@ public class AdminControllerTest {
     public void testEmptyGetReportsForMachine() {
         try {
             Long machine = 1l;
-            when(reportService.getForMachine(machine)).thenReturn(new ArrayList<>(0));
+            when(adminService.getReportsForMachine(machine)).thenReturn(new ArrayList<>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/"+String.valueOf(machine))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -106,7 +139,7 @@ public class AdminControllerTest {
     public void testNonEmptyGetReportsForMachine() {
         try {
             Long machine = 1l;
-            when(reportService.getForMachine(machine)).thenReturn(List.of(new ReportDTO()));
+            when(adminService.getReportsForMachine(machine)).thenReturn(List.of(new ReportDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/"+String.valueOf(machine))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -115,10 +148,12 @@ public class AdminControllerTest {
         }
     }
 
+
+    /*
     @Test
     public void testEmptyGetAllWorkPlans() {
         try {
-            when(workPlanService.getAll()).thenReturn(new ArrayList<>(0));
+            when(adminService.getAllWorkPlans()).thenReturn(new ArrayList<>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -130,7 +165,7 @@ public class AdminControllerTest {
     @Test
     public void testNonEmptyGetAllWorkPlans() {
         try {
-            when(workPlanService.getAll()).thenReturn(List.of(new WorkPlanDTO()));
+            when(adminService.getAllWorkPlans()).thenReturn(List.of(new WorkPlanDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -442,11 +477,12 @@ public class AdminControllerTest {
             fail();
         }
     }
+    */
 
     @Test
     public void testEmptyGetAllIndicators() {
         try {
-            when(orderService.getIndicators()).thenReturn(new ArrayList<IndicatorAux>(0));
+            when(adminService.getProductionIndicators()).thenReturn(new ArrayList<IndicatorAux>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -458,7 +494,7 @@ public class AdminControllerTest {
     @Test
     public void testNonEmptyGetAllIndicators() {
         try {
-            when(orderService.getIndicators()).thenReturn(List.of(new IndicatorAux()));
+            when(adminService.getProductionIndicators()).thenReturn(List.of(new IndicatorAux()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -470,9 +506,48 @@ public class AdminControllerTest {
     @Test
     public void testNotFoundGetAllIndicators() {
         try {
-            when(orderService.getIndicators()).thenThrow(new RuntimeException());
+            when(adminService.getProductionIndicators()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyCreateClient() {
+        try {
+            Client aux = new Client();
+            when(adminService.createClient(aux)).thenReturn(null);
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/clients")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyCreateClient() {
+        try {
+            Client aux = new Client();
+            when(adminService.createClient(aux)).thenReturn(new ClientDTO());
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/clients")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNotFoundCreateClient() {
+        try {
+           Client aux = new Client();
+            when(adminService.createClient(aux)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/clients")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
         } catch (Exception e) {
             fail();

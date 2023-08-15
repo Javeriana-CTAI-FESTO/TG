@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
@@ -20,7 +20,7 @@ import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
-@Service
+@Component
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -35,15 +35,18 @@ public class OrderService {
 
     private final StepService stepService;
 
+    private final PartService partService;
+
     public OrderService(FinishedOrderRepository finishedOrderRepository,OrderRepository orderRepository, OrderPositionRepository orderPositionRepository,
             ClientService clientService, ResourceForOperationRepository resourceForOperationRepository,
-            StepService stepService) {
+            StepService stepService, PartService workPlanService) {
                 this.finishedOrderRepository = finishedOrderRepository;
         this.orderRepository = orderRepository;
         this.orderPositionRepository = orderPositionRepository;
         this.clientService = clientService;
         this.resourceForOperationRepository = resourceForOperationRepository;
         this.stepService = stepService;
+        this.partService = workPlanService;
     }
 
     public List<OrderDTO> getAll() {
@@ -74,8 +77,9 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO generateNewOrder(Long workPlanNumber, Long clientNumber, Long positions) {
+    public OrderDTO generateNewOrder(Long partNumber, Long clientNumber, Long positions) {
         OrderDTO orderDTO = null;
+        Long workPlanNumber = partService.getWorkPlanNumberByPart(partNumber);
         try {
             if (stepService.getWorkPlanOperationsCount(workPlanNumber) < 1)
                 throw new Exception("Order has no steps");
@@ -96,19 +100,20 @@ public class OrderService {
             order.setRelease(end);
             orderRepository.save(order);
             OrderPosition orderPosition = null;
-            for (Long i = 1L; i <= positions; i++) {
-                StepDefinitionDTO firstStep = stepService.firstStepByWorkplan(workPlanNumber);
+            for (Long i = 0L; i < positions; i++) {
+                StepDefinitionDTO firstStep = stepService.firstStepByWorkplan(partNumber);
                 orderPosition = new OrderPosition();
-                orderPosition.setOrderPosition(i);
+                orderPosition.setOrderPosition(i+1);
                 orderPosition.setWorkPlanNumber(workPlanNumber);
-                orderPosition.setPart(workPlanNumber);
-                orderPosition.setOrderPartNumber(workPlanNumber);
+                orderPosition.setPart(partNumber);
+                orderPosition.setOrderPartNumber(partNumber);
                 orderPosition.setOrder(order.getOrderNumber());
                 orderPosition.setPlannedStart(start);
                 orderPosition.setPlannedEnd(end);
                 orderPosition.setMainOrderPosition(0l);
                 orderPosition.setStepNumber(firstStep.getStepNumber());
                 orderPosition.setState(0l);
+                orderPosition.setOperationNumber(0l);
                 orderPosition.setResourceNumber(resourceForOperationRepository
                         .minorTimeOperation(firstStep.getOperation().getOperationNumber()).getResource());
                 orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
@@ -160,10 +165,8 @@ public class OrderService {
         return Map.of(1L, "Unstarted", 2L, "In process", 3L, "Finished");
     }
 
-    public List<OrderDTO> filterByStatus(Long status) throws Exception {
-        if (status > 3 || status < 0)
-            throw new Exception("Invalid");
-        return (status == 1) ? getAllUnstartedOrders()
+    public List<OrderDTO> filterByStatus(Long status){
+        return (status > 3 || status < 0) ? null : (status == 1) ? getAllUnstartedOrders()
                 : (status == 2) ? getAllInProcessOrders() : getAllFinishedOrders();
     }
 
