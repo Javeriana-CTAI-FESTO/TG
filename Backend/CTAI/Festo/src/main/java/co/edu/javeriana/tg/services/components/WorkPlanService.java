@@ -1,11 +1,10 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
@@ -16,7 +15,7 @@ import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
 
-@Service
+@Component
 public class WorkPlanService {
 
     private final WorkPlanDefinitionRepository workPlanRepository;

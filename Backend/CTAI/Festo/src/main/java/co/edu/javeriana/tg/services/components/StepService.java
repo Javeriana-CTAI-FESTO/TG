@@ -1,17 +1,17 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 
-@Service
+@Component
 public class StepService {
 
     private final StepDefinitionRepository stepDefinitionRepository;

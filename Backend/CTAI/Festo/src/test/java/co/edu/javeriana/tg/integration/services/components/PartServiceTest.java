@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import org.junit.runner.RunWith;
 
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
 import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
-import co.edu.javeriana.tg.services.PartService;
+import co.edu.javeriana.tg.services.components.PartService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -40,6 +41,20 @@ public class PartServiceTest {
     public void testNonEmptyGetAll() {
         when(partRepository.findAll()).thenReturn(List.of(new Part(1L)));
         assertEquals(1, partService.getAll().size());
+    }
+
+    @Test
+    public void testEmptyGetWorkPlanNumberByPart() {
+        assertNull(partService.getWorkPlanNumberByPart(1l));
+    }
+
+    @Test
+    public void testNonEmptyGetWorkPlanNumberByPart() {
+        Part p = new Part();
+        p.setPartNumber(1l);
+        p.setWorkPlanNumber(1l);
+        when(partRepository.findById(1l)).thenReturn(Optional.of(p));
+        assertEquals(p.getWorkPlanNumber(), partService.getWorkPlanNumberByPart(p.getPartNumber()));
     }
 
     @Test

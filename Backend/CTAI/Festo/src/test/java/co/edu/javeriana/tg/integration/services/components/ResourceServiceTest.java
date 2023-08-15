@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import org.junit.runner.RunWith;
 
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
-import co.edu.javeriana.tg.services.ResourceService;
+import co.edu.javeriana.tg.services.components.ResourceService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")

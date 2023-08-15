@@ -1,4 +1,4 @@
-package co.edu.javeriana.tg.integration.services;
+package co.edu.javeriana.tg.integration.services.components;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -31,9 +31,10 @@ import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
-import co.edu.javeriana.tg.services.ClientService;
-import co.edu.javeriana.tg.services.OrderService;
-import co.edu.javeriana.tg.services.StepService;
+import co.edu.javeriana.tg.services.components.ClientService;
+import co.edu.javeriana.tg.services.components.OrderService;
+import co.edu.javeriana.tg.services.components.PartService;
+import co.edu.javeriana.tg.services.components.StepService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -60,6 +61,9 @@ public class OrderServiceTest {
 
     @MockBean
     private StepService stepService;
+
+    @MockBean
+    private PartService partService;
 
     @Test
     public void testEmptyGetAll() {
@@ -105,6 +109,7 @@ public class OrderServiceTest {
         Long lastONumber = 0l;
         when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
         when(orderRepository.getAllOrderNumbers()).thenReturn(List.of(lastONumber));
+        when(partService.getWorkPlanNumberByPart(workPlanNumber)).thenReturn(workPlanNumber);
         StepDefinitionDTO firstStep = new StepDefinitionDTO();
         firstStep.setStepNumber(lastONumber);
         firstStep.setOperation(new OperationDTO(new Operation(lastONumber)));
@@ -122,6 +127,7 @@ public class OrderServiceTest {
         Long positions = 1L;
         Long stepNumber = 0l;
         when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
+        when(partService.getWorkPlanNumberByPart(workPlanNumber)).thenReturn(workPlanNumber);
         StepDefinitionDTO firstStep = new StepDefinitionDTO();
         firstStep.setStepNumber(stepNumber);
         firstStep.setOperation(new OperationDTO(new Operation(stepNumber)));
@@ -181,8 +187,8 @@ public class OrderServiceTest {
 
     @Test
     public void testEmptyFilterByStatus() {
-        assertThrows(Exception.class, () -> orderService.filterByStatus(-1l));
-        assertThrows(Exception.class, () -> orderService.filterByStatus(4l));
+        assertNull(orderService.filterByStatus(-1l));
+        assertNull(orderService.filterByStatus(4l));
     }
 
     @Test

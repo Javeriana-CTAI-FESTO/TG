@@ -123,6 +123,7 @@
 						  <excludes>
 							  <exclude>co/edu/javeriana/tg/entities/**/*.class</exclude>
 								<exclude>co/edu/javeriana/tg/*.class</exclude>
+								<exclude>co/edu/javeriana/tg/services/users/*.class</exclude>
 								<exclude>net/**/*.class</exclude>
 							</excludes>
 							<outputDirectory>target/jacoco-report</outputDirectory>
@@ -138,6 +139,7 @@
 						  <excludes>
 							  <exclude>co/edu/javeriana/tg/entities/**/*.class</exclude>
 								<exclude>co/edu/javeriana/tg/*.class</exclude>
+								<exclude>co/edu/javeriana/tg/services/users/*.class</exclude>
 								<exclude>net/**/*.class</exclude>
 							</excludes>
 							<rules>

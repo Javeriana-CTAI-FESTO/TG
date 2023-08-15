@@ -1,14 +1,14 @@
-package co.edu.javeriana.tg.services;
+package co.edu.javeriana.tg.services.components;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.repositories.interfaces.OperationRepository;
 
-@Service
+@Component
 public class OperationService {
     
     private final OperationRepository operationRepository;
