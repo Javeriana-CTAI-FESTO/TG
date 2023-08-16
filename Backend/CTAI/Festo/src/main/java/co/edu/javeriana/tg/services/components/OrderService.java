@@ -15,6 +15,7 @@ import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
@@ -37,10 +38,11 @@ public class OrderService {
 
     private final PartService partService;
 
-    public OrderService(FinishedOrderRepository finishedOrderRepository,OrderRepository orderRepository, OrderPositionRepository orderPositionRepository,
+    public OrderService(FinishedOrderRepository finishedOrderRepository, OrderRepository orderRepository,
+            OrderPositionRepository orderPositionRepository,
             ClientService clientService, ResourceForOperationRepository resourceForOperationRepository,
             StepService stepService, PartService workPlanService) {
-                this.finishedOrderRepository = finishedOrderRepository;
+        this.finishedOrderRepository = finishedOrderRepository;
         this.orderRepository = orderRepository;
         this.orderPositionRepository = orderPositionRepository;
         this.clientService = clientService;
@@ -49,31 +51,31 @@ public class OrderService {
         this.partService = workPlanService;
     }
 
-    public List<OrderDTO> getAll() {
+    public List<OrderDTO> getAllOrders() {
         return orderRepository.findAll().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber())))
                 .collect(Collectors.toList());
     }
 
-    public List<Date> getAllPlannedEnds() {
+    public List<Date> getAllOrdersPlannedEnds() {
         return orderPositionRepository.findPlannedEnd();
     }
 
     private List<OrderDTO> getAllFinishedOrders() {
         return finishedOrderRepository.finishedOrders().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber())))
                 .collect(Collectors.toList());
     }
 
     private List<OrderDTO> getAllUnstartedOrders() {
         return orderRepository.notStartedOrders().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber())))
                 .collect(Collectors.toList());
     }
 
     private List<OrderDTO> getAllInProcessOrders() {
         return orderRepository.inProcessOrders().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber())))
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber())))
                 .collect(Collectors.toList());
     }
 
@@ -100,10 +102,11 @@ public class OrderService {
             order.setRelease(end);
             orderRepository.save(order);
             OrderPosition orderPosition = null;
-            for (Long i = 0L; i < positions; i++) {
-                StepDefinitionDTO firstStep = stepService.firstStepByWorkplan(partNumber);
+            List<StepDefinitionDTO> steps = stepService.stepsByWorkplan(workPlanNumber);
+            for (Long position = 0L; position < positions; position++) {
+                StepDefinitionDTO firstStep = steps.get(0);
                 orderPosition = new OrderPosition();
-                orderPosition.setOrderPosition(i+1);
+                orderPosition.setOrderPosition(position + 1);
                 orderPosition.setWorkPlanNumber(workPlanNumber);
                 orderPosition.setPart(partNumber);
                 orderPosition.setOrderPartNumber(partNumber);
@@ -113,15 +116,43 @@ public class OrderService {
                 orderPosition.setMainOrderPosition(0l);
                 orderPosition.setStepNumber(firstStep.getStepNumber());
                 orderPosition.setState(0l);
-                orderPosition.setOperationNumber(0l);
+                orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
                 orderPosition.setResourceNumber(resourceForOperationRepository
                         .minorTimeOperation(firstStep.getOperation().getOperationNumber()).getResource());
                 orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
                 orderPosition.setError(false);
                 orderPosition.setSubOrderBlocked(false);
                 orderPositionRepository.save(orderPosition);
+                for (int ste = 0; ste < steps.size(); ste++) {
+                    StepDefinitionDTO currentStep = steps.get(ste);
+                    Step step = new Step();
+                    step.setWorkPlanNumber(workPlanNumber);
+                    step.setStepNumber(currentStep.getStepNumber());
+                    step.setOrderNumber(orderNumber);
+                    step.setOrderPosition(position);
+                    step.setDescription(currentStep.getDescription());
+                    step.setOperation(currentStep.getOperation().getOperationNumber());
+                    step.setFirstStep(ste == 0);
+                    step.setNextWhenError(currentStep.getNextWhenError());
+                    step.setNewPartNumber(currentStep.getNewPartNumber());
+                    step.setPlannedStart(start);
+                    step.setPlannedEnd(end);
+                    step.setOperationNumberType(currentStep.getOperationNumberType());
+                    step.setResource(orderPosition.getResourceNumber());
+                    step.setTransportTime(currentStep.getTransportTime());
+                    step.setError(currentStep.getError());
+                    step.setCalculatedElectricEnergy(currentStep.getCalculatedElectricEnergy());
+                    step.setRealElectricEnergy(currentStep.getCalculatedElectricEnergy());
+                    step.setCalculatedCompressedAir(currentStep.getCalculatedCompressedAir());
+                    step.setRealCompressedAir(currentStep.getCalculatedCompressedAir());
+                    step.setFreeText(currentStep.getFreeText());
+                    if (ste < steps.size() - 1)
+                        step.setNextStepNumber(steps.get(ste + 1).getStepNumber());
+                    else
+                        step.setNextStepNumber(0l);
+                }
             }
-            orderDTO = new OrderDTO(order, clientService.getClient(clientNumber));
+            orderDTO = new OrderDTO(order, clientService.getClientByClientNumber(clientNumber));
         } catch (Exception e) {
 
         }
@@ -130,33 +161,42 @@ public class OrderService {
 
     private Long getNextOrderNumber() {
         try {
-            return orderRepository.getAllOrderNumbers().get(0) + 1;
+            Long numberExtractedOfUnfinishedOrders = orderRepository.getLastOrderNumber();
+            Long numberExtractedOfFinishedOrders = finishedOrderRepository.getLastOrderNumber();
+            return (numberExtractedOfFinishedOrders > numberExtractedOfUnfinishedOrders)
+                    ? numberExtractedOfFinishedOrders + 1
+                    : numberExtractedOfUnfinishedOrders + 1;
         } catch (Exception e) {
             return 1l;
         }
     }
 
-    private String evaluateStatus(Order order) {
+    private String evaluateStatusForOrder(Order order) {
         String status;
         if (order.getRealStart() != null && order.getRealEnd() == null)
             status = "In process";
         else if (order.getRealStart() == null)
             status = "Unstarted";
         else
-            status = "Finished";
+            status = "Error";
         return status;
     }
 
     public List<OrderDTO> getOrdersWithStatus() {
-        return orderRepository.findAll().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber()),
-                        this.evaluateStatus(order)))
+        List<OrderDTO> orders = orderRepository.findAll().stream()
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
+                        this.evaluateStatusForOrder(order)))
                 .collect(Collectors.toList());
+        orders.addAll(finishedOrderRepository.findAll().stream()
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
+                        "Finished"))
+                .collect(Collectors.toList()));
+        return orders;
     }
 
     public List<OrderDTO> getOrdersWithTime() {
         return orderRepository.findAll().stream()
-                .map(order -> new OrderDTO(order, clientService.getClient(order.getClientNumber()),
+                .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
                         this.timeForOrder(order.getOrderNumber())))
                 .collect(Collectors.toList());
     }
@@ -165,9 +205,10 @@ public class OrderService {
         return Map.of(1L, "Unstarted", 2L, "In process", 3L, "Finished");
     }
 
-    public List<OrderDTO> filterByStatus(Long status){
-        return (status > 3 || status < 0) ? null : (status == 1) ? getAllUnstartedOrders()
-                : (status == 2) ? getAllInProcessOrders() : getAllFinishedOrders();
+    public List<OrderDTO> filterByStatus(Long status) {
+        return (status > 3 || status < 0) ? null
+                : (status == 1) ? getAllUnstartedOrders()
+                        : (status == 2) ? getAllInProcessOrders() : getAllFinishedOrders();
     }
 
     private Long evaluateNameToGetIndicator(String name) {
@@ -193,6 +234,7 @@ public class OrderService {
     }
 
     public Long timeForOrder(Long orderNumber) {
+        // TODO Tabla step no es lo que se creia
         try {
             WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
             Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()

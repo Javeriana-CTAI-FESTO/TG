@@ -17,7 +17,7 @@ public class OperationService {
         this.operationRepository = operationRepository;
     }
 
-    public List<OperationDTO> getAll() {
+    public List<OperationDTO> getAllOperations() {
         return operationRepository.findAll().stream().map(OperationDTO::new).collect(Collectors.toList());
     }
 

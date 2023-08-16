@@ -46,7 +46,7 @@ public class StudentService {
   }
 
   public List<Date> getAllOrdersPlannedEnds() {
-    return orderService.getAllPlannedEnds();
+    return orderService.getAllOrdersPlannedEnds();
   }
 
   public Map<Long, String> getOrdersPossibleStatus() {
@@ -63,5 +63,11 @@ public class StudentService {
 
   public List<IndicatorAux> getProductionIndicators() {
     return orderService.getIndicators();
+  }
+
+  public List<PartDTO> getPartsThatCanBeProduced() {
+    List<PartDTO> produceableParts = partService.getAllProductionProduceableParts();
+    produceableParts.addAll(partService.getAllProductionProduceableParts());
+    return produceableParts;
   }
 }

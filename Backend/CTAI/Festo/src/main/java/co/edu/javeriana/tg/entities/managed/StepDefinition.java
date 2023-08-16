@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(StepDefinitionPK.class)
 @Table(name = "tblStepDef")
-// Lista de operaciones que componen cada plan de trabajo
+// Pasos que componen cada plan de trabajo
 public class StepDefinition {
     @Id
     @Column(name = "WPNo", nullable = false)
@@ -36,7 +36,7 @@ public class StepDefinition {
     @Column(name="TransportTime", nullable = true)
     private Long transportTime;
     @Column(name="ErrorStep", nullable = true)
-    private Long error;
+    private Boolean error;
     @Column(name="SQLWrite", nullable = true)
     private String sqlToWrite;
     @Column(name="ElectricEnergyCalc", nullable = true)
@@ -120,10 +120,10 @@ public class StepDefinition {
     public void setTransportTime(Long transportTime) {
         this.transportTime = transportTime;
     }
-    public Long getError() {
+    public Boolean getError() {
         return error;
     }
-    public void setError(Long error) {
+    public void setError(Boolean error) {
         this.error = error;
     }
     public String getSqlToWrite() {

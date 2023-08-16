@@ -14,7 +14,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public ClientDTO getClient(Long clientNumber) {
+    public ClientDTO getClientByClientNumber(Long clientNumber) {
         try {
             return new ClientDTO(clientRepository.findByClientNumber(clientNumber));
         } catch (Exception e) {

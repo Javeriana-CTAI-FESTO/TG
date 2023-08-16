@@ -44,7 +44,7 @@ public class MachineReportServiceTest {
 
     @Test
     public void testEmptyGetAllFails() {
-        assertEquals(0, machineReportService.getAllFails().size());
+        assertEquals(0, machineReportService.getAllMachineFails().size());
     }
 
     @Test
@@ -52,13 +52,13 @@ public class MachineReportServiceTest {
         MachineReportPK primaryKey = new MachineReportPK(1l, 1l, Date.from(Instant.now()));
         when(resourceRepository.findById(1l)).thenReturn(Optional.of(new Resource(1l)));
         when(reportRepository.findFails()).thenReturn(List.of(new MachineReport(primaryKey)));
-        assertEquals(1, machineReportService.getAllFails().size());
+        assertEquals(1, machineReportService.getAllMachineFails().size());
     }
 
     @Test
     public void testEmptyGetAllFailsForMachine() {
         Long resourceID = 1l;
-        assertEquals(0, machineReportService.getAllFailsForMachine(resourceID).size());
+        assertEquals(0, machineReportService.getAllMachineFailsForMachine(resourceID).size());
     }
 
     @Test
@@ -66,12 +66,12 @@ public class MachineReportServiceTest {
         Long resourceID = 1l;
         MachineReportPK primaryKey = new MachineReportPK(1l, resourceID, Date.from(Instant.now()));
         when(reportRepository.findFailsByResource(resourceID)).thenReturn(List.of(new MachineReport(primaryKey)));
-        assertEquals(1, machineReportService.getAllFailsForMachine(resourceID).size());
+        assertEquals(1, machineReportService.getAllMachineFailsForMachine(resourceID).size());
     }
 
     @Test
     public void testEmptyGetAll() {
-        assertEquals(0, machineReportService.getAll().size());
+        assertEquals(0, machineReportService.getAllMachineReports().size());
     }
 
     @Test
@@ -79,13 +79,13 @@ public class MachineReportServiceTest {
         MachineReportPK primaryKey = new MachineReportPK(1l, 1l, Date.from(Instant.now()));
         when(resourceRepository.findById(1l)).thenReturn(Optional.of(new Resource(1l)));
         when(reportRepository.findAll()).thenReturn(List.of(new MachineReport(primaryKey)));
-        assertEquals(1, machineReportService.getAll().size());
+        assertEquals(1, machineReportService.getAllMachineReports().size());
     }
 
     @Test
     public void testEmptyGetForMachine() {
         Long resourceID = 1l;
-        assertEquals(0, machineReportService.getForMachine(resourceID).size());
+        assertEquals(0, machineReportService.getMachineReportsForMachine(resourceID).size());
     }
 
     @Test
@@ -93,6 +93,6 @@ public class MachineReportServiceTest {
         Long resourceID = 1l;
         MachineReportPK primaryKey = new MachineReportPK(1l, resourceID, Date.from(Instant.now()));
         when(reportRepository.findByResource(resourceID)).thenReturn(List.of(new MachineReport(primaryKey)));
-        assertEquals(1, machineReportService.getForMachine(resourceID).size());
+        assertEquals(1, machineReportService.getMachineReportsForMachine(resourceID).size());
     }
 }

@@ -67,24 +67,24 @@ public class OrderServiceTest {
 
     @Test
     public void testEmptyGetAll() {
-        assertEquals(0, orderService.getAll().size());
+        assertEquals(0, orderService.getAllOrders().size());
     }
 
     @Test
     public void testNonEmptyGetAll() {
         when(orderRepository.findAll()).thenReturn(List.of(new Order(1L)));
-        assertEquals(1, orderService.getAll().size());
+        assertEquals(1, orderService.getAllOrders().size());
     }
 
     @Test
     public void testEmptyGetAllPlannedEnds() {
-        assertEquals(0, orderService.getAllPlannedEnds().size());
+        assertEquals(0, orderService.getAllOrdersPlannedEnds().size());
     }
 
     @Test
     public void testNonEmptyGetAllPlanedEnds() {
         when(orderPositionRepository.findPlannedEnd()).thenReturn(List.of(new Date()));
-        assertEquals(1, orderService.getAllPlannedEnds().size());
+        assertEquals(1, orderService.getAllOrdersPlannedEnds().size());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class OrderServiceTest {
         firstStep.setStepNumber(lastONumber);
         firstStep.setOperation(new OperationDTO(new Operation(lastONumber)));
         when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
-        when(clientService.getClient(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
+        when(clientService.getClientByClientNumber(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
         when(resourceForOperationRepository.minorTimeOperation(firstStep.getOperation().getOperationNumber())).thenReturn(new ResourceForOperation(new ResourceForOperationPK(positions, firstStep.getOperation().getOperationNumber())));
         OrderDTO order = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
         assertEquals(lastONumber + 1, order.getOrderNumber());
@@ -132,7 +132,7 @@ public class OrderServiceTest {
         firstStep.setStepNumber(stepNumber);
         firstStep.setOperation(new OperationDTO(new Operation(stepNumber)));
         when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
-        when(clientService.getClient(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
+        when(clientService.getClientByClientNumber(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
         when(resourceForOperationRepository.minorTimeOperation(firstStep.getOperation().getOperationNumber())).thenReturn(new ResourceForOperation(new ResourceForOperationPK(positions, firstStep.getOperation().getOperationNumber())));
         OrderDTO order = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
         assertEquals(stepNumber + 1, order.getOrderNumber());
@@ -164,7 +164,7 @@ public class OrderServiceTest {
         Order o = new Order(1L);
         o.setClientNumber(1l);
         when(orderRepository.findAll()).thenReturn(List.of(o));
-        when(clientService.getClient(1l)).thenReturn(new ClientDTO(new Client(1l)));
+        when(clientService.getClientByClientNumber(1l)).thenReturn(new ClientDTO(new Client(1l)));
         when(stepService.getWorkPlanTime(1l)).thenReturn(new WorkPlanTimeAux(1l, List.of(1l)));
         ResourceForOperation resourceForOperation = new ResourceForOperation(new ResourceForOperationPK(1l, 1l));
         resourceForOperation.setWorkingTime(1l);

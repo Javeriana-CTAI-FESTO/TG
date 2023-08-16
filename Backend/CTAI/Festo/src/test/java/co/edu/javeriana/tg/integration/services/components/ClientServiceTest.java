@@ -31,12 +31,12 @@ public class ClientServiceTest {
     @Test
     public void testNonEmptyGetClient(){
         when(clientRepository.findByClientNumber(1l)).thenReturn(new Client(1l));
-        assertNotNull(clientService.getClient(1l));
+        assertNotNull(clientService.getClientByClientNumber(1l));
     }
 
     @Test
     public void testEmptyGetClient() {
-        assertNull(clientService.getClient(1l));
+        assertNull(clientService.getClientByClientNumber(1l));
     }
 
     @Test

@@ -285,6 +285,15 @@ public class OrderDTO {
         this.status = status;
     }
 
+    public OrderDTO(FinishedOrder order, ClientDTO client, String status) {
+        this.orderNumber = order.getOrderNumber();
+        this.orderState = order.getState();
+        this.enabled = order.getEnabled();
+        this.release = order.getRelease();
+        this.client = client;
+        this.status = status;
+    }
+
     public OrderDTO(Order order, ClientDTO client, Long time) {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();

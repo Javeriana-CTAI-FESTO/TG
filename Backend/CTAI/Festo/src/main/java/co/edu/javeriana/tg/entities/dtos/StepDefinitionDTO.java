@@ -15,7 +15,7 @@ public class StepDefinitionDTO {
     private Long operationNumberType;
     private Long resource;
     private Long transportTime;
-    private Long error;
+    private Boolean error;
     private String sqlToWrite;
     private Long calculatedElectricEnergy;
     private Long calculatedCompressedAir;
@@ -133,11 +133,11 @@ public class StepDefinitionDTO {
         this.transportTime = transportTime;
     }
 
-    public Long getError() {
+    public Boolean getError() {
         return error;
     }
 
-    public void setError(Long error) {
+    public void setError(Boolean error) {
         this.error = error;
     }
 

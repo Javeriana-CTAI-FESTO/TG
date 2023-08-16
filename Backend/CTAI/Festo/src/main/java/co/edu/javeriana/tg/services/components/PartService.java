@@ -15,9 +15,11 @@ import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 public class PartService {
 
     private final PartRepository partRepository;
+    private final WorkPlanService workPlanService;
 
-    public PartService(PartRepository partRepository) {
+    public PartService(PartRepository partRepository, WorkPlanService workPlanService) {
         this.partRepository = partRepository;
+        this.workPlanService = workPlanService;
     }
 
     public List<PartDTO> getAll() {
@@ -83,6 +85,14 @@ public class PartService {
 
         }
         return null;
+    }
+
+    public List<PartDTO> getAllProductionProduceableParts() {
+        return partRepository.getAllProductionParts().stream().filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber())==1).map(PartDTO::new).collect(Collectors.toList());
+    }
+
+    public List<PartDTO> getAllCustomerProduceableParts() {
+        return partRepository.getAllProductionParts().stream().filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber())==2).map(PartDTO::new).collect(Collectors.toList());
     }
 
 }

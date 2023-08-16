@@ -36,7 +36,7 @@ public class ResourceForOperationService {
         try {
             OperationDTO operation = operationService.get(resources.get(0).getOperation());
             List<ResourceDTO> resourceDTOs = resources.stream()
-                    .map(resourceForOperation -> resourceService.getById(resourceForOperation.getResource()))
+                    .map(resourceForOperation -> resourceService.getResourceById(resourceForOperation.getResource()))
                     .collect(Collectors.toList());
             resourceDTO = new ResourceForOperationDTO(operation, resourceDTOs);
         } catch (Exception e) {

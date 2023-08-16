@@ -68,7 +68,7 @@ public class TeacherService {
   }
 
   public List<Date> getAllOrdersPlannedEnds() {
-    return orderService.getAllPlannedEnds();
+    return orderService.getAllOrdersPlannedEnds();
   }
 
   public Map<Long, String> getOrdersPossibleStatus() {

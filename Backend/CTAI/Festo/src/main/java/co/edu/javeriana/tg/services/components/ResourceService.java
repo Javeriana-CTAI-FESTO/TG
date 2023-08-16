@@ -17,11 +17,11 @@ public class ResourceService {
         this.resourceRepository = resourceRepository;
     }
 
-    public List<ResourceDTO> getAll() {
+    public List<ResourceDTO> getAllResources() {
         return resourceRepository.findAll().stream().map(ResourceDTO::new).collect(Collectors.toList());
     }
 
-    public ResourceDTO getById(Long resource) {
+    public ResourceDTO getResourceById(Long resource) {
         ResourceDTO result = null;
         try {
             result = new ResourceDTO(resourceRepository.findById(resource).get());

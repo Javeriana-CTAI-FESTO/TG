@@ -21,19 +21,19 @@ public class MachineReportService {
         this.resourceService=resourceService;
     }
 
-    public List<MachineReportDTO> getAll() {
-        return reportRepository.findAll().stream().map(machineReport -> new MachineReportDTO(machineReport, resourceService.getById(machineReport.getResource()))).collect(Collectors.toList());
+    public List<MachineReportDTO> getAllMachineReports() {
+        return reportRepository.findAll().stream().map(machineReport -> new MachineReportDTO(machineReport, resourceService.getResourceById(machineReport.getResource()))).collect(Collectors.toList());
     }
 
-    public List<ReportDTO> getForMachine(Long resourceId) {
+    public List<ReportDTO> getMachineReportsForMachine(Long resourceId) {
         return reportRepository.findByResource(resourceId).stream().map(ReportDTO::new).collect(Collectors.toList());
     }
 
-    public List<MachineReportDTO> getAllFails() {
-        return reportRepository.findFails().stream().map(machineReport -> new MachineReportDTO(machineReport, resourceService.getById(machineReport.getResource()))).collect(Collectors.toList());
+    public List<MachineReportDTO> getAllMachineFails() {
+        return reportRepository.findFails().stream().map(machineReport -> new MachineReportDTO(machineReport, resourceService.getResourceById(machineReport.getResource()))).collect(Collectors.toList());
     }
 
-    public List<ReportDTO> getAllFailsForMachine(Long resourceId) {
+    public List<ReportDTO> getAllMachineFailsForMachine(Long resourceId) {
         return reportRepository.findFailsByResource(resourceId).stream().map(ReportDTO::new).collect(Collectors.toList());
     }
 }

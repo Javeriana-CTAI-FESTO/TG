@@ -26,6 +26,6 @@ public interface OrderRepository extends CrudRepository<Order, Long>{
     @Query("select count(o) from Order o where o.realStart is not null and o.realEnd is null")
     Long inProcessOrdersCount();
     
-    @Query("select o.orderNumber from Order o order by o.orderNumber desc")
-    List<Long> getAllOrderNumbers();
+    @Query("select o.orderNumber from Order o order by o.orderNumber desc limit 1")
+    Long getLastOrderNumber();
 }

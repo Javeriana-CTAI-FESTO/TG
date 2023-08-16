@@ -31,25 +31,25 @@ public class ResourceServiceTest {
     private ResourceRepository resourceRepository;
     @Test
     public void testEmptyGetAll() {
-        assertEquals(0, resourceService.getAll().size());
+        assertEquals(0, resourceService.getAllResources().size());
     }
 
     @Test
     public void testNonEmptyGetAll() {
         when(resourceRepository.findAll()).thenReturn(List.of(new Resource(1L)));
-        assertEquals(1, resourceService.getAll().size());
+        assertEquals(1, resourceService.getAllResources().size());
     }
 
     @Test
     public void testEmptyGetById() {
         Long resource = 1L;
-        assertNull(resourceService.getById(resource));
+        assertNull(resourceService.getResourceById(resource));
     }
 
     @Test
     public void testNonEmptyGetById() {
         Long resource = 1L;
         when(resourceRepository.findById(resource)).thenReturn(Optional.of(new Resource(resource)));
-        assertNotNull(resourceService.getById(resource));
+        assertNotNull(resourceService.getResourceById(resource));
     }
 }

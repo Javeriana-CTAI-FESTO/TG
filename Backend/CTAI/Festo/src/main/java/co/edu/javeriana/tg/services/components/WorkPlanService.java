@@ -125,4 +125,13 @@ public class WorkPlanService {
         }
         return workPlan;
     }
+
+    public Long getWorkPlanTypeByWorkPlanNumber(Long workPlanNumber) {
+        try{
+        return workPlanRepository.findById(workPlanNumber).get().getWorkPlanType();
+        } catch (Exception e){
+
+        }
+        return 0l;
+    }
 }

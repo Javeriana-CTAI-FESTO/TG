@@ -54,7 +54,7 @@ public class ResourceForOperationServiceTest {
         Long resoutrceID = 1L;
         ResourceForOperationPK pk = new ResourceForOperationPK(resoutrceID, operationID);
         List<ResourceForOperation> l = List.of(new ResourceForOperation(pk));
-        when(resourceService.getById(resoutrceID)).thenThrow(RuntimeException.class);
+        when(resourceService.getResourceById(resoutrceID)).thenThrow(RuntimeException.class);
         assertNull(resourceForOperationService.convertToDTO(l));
     }
 
@@ -63,7 +63,7 @@ public class ResourceForOperationServiceTest {
         Long operationID = 1l;
         Long resoutrceID = 1L;
         when(operationService.get(operationID)).thenReturn(new OperationDTO(new Operation(operationID)));
-        when(resourceService.getById(resoutrceID)).thenReturn(new ResourceDTO(new Resource(resoutrceID)));
+        when(resourceService.getResourceById(resoutrceID)).thenReturn(new ResourceDTO(new Resource(resoutrceID)));
         ResourceForOperationPK pk = new ResourceForOperationPK(resoutrceID, operationID);
         List<ResourceForOperation> l = List.of(new ResourceForOperation(pk));
         assertEquals(l.get(0).getResource(), resourceForOperationService.convertToDTO(l).getResources().get(0).getId());
@@ -74,7 +74,7 @@ public class ResourceForOperationServiceTest {
         Long operationID = 1l;
         Long resoutrceID = 1L;
         when(resourceForOperationRepository.findByOperation(operationID)).thenReturn(List.of(new ResourceForOperation(new ResourceForOperationPK(resoutrceID, operationID))));
-        when(resourceService.getById(resoutrceID)).thenThrow(RuntimeException.class);
+        when(resourceService.getResourceById(resoutrceID)).thenThrow(RuntimeException.class);
         assertNull(resourceForOperationService.getResourcesGivenOperation(operationID));
     }
 
@@ -84,7 +84,7 @@ public class ResourceForOperationServiceTest {
         Long resoutrceID = 1L;
         when(resourceForOperationRepository.findByOperation(operationID)).thenReturn(List.of(new ResourceForOperation(new ResourceForOperationPK(resoutrceID, operationID))));
         when(operationService.get(operationID)).thenReturn(new OperationDTO(new Operation(operationID)));
-        when(resourceService.getById(resoutrceID)).thenReturn(new ResourceDTO(new Resource(resoutrceID)));
+        when(resourceService.getResourceById(resoutrceID)).thenReturn(new ResourceDTO(new Resource(resoutrceID)));
         assertEquals(resoutrceID, resourceForOperationService.getResourcesGivenOperation(operationID).getResources().get(0).getId());
     }
 
@@ -101,7 +101,7 @@ public class ResourceForOperationServiceTest {
         Long operationID = 1l;
         Long resoutrceID = 1L;
         when(operationService.get(operationID)).thenReturn(new OperationDTO(new Operation(operationID)));
-        when(resourceService.getById(resoutrceID)).thenReturn(new ResourceDTO(new Resource(resoutrceID)));
+        when(resourceService.getResourceById(resoutrceID)).thenReturn(new ResourceDTO(new Resource(resoutrceID)));
         when(resourceForOperationRepository.findByResource(resoutrceID)).thenReturn(List.of(new ResourceForOperation(new ResourceForOperationPK(resoutrceID, operationID)), new ResourceForOperation(new ResourceForOperationPK(resoutrceID+1, operationID+1))));
         assertEquals(1,resourceForOperationService.getOperationsGivenResource(resoutrceID).size());
     }        

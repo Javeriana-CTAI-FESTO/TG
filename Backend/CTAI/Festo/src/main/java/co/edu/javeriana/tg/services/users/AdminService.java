@@ -29,19 +29,19 @@ public class AdminService {
     }
 
     public List<MachineReportDTO> getAllReports() {
-      return reportService.getAll();
+      return reportService.getAllMachineReports();
     }
 
     public List<ReportDTO> getReportsForMachine(Long resourceId) {
-      return reportService.getForMachine(resourceId);
+      return reportService.getMachineReportsForMachine(resourceId);
     }
 
     public List<MachineReportDTO> getAllFails() {
-      return reportService.getAllFails();
+      return reportService.getAllMachineFails();
     }
 
     public List<ReportDTO> getAllFailsForMachine(Long resourceId) {
-      return reportService.getAllFailsForMachine(resourceId);
+      return reportService.getAllMachineFailsForMachine(resourceId);
     }
 
     public ClientDTO createClient(Client client) {

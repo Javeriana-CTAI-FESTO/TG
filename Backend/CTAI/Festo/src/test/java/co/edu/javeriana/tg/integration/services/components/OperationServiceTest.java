@@ -35,13 +35,13 @@ public class OperationServiceTest {
 
     @Test
     public void testEmptyGetAll() {
-        assertEquals(0, operationService.getAll().size());
+        assertEquals(0, operationService.getAllOperations().size());
     }
 
     @Test
     public void testNonEmptyGetAll() {
         when(operationRepository.findAll()).thenReturn(List.of(new Operation(1L)));
-        assertEquals(1, operationService.getAll().size());
+        assertEquals(1, operationService.getAllOperations().size());
     }
 
     @Test
