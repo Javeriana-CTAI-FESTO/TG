@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
+import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
@@ -90,11 +92,8 @@ public class OrderService {
             Long orderNumber = getNextOrderNumber();
             order.setOrderNumber(orderNumber);
             order.setPlannedStart(start);
-            Long hoursToAdd = 0l;
-            Long minutesToAdd = 1l;
-            Long secondsToAdd = 1l;
-            Date end = Date.from(Instant.now().plus(hoursToAdd, ChronoUnit.HOURS).plus(minutesToAdd, ChronoUnit.MINUTES)
-                    .plus(secondsToAdd, ChronoUnit.SECONDS));
+            Long secondsToAdd = timeForWorkPlan(workPlanNumber, positions);
+            Date end = Date.from(Instant.now().plus(secondsToAdd, ChronoUnit.SECONDS));
             order.setPlannedEnd(end);
             order.setClientNumber(clientNumber);
             order.setState(0l);
@@ -161,8 +160,8 @@ public class OrderService {
 
     private Long getNextOrderNumber() {
         try {
-            Long numberExtractedOfUnfinishedOrders = orderRepository.getLastOrderNumber();
-            Long numberExtractedOfFinishedOrders = finishedOrderRepository.getLastOrderNumber();
+            Long numberExtractedOfUnfinishedOrders = orderRepository.getOrderNumbers().get(0);
+            Long numberExtractedOfFinishedOrders = finishedOrderRepository.getOrderNumbers().get(0);
             return (numberExtractedOfFinishedOrders > numberExtractedOfUnfinishedOrders)
                     ? numberExtractedOfFinishedOrders + 1
                     : numberExtractedOfUnfinishedOrders + 1;
@@ -197,7 +196,7 @@ public class OrderService {
     public List<OrderDTO> getOrdersWithTime() {
         return orderRepository.findAll().stream()
                 .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
-                        this.timeForOrder(order.getOrderNumber())))
+                        this.timeForWorkPlan(orderPositionRepository.getWorkPlanNumberByOrderNumber(order.getOrderNumber()), orderPositionRepository.countByOrder(order.getOrderNumber()))))
                 .collect(Collectors.toList());
     }
 
@@ -233,19 +232,28 @@ public class OrderService {
                 this.evaluateNameToGetIndicator(entry.getKey()))).collect(Collectors.toList());
     }
 
-    public Long timeForOrder(Long orderNumber) {
-        // TODO Tabla step no es lo que se creia
+    public Long timeForWorkPlan(Long workPlanNumber, Long positions) {
         try {
-            WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(orderNumber);
+            WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
             Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                     .mapToLong(
                             operation -> resourceForOperationRepository.minorTimeOperation(operation).getWorkingTime())
                     .sum();
             return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime())
-                    * orderPositionRepository.countByOrder(orderNumber);
+                    * positions;
         } catch (Exception e) {
 
         }
+        return null;
+    }
+
+    public List<PartsConsumedByOrderDTO> partsConsumedByOrders() {
+      List<OrderDTO> orders = this.getAllOrders();
+      return orders.stream().map(order -> new PartsConsumedByOrderDTO(order, this.getPartsConsumedByOrder(order.getOrderNumber()))).collect(Collectors.toList());
+    }
+
+    private List<PartDTO> getPartsConsumedByOrder(Long orderNumber) {
+        //TODO No se como hacer esto
         return null;
     }
 }

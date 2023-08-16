@@ -105,7 +105,7 @@ public class StepServiceTest {
         Long workPlanNumber = 1l;
         Long stepNumber = 1l;
         when(stepDefinitionRepository.findFirstByWorkPlan(workPlanNumber)).thenReturn(new StepDefinition(new StepDefinitionPK(workPlanNumber, stepNumber)));
-        when(workPlanService.getById(workPlanNumber)).thenReturn(new WorkPlanDTO(new WorkPlanDefinition(workPlanNumber), ""));
+        when(workPlanService.getWorkplanById(workPlanNumber)).thenReturn(new WorkPlanDTO(new WorkPlanDefinition(workPlanNumber), ""));
         assertEquals(workPlanNumber, stepService.firstStepByWorkplan(workPlanNumber).getWorkPlan().getWorkPlanNumber());
     }
 }

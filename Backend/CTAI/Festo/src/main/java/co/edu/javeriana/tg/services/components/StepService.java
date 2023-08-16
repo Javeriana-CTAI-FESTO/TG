@@ -30,7 +30,7 @@ public class StepService {
     public List<StepDefinitionDTO> getAll() {
         return stepDefinitionRepository.findAll().stream()
                 .map(stepDefinition -> new StepDefinitionDTO(stepDefinition,
-                        workPlanService.getById(stepDefinition.getWorkPlan()),
+                        workPlanService.getWorkplanById(stepDefinition.getWorkPlan()),
                         operationService.get(stepDefinition.getOperation())))
                 .collect(Collectors.toList());
     }
@@ -49,7 +49,7 @@ public class StepService {
     public List<StepDefinitionDTO> stepsByWorkplan(Long workPlanNumber) {
         return stepDefinitionRepository.findByWorkPlan(workPlanNumber).stream()
                 .map(stepDefinition -> new StepDefinitionDTO(stepDefinition,
-                        workPlanService.getById(stepDefinition.getWorkPlan()),
+                        workPlanService.getWorkplanById(stepDefinition.getWorkPlan()),
                         operationService.get(stepDefinition.getOperation())))
                 .collect(Collectors.toList());
     }
@@ -57,7 +57,7 @@ public class StepService {
     public StepDefinitionDTO firstStepByWorkplan(Long workPlanNumber) {
         try {
             StepDefinition first = stepDefinitionRepository.findFirstByWorkPlan(workPlanNumber);
-            return new StepDefinitionDTO(first, workPlanService.getById(first.getWorkPlan()),
+            return new StepDefinitionDTO(first, workPlanService.getWorkplanById(first.getWorkPlan()),
                     operationService.get(first.getOperation()));
         } catch (Exception e) {
 

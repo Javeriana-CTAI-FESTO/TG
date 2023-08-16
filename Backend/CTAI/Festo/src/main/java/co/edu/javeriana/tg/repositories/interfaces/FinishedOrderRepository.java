@@ -17,6 +17,6 @@ public interface FinishedOrderRepository extends CrudRepository<FinishedOrder, L
     @Query("select o from FinishedOrder o where o.realEnd is not null")
     List<FinishedOrder> finishedOrders();
 
-    @Query("select o.orderNumber from FinishedOrder o order by o.orderNumber desc limit 1")
-    Long getLastOrderNumber();
+    @Query("select o.orderNumber from FinishedOrder o order by o.orderNumber desc")
+    List<Long> getOrderNumbers();
 }

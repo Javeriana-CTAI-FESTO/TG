@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
+import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
+import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanType;
@@ -27,7 +29,8 @@ public class WorkPlanService {
     private final StepDefinitionRepository stepDefinitionRepository;
 
     public WorkPlanService(WorkPlanDefinitionRepository workPlanRepository,
-            WorkPlanTypeRepository workPlanTypeRepository, OperationService operationService, StepDefinitionRepository stepDefinitionRepository) {
+            WorkPlanTypeRepository workPlanTypeRepository, OperationService operationService,
+            StepDefinitionRepository stepDefinitionRepository) {
         this.workPlanRepository = workPlanRepository;
         this.workPlanTypeRepository = workPlanTypeRepository;
         this.operationService = operationService;
@@ -49,6 +52,7 @@ public class WorkPlanService {
     public WorkPlanDTO createWorkPlan(CreateWorkPlanAux createRequest) {
         WorkPlanDTO workPlan = null;
         try {
+            if (!workPlanRepository.existsById(createRequest.getWorkPlanNumber())){
             WorkPlanDefinition workplanEntity = new WorkPlanDefinition();
             workplanEntity.setWorkPlanNumber(createRequest.getWorkPlanNumber());
             workplanEntity.setWorkPlanType(createRequest.getWorkPlanType());
@@ -60,50 +64,48 @@ public class WorkPlanService {
             workPlan = new WorkPlanDTO(workplanEntity,
                     workPlanTypeRepository.findByTypeNumber(createRequest.getWorkPlanType()).getDescription());
             for (int i = 0; i < createRequest.getOperations().length; i++) {
-                this.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf(i+1),
-                        createRequest.getOperations()[i].getDescription(),
-                        createRequest.getOperations()[i].getOperationNumber(),
-                        createRequest.getOperations()[i].getNextStepNumber(),
-                        createRequest.getOperations()[i].getErrorStepNumber(),
+                this.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf((i + 1) * 10),
+                        (i < createRequest.getOperations().length - 1) ? Long.valueOf((i + 2) * 10) : 0,
+                        createRequest.getOperations()[i].getNextWhenError(),
                         createRequest.getOperations()[i].getNewPartNumber(),
-                        createRequest.getOperations()[i].getOperationNumberType(),
-                        createRequest.getOperations()[i].getResourceId(),
                         createRequest.getOperations()[i].getTransportTime(),
-                        createRequest.getOperations()[i].getSqlToWrite(),
-                        createRequest.getOperations()[i].getElectricEnergyCalc(),
-                        createRequest.getOperations()[i].getCompressedAirCalc(),
-                        createRequest.getOperations()[i].getWorkingTimeCalc(),
-                        createRequest.getOperations()[i].getFreeText());
+                        createRequest.getOperations()[i].getOperationNumber(),
+                        createRequest.getOperations()[i].getElectricEnergy(),
+                        createRequest.getOperations()[i].getCompressedAir(),
+                        createRequest.getOperations()[i].getResource(),
+                        createRequest.getOperations()[i].getWorkingTime());
             }
+        }
         } catch (Exception e) {
         }
         return workPlan;
     }
 
-    public StepDefinitionDTO saveStep(Long workPlan, Long stepNumber, String description,
-            Long operationNumber, Long nextStepNumber,
-            Long nextWhenError, Long newPartNumber, Long operationNumberType, Long resourceId, Long transportTime,
-            String sqlToWrite, Long electricEnergy, Long compressedAir, Long workingTime, String freeString) {
+    public StepDefinitionDTO saveStep(Long workPlan, Long stepNumber, Long nextStepNumber, Long nextWhenError,
+            Long newPartNumber, Long transportTime, Long operationNumber, Long electricEnergy, Long compressedAir,
+            Long resourceId, Long workingTime) {
         StepDefinitionDTO stepDefinitionDTO = null;
         try {
+            OperationDTO operationDTO = operationService.get(operationNumber);
             StepDefinition stepDefinition = new StepDefinition();
             stepDefinition.setWorkPlan(workPlan);
             stepDefinition.setStepNumber(stepNumber);
-            stepDefinition.setDescription(description);
+            stepDefinition.setDescription(operationDTO.getDescription());
             stepDefinition.setOperationNumber(operationNumber);
             stepDefinition.setNextStepNumber(nextStepNumber);
             stepDefinition.setFirstStep(stepNumber == 1);
             stepDefinition.setNextWhenError(nextWhenError);
             stepDefinition.setNewPartNumber(newPartNumber);
             stepDefinition.setTransportTime(transportTime);
-            stepDefinition.setSqlToWrite(sqlToWrite);
+            stepDefinition.setSqlToWrite(operationDTO.getQueryToWrite());
             stepDefinition.setCalculatedElectricEnergy(electricEnergy);
             stepDefinition.setCalculatedCompressedAir(compressedAir);
             stepDefinition.setCalculatedWorkingTime(workingTime);
-            stepDefinition.setFreeText(freeString);
+            stepDefinition.setFreeText(operationDTO.getFreeText());
             stepDefinition.setResource(resourceId);
             stepDefinitionRepository.save(stepDefinition);
-            stepDefinitionDTO = new StepDefinitionDTO(stepDefinition, this.getById(workPlan), operationService.get(operationNumber));
+            stepDefinitionDTO = new StepDefinitionDTO(stepDefinition, this.getWorkplanById(workPlan),
+                    operationService.get(operationNumber));
         } catch (Exception e) {
         }
         return stepDefinitionDTO;
@@ -116,7 +118,7 @@ public class WorkPlanService {
                 .collect(Collectors.toList());
     }
 
-    public WorkPlanDTO getById(Long id) {
+    public WorkPlanDTO getWorkplanById(Long id) {
         WorkPlanDTO workPlan = null;
         try {
             workPlan = new WorkPlanDTO(workPlanRepository.findById(id).get(), workPlanTypeRepository
@@ -126,10 +128,17 @@ public class WorkPlanService {
         return workPlan;
     }
 
+    public WorkPlanWithStepsDTO getWithStepsById(Long id) {
+        return new WorkPlanWithStepsDTO(this.getWorkplanById(id),
+                stepDefinitionRepository.findByWorkPlan(id).stream()
+                        .map(step -> new StepDefinitionDTO(step, operationService.get(step.getOperation())))
+                        .collect(Collectors.toList()));
+    }
+
     public Long getWorkPlanTypeByWorkPlanNumber(Long workPlanNumber) {
-        try{
-        return workPlanRepository.findById(workPlanNumber).get().getWorkPlanType();
-        } catch (Exception e){
+        try {
+            return workPlanRepository.findById(workPlanNumber).get().getWorkPlanType();
+        } catch (Exception e) {
 
         }
         return 0l;

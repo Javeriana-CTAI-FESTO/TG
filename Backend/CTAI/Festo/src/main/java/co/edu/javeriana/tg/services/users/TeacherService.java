@@ -8,11 +8,17 @@ import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
+import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
+import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
+import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
+import co.edu.javeriana.tg.services.components.OperationService;
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
+import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
 
 
@@ -25,14 +31,28 @@ public class TeacherService {
 
   private final PartService partService;
 
-  public TeacherService(WorkPlanService workPlanService, OrderService orderService, PartService partService) {
+  private final StepService stepService;
+
+  private final OperationService operationService;
+
+  public TeacherService(WorkPlanService workPlanService, OrderService orderService, PartService partService, StepService stepService, OperationService operationService) {
     this.workPlanService = workPlanService;
     this.orderService = orderService;
     this.partService = partService;
+    this.stepService = stepService;
+    this.operationService = operationService;
   }
 
   public List<PartDTO> getAllParts() {
     return partService.getAll();
+  }
+
+  public List<PartDTO> getAllPartsUnavailable() {
+    return partService.getAllUnavailable();
+  }
+
+  public List<PartDTO> getAllPartsAvailable() {
+    return partService.getAllAvailable();
   }
 
   public Map<Long, String> getAllPartsTypes() {
@@ -47,8 +67,8 @@ public class TeacherService {
     return workPlanService.getAll();
   }
 
-  public WorkPlanDTO getWorkPlanById(Long id) {
-    return workPlanService.getById(id);
+  public WorkPlanWithStepsDTO getWorkPlanById(Long id) {
+    return workPlanService.getWithStepsById(id);
   }
 
   public Map<Long, String> getAllWorkPlansTypes() {
@@ -85,5 +105,21 @@ public class TeacherService {
 
   public List<IndicatorAux> getProductionIndicators() {
     return orderService.getIndicators();
+  }
+
+  public List<PartDTO> getPartsThatCanBeProduced() {
+    return partService.getPartsThatCanBeProduced();
+  }
+
+  public List<PartsConsumedByOrderDTO> getAllPartsConsumedByOrders() {
+    return orderService.partsConsumedByOrders();
+  }
+
+  public List<StepDefinitionDTO> getAllStepsDefined() {
+    return stepService.getAll();
+  }
+
+  public List<OperationDTO> getAllOperations() {
+    return operationService.getAllOperations();
   }
 }

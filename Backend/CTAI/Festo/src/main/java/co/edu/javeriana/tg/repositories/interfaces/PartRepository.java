@@ -12,6 +12,15 @@ public interface PartRepository extends CrudRepository<Part, Long> {
 
     List<Part> findByType(Long typeId);
 
-    @Query("select p from Part p where p.Type = 3")
+    @Query("select p from Part p where p.type = 3")
     List<Part> getAllProductionParts();
+
+    @Query("select p from Part p where p.lotSize > 0")
+    List<Part> findAllAvailable();
+
+    @Query("select p from Part p where p.lotSize = 0")
+    List<Part> findAllUnavailable();
+
+    @Query("select distinct type from Part")
+    List<Long> findAllTypes();
 }

@@ -25,6 +25,25 @@ public class StepDefinitionDTO {
     public StepDefinitionDTO() {
     }
 
+    public StepDefinitionDTO(StepDefinition step, OperationDTO operation){
+        this.stepNumber = step.getStepNumber();
+        this.description = step.getDescription();
+        this.operation = operation;
+        this.nextStepNumber = step.getNextStepNumber();
+        this.firstStep = step.getFirstStep();
+        this.nextWhenError = step.getNextWhenError();
+        this.newPartNumber = step.getNewPartNumber();
+        this.operationNumberType = step.getOperationNumberType();
+        this.resource = step.getResource();
+        this.transportTime = step.getTransportTime();
+        this.error = step.getError();
+        this.sqlToWrite = step.getSqlToWrite();
+        this.calculatedElectricEnergy = step.getCalculatedElectricEnergy();
+        this.calculatedCompressedAir = step.getCalculatedCompressedAir();
+        this.calculatedWorkingTime = step.getCalculatedWorkingTime();
+        this.freeText = step.getFreeText();
+    }
+
     public StepDefinitionDTO(StepDefinition step, WorkPlanDTO workPlan, OperationDTO operation){
         this.stepNumber = step.getStepNumber();
         this.description = step.getDescription();

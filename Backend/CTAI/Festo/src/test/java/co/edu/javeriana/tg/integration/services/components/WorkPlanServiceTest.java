@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
-import co.edu.javeriana.tg.entities.auxiliary.OperationToPerformByWorkPlanAux;
+import co.edu.javeriana.tg.entities.auxiliary.OperationToPerformInWorkplanAux;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
@@ -93,7 +93,7 @@ public class WorkPlanServiceTest {
         plan.setShortDescription("T");
         plan.setPictureNumber(1l);
         plan.setPartNumber(1l);
-        plan.setOperations(new OperationToPerformByWorkPlanAux[0]);
+        plan.setOperations(new OperationToPerformInWorkplanAux[0]);
         WorkPlanType t = new WorkPlanType(id);
         t.setDescription("Test");
         WorkPlanDefinition w = new WorkPlanDefinition(id);
@@ -112,11 +112,7 @@ public class WorkPlanServiceTest {
         plan.setShortDescription("T");
         plan.setPictureNumber(1l);
         plan.setPartNumber(1l);
-        OperationToPerformByWorkPlanAux[] aux = {
-                new OperationToPerformByWorkPlanAux(-1l, -1l, -1l,
-                        "", -1l, -1l, false, -1l,
-                        -1l, -1l, false, "", -1l,
-                        -1l, -1l, "") };
+        OperationToPerformInWorkplanAux[] aux = {};
         plan.setOperations(aux);
         WorkPlanType t = new WorkPlanType(id);
         t.setDescription("Test");
@@ -129,13 +125,13 @@ public class WorkPlanServiceTest {
     @Test
     public void testSaveStep() {
         assertDoesNotThrow(
-                () -> workPlanService.saveStep(-1l, -1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
+                () -> workPlanService.saveStep(-1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
         assertDoesNotThrow(
-                () -> workPlanService.saveStep(-1l, 1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
+                () -> workPlanService.saveStep(-1l, 1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
         when(operationService.get(-1l)).thenThrow(RuntimeException.class);
         assertDoesNotThrow(
-                () -> workPlanService.saveStep(-1l, 1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
-        assertNull(workPlanService.saveStep(-1l, 1l, "", -1l, -1l, -1l, -1l, -1l, -1l, -1l, "", -1l, -1l, -1l, ""));
+                () -> workPlanService.saveStep(-1l, 1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
+        assertNull(workPlanService.saveStep(-1l, 1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
     }
 
     @Test
@@ -159,7 +155,7 @@ public class WorkPlanServiceTest {
     @Test
     public void testEmptyGetById() {
         Long id = 1l;
-        assertNull(workPlanService.getById(id));
+        assertNull(workPlanService.getWorkplanById(id));
     }
 
     @Test
@@ -171,6 +167,6 @@ public class WorkPlanServiceTest {
         w.setWorkPlanType(id);
         when(workPlanRepository.findById(id)).thenReturn(Optional.of(w));
         when(workPlanTypeRepository.findByTypeNumber(id)).thenReturn(t);
-        assertNotNull(workPlanService.getById(id));
+        assertNotNull(workPlanService.getWorkplanById(id));
     }
 }

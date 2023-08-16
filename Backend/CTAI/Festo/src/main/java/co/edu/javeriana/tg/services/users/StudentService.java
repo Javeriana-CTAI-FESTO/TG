@@ -26,7 +26,7 @@ public class StudentService {
   }
 
   public List<PartDTO> getAllParts() {
-    return partService.getAll();
+    return partService.getAllAvailable();
   }
 
   public Map<Long, String> getAllPartsTypes() {
@@ -66,8 +66,6 @@ public class StudentService {
   }
 
   public List<PartDTO> getPartsThatCanBeProduced() {
-    List<PartDTO> produceableParts = partService.getAllProductionProduceableParts();
-    produceableParts.addAll(partService.getAllProductionProduceableParts());
-    return produceableParts;
+    return partService.getPartsThatCanBeProduced();
   }
 }

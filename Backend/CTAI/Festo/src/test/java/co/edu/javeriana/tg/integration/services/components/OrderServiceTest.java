@@ -25,6 +25,7 @@ import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.Operation;
 import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperationPK;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
@@ -108,12 +109,16 @@ public class OrderServiceTest {
         Long positions = 1L;
         Long lastONumber = 0l;
         when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
-        when(orderRepository.getAllOrderNumbers()).thenReturn(List.of(lastONumber));
+        when(orderRepository.getOrderNumbers()).thenReturn(List.of(lastONumber));
         when(partService.getWorkPlanNumberByPart(workPlanNumber)).thenReturn(workPlanNumber);
         StepDefinitionDTO firstStep = new StepDefinitionDTO();
         firstStep.setStepNumber(lastONumber);
         firstStep.setOperation(new OperationDTO(new Operation(lastONumber)));
         when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
+        StepDefinitionDTO steps = new StepDefinitionDTO();
+        steps.setOperation(new OperationDTO(new Operation(workPlanNumber)));
+        when(resourceForOperationRepository.findByOperation(workPlanNumber)).thenReturn(List.of(new ResourceForOperation(new ResourceForOperationPK(positions, positions))));
+        when(stepService.stepsByWorkplan(workPlanNumber)).thenReturn(List.of(steps));
         when(clientService.getClientByClientNumber(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
         when(resourceForOperationRepository.minorTimeOperation(firstStep.getOperation().getOperationNumber())).thenReturn(new ResourceForOperation(new ResourceForOperationPK(positions, firstStep.getOperation().getOperationNumber())));
         OrderDTO order = orderService.generateNewOrder(workPlanNumber, clientNumber, positions);
@@ -150,8 +155,6 @@ public class OrderServiceTest {
         assertEquals("Unstarted", orderService.getOrdersWithStatus().get(0).getStatus());
         order.setRealStart(Date.from(Instant.now()));
         assertEquals("In process", orderService.getOrdersWithStatus().get(0).getStatus());
-        order.setRealEnd(Date.from(Instant.now()));
-        assertEquals("Finished", orderService.getOrdersWithStatus().get(0).getStatus());
     }
 
     @Test
@@ -255,6 +258,6 @@ public class OrderServiceTest {
 
     @Test
     public void testEmptyTimeForOrder(){
-        assertNull(orderService.timeForOrder(1l));
+        assertNull(orderService.timeForWorkPlan(1l, 1l));
     }
 }

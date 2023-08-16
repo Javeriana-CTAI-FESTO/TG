@@ -26,30 +26,38 @@ public class PartService {
         return partRepository.findAll().stream().map(PartDTO::new).collect(Collectors.toList());
     }
 
-    private String getTypeDescription(Long long1) {
+    public List<PartDTO> getAllAvailable() {
+        return partRepository.findAllAvailable().stream().map(PartDTO::new).collect(Collectors.toList());
+    }
+
+    public List<PartDTO> getAllUnavailable() {
+        return partRepository.findAllUnavailable().stream().map(PartDTO::new).collect(Collectors.toList());
+    }
+
+    private String getTypeDescription(Long typeNumber) {
         String retorno = "";
-        if (long1 == 0)
+        if (typeNumber == 0)
             retorno = "Nothing";
-        else if (long1 == 99)
+        else if (typeNumber == 99)
             retorno = "Undefined";
-        else if (long1 == 1)
+        else if (typeNumber == 1)
             retorno = "Raw Part";
-        else if (long1 == 3)
+        else if (typeNumber == 3)
             retorno = "Production Part";
-        else if (long1 == 9)
+        else if (typeNumber == 9)
             retorno = "Box";
-        else if (long1 == 10)
+        else if (typeNumber == 10)
             retorno = "Carrier";
-        else if (long1 == 11)
+        else if (typeNumber == 11)
             retorno = "Pallet";
-        else if (long1 == 90)
+        else if (typeNumber == 90)
             retorno = "Spare Part";
         return retorno;
     }
 
     public Map<Long, String> getAllTypes() {
-        return partRepository.findAll().stream()
-                .collect(Collectors.toMap(Part::getType, p -> this.getTypeDescription(p.getType())));
+        return partRepository.findAllTypes().stream()
+                .collect(Collectors.toMap(type -> type, type -> this.getTypeDescription(type)));
     }
 
     public List<PartDTO> getAllByType(Long typeId) {
@@ -94,5 +102,13 @@ public class PartService {
     public List<PartDTO> getAllCustomerProduceableParts() {
         return partRepository.getAllProductionParts().stream().filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber())==2).map(PartDTO::new).collect(Collectors.toList());
     }
+
+    public List<PartDTO> getPartsThatCanBeProduced() {
+        List<PartDTO> produceableParts = this.getAllProductionProduceableParts();
+        produceableParts.addAll(this.getAllProductionProduceableParts());
+        return produceableParts;
+      }
+
+    
 
 }

@@ -34,13 +34,13 @@ public class PartServiceTest {
 
     @Test
     public void testEmptyGetAll() {
-        assertEquals(0, partService.getAll().size());
+        assertEquals(0, partService.getAllAvailable().size());
     }
 
     @Test
     public void testNonEmptyGetAll() {
         when(partRepository.findAll()).thenReturn(List.of(new Part(1L)));
-        assertEquals(1, partService.getAll().size());
+        assertEquals(1, partService.getAllAvailable().size());
     }
 
     @Test
