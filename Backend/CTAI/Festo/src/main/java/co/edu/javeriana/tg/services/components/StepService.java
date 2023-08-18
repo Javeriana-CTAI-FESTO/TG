@@ -8,23 +8,28 @@ import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepRepository;
 
 @Component
 public class StepService {
 
     private final StepDefinitionRepository stepDefinitionRepository;
 
+    private final StepRepository stepRepository;
+
     private final WorkPlanService workPlanService;
 
     private final OperationService operationService;
 
     public StepService(StepDefinitionRepository stepDefinitionRepository, WorkPlanService workPlanService,
-            OperationService operationService) {
+            OperationService operationService, StepRepository stepRepository) {
         this.stepDefinitionRepository = stepDefinitionRepository;
         this.workPlanService = workPlanService;
         this.operationService = operationService;
+        this.stepRepository = stepRepository;
     }
 
     public List<StepDefinitionDTO> getAll() {
@@ -63,5 +68,9 @@ public class StepService {
 
         }
         return null;
+    }
+
+    public void saveStep(Step step){
+        stepRepository.save(step);
     }
 }

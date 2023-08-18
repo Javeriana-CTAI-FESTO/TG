@@ -149,6 +149,7 @@ public class OrderService {
                         step.setNextStepNumber(steps.get(ste + 1).getStepNumber());
                     else
                         step.setNextStepNumber(0l);
+                    stepService.saveStep(step);
                 }
             }
             orderDTO = new OrderDTO(order, clientService.getClientByClientNumber(clientNumber));

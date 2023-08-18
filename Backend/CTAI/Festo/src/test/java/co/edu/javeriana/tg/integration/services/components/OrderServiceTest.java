@@ -108,15 +108,19 @@ public class OrderServiceTest {
         Long clientNumber = 1L;
         Long positions = 1L;
         Long lastONumber = 0l;
-        when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
-        when(orderRepository.getOrderNumbers()).thenReturn(List.of(lastONumber));
-        when(partService.getWorkPlanNumberByPart(workPlanNumber)).thenReturn(workPlanNumber);
+        Long op1 = 1l;
         StepDefinitionDTO firstStep = new StepDefinitionDTO();
         firstStep.setStepNumber(lastONumber);
         firstStep.setOperation(new OperationDTO(new Operation(lastONumber)));
-        when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
         StepDefinitionDTO steps = new StepDefinitionDTO();
         steps.setOperation(new OperationDTO(new Operation(workPlanNumber)));
+
+        when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(1l);
+        when(orderRepository.getOrderNumbers()).thenReturn(List.of(lastONumber));
+        when(partService.getWorkPlanNumberByPart(workPlanNumber)).thenReturn(workPlanNumber);
+        when(stepService.getWorkPlanTime(workPlanNumber)).thenReturn(new WorkPlanTimeAux(lastONumber, List.of(op1)));
+        when(resourceForOperationRepository.minorTimeOperation(op1)).thenReturn(new ResourceForOperation(new ResourceForOperationPK()));       
+        when(stepService.firstStepByWorkplan(workPlanNumber)).thenReturn(firstStep);
         when(resourceForOperationRepository.findByOperation(workPlanNumber)).thenReturn(List.of(new ResourceForOperation(new ResourceForOperationPK(positions, positions))));
         when(stepService.stepsByWorkplan(workPlanNumber)).thenReturn(List.of(steps));
         when(clientService.getClientByClientNumber(clientNumber)).thenReturn(new ClientDTO(new Client(clientNumber)));
