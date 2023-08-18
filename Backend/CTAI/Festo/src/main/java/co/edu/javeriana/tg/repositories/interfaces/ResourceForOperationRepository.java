@@ -15,5 +15,5 @@ public interface ResourceForOperationRepository extends CrudRepository<ResourceF
     List<ResourceForOperation> findByResource(Long resourceId);
 
     @Query("select r from ResourceForOperation r where r.operation = ?1 and r.resource > 0 order by r.workingTime")
-    ResourceForOperation minorTimeOperation(Long operationNumber);
+    ResourceForOperation minorTimeForOperation(Long operationNumber);
 }

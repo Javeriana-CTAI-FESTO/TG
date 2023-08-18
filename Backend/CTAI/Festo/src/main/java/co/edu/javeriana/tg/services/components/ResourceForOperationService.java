@@ -76,7 +76,7 @@ public class ResourceForOperationService {
         try{
         WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
         Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
-                .mapToLong(operation -> resourceForOperationRepository.minorTimeOperation(operation).getWorkingTime()).sum();
+                .mapToLong(operation -> resourceForOperationRepository.minorTimeForOperation(operation).getWorkingTime()).sum();
         return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime());
         } catch (Exception e) {
 

@@ -121,7 +121,7 @@ public class ResourceForOperationServiceTest {
         when(stepService.getWorkPlanTime(workPlanNumber)).thenReturn(aux);
         ResourceForOperation resourceForOperation = new ResourceForOperation(new ResourceForOperationPK(transportTime, operationNumber));
         resourceForOperation.setWorkingTime(transportTime);
-        when(resourceForOperationRepository.minorTimeOperation(operationNumber)).thenReturn(resourceForOperation);
+        when(resourceForOperationRepository.minorTimeForOperation(operationNumber)).thenReturn(resourceForOperation);
         assertEquals(result, resourceForOperationService.timeForWorkPlan(workPlanNumber));
     }        
 }

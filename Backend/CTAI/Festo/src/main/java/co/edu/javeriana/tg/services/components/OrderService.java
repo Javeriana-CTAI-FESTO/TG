@@ -117,7 +117,7 @@ public class OrderService {
                 orderPosition.setState(0l);
                 orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
                 orderPosition.setResourceNumber(resourceForOperationRepository
-                        .minorTimeOperation(firstStep.getOperation().getOperationNumber()).getResource());
+                        .minorTimeForOperation(firstStep.getOperation().getOperationNumber()).getResource());
                 orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
                 orderPosition.setError(false);
                 orderPosition.setSubOrderBlocked(false);
@@ -137,11 +137,12 @@ public class OrderService {
                     step.setPlannedStart(start);
                     step.setPlannedEnd(end);
                     step.setOperationNumberType(currentStep.getOperationNumberType());
-                    step.setResource(orderPosition.getResourceNumber());
+                    step.setResource(resourceForOperationRepository
+                        .minorTimeForOperation(steps.get(ste).getOperation().getOperationNumber()).getResource());
                     step.setTransportTime(currentStep.getTransportTime());
                     step.setError(currentStep.getError());
-                    step.setCalculatedElectricEnergy(currentStep.getCalculatedElectricEnergy());
-                    step.setRealElectricEnergy(currentStep.getCalculatedElectricEnergy());
+                    step.setCalculatedElectricEnergy(0l);
+                    step.setRealElectricEnergy(0l);
                     step.setCalculatedCompressedAir(currentStep.getCalculatedCompressedAir());
                     step.setRealCompressedAir(currentStep.getCalculatedCompressedAir());
                     step.setFreeText(currentStep.getFreeText());
@@ -238,7 +239,7 @@ public class OrderService {
             WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
             Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                     .mapToLong(
-                            operation -> resourceForOperationRepository.minorTimeOperation(operation).getWorkingTime())
+                            operation -> resourceForOperationRepository.minorTimeForOperation(operation).getWorkingTime())
                     .sum();
             return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime())
                     * positions;
