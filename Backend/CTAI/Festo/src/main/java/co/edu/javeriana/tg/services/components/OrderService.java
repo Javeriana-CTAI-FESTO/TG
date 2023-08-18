@@ -121,6 +121,7 @@ public class OrderService {
                 orderPosition.setOperationNumber(firstStep.getOperation().getOperationNumber());
                 orderPosition.setError(false);
                 orderPosition.setSubOrderBlocked(false);
+                orderPosition.setWorkOrderNumber(0L);
                 orderPositionRepository.save(orderPosition);
                 for (int ste = 0; ste < steps.size(); ste++) {
                     StepDefinitionDTO currentStep = steps.get(ste);
