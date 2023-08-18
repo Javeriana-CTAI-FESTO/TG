@@ -128,7 +128,7 @@ public class OrderService {
                     step.setWorkPlanNumber(workPlanNumber);
                     step.setStepNumber(currentStep.getStepNumber());
                     step.setOrderNumber(orderNumber);
-                    step.setOrderPosition(position);
+                    step.setOrderPosition(position + 1);
                     step.setDescription(currentStep.getDescription());
                     step.setOperation(currentStep.getOperation().getOperationNumber());
                     step.setFirstStep(ste == 0);
