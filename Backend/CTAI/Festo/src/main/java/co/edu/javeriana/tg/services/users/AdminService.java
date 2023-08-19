@@ -177,4 +177,8 @@ public class AdminService {
       return resourceService.getAllResources();
     }
 
+    public OrderDTO enableOrder(Long orderNumber) {
+      return orderService.enableOrder(orderNumber);
+    }
+
 }

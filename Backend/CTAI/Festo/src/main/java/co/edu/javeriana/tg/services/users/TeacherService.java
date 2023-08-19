@@ -140,4 +140,8 @@ public class TeacherService {
   public List<ResourceDTO> getAllResources() {
       return resourceService.getAllResources();
     }
+
+  public OrderDTO enableOrder(Long orderNumber) {
+    return orderService.enableOrder(orderNumber);
+  }
 }

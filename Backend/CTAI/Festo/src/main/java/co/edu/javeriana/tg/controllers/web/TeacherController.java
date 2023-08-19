@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -193,7 +194,7 @@ public class TeacherController {
 
     // View product orders
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderDTO>> getAllWorkPlanStatus() {
+    public ResponseEntity<List<OrderDTO>> getAllOrdersStatus() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         workPlans = teacherService.getOrdersWithStatus();
@@ -229,6 +230,16 @@ public class TeacherController {
         if (workPlans.isEmpty())
             status = HttpStatus.NO_CONTENT;
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
+    }
+
+    @PutMapping("/orders/{orderNumber}")
+    public ResponseEntity<OrderDTO> enableOrder(@PathVariable Long orderNumber) {
+        OrderDTO workPlans = null;
+        HttpStatus status = HttpStatus.OK;
+        workPlans = teacherService.enableOrder(orderNumber);
+        if (workPlans == null)
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<OrderDTO>(workPlans, status);
     }
 
     @GetMapping("/orders/parts")

@@ -139,7 +139,7 @@ public class OrderService {
                     step.setPlannedEnd(end);
                     step.setOperationNumberType(currentStep.getOperationNumberType());
                     step.setResource(resourceForOperationRepository
-                        .minorTimeForOperation(steps.get(ste).getOperation().getOperationNumber()).getResource());
+                            .minorTimeForOperation(steps.get(ste).getOperation().getOperationNumber()).getResource());
                     step.setTransportTime(currentStep.getTransportTime());
                     step.setError(currentStep.getError());
                     step.setCalculatedElectricEnergy(0l);
@@ -199,7 +199,9 @@ public class OrderService {
     public List<OrderDTO> getOrdersWithTime() {
         return orderRepository.findAll().stream()
                 .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
-                        this.timeForWorkPlan(orderPositionRepository.getWorkPlanNumberByOrderNumber(order.getOrderNumber()), orderPositionRepository.countByOrder(order.getOrderNumber()))))
+                        this.timeForWorkPlan(
+                                orderPositionRepository.getWorkPlanNumberByOrderNumber(order.getOrderNumber()),
+                                orderPositionRepository.countByOrder(order.getOrderNumber()))))
                 .collect(Collectors.toList());
     }
 
@@ -240,7 +242,8 @@ public class OrderService {
             WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
             Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                     .mapToLong(
-                            operation -> resourceForOperationRepository.minorTimeForOperation(operation).getWorkingTime())
+                            operation -> resourceForOperationRepository.minorTimeForOperation(operation)
+                                    .getWorkingTime())
                     .sum();
             return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime())
                     * positions;
@@ -251,12 +254,28 @@ public class OrderService {
     }
 
     public List<PartsConsumedByOrderDTO> partsConsumedByOrders() {
-      List<OrderDTO> orders = this.getAllOrders();
-      return orders.stream().map(order -> new PartsConsumedByOrderDTO(order, this.getPartsConsumedByOrder(order.getOrderNumber()))).collect(Collectors.toList());
+        List<OrderDTO> orders = this.getAllOrders();
+        return orders.stream()
+                .map(order -> new PartsConsumedByOrderDTO(order, this.getPartsConsumedByOrder(order.getOrderNumber())))
+                .collect(Collectors.toList());
     }
 
     private List<PartDTO> getPartsConsumedByOrder(Long orderNumber) {
-        //TODO No se como hacer esto
+        // TODO No se como hacer esto
         return null;
+    }
+
+    public OrderDTO enableOrder(Long orderNumber) {
+        OrderDTO o = null;
+        try {
+            Order order = orderRepository.findById(orderNumber).get();
+            order.setEnabled(true);
+            orderRepository.save(order);
+            o = new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()), "Starting ...");
+        } catch (Exception e) {
+
+        }
+
+        return o;
     }
 }
