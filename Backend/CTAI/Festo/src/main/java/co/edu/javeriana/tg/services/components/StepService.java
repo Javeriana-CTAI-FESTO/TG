@@ -10,13 +10,20 @@ import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
+import co.edu.javeriana.tg.entities.managed.StepParameter;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepParameterRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepRepository;
 
 @Component
 public class StepService {
 
     private final StepDefinitionRepository stepDefinitionRepository;
+
+    private final StepParameterDefinitionRepository stepParameterDefinitionRepository;
+
+    private final StepParameterRepository stepParameterRepository;
 
     private final StepRepository stepRepository;
 
@@ -25,11 +32,15 @@ public class StepService {
     private final OperationService operationService;
 
     public StepService(StepDefinitionRepository stepDefinitionRepository, WorkPlanService workPlanService,
-            OperationService operationService, StepRepository stepRepository) {
+            OperationService operationService, StepRepository stepRepository,
+            StepParameterDefinitionRepository stepParameterDefinitionRepository,
+            StepParameterRepository stepParameterRepository) {
         this.stepDefinitionRepository = stepDefinitionRepository;
         this.workPlanService = workPlanService;
         this.operationService = operationService;
         this.stepRepository = stepRepository;
+        this.stepParameterDefinitionRepository = stepParameterDefinitionRepository;
+        this.stepParameterRepository = stepParameterRepository;
     }
 
     public List<StepDefinitionDTO> getAll() {
@@ -70,7 +81,21 @@ public class StepService {
         return null;
     }
 
-    public void saveStep(Step step){
-        stepRepository.save(step);
+    public void saveStep(Step step) {
+        try {
+            stepRepository.save(step);
+            // Necesito sacar todas las definiciones de los parametros para un paso en
+            // especifico de manera que pueda luego crear un parametro para el paso
+            // específico
+            stepParameterDefinitionRepository
+                    .findByRelatedWorkPlanAndStep(step.getWorkPlanNumber(), step.getStepNumber())
+                    .forEach(stepParameterDefinition -> {
+                        StepParameter stepParameter = new StepParameter(stepParameterDefinition.getRelatedWorkPlan(),
+                                stepParameterDefinition.getStep(), step.getOrderNumber(), step.getOrderPosition(),
+                                stepParameterDefinition.getParameterNumber(), stepParameterDefinition.getParameter());
+                        stepParameterRepository.save(stepParameter);
+                    });
+        } catch (Exception e) {
+        }
     }
 }

@@ -9,4 +9,5 @@ import co.edu.javeriana.tg.entities.managed.StepParameterDefinitionPK;
 
 public interface StepParameterDefinitionRepository extends CrudRepository<StepParameterDefinition, StepParameterDefinitionPK>{
     List<StepParameterDefinition> findAll();
+    List<StepParameterDefinition> findByRelatedWorkPlanAndStep(Long relatedWorkPlan, Long step);
 }
