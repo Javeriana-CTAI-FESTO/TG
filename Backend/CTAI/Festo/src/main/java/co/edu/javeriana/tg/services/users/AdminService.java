@@ -16,6 +16,7 @@ import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.ReportDTO;
+import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
@@ -27,6 +28,7 @@ import co.edu.javeriana.tg.services.components.OperationService;
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
 import co.edu.javeriana.tg.services.components.ResourceForOperationService;
+import co.edu.javeriana.tg.services.components.ResourceService;
 import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
 
@@ -49,7 +51,9 @@ public class AdminService {
 
     private final ResourceForOperationService resourceForOperationService;
 
-    public AdminService(MachineReportService reportService,  ClientService clientService, OrderService orderService, WorkPlanService workPlanService, OperationService operationService, PartService partService, StepService stepService, ResourceForOperationService resourceForOperationService) {
+    private final ResourceService resourceService;
+
+    public AdminService(MachineReportService reportService,  ClientService clientService, OrderService orderService, WorkPlanService workPlanService, OperationService operationService, PartService partService, StepService stepService, ResourceForOperationService resourceForOperationService, ResourceService resourceService) {
         this.reportService = reportService;
         this.clientService = clientService;
         this.orderService = orderService;
@@ -58,6 +62,7 @@ public class AdminService {
         this.partService = partService;
         this.stepService = stepService;
         this.resourceForOperationService = resourceForOperationService;
+        this.resourceService = resourceService;
     }
 
     public List<MachineReportDTO> getAllReports() {
@@ -166,6 +171,10 @@ public class AdminService {
 
     public List<ResourceForOperationDTO> getOperationsForResource(Long resource) {
       return resourceForOperationService.getOperationsGivenResource(resource);
+    }
+
+    public List<ResourceDTO> getAllResources() {
+      return resourceService.getAllResources();
     }
 
 }

@@ -19,6 +19,7 @@ import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
+import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
@@ -145,6 +146,16 @@ public class TeacherController {
         if (workPlans.isEmpty())
             status = HttpStatus.NO_CONTENT;
         return new ResponseEntity<List<StepDefinitionDTO>>(workPlans, status);
+    }
+
+    //View machines
+    @GetMapping("/resources")
+    public ResponseEntity<List<ResourceDTO>> getAllResources() {
+        List<ResourceDTO> reports = teacherService.getAllResources();
+        HttpStatus status = HttpStatus.OK;
+        if (reports.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<List<ResourceDTO>>(reports, status);
     }
 
     // View defined operations

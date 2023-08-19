@@ -12,6 +12,7 @@ import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
+import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
@@ -20,6 +21,7 @@ import co.edu.javeriana.tg.services.components.OperationService;
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
 import co.edu.javeriana.tg.services.components.ResourceForOperationService;
+import co.edu.javeriana.tg.services.components.ResourceService;
 import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
 
@@ -39,13 +41,16 @@ public class TeacherService {
 
   private final ResourceForOperationService resourceForOperationService;
 
-  public TeacherService(WorkPlanService workPlanService, OrderService orderService, PartService partService, StepService stepService, OperationService operationService, ResourceForOperationService resourceForOperationService) {
+  private final ResourceService resourceService;
+
+  public TeacherService(WorkPlanService workPlanService, OrderService orderService, PartService partService, StepService stepService, OperationService operationService, ResourceForOperationService resourceForOperationService, ResourceService resourceService) {
     this.workPlanService = workPlanService;
     this.orderService = orderService;
     this.partService = partService;
     this.stepService = stepService;
     this.operationService = operationService;
     this.resourceForOperationService = resourceForOperationService;
+    this.resourceService = resourceService;
   }
 
   public List<PartDTO> getAllParts() {
@@ -131,4 +136,8 @@ public class TeacherService {
   public List<ResourceForOperationDTO> getOperationsForResource(Long resource) {
     return resourceForOperationService.getOperationsGivenResource(resource);
   }
+
+  public List<ResourceDTO> getAllResources() {
+      return resourceService.getAllResources();
+    }
 }
