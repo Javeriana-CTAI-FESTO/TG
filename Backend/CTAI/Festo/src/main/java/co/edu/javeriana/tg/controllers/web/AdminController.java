@@ -23,6 +23,7 @@ import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.ReportDTO;
+import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
@@ -227,6 +228,16 @@ public class AdminController {
         if (workPlans.isEmpty())
             status = HttpStatus.NO_CONTENT;
         return new ResponseEntity<List<OperationDTO>>(workPlans, status);
+    }
+
+    @GetMapping("/operations/{resource}")
+    public ResponseEntity<List<ResourceForOperationDTO>> getOperationsByResource(@PathVariable Long resource) {
+        List<ResourceForOperationDTO> workPlans = null;
+        HttpStatus status = HttpStatus.OK;
+        workPlans = adminService.getOperationsForResource(resource);
+        if (workPlans.isEmpty())
+            status = HttpStatus.NO_CONTENT;
+        return new ResponseEntity<List<ResourceForOperationDTO>>(workPlans, status);
     }
 
     // Create product plans
