@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import co.edu.javeriana.tg.controllers.web.AdminController;
+import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.ClientDTO;
@@ -597,6 +598,45 @@ public class AdminControllerTest {
     }
 
     @Test
+    public void testEmptyCreatePart() {
+        try {
+            CreatePartAux aux = new CreatePartAux();
+            when(adminService.createPart(aux)).thenReturn(null);
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyCreatePart() {
+        try {
+            CreatePartAux aux = new CreatePartAux();
+            when(adminService.createPart(aux)).thenReturn(new PartDTO());
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorCreatPart() {
+        try {
+            CreatePartAux aux = new CreatePartAux();
+            when(adminService.createPart(aux)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
     public void testEmptyGetAllWorkPlanStatus() {
         try {
             when(adminService.getOrdersWithStatus()).thenReturn(new ArrayList<OrderDTO>(0));
@@ -661,6 +701,42 @@ public class AdminControllerTest {
         try {
             when(adminService.getAllOrdersPlannedEnds()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetAllClients() {
+        try {
+            when(adminService.getAllClients()).thenReturn(new ArrayList<ClientDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/clients")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetAllClients() {
+        try {
+            when(adminService.getAllClients()).thenReturn(List.of(new ClientDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/clients")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetAllClients() {
+        try {
+            when(adminService.getAllClients()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/clients")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {

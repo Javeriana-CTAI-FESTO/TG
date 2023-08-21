@@ -17,9 +17,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
+import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 import co.edu.javeriana.tg.services.components.PartService;
+import co.edu.javeriana.tg.services.components.WorkPlanService;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -31,6 +33,9 @@ public class PartServiceTest {
 
     @MockBean
     private PartRepository partRepository;
+
+    @MockBean
+    private WorkPlanService workPlanService;
 
     @Test
     public void testEmptyGetAll() {
@@ -160,13 +165,26 @@ public class PartServiceTest {
     @Test
     public void testProductionProduceableParts(){
         assertDoesNotThrow(() -> partService.getAllProductionProduceableParts());
+        Part p = new Part();
+        Long wp = 1l;
+        p.setWorkPlanNumber(wp);
+        when(workPlanService.getWorkPlanTypeByWorkPlanNumber(wp)).thenReturn(1l);
+        when(partRepository.getAllProductionParts()).thenReturn(List.of(p));
+        assertDoesNotThrow(() -> partService.getAllProductionProduceableParts());
     }
 
     @Test
     public void testCustomerProduceableParts(){
         assertDoesNotThrow(() -> partService.getAllCustomerProduceableParts());
+        Part p = new Part();
+        Long wp = 1l;
+        p.setWorkPlanNumber(wp);
+        when(workPlanService.getWorkPlanTypeByWorkPlanNumber(wp)).thenReturn(2l);
+        when(partRepository.getAllProductionParts()).thenReturn(List.of(p));
+        assertDoesNotThrow(() -> partService.getAllCustomerProduceableParts());
     }
 
+    @Test
     public void testProduceableParts(){
         assertDoesNotThrow(() -> partService.getPartsThatCanBeProduced());
     }

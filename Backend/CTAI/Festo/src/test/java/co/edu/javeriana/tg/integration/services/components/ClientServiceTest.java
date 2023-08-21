@@ -3,6 +3,8 @@ package co.edu.javeriana.tg.integration.services.components;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class ClientServiceTest {
 
     @MockBean
     private ClientRepository clientRepository;
+
+    @Test
+    public void testNonEmptyGetAllClients(){
+        when(clientRepository.findAll()).thenReturn(List.of(new Client(1l)));
+        assertNotNull(clientService.getAllClients());
+    }
 
     @Test
     public void testNonEmptyGetClient(){
