@@ -5,11 +5,16 @@ import java.util.Date;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderDTO {
+    @Schema(name = "Order Number", example = "1", required = true, description = "Numero de orden asignado")
     private Long orderNumber;
+    @Schema(name = "Cliente", example = "1", required = true)
     private ClientDTO client;
+    @Schema(name = "Estado de orden", example = "1", required = true)
     private Long orderState;
+    @Schema(name = "Enabled", example = "1", required = true, description = "Indica si la orden esta permitida para ser producida")
     private Boolean enabled;
     private Date release;
     private Long orderPosition;
@@ -194,7 +199,8 @@ public class OrderDTO {
         this.release = release;
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+    public OrderDTO(OrderPosition order, ClientDTO client, Long orderState, Boolean orderEnabled, Date orderRelease,
+            PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
@@ -218,7 +224,8 @@ public class OrderDTO {
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, String status, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+    public OrderDTO(OrderPosition order, ClientDTO client, String status, Long orderState, Boolean orderEnabled,
+            Date orderRelease, PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
@@ -239,7 +246,8 @@ public class OrderDTO {
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, Long time, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+    public OrderDTO(OrderPosition order, ClientDTO client, Long time, Long orderState, Boolean orderEnabled,
+            Date orderRelease, PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
