@@ -81,6 +81,10 @@ public class AdminService {
       return reportService.getAllMachineFailsForMachine(resourceId);
     }
 
+    public List<ClientDTO> getAllClients() {
+      return clientService.getAllClients();
+    }
+
     public ClientDTO createClient(Client client) {
       return clientService.createClient(client);
     }

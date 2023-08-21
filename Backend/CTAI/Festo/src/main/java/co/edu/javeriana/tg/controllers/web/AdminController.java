@@ -117,6 +117,19 @@ public class AdminController {
     }
     //
 
+    @GetMapping("/clients")
+    public ResponseEntity<List<ClientDTO>> getClients() {
+        List<ClientDTO> reports = null;
+        HttpStatus status = HttpStatus.OK;
+        try {
+            reports = adminService.getAllClients();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<ClientDTO>>(reports, status);
+    }
     // Create clients
     @PostMapping("/clients")
     public ResponseEntity<ClientDTO> createClient(@RequestBody Client client) {

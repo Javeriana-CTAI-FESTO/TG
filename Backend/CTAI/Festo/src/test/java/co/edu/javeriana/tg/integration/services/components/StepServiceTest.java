@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,6 +21,7 @@ import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.StepParameterDefinition;
+import co.edu.javeriana.tg.entities.managed.StepParameterDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
@@ -132,8 +134,13 @@ public class StepServiceTest {
         step.setWorkPlanNumber(workPlanNumber);
         step.setOrderNumber(orderNumber);
         step.setOrderPosition(orderPosition);
-
-        when(stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(workPlanNumber, stepNumber)).thenReturn(List.of(new StepParameterDefinition()));
-        assertEquals(workPlanNumber, stepService.firstStepByWorkplan(workPlanNumber).getWorkPlan().getWorkPlanNumber());
+        StepParameterDefinition stepParameterDefinition = new StepParameterDefinition(new StepParameterDefinitionPK(workPlanNumber, stepNumber, orderNumber));
+        stepParameterDefinition.setParameter("Par");
+        stepParameterDefinition.setParameterNumber(orderNumber);
+        
+        when(stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(workPlanNumber, stepNumber)).thenReturn(List.of(stepParameterDefinition));
+        assertDoesNotThrow(() -> stepService.saveStep(step));
+        when(stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(workPlanNumber, stepNumber)).thenReturn(new ArrayList<>(0));
+        assertDoesNotThrow(() -> stepService.saveStep(step));
     }
 }

@@ -105,7 +105,7 @@ public class PartService {
 
     public List<PartDTO> getPartsThatCanBeProduced() {
         List<PartDTO> produceableParts = this.getAllProductionProduceableParts();
-        produceableParts.addAll(this.getAllProductionProduceableParts());
+        produceableParts.addAll(this.getAllCustomerProduceableParts());
         return produceableParts;
       }
 

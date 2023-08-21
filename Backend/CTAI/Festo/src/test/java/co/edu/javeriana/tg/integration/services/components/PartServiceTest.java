@@ -44,6 +44,17 @@ public class PartServiceTest {
     }
 
     @Test
+    public void testEmptyGetUnavailable() {
+        assertEquals(0, partService.getAllUnavailable().size());
+    }
+
+    @Test
+    public void testNonEmptyGetUnavailable() {
+        when(partRepository.findAllUnavailable()).thenReturn(List.of(new Part(1L)));
+        assertEquals(1, partService.getAllUnavailable().size());
+    }
+
+    @Test
     public void testEmptyGetWorkPlanNumberByPart() {
         assertNull(partService.getWorkPlanNumberByPart(1l));
     }
@@ -88,6 +99,9 @@ public class PartServiceTest {
         type = 90l;
         when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Spare Part", partService.getAllTypes().get(type));
+        type = 92l;
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
+        assertEquals("", partService.getAllTypes().get(type));
     }
 
     @Test
@@ -141,5 +155,19 @@ public class PartServiceTest {
         a.setSafetyStock(1l);
         a.setType(3l);
         assertEquals(a.getWorkPlanNumber(), partService.createPart(a).getWorkPlanNumber());
+    }
+
+    @Test
+    public void testProductionProduceableParts(){
+        assertDoesNotThrow(() -> partService.getAllProductionProduceableParts());
+    }
+
+    @Test
+    public void testCustomerProduceableParts(){
+        assertDoesNotThrow(() -> partService.getAllCustomerProduceableParts());
+    }
+
+    public void testProduceableParts(){
+        assertDoesNotThrow(() -> partService.getPartsThatCanBeProduced());
     }
 }
