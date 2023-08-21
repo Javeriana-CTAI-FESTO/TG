@@ -1,12 +1,16 @@
 package co.edu.javeriana.tg.entities.dtos;
 
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class StepDefinitionDTO {
-
+    @Schema(name = "stepNumber", example = "10", description = "Numero de paso", required = true)
     private Long stepNumber;
+    @Schema(name = "description", example = "search for a box that have this part and book the order in this box position", description = "Descripcion del paso", required = true)
     private String description;
+    @Schema(name = "workPlan", example = "210", description = "Workplan al que esta asociado el paso", required = true)
     private WorkPlanDTO workPlan;
+
     private OperationDTO operation;
     private Long nextStepNumber;
     private Boolean firstStep;
@@ -25,7 +29,7 @@ public class StepDefinitionDTO {
     public StepDefinitionDTO() {
     }
 
-    public StepDefinitionDTO(StepDefinition step, OperationDTO operation){
+    public StepDefinitionDTO(StepDefinition step, OperationDTO operation) {
         this.stepNumber = step.getStepNumber();
         this.description = step.getDescription();
         this.operation = operation;
@@ -44,7 +48,7 @@ public class StepDefinitionDTO {
         this.freeText = step.getFreeText();
     }
 
-    public StepDefinitionDTO(StepDefinition step, WorkPlanDTO workPlan, OperationDTO operation){
+    public StepDefinitionDTO(StepDefinition step, WorkPlanDTO workPlan, OperationDTO operation) {
         this.stepNumber = step.getStepNumber();
         this.description = step.getDescription();
         this.workPlan = workPlan;

@@ -1,15 +1,24 @@
 package co.edu.javeriana.tg.entities.dtos;
 
 import co.edu.javeriana.tg.entities.managed.Buffer;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BufferDTO {
+    @Schema(name = "resource", example = "110", description = "ResourceDTO, recurso utilizado por la maquina", required = true)
     private ResourceDTO resource;
+    @Schema(name = "bufferNumber", example = "1", description = "Numero Long que identifica al buffer", required = true)
     private Long bufferNumber;
+    @Schema(name = "description", example = "Buffer", description = "Descripción del buffer", required = true)
     private String description;
+    @Schema(name = "type", example = "1", description = "Indica el tipo de buffer", required = true)
     private Long type;
+    @Schema(name = "beltNumber", example = "1", description = "Indica el numero de belt", required = false)
     private Long beltNumber;
+    @Schema(name = "sides", example = "1", description = "Indica el numero de lados", required = false)
     private Long sides;
+    @Schema(name = "rows", example = "1", description = "Indica el numero de filas", required = false)
     private Long rows;
+    @Schema(name = "columns", example = "1", description = "Indica el numero de columnas", required = false)
     private Long columns;
 
     public BufferDTO() {

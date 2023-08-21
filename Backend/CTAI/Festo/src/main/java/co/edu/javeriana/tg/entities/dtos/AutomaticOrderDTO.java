@@ -1,23 +1,40 @@
 package co.edu.javeriana.tg.entities.dtos;
 
 import co.edu.javeriana.tg.entities.managed.AutomaticOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AutomaticOrderDTO {
+    @Schema(name = "resource", example = "10", description = "Numero Long que identifica el id de un recurso", required = true)
     private Long resourceId;
+    @Schema(name = "partNumber", example = "1", description = "Numero Long que identifica el id de una parte", required = true)
     private Long partNumber;
+    @Schema(name = "lowLimit", example = "1", description = "Numero Long que identifica el limite inferior", required = true)
     private Long lowLimit;
+    @Schema(name = "highLimit", example = "1", description = "Numero Long que identifica el limite superior", required = true)
     private Long highLimit;
+    @Schema(name = "mClass", example = "1", description = "Numero Long que identifica el mClass", required = true)
     private Long mClass;
+    @Schema(name = "mNumber", example = "1", description = "Numero Long que identifica el mNumber", required = true)
     private Long mNumber;
+    @Schema(name = "workPlanNumber", example = "1", description = "Numero Long que identifica el numero de workPlan", required = true)
     private Long workPlanNumber;
+    @Schema(name = "bufferNumber", example = "1", description = "Numero Long que identifica el numero de buffer", required = true)
     private Long bufferNumber;
+    @Schema(name = "active", example = "1", description = "Indica si la orden esta activa", required = true)
     private Boolean active;
+    @Schema(name = "description", example = "1", description = "Descripcion de la orden", required = true)
     private String description;
+    @Schema(name = "noOrderNumber", example = "1", description = "Indica si la orden no tiene numero de orden", required = true)
     private Boolean noOrderNumber;
+    @Schema(name = "autoOrderType", example = "1", description = "Indica el tipo de orden", required = true)
     private String autoOrderType;
+    @Schema(name = "id", example = "1", description = "Identificador de la orden", required = true)
     private Long id;
+    @Schema(name = "resourceThatSendMessageId", example = "1", description = "Identificador del recurso que envia el mensaje", required = true)
     private Long resourceThatSendMessageId;
+    @Schema(name = "partNumberToCheck", example = "1", description = "Numero Long que identifica el id de una parte", required = true)
     private Long partNumberToCheck;
+    @Schema(name = "dispo", example = "1", description = "Indica si la orden esta disponible", required = true)
     private Boolean dispo;
 
     public AutomaticOrderDTO() {

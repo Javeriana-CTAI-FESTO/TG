@@ -5,30 +5,54 @@ import java.util.Date;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderDTO {
+    @Schema(name = "orderNumber", example = "4668", description = "Numero que representa una orden en el sistema", required = true)
     private Long orderNumber;
+    @Schema(name = "cliente", example = "20271125", description = "Numero de cliente que realiza la orden", required = true)
     private ClientDTO client;
+    @Schema(name = "orderState", example = "1", description = "Indica el estado de la orden", required = true)
     private Long orderState;
+    @Schema(name = "enabled", example = "true", description = "Indica si la orden esta habilitada a producción", required = true)
     private Boolean enabled;
+    @Schema(name = "release", example = "2021-11-25", description = "Fecha de liberacion de la orden", required = true)
     private Date release;
+    @Schema(name = "orderPosition", example = "1", description = "Numero de posicion de la orden", required = true)
     private Long orderPosition;
+    @Schema(name = "plannedStart", example = "2021-11-25", description = "Fecha de inicio de la orden", required = true)
     private Date plannedStart;
+    @Schema(name = "plannedEnd", example = "2021-11-25", description = "Fecha de fin de la orden", required = true)
     private Date plannedEnd;
+    @Schema(name = "realStart", example = "2021-11-25", description = "Fecha de inicio real de la orden", required = true)
     private Date realStart;
+    @Schema(name = "realEnd", example = "2021-11-25", description = "Fecha de fin real de la orden", required = true)
     private Date realEnd;
+    @Schema(name = "workPlanNumber", example = "1", description = "Numero de plan de trabajo", required = true)
     private Long workPlanNumber;
+    @Schema(name = "stepNumber", example = "1", description = "Numero de paso de la orden", required = true)
     private Long stepNumber;
+    @Schema(name = "mainOrderPosition", example = "1", description = "Numero de posicion principal de la orden", required = true)
     private Long mainOrderPosition;
+    @Schema(name = "state", example = "1", description = "Indica el estado de la orden", required = true)
     private Long state;
+    @Schema(name = "resourceNumber", example = "1", description = "Numero de recurso de la orden", required = true)
     private Long resourceNumber;
+    @Schema(name = "operationNumber", example = "1", description = "Numero de operacion de la orden", required = true)
     private Long operationNumber;
+    @Schema(name = "workOrderNumber", example = "1", description = "Numero de orden de trabajo", required = true)
     private Long workOrderNumber;
+    @Schema(name = "part", example = "1", description = "¨PartDTO usada en la orden", required = true)
     private PartDTO part;
+    @Schema(name = "subOrderBlocked", example = "true", description = "Indica si la orden esta bloqueada", required = true)
     private Boolean subOrderBlocked;
+    @Schema(name = "error", example = "true", description = "Indica si hay error en la orden", required = true)
     private Boolean error;
+    @Schema(name = "status", example = "1", description = "Indica el estado de la orden", required = true)
     private String status;
+    @Schema(name = "orderPartNumber", example = "1", description = "Numero de parte de la orden", required = true)
     private Long orderPartNumber;
+    @Schema(name = "timeNeeded", example = "1", description = "Tiempo requerido para la orden", required = true)
     private String timeNeeded;
 
     public OrderDTO() {
@@ -194,7 +218,8 @@ public class OrderDTO {
         this.release = release;
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+    public OrderDTO(OrderPosition order, ClientDTO client, Long orderState, Boolean orderEnabled, Date orderRelease,
+            PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
@@ -218,7 +243,8 @@ public class OrderDTO {
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, String status, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+    public OrderDTO(OrderPosition order, ClientDTO client, String status, Long orderState, Boolean orderEnabled,
+            Date orderRelease, PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
@@ -239,7 +265,8 @@ public class OrderDTO {
         this.orderPartNumber = order.getOrderPartNumber();
     }
 
-    public OrderDTO(OrderPosition order, ClientDTO client, Long time, Long orderState, Boolean orderEnabled, Date orderRelease, PartDTO part) {
+    public OrderDTO(OrderPosition order, ClientDTO client, Long time, Long orderState, Boolean orderEnabled,
+            Date orderRelease, PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;

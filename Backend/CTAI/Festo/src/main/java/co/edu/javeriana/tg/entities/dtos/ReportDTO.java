@@ -3,17 +3,26 @@ package co.edu.javeriana.tg.entities.dtos;
 import java.util.Date;
 
 import co.edu.javeriana.tg.entities.managed.MachineReport;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReportDTO {
-
+    @Schema(name = "timestamp", example = "2021-11-25", description = "Fecha y hora del reporte", required = true)
     private Date timestamp;
+    @Schema(name = "id", example = "1", description = "Identificador del reporte", required = true)
     private Long id;
+    @Schema(name = "automaticMode", example = "false", description = "Indica si el reporte es automático", required = true)
     private Boolean automaticMode;
+    @Schema(name = "manualMode", example = "false", description = "Indica si el reporte es manual", required = true)
     private Boolean manualMode;
+    @Schema(name = "busy", example = "false", description = "Indica si el reporte esta ocupado", required = true)
     private Boolean busy;
+    @Schema(name = "reset", example = "false", description = "Indica si el reporte se reinicia", required = true)
     private Boolean reset;
+    @Schema(name = "errorL0", example = "false", description = "Indica si el reporte tiene un error L0", required = true)
     private Boolean errorL0;
+    @Schema(name = "errorL1", example = "false", description = "Indica si el reporte tiene un error L1", required = true)
     private Boolean errorL1;
+    @Schema(name = "errorL2", example = "false", description = "Indica si el reporte tiene un error L2", required = true)
     private Boolean errorL2;
 
     public ReportDTO(MachineReport report) {

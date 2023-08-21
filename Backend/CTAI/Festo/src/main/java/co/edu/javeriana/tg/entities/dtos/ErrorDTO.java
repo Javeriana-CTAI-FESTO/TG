@@ -1,10 +1,14 @@
 package co.edu.javeriana.tg.entities.dtos;
 
 import co.edu.javeriana.tg.entities.managed.Error;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ErrorDTO {
+    @Schema(name = "id", example = "1", description = "Identificador del error", required = true)
     private Long id;
+    @Schema(name = "description", example = "Error", description = "Descripción del error", required = true)
     private String description;
+    @Schema(name = "shortDescription", example = "Error", description = "Descripción corta del error", required = true)
     private String shortDescription;
 
     public ErrorDTO() {

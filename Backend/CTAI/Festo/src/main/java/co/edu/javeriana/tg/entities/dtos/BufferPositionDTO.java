@@ -3,22 +3,38 @@ package co.edu.javeriana.tg.entities.dtos;
 import java.util.Date;
 
 import co.edu.javeriana.tg.entities.managed.BufferPosition;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BufferPositionDTO {
+    @Schema(name = "resource", example = "10", description = "Long, recurso utilizado por el buffer", required = true)
     private Long resource;
+    @Schema(name = "buffer", example = "1", description = "Numero Long que identifica al buffer", required = true)
     private Long buffer;
+    @Schema(name = "position", example = "1", description = "Indica la posicion del buffer", required = true)
     private Long position;
+    @Schema(name = "partNumber", example = "1", description = "Indica el numero de parte", required = false)
     private Long partNumber;
+    @Schema(name = "orderNumber", example = "1", description = "Indica el numero de orden", required = false)
     private Long orderNumber;
+    @Schema(name = "orderPosition", example = "1", description = "Indica la posicion de la orden", required = false)
     private Long orderPosition;
+    @Schema(name = "type", example = "1", description = "Indica el tipo de buffer", required = false)
     private Long type;
+    @Schema(name = "zone", example = "1", description = "Indica la zona", required = false)
     private Long zone;
+    @Schema(name = "quantity", example = "1", description = "Indica la cantidad", required = false)
     private Long quantity;
+    @Schema(name = "quantityMax", example = "1", description = "Indica la cantidad maxima", required = false)
     private Long quantityMax;
+    @Schema(name = "timestamp", example = "1", description = "Indica la marca de tiempo", required = false)
     private Date timestamp;
+    @Schema(name = "pallet", example = "1", description = "Indica el pallet", required = false)
     private Long pallet;
+    @Schema(name = "box", example = "1", description = "Indica la caja", required = false)
     private Long box;
+    @Schema(name = "partNumberGroup", example = "1", description = "Indica el grupo de parte", required = false)
     private Long partNumberGroup;
+    @Schema(name = "booked", example = "1", description = "Indica si esta reservado", required = false)
     private Boolean booked;
 
     public BufferPositionDTO() {
