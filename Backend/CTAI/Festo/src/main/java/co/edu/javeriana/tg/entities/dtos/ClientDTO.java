@@ -1,14 +1,22 @@
 package co.edu.javeriana.tg.entities.dtos;
 
 import co.edu.javeriana.tg.entities.managed.Client;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ClientDTO {
+    @Schema(name = "Cliente Number", example = "1", required = true)
     private Long clientNumber;
+    @Schema(name = "Nombre", example = "Juan", required = true)
     private String firstName;
+    @Schema(name = "Apellido", example = "Perez", required = true)
     private String lastName;
+    @Schema(name = "Dirección", example = "Calle 123", required = true)
     private String address;
+    @Schema(name = "Teléfono", example = "3007805148", required = true)
     private String phone;
+    @Schema(name = "Email", example = "tXwzJ@example.com", required = true)
     private String email;
+    @Schema(name = "Empresa", example = "Javeriana", required = true)
     private String company;
 
     public ClientDTO() {
