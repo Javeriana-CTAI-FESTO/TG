@@ -15,11 +15,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Map;
+
 import co.edu.javeriana.tg.controllers.web.AdminController;
+import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.ClientDTO;
 import co.edu.javeriana.tg.entities.dtos.MachineReportDTO;
+import co.edu.javeriana.tg.entities.dtos.OperationDTO;
+import co.edu.javeriana.tg.entities.dtos.OrderDTO;
+import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.ReportDTO;
+import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
+import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
+import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
+import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.services.users.AdminService;
 
@@ -27,9 +39,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -73,6 +88,18 @@ public class AdminControllerTest {
     }
 
     @Test
+    public void testErrorGetAllFailsReports() {
+        try {
+            when(adminService.getAllFails()).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/fails")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
     public void testEmptyGetFailReportsForMachine() {
         try {
             Long machine = 1l;
@@ -99,6 +126,19 @@ public class AdminControllerTest {
     }
 
     @Test
+    public void testErrorGetFailReportsForMachine() {
+        try {
+            Long machine = 1l;
+            when(adminService.getAllFailsForMachine(machine)).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/fails/"+String.valueOf(machine))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
     public void testEmptyGetAllReports() {
         try {
             when(adminService.getAllReports()).thenReturn(new ArrayList<>(0));
@@ -117,6 +157,18 @@ public class AdminControllerTest {
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetAllReports() {
+        try {
+            when(adminService.getAllReports()).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -148,13 +200,24 @@ public class AdminControllerTest {
         }
     }
 
-
-    /*
     @Test
-    public void testEmptyGetAllWorkPlans() {
+    public void testErrorGetReportsForMachine() {
         try {
-            when(adminService.getAllWorkPlans()).thenReturn(new ArrayList<>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
+            Long machine = 1l;
+            when(adminService.getReportsForMachine(machine)).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/reports/"+String.valueOf(machine))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+     @Test
+    public void testEmptyGetAllPartsAvailable() {
+        try {
+            when(adminService.getAllPartsAvailable()).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/available")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
         } catch (Exception e) {
@@ -163,11 +226,11 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNonEmptyGetAllWorkPlans() {
+    public void testNonEmptyGetAllPartsAvailable() {
         try {
-            when(adminService.getAllWorkPlans()).thenReturn(List.of(new WorkPlanDTO()));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            when(adminService.getAllPartsAvailable()).thenReturn(List.of(new PartDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/available")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
         } catch (Exception e) {
             fail();
@@ -175,23 +238,22 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundGetAllWorkPlans() {
+    public void testErrorGetAllPartsAvailable() {
         try {
-            when(workPlanService.getAll()).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
+            when(adminService.getAllPartsAvailable()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/available")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
     }
 
     @Test
-    public void testEmptyGetWorkPlansById() {
+    public void testEmptyGetAllPartsUnvailable() {
         try {
-            Long product = 1l;
-            when(workPlanService.getById(product)).thenReturn(null);
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
+            when(adminService.getAllPartsUnavailable()).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/unavailable")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
         } catch (Exception e) {
@@ -200,12 +262,11 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNonEmptyGetWorkPlansById() {
+    public void testNonEmptyGetAllPartsUnavailable() {
         try {
-            Long product = 1l;
-            when(workPlanService.getById(product)).thenReturn(new WorkPlanDTO());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            when(adminService.getAllPartsUnavailable()).thenReturn(List.of(new PartDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/unavailable")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
         } catch (Exception e) {
             fail();
@@ -213,127 +274,12 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundGetWorkPlansById() {
+    public void testErrorGetAllPartsUnavailable() {
         try {
-            Long product = 1l;
-            when(workPlanService.getById(product)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
+            when(adminService.getAllPartsUnavailable()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/unavailable")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyGetWorkPlanTypes() {
-        try {
-            when(workPlanService.getTypes()).thenReturn(new HashMap<Long, String>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetWorkPlanTypes() {
-        try {
-            when(workPlanService.getTypes()).thenReturn(Map.of(1l, "Test"));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetWorkPlanTypes() {
-        try {
-            when(workPlanService.getTypes()).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyGetWorkPlansByType() {
-        try {
-            Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenReturn(new ArrayList<WorkPlanDTO>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetWorkPlansByType() {
-        try {
-            Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenReturn(List.of(new WorkPlanDTO()));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetWorkPlansByType() {
-        try {
-            Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyCreateWorkPlan() {
-        try {
-            CreateWorkPlanAux aux = new CreateWorkPlanAux();
-            when(workPlanService.createWorkPlan(aux)).thenReturn(null);
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/products")
-            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyCreateWorkPlan() {
-        try {
-            CreateWorkPlanAux aux = new CreateWorkPlanAux();
-            when(workPlanService.createWorkPlan(aux)).thenReturn(new WorkPlanDTO());
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/products")
-            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundCreateWorkPlan() {
-        try {
-           CreateWorkPlanAux aux = new CreateWorkPlanAux();
-            when(workPlanService.createWorkPlan(aux)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/products")
-            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -342,7 +288,7 @@ public class AdminControllerTest {
     @Test
     public void testEmptyGetAllParts() {
         try {
-            when(partService.getAll()).thenReturn(new ArrayList<>(0));
+            when(adminService.getAllParts()).thenReturn(new ArrayList<>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -354,7 +300,7 @@ public class AdminControllerTest {
     @Test
     public void testNonEmptyGetAllParts() {
         try {
-            when(partService.getAll()).thenReturn(List.of(new PartDTO()));
+            when(adminService.getAllParts()).thenReturn(List.of(new PartDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -364,9 +310,170 @@ public class AdminControllerTest {
     }
 
     @Test
+    public void testErrorGetAllParts() {
+        try {
+            when(adminService.getAllParts()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetAllWorkPlans() {
+        try {
+            when(adminService.getAllWorkPlans()).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetAllWorkPlans() {
+        try {
+            when(adminService.getAllWorkPlans()).thenReturn(List.of(new WorkPlanDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetAllWorkPlans() {
+        try {
+            when(adminService.getAllWorkPlans()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetWorkPlansById() {
+        try {
+            Long product = 1l;
+            when(adminService.getWorkPlanById(product)).thenReturn(null);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/"+String.valueOf(product))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetWorkPlansById() {
+        try {
+            Long product = 1l;
+            when(adminService.getWorkPlanById(product)).thenReturn(new WorkPlanWithStepsDTO());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/"+String.valueOf(product))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetWorkPlansById() {
+        try {
+            Long product = 1l;
+            when(adminService.getWorkPlanById(product)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/"+String.valueOf(product))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetWorkPlanTypes() {
+        try {
+            when(adminService.getAllWorkPlansTypes()).thenReturn(new HashMap<Long, String>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/type")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetWorkPlanTypes() {
+        try {
+            when(adminService.getAllWorkPlansTypes()).thenReturn(Map.of(1l, "Test"));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/type")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetWorkPlanTypes() {
+        try {
+            when(adminService.getAllWorkPlansTypes()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/type")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetWorkPlansByType() {
+        try {
+            Long type = 1l;
+            when(adminService.getWorkPlansByType(type)).thenReturn(new ArrayList<WorkPlanDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/type/"+String.valueOf(type))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetWorkPlansByType() {
+        try {
+            Long type = 1l;
+            when(adminService.getWorkPlansByType(type)).thenReturn(List.of(new WorkPlanDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/type/"+String.valueOf(type))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetWorkPlansByType() {
+        try {
+            Long type = 1l;
+            when(adminService.getWorkPlansByType(type)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/type/"+String.valueOf(type))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+    @Test
     public void testEmptyGetAllPartsType() {
         try {
-            when(partService.getAllTypes()).thenReturn(new HashMap<Long, String>(0));
+            when(adminService.getAllPartsTypes()).thenReturn(new HashMap<Long, String>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -376,10 +483,418 @@ public class AdminControllerTest {
     }
 
     @Test
+    public void testEmptyGetOperations() {
+        try {
+            when(adminService.getAllOperations()).thenReturn(new ArrayList<OperationDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/operations")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetOperations() {
+        try {
+            when(adminService.getAllOperations()).thenReturn(List.of(new OperationDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/operations")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetOperations() {
+        try {
+            when(adminService.getAllOperations()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/operations")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetOperationsByResource() {
+        try {
+            long resource = 1l;
+            when(adminService.getOperationsForResource(resource)).thenReturn(new ArrayList<ResourceForOperationDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/operations/"+String.valueOf(resource))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetOperationsForResource() {
+        try {
+            long resource = 1l;
+            when(adminService.getOperationsForResource(resource)).thenReturn(List.of(new ResourceForOperationDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/operations/"+String.valueOf(resource))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetOperationsForResource() {
+        try {
+            long resource = 1l;
+            when(adminService.getOperationsForResource(resource)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/operations/"+String.valueOf(resource))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyCreateWorkPlan() {
+        try {
+            CreateWorkPlanAux aux = new CreateWorkPlanAux();
+            when(adminService.createWorkPlan(aux)).thenReturn(null);
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/work-plans")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyCreateWorkPlan() {
+        try {
+            CreateWorkPlanAux aux = new CreateWorkPlanAux();
+            when(adminService.createWorkPlan(aux)).thenReturn(new WorkPlanDTO());
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/work-plans")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorCreateWorkPlan() {
+        try {
+            CreateWorkPlanAux aux = new CreateWorkPlanAux();
+            when(adminService.createWorkPlan(aux)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/work-plans")
+            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetAllWorkPlanStatus() {
+        try {
+            when(adminService.getOrdersWithStatus()).thenReturn(new ArrayList<OrderDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetAllWorkPlanStatus() {
+        try {
+            when(adminService.getOrdersWithStatus()).thenReturn(List.of(new OrderDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetAllWorkPlanStatus() {
+        try {
+            when(adminService.getOrdersWithStatus()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetAllPlannedEnds() {
+        try {
+            when(adminService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<Date>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetAllPlannedEnds() {
+        try {
+            when(adminService.getAllOrdersPlannedEnds()).thenReturn(List.of(new Date()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetAllPlannedEnds() {
+        try {
+            when(adminService.getAllOrdersPlannedEnds()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetStatus() {
+        try {
+            when(adminService.getOrdersPossibleStatus()).thenReturn(new HashMap<Long, String>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetStatus() {
+        try {
+            when(adminService.getOrdersPossibleStatus()).thenReturn(Map.of(1l, "Test"));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetStatus() {
+        try {
+            when(adminService.getOrdersPossibleStatus()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetOrdersByStatus() {
+        try {
+            Long status = 1l;
+            when(adminService.filterOrdersByStatus(status)).thenReturn(new ArrayList<OrderDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetOrdersByStatus() {
+        try {
+            Long status = 1l;
+            when(adminService.filterOrdersByStatus(status)).thenReturn(List.of(new OrderDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetOrdersByStatus() {
+        try {
+            Long status = 1l;
+            when(adminService.filterOrdersByStatus(status)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetOrdersTime() {
+        try {
+            when(adminService.getOrdersWithTime()).thenReturn(new ArrayList<OrderDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetOrdersTime() {
+        try {
+            when(adminService.getOrdersWithTime()).thenReturn(List.of(new OrderDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetEnableOrders() {
+        try {
+            Long orderNumber = 1l;
+            when(adminService.enableOrder(orderNumber)).thenReturn(null);
+            MockHttpServletResponse response = mvc.perform(put(BASEURI+"/orders/"+String.valueOf(orderNumber))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetSteps() {
+        try {
+            when(adminService.getAllStepsDefined()).thenReturn(new ArrayList<StepDefinitionDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/steps")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetSteps() {
+        try {
+            when(adminService.getAllStepsDefined()).thenReturn(List.of(new StepDefinitionDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/steps")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetSteps() {
+        try {
+            when(adminService.getAllStepsDefined()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/steps")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetEnableOrders() {
+        try {
+            Long orderNumber = 1l;
+            when(adminService.enableOrder(orderNumber)).thenReturn(new OrderDTO());
+            MockHttpServletResponse response = mvc.perform(put(BASEURI+"/orders/"+String.valueOf(orderNumber))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorEnableOrders() {
+        try {
+            Long orderNumber = 1l;
+            when(adminService.enableOrder(orderNumber)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(put(BASEURI+"/orders/"+String.valueOf(orderNumber))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetOrdersTime() {
+        try {
+            when(adminService.getOrdersWithTime()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetPartsConsumedByWorkPlan() {
+        try {
+            when(adminService.getAllPartsConsumedByOrders()).thenReturn(new ArrayList<PartsConsumedByOrderDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/parts")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetPartsConsumedByWorkPlan() {
+        try {
+            when(adminService.getAllPartsConsumedByOrders()).thenReturn(List.of(new PartsConsumedByOrderDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/parts")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetPartsConsumedByWorkPlan() {
+        try {
+            when(adminService.getAllPartsConsumedByOrders()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/parts")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
     public void testNonEmptyGetAllPartsType() {
         try {
             Long type = 1l;
-            when(partService.getAllTypes()).thenReturn(Map.of(type, "Test"));
+            when(adminService.getAllPartsTypes()).thenReturn(Map.of(type, "Test"));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -389,12 +904,12 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundGetAllPartsType() {
+    public void testErrorGetAllPartsType() {
         try {
-            when(partService.getAllTypes()).thenThrow(new RuntimeException());
+            when(adminService.getAllPartsTypes()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -404,7 +919,7 @@ public class AdminControllerTest {
     public void testEmptyGetAllPartsByType() {
         try {
             Long type = 1l;
-            when(partService.getAllByType(type)).thenReturn(new ArrayList<PartDTO>(0));
+            when(adminService.getAllPartsByType(type)).thenReturn(new ArrayList<PartDTO>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -417,7 +932,7 @@ public class AdminControllerTest {
     public void testNonEmptyGetAllPartsByType() {
         try {
             Long type = 1l;
-            when(partService.getAllByType(type)).thenReturn(List.of(new PartDTO()));
+            when(adminService.getAllPartsByType(type)).thenReturn(List.of(new PartDTO()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -427,25 +942,23 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundGetAllPartsByType() {
+    public void testErrorGetAllPartsByType() {
         try {
             Long type = 1l;
-            when(partService.getAllByType(type)).thenThrow(new RuntimeException());
+            when(adminService.getAllPartsByType(type)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
     }
-
     @Test
-    public void testEmptyCreatePart() {
+    public void testEmptyGetAllProduceableParts() {
         try {
-            CreatePartAux aux = new CreatePartAux();
-            when(partService.createPart(aux)).thenReturn(null);
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts")
-            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            when(adminService.getPartsThatCanBeProduced()).thenReturn(new ArrayList<PartDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/production")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
         } catch (Exception e) {
             fail();
@@ -453,12 +966,11 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNonEmptyCreatePart() {
+    public void testNonEmptyGetAllProduceableParts() {
         try {
-            CreatePartAux aux = new CreatePartAux();
-            when(partService.createPart(aux)).thenReturn(new PartDTO());
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts")
-            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();           
+            when(adminService.getPartsThatCanBeProduced()).thenReturn(List.of(new PartDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/production")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());
         } catch (Exception e) {
             fail();
@@ -466,18 +978,52 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundCreatePart() {
+    public void testErrorGetAllProduceableParts() {
         try {
-           CreatePartAux aux = new CreatePartAux();
-            when(partService.createPart(aux)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts")
-            .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            when(adminService.getPartsThatCanBeProduced()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/production")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
     }
-    */
+
+    @Test
+    public void testEmptyGetResources() {
+        try {
+            when(adminService.getAllResources()).thenReturn(new ArrayList<ResourceDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/resources")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetResources() {
+        try {
+            when(adminService.getAllResources()).thenReturn(List.of(new ResourceDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/resources")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetResources() {
+        try {
+            when(adminService.getAllResources()).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/resources")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
 
     @Test
     public void testEmptyGetAllIndicators() {
@@ -504,12 +1050,12 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundGetAllIndicators() {
+    public void testErrorGetAllIndicators() {
         try {
             when(adminService.getProductionIndicators()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -542,13 +1088,13 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testNotFoundCreateClient() {
+    public void testErrorCreateClient() {
         try {
            Client aux = new Client();
             when(adminService.createClient(aux)).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(post(BASEURI+"/clients")
             .accept(MediaType.APPLICATION_JSON).content(gson.toJson(aux)).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }

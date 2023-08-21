@@ -35,39 +35,54 @@ import co.edu.javeriana.tg.services.users.AdminService;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-    
+
     private final AdminService adminService;
 
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
 
-    //View machines
+    // View machines
     @GetMapping("/resources")
     public ResponseEntity<List<ResourceDTO>> getAllResources() {
-        List<ResourceDTO> reports = adminService.getAllResources();
         HttpStatus status = HttpStatus.OK;
-        if (reports.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        List<ResourceDTO> reports = null;
+        try {
+            reports = adminService.getAllResources();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<ResourceDTO>>(reports, status);
     }
 
     // View machines status
     @GetMapping("/reports")
     public ResponseEntity<List<MachineReportDTO>> getAllReports() {
-        List<MachineReportDTO> reports = adminService.getAllReports();
         HttpStatus status = HttpStatus.OK;
-        if (reports.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        List<MachineReportDTO> reports = null;
+        try {
+            reports = adminService.getAllReports();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<MachineReportDTO>>(reports, status);
     }
 
     @GetMapping("/reports/{resourceId}")
     public ResponseEntity<List<ReportDTO>> getReportsForMachine(@PathVariable Long resourceId) {
-        List<ReportDTO> reports = adminService.getReportsForMachine(resourceId);
+        List<ReportDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (reports.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            reports = adminService.getReportsForMachine(resourceId);
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<ReportDTO>>(reports, status);
     }
     //
@@ -75,19 +90,29 @@ public class AdminController {
     // View machines fails
     @GetMapping("/reports/fails")
     public ResponseEntity<List<MachineReportDTO>> getAllFailsReports() {
-        List<MachineReportDTO> reports = adminService.getAllFails();
+        List<MachineReportDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (reports.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            reports = adminService.getAllFails();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<MachineReportDTO>>(reports, status);
     }
 
     @GetMapping("/reports/fails/{resourceId}")
     public ResponseEntity<List<ReportDTO>> getFailReportsForMachine(@PathVariable Long resourceId) {
-        List<ReportDTO> reports = adminService.getAllFailsForMachine(resourceId);
+        List<ReportDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (reports.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            reports = adminService.getAllFailsForMachine(resourceId);
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<ReportDTO>>(reports, status);
     }
     //
@@ -96,65 +121,87 @@ public class AdminController {
     @PostMapping("/clients")
     public ResponseEntity<ClientDTO> createClient(@RequestBody Client client) {
         ClientDTO clientDTO = null;
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        HttpStatus status = HttpStatus.OK;
         try {
             clientDTO = adminService.createClient(client);
-            status = HttpStatus.OK;
             if (clientDTO == null)
                 status = HttpStatus.NO_CONTENT;
         } catch (Exception e) {
-            status = HttpStatus.NOT_FOUND;
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<ClientDTO>(clientDTO, status);
     }
     //
 
     // View Stock Parts in the system
-
     @GetMapping("/parts/available")
     public ResponseEntity<List<PartDTO>> getAllPartsAvailable() {
-        List<PartDTO> resources = adminService.getAllPartsAvailable();
+        List<PartDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            reports = adminService.getAllPartsAvailable();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(reports, status);
     }
 
     @GetMapping("/parts/unavailable")
     public ResponseEntity<List<PartDTO>> getAllPartsUnavailable() {
-        List<PartDTO> resources = adminService.getAllPartsUnavailable();
+        List<PartDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            reports = adminService.getAllPartsUnavailable();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(reports, status);
     }
 
     @GetMapping("/parts")
     public ResponseEntity<List<PartDTO>> getAllParts() {
-        List<PartDTO> resources = adminService.getAllParts();
+        List<PartDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            reports = adminService.getAllParts();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(reports, status);
     }
 
     // Crear nueva parte
     @PostMapping("/parts")
     public ResponseEntity<PartDTO> createPart(@RequestBody CreatePartAux aux) {
-        PartDTO resources = adminService.createPart(aux);
+        PartDTO resources = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            resources = adminService.createPart(aux);
+            if (resources == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<PartDTO>(resources, status);
     }
-    
+
     @GetMapping("/parts/type")
     public ResponseEntity<Map<Long, String>> getAllPartsType() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllPartsTypes();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllPartsTypes();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -162,18 +209,27 @@ public class AdminController {
     public ResponseEntity<List<PartDTO>> getAllPartsByType(@PathVariable Long typeId) {
         List<PartDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllPartsByType(typeId);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllPartsByType(typeId);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<PartDTO>>(workPlans, status);
     }
 
     @GetMapping("/parts/production")
     public ResponseEntity<List<PartDTO>> getProduceableParts() {
-        List<PartDTO> resources = adminService.getPartsThatCanBeProduced();
+        List<PartDTO> resources = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            resources = adminService.getPartsThatCanBeProduced();
+            if (resources.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<PartDTO>>(resources, status);
     }
     //
@@ -183,9 +239,13 @@ public class AdminController {
     public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlans() {
         List<WorkPlanDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllWorkPlans();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllWorkPlans();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
 
@@ -193,9 +253,13 @@ public class AdminController {
     public ResponseEntity<WorkPlanWithStepsDTO> getWorkPlansById(@PathVariable Long id) {
         WorkPlanWithStepsDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getWorkPlanById(id);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getWorkPlanById(id);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<WorkPlanWithStepsDTO>(workPlans, status);
     }
 
@@ -203,9 +267,13 @@ public class AdminController {
     public ResponseEntity<Map<Long, String>> getAllWorkPlanTypes() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllWorkPlansTypes();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllWorkPlansTypes();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -213,9 +281,14 @@ public class AdminController {
     public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlansByType(@PathVariable Long typeId) {
         List<WorkPlanDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getWorkPlansByType(typeId);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getWorkPlansByType(typeId);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
     //
@@ -225,9 +298,14 @@ public class AdminController {
     public ResponseEntity<OrderDTO> enableOrder(@PathVariable Long orderNumber) {
         OrderDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.enableOrder(orderNumber);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.enableOrder(orderNumber);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<OrderDTO>(workPlans, status);
     }
 
@@ -235,9 +313,14 @@ public class AdminController {
     public ResponseEntity<List<StepDefinitionDTO>> getAllDefinedSteps() {
         List<StepDefinitionDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllStepsDefined();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllStepsDefined();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<StepDefinitionDTO>>(workPlans, status);
     }
 
@@ -246,9 +329,14 @@ public class AdminController {
     public ResponseEntity<List<OperationDTO>> getAllOperations() {
         List<OperationDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllOperations();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllOperations();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OperationDTO>>(workPlans, status);
     }
 
@@ -256,9 +344,14 @@ public class AdminController {
     public ResponseEntity<List<ResourceForOperationDTO>> getOperationsByResource(@PathVariable Long resource) {
         List<ResourceForOperationDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getOperationsForResource(resource);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getOperationsForResource(resource);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<ResourceForOperationDTO>>(workPlans, status);
     }
 
@@ -267,9 +360,14 @@ public class AdminController {
     public ResponseEntity<WorkPlanDTO> createWorkPlan(@RequestBody CreateWorkPlanAux createRequest) {
         WorkPlanDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.createWorkPlan(createRequest);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.createWorkPlan(createRequest);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<WorkPlanDTO>(workPlans, status);
     }
     //
@@ -279,18 +377,28 @@ public class AdminController {
     public ResponseEntity<List<OrderDTO>> getAllWorkPlanStatus() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getOrdersWithStatus();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getOrdersWithStatus();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
     @GetMapping("/orders/ends")
     public ResponseEntity<List<Date>> getAllPlannedEnds() {
-        List<Date> workPlans = adminService.getAllOrdersPlannedEnds();
+        List<Date> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllOrdersPlannedEnds();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<Date>>(workPlans, status);
     }
 
@@ -298,9 +406,14 @@ public class AdminController {
     public ResponseEntity<Map<Long, String>> getStatus() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getOrdersPossibleStatus();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getOrdersPossibleStatus();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -308,9 +421,14 @@ public class AdminController {
     public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@PathVariable Long orderStatus) {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.filterOrdersByStatus(orderStatus);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.filterOrdersByStatus(orderStatus);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
@@ -318,9 +436,14 @@ public class AdminController {
     public ResponseEntity<List<PartsConsumedByOrderDTO>> getAllPartsConsumedByOrders() {
         List<PartsConsumedByOrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getAllPartsConsumedByOrders();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getAllPartsConsumedByOrders();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<PartsConsumedByOrderDTO>>(workPlans, status);
     }
     //
@@ -330,9 +453,14 @@ public class AdminController {
     public ResponseEntity<List<OrderDTO>> getAllOrdersTime() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = adminService.getOrdersWithTime();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = adminService.getOrdersWithTime();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
@@ -340,14 +468,13 @@ public class AdminController {
     @GetMapping("/indicators")
     public ResponseEntity<List<IndicatorAux>> getAllIndicators() {
         List<IndicatorAux> workPlans = null;
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        HttpStatus status = HttpStatus.OK;
         try {
             workPlans = adminService.getProductionIndicators();
-            status = HttpStatus.OK;
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
         } catch (Exception e) {
-            status = HttpStatus.NOT_FOUND;
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<List<IndicatorAux>>(workPlans, status);
     }

@@ -38,41 +38,59 @@ public class TeacherController {
     }
 
     // View Stock Parts in the system
-
     @GetMapping("/parts/available")
     public ResponseEntity<List<PartDTO>> getAllPartsAvailable() {
-        List<PartDTO> resources = teacherService.getAllPartsAvailable();
+        List<PartDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            reports = teacherService.getAllPartsAvailable();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(reports, status);
     }
 
     @GetMapping("/parts/unavailable")
     public ResponseEntity<List<PartDTO>> getAllPartsUnavailable() {
-        List<PartDTO> resources = teacherService.getAllPartsUnavailable();
+        List<PartDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            reports = teacherService.getAllPartsUnavailable();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(reports, status);
     }
 
     @GetMapping("/parts")
     public ResponseEntity<List<PartDTO>> getAllParts() {
-        List<PartDTO> resources = teacherService.getAllParts();
+        List<PartDTO> reports = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            reports = teacherService.getAllParts();
+            if (reports.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(reports, status);
     }
-    
+
     @GetMapping("/parts/type")
     public ResponseEntity<Map<Long, String>> getAllPartsType() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllPartsTypes();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllPartsTypes();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -80,18 +98,27 @@ public class TeacherController {
     public ResponseEntity<List<PartDTO>> getAllPartsByType(@PathVariable Long typeId) {
         List<PartDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllPartsByType(typeId);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllPartsByType(typeId);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<PartDTO>>(workPlans, status);
     }
 
     @GetMapping("/parts/production")
     public ResponseEntity<List<PartDTO>> getProduceableParts() {
-        List<PartDTO> resources = teacherService.getPartsThatCanBeProduced();
+        List<PartDTO> resources = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            resources = teacherService.getPartsThatCanBeProduced();
+            if (resources.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<PartDTO>>(resources, status);
     }
     //
@@ -101,9 +128,13 @@ public class TeacherController {
     public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlans() {
         List<WorkPlanDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllWorkPlans();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllWorkPlans();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
 
@@ -111,9 +142,13 @@ public class TeacherController {
     public ResponseEntity<WorkPlanWithStepsDTO> getWorkPlansById(@PathVariable Long id) {
         WorkPlanWithStepsDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getWorkPlanById(id);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getWorkPlanById(id);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<WorkPlanWithStepsDTO>(workPlans, status);
     }
 
@@ -121,9 +156,13 @@ public class TeacherController {
     public ResponseEntity<Map<Long, String>> getAllWorkPlanTypes() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllWorkPlansTypes();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllWorkPlansTypes();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -131,9 +170,14 @@ public class TeacherController {
     public ResponseEntity<List<WorkPlanDTO>> getAllWorkPlansByType(@PathVariable Long typeId) {
         List<WorkPlanDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getWorkPlansByType(typeId);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getWorkPlansByType(typeId);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
     //
@@ -143,20 +187,29 @@ public class TeacherController {
     public ResponseEntity<List<StepDefinitionDTO>> getAllDefinedSteps() {
         List<StepDefinitionDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllStepsDefined();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllStepsDefined();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<StepDefinitionDTO>>(workPlans, status);
     }
 
-    //View machines
+    // View machines
     @GetMapping("/resources")
     public ResponseEntity<List<ResourceDTO>> getAllResources() {
-        List<ResourceDTO> reports = teacherService.getAllResources();
+        List<ResourceDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        if (reports.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<ResourceDTO>>(reports, status);
+            try {
+            workPlans = teacherService.getAllResources();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<ResourceDTO>>(workPlans, status);
     }
 
     // View defined operations
@@ -164,9 +217,14 @@ public class TeacherController {
     public ResponseEntity<List<OperationDTO>> getAllOperations() {
         List<OperationDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllOperations();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllOperations();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OperationDTO>>(workPlans, status);
     }
 
@@ -174,9 +232,14 @@ public class TeacherController {
     public ResponseEntity<List<ResourceForOperationDTO>> getOperationsByResource(@PathVariable Long resource) {
         List<ResourceForOperationDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getOperationsForResource(resource);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getOperationsForResource(resource);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<ResourceForOperationDTO>>(workPlans, status);
     }
 
@@ -185,9 +248,14 @@ public class TeacherController {
     public ResponseEntity<WorkPlanDTO> createWorkPlan(@RequestBody CreateWorkPlanAux createRequest) {
         WorkPlanDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.createWorkPlan(createRequest);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.createWorkPlan(createRequest);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<WorkPlanDTO>(workPlans, status);
     }
     //
@@ -197,18 +265,28 @@ public class TeacherController {
     public ResponseEntity<List<OrderDTO>> getAllOrdersStatus() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getOrdersWithStatus();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getOrdersWithStatus();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
     @GetMapping("/orders/ends")
     public ResponseEntity<List<Date>> getAllPlannedEnds() {
-        List<Date> workPlans = teacherService.getAllOrdersPlannedEnds();
+        List<Date> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllOrdersPlannedEnds();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<Date>>(workPlans, status);
     }
 
@@ -216,9 +294,14 @@ public class TeacherController {
     public ResponseEntity<Map<Long, String>> getStatus() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getOrdersPossibleStatus();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getOrdersPossibleStatus();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -226,9 +309,14 @@ public class TeacherController {
     public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@PathVariable Long orderStatus) {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.filterOrdersByStatus(orderStatus);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.filterOrdersByStatus(orderStatus);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
@@ -236,9 +324,14 @@ public class TeacherController {
     public ResponseEntity<OrderDTO> enableOrder(@PathVariable Long orderNumber) {
         OrderDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.enableOrder(orderNumber);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.enableOrder(orderNumber);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<OrderDTO>(workPlans, status);
     }
 
@@ -246,9 +339,14 @@ public class TeacherController {
     public ResponseEntity<List<PartsConsumedByOrderDTO>> getAllPartsConsumedByOrders() {
         List<PartsConsumedByOrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getAllPartsConsumedByOrders();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getAllPartsConsumedByOrders();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<PartsConsumedByOrderDTO>>(workPlans, status);
     }
     //
@@ -258,9 +356,13 @@ public class TeacherController {
     public ResponseEntity<List<OrderDTO>> getAllOrdersTime() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getOrdersWithTime();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getOrdersWithTime();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
@@ -269,9 +371,13 @@ public class TeacherController {
     public ResponseEntity<List<IndicatorAux>> getAllIndicators() {
         List<IndicatorAux> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = teacherService.getProductionIndicators();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = teacherService.getProductionIndicators();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<IndicatorAux>>(workPlans, status);
     }
     //

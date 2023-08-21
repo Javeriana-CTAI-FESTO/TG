@@ -22,6 +22,9 @@ public class OperationDTO {
         this.freeText=operation.getFreeText();
     }
 
+    public OperationDTO() {
+    }
+
     public Long getOperationNumber() {
         return operationNumber;
     }

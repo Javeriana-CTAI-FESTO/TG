@@ -46,10 +46,10 @@ public class StudentControllerTest {
     private static final String BASEURI = "/api/students";
 
     @Test
-    public void testEmptyGetAllParts() {
+    public void testEmptyGetAllProduceableParts() {
         try {
-            when(studentService.getAllParts()).thenReturn(new ArrayList<>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
+            when(studentService.getPartsThatCanBeProduced()).thenReturn(new ArrayList<>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/production")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
         } catch (Exception e) {
@@ -58,10 +58,10 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNonEmptyGetAllParts() {
+    public void testNonEmptyGetAllProduceableParts() {
         try {
-            when(studentService.getAllParts()).thenReturn(List.of(new PartDTO()));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts")
+            when(studentService.getPartsThatCanBeProduced()).thenReturn(List.of(new PartDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/production")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
         } catch (Exception e) {
@@ -70,76 +70,12 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testEmptyGetAllPartsType() {
+    public void testErrorGetAllProduceableParts() {
         try {
-            when(studentService.getAllPartsTypes()).thenReturn(new HashMap<Long, String>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
+            when(studentService.getPartsThatCanBeProduced()).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/production")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetAllPartsType() {
-        try {
-            Long type = 1l;
-            when(studentService.getAllPartsTypes()).thenReturn(Map.of(type, "Test"));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetAllPartsType() {
-        try {
-            when(studentService.getAllPartsTypes()).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyGetAllPartsByType() {
-        try {
-            Long type = 1l;
-            when(studentService.getAllPartsByType(type)).thenReturn(new ArrayList<PartDTO>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetAllPartsByType() {
-        try {
-            Long type = 1l;
-            when(studentService.getAllPartsByType(type)).thenReturn(List.of(new PartDTO()));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetAllPartsByType() {
-        try {
-            Long type = 1l;
-            when(studentService.getAllPartsByType(type)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/parts/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -150,7 +86,7 @@ public class StudentControllerTest {
         try {
             Long partNumber = 1l, clientNumber = 1l, positions = 1l;
             when(studentService.generateNewOrder(partNumber, clientNumber, positions)).thenReturn(null);
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts/new-order")
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts/production/new-order")
             .accept(MediaType.APPLICATION_JSON).param("partNumber", String.valueOf(partNumber)).param("clientNumber", String.valueOf(clientNumber)).param("positions", String.valueOf(positions))).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
         } catch (Exception e) {
@@ -163,7 +99,7 @@ public class StudentControllerTest {
         try {
             Long partNumber = 1l, clientNumber = 1l, positions = 1l;
             when(studentService.generateNewOrder(partNumber, clientNumber, positions)).thenReturn(new OrderDTO());
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts/new-order")
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts/production/new-order")
             .accept(MediaType.APPLICATION_JSON).param("partNumber", String.valueOf(partNumber)).param("clientNumber", String.valueOf(clientNumber)).param("positions", String.valueOf(positions))).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());
         } catch (Exception e) {
@@ -172,13 +108,13 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNotFoundNewOrder() {
+    public void testErrorNewOrder() {
         try {
-           Long partNumber = 1l, clientNumber = 1l, positions = 1l;
-            when(studentService.generateNewOrder(partNumber, clientNumber, positions)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts/new-order")
+            Long partNumber = 1l, clientNumber = 1l, positions = 1l;
+            when(studentService.generateNewOrder(partNumber, clientNumber, positions)).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(post(BASEURI+"/parts/production/new-order")
             .accept(MediaType.APPLICATION_JSON).param("partNumber", String.valueOf(partNumber)).param("clientNumber", String.valueOf(clientNumber)).param("positions", String.valueOf(positions))).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -209,12 +145,12 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNotFoundGetAllOrdersStatus() {
+    public void testErrorGetAllOrdersStatus() {
         try {
-            when(studentService.getOrdersWithStatus()).thenThrow(new RuntimeException());
+            when(studentService.getOrdersWithStatus()).thenThrow(RuntimeException.class);
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -245,6 +181,18 @@ public class StudentControllerTest {
     }
 
     @Test
+    public void testErrorGetAllOrdersPlannedEnds() {
+        try {
+            when(studentService.getAllOrdersPlannedEnds()).thenThrow(RuntimeException.class);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
     public void testEmptyGetOrdersStatus() {
         try {
             when(studentService.getOrdersPossibleStatus()).thenReturn(new HashMap<Long, String>(0));
@@ -269,12 +217,12 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNotFoundGetOrdersStatus() {
+    public void testErrorGetOrdersStatus() {
         try {
-            when(studentService.getOrdersPossibleStatus()).thenThrow(new RuntimeException());
+            when(studentService.getOrdersPossibleStatus()).thenThrow(RuntimeException.class);
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -307,13 +255,13 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNotFoundGetOrdersByStatus() {
+    public void testErrorGetOrdersByStatus() {
         try {
             Long status = 1l;
-            when(studentService.filterOrdersByStatus(status)).thenThrow(new RuntimeException());
+            when(studentService.filterOrdersByStatus(status)).thenThrow(RuntimeException.class);
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/status/"+String.valueOf(status))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -344,12 +292,12 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNotFoundGetOrdersTime() {
+    public void testErrorGetOrdersTime() {
         try {
-            when(studentService.getOrdersWithTime()).thenThrow(new RuntimeException());
+            when(studentService.getOrdersWithTime()).thenThrow(RuntimeException.class);
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
@@ -380,167 +328,14 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testNotFoundGetAllIndicators() {
+    public void testErrorGetAllIndicators() {
         try {
-            when(studentService.getProductionIndicators()).thenThrow(new RuntimeException());
+            when(studentService.getProductionIndicators()).thenThrow(RuntimeException.class);
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/indicators/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-    /*
-    @Test
-    public void testEmptyGetAllWorkPlans() {
-        try {
-            when(studentService.getAllWorkPlans()).thenReturn(new ArrayList<>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetAllWorkPlans() {
-        try {
-            when(workPlanService.getAll()).thenReturn(List.of(new WorkPlanDTO()));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();
         }
     }
-
-    @Test
-    public void testNotFoundGetAllWorkPlans() {
-        try {
-            when(workPlanService.getAll()).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyGetWorkPlansById() {
-        try {
-            Long product = 1l;
-            when(workPlanService.getById(product)).thenReturn(null);
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetWorkPlansById() {
-        try {
-            Long product = 1l;
-            when(workPlanService.getById(product)).thenReturn(new WorkPlanDTO());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetWorkPlansById() {
-        try {
-            Long product = 1l;
-            when(workPlanService.getById(product)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/"+String.valueOf(product))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyGetWorkPlanTypes() {
-        try {
-            when(workPlanService.getTypes()).thenReturn(new HashMap<Long, String>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetWorkPlanTypes() {
-        try {
-            when(workPlanService.getTypes()).thenReturn(Map.of(1l, "Test"));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetWorkPlanTypes() {
-        try {
-            when(workPlanService.getTypes()).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testEmptyGetWorkPlansByType() {
-        try {
-            Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenReturn(new ArrayList<WorkPlanDTO>(0));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetWorkPlansByType() {
-        try {
-            Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenReturn(List.of(new WorkPlanDTO()));
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNotFoundGetWorkPlansByType() {
-        try {
-            Long type = 1l;
-            when(workPlanService.getWorkPlansByType(type)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/products/type/"+String.valueOf(type))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    
-    */
 }

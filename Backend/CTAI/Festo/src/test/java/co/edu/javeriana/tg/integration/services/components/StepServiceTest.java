@@ -16,13 +16,17 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
+import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
+import co.edu.javeriana.tg.entities.managed.StepParameterDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
 import co.edu.javeriana.tg.services.components.OperationService;
 import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
+import co.edu.javeriana.tg.unit.repositories.StepParameterDefinitionRepoTest;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -35,6 +39,9 @@ public class StepServiceTest {
 
     @MockBean
     private StepDefinitionRepository stepDefinitionRepository;
+
+    @MockBean
+    private StepParameterDefinitionRepository stepParameterDefinitionRepository;
 
     @MockBean
     private WorkPlanService workPlanService;
@@ -106,6 +113,27 @@ public class StepServiceTest {
         Long stepNumber = 1l;
         when(stepDefinitionRepository.findFirstByWorkPlan(workPlanNumber)).thenReturn(new StepDefinition(new StepDefinitionPK(workPlanNumber, stepNumber)));
         when(workPlanService.getWorkplanById(workPlanNumber)).thenReturn(new WorkPlanDTO(new WorkPlanDefinition(workPlanNumber), ""));
+        assertEquals(workPlanNumber, stepService.firstStepByWorkplan(workPlanNumber).getWorkPlan().getWorkPlanNumber());
+    }
+
+    @Test
+    public void testEmptySaveStep(){
+        assertDoesNotThrow(() -> stepService.saveStep(new Step()));
+    }
+
+    @Test
+    public void testNonEmptySaveStep(){
+        Long workPlanNumber = 1l;
+        Long stepNumber = 1l;
+        Long orderNumber = 1l;
+        Long orderPosition = 1l;
+        Step step = new Step();
+        step.setStepNumber(stepNumber);
+        step.setWorkPlanNumber(workPlanNumber);
+        step.setOrderNumber(orderNumber);
+        step.setOrderPosition(orderPosition);
+
+        when(stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(workPlanNumber, stepNumber)).thenReturn(List.of(new StepParameterDefinition()));
         assertEquals(workPlanNumber, stepService.firstStepByWorkplan(workPlanNumber).getWorkPlan().getWorkPlanNumber());
     }
 }

@@ -232,7 +232,8 @@ public class OrderService {
         final Map<String, String> indicators = Map.of("Unstarted", "This is the amount of unstarted orders",
                 "In process", "This is the amount of in process orders", "Finished",
                 "This is the amount of finished orders", "All",
-                "This is the amount of orders processed by the system");
+                "This is the amount of orders processed by the system", "Availability", "This is the general availability of the system ");
+        // Availability is calculated as the ratio of Run Time to Planned Production Time: Availability = Run Time / Planned Production Time. Run Time = Planned Production Time − Stop Time
         return indicators.entrySet().stream().map(entry -> new IndicatorAux(entry.getKey(), entry.getValue(),
                 this.evaluateNameToGetIndicator(entry.getKey()))).collect(Collectors.toList());
     }

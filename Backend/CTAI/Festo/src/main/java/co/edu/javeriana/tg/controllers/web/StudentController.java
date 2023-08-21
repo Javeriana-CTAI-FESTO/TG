@@ -31,11 +31,16 @@ public class StudentController {
     // This is what the user can produce
     @GetMapping("/parts/production")
     public ResponseEntity<List<PartDTO>> getProduceableParts() {
-        List<PartDTO> resources = studentService.getPartsThatCanBeProduced();
+        List<PartDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        if (resources.isEmpty())
-            status = HttpStatus.NO_CONTENT;
-        return new ResponseEntity<List<PartDTO>>(resources, status);
+        try {
+            workPlans = studentService.getPartsThatCanBeProduced();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<PartDTO>>(workPlans, status);
     }
 
     // The user can generate a new order based on the availability, its recommended
@@ -45,9 +50,13 @@ public class StudentController {
             @RequestParam Long positions) {
         OrderDTO workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = studentService.generateNewOrder(partNumber, clientNumber, positions);
-        if (workPlans == null)
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.generateNewOrder(partNumber, clientNumber, positions);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<OrderDTO>(workPlans, status);
     }
     //
@@ -57,18 +66,28 @@ public class StudentController {
     public ResponseEntity<List<OrderDTO>> getAllOrdersWithStatus() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = studentService.getOrdersWithStatus();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.getOrdersWithStatus();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
 
     @GetMapping("/orders/ends")
     public ResponseEntity<List<Date>> getAllPlannedEnds() {
-        List<Date> workPlans = studentService.getAllOrdersPlannedEnds();
+        List<Date> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.getAllOrdersPlannedEnds();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<Date>>(workPlans, status);
     }
 
@@ -76,9 +95,14 @@ public class StudentController {
     public ResponseEntity<Map<Long, String>> getStatus() {
         Map<Long, String> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = studentService.getOrdersPossibleStatus();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.getOrdersPossibleStatus();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<Map<Long, String>>(workPlans, status);
     }
 
@@ -86,21 +110,31 @@ public class StudentController {
     public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@PathVariable Long orderStatus) {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = studentService.filterOrdersByStatus(orderStatus);
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.filterOrdersByStatus(orderStatus);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
     //
-    
+
     // Calculate production time
     @GetMapping("/orders/time")
     public ResponseEntity<List<OrderDTO>> getAllOrdersTime() {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = studentService.getOrdersWithTime();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.getOrdersWithTime();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
     //
@@ -110,9 +144,13 @@ public class StudentController {
     public ResponseEntity<List<IndicatorAux>> getAllIndicators() {
         List<IndicatorAux> workPlans = null;
         HttpStatus status = HttpStatus.OK;
-        workPlans = studentService.getProductionIndicators();
-        if (workPlans.isEmpty())
-            status = HttpStatus.NO_CONTENT;
+        try {
+            workPlans = studentService.getProductionIndicators();
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return new ResponseEntity<List<IndicatorAux>>(workPlans, status);
     }
     //

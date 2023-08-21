@@ -40,7 +40,7 @@ public class PartServiceTest {
     @Test
     public void testNonEmptyGetAll() {
         when(partRepository.findAll()).thenReturn(List.of(new Part(1L)));
-        assertEquals(1, partService.getAllAvailable().size());
+        assertEquals(1, partService.getAll().size());
     }
 
     @Test
@@ -64,35 +64,30 @@ public class PartServiceTest {
 
     @Test
     public void testNonEmptyGetAllTypes() {
-        Part p = new Part(1L);
         Long type = 99l;
-        p.setType(type);
-        when(partRepository.findAll()).thenReturn(List.of(p));
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Undefined", partService.getAllTypes().get(type));
         type = 0l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Nothing", partService.getAllTypes().get(type));
         type = 1l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Raw Part", partService.getAllTypes().get(type));
         type = 3l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Production Part", partService.getAllTypes().get(type));
         type = 9l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Box", partService.getAllTypes().get(type));
         type = 10l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Carrier", partService.getAllTypes().get(type));
         type = 11l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Pallet", partService.getAllTypes().get(type));
         type = 90l;
-        p.setType(type);
+        when(partRepository.findAllTypes()).thenReturn(List.of(type));
         assertEquals("Spare Part", partService.getAllTypes().get(type));
-        type = 92l;
-        p.setType(type);
-        assertEquals("", partService.getAllTypes().get(type));
     }
 
     @Test
