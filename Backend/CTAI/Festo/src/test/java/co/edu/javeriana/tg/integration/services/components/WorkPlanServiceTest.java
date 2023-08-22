@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.auxiliary.OperationToPerformInWorkplanAux;
+import co.edu.javeriana.tg.entities.dtos.OperationDTO;
+import co.edu.javeriana.tg.entities.managed.StepDefinition;
+import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
@@ -100,6 +104,8 @@ public class WorkPlanServiceTest {
         w.setWorkPlanType(id);
         when(workPlanTypeRepository.findByTypeNumber(id)).thenReturn(t);
         assertNotNull(workPlanService.createWorkPlan(plan));
+        when(workPlanRepository.existsById(id)).thenReturn(true);
+        assertNull(workPlanService.createWorkPlan(plan));
     }
 
     @Test
@@ -112,13 +118,20 @@ public class WorkPlanServiceTest {
         plan.setShortDescription("T");
         plan.setPictureNumber(1l);
         plan.setPartNumber(1l);
-        OperationToPerformInWorkplanAux[] aux = {};
+        OperationToPerformInWorkplanAux[] aux = {new OperationToPerformInWorkplanAux(id, id, id, id, id, id, id, id), new OperationToPerformInWorkplanAux(id, id, id, id, id, id, id, id), new OperationToPerformInWorkplanAux(id, id, id, id, id, id, id, id)};
         plan.setOperations(aux);
         WorkPlanType t = new WorkPlanType(id);
         t.setDescription("Test");
         WorkPlanDefinition w = new WorkPlanDefinition(id);
         w.setWorkPlanType(id);
         when(workPlanTypeRepository.findByTypeNumber(id)).thenReturn(t);
+        OperationDTO o = new OperationDTO();
+        o.setDescription("Test");
+        o.setQueryToWrite("Hola");
+        o.setFreeText("Test");
+        when(operationService.get(id)).thenReturn(o);
+        assertNotNull(workPlanService.createWorkPlan(plan));
+        plan.setWorkPlanNumber(0l);
         assertNotNull(workPlanService.createWorkPlan(plan));
     }
 
@@ -169,4 +182,35 @@ public class WorkPlanServiceTest {
         when(workPlanTypeRepository.findByTypeNumber(id)).thenReturn(t);
         assertNotNull(workPlanService.getWorkplanById(id));
     }
+
+    @Test
+    public void testNonEmptyGetWithStepsById() {
+        Long id = 1l;
+        WorkPlanDefinition w = new WorkPlanDefinition(id);
+        WorkPlanType t = new WorkPlanType(id);
+        t.setDescription("Test");
+        w.setWorkPlanType(id);
+        when(workPlanRepository.findById(id)).thenReturn(Optional.of(w));
+        when(workPlanTypeRepository.findByTypeNumber(id)).thenReturn(t);
+        when(stepDefinitionRepository.findByWorkPlan(id)).thenReturn(new ArrayList<>(0));
+        assertNotNull(workPlanService.getWithStepsById(id));
+        StepDefinition s = new StepDefinition(new StepDefinitionPK(id, id));
+        s.setOperationNumber(id);
+        when(stepDefinitionRepository.findByWorkPlan(id)).thenReturn(List.of(s));
+        assertNotNull(workPlanService.getWithStepsById(id));
+    }
+
+    @Test
+    public void testNonEmptyGetWorkPlanTypeByWorkPlanNumber() {
+        Long id = 1l;
+        WorkPlanType t = new WorkPlanType(id);
+        t.setDescription("Test");
+        WorkPlanDefinition w = new WorkPlanDefinition(id);
+        w.setWorkPlanType(id);
+        when(workPlanRepository.findById(id)).thenReturn(Optional.of(w));
+        assertEquals(id, workPlanService.getWorkPlanTypeByWorkPlanNumber(id));
+        when(workPlanRepository.findById(id)).thenThrow(RuntimeException.class);
+        assertEquals(0l, workPlanService.getWorkPlanTypeByWorkPlanNumber(id));
+    }
+    
 }

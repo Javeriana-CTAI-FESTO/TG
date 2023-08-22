@@ -43,6 +43,11 @@ public class ClientServiceTest {
     }
 
     @Test
+    public void testEmptyGetAll() {
+        assertNotNull(clientService.getAllClients());
+    }
+
+    @Test
     public void testEmptyGetClient() {
         assertNull(clientService.getClientByClientNumber(1l));
     }

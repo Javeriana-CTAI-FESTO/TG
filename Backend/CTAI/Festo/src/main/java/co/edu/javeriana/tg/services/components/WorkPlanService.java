@@ -93,7 +93,7 @@ public class WorkPlanService {
             stepDefinition.setDescription(operationDTO.getDescription());
             stepDefinition.setOperationNumber(operationNumber);
             stepDefinition.setNextStepNumber(nextStepNumber);
-            stepDefinition.setFirstStep(stepNumber == 1);
+            stepDefinition.setFirstStep(stepNumber == 10);
             stepDefinition.setNextWhenError(nextWhenError);
             stepDefinition.setNewPartNumber(newPartNumber);
             stepDefinition.setTransportTime(transportTime);
