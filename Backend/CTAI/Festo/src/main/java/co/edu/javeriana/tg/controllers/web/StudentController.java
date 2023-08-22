@@ -47,9 +47,6 @@ public class StudentController {
             }),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
                     @Content
-            }),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = {
-                    @Content
             })
     }, description = "Obtiene todas las partes que se pueden producir, retorna una lista de partes (PartDTO)")
     @GetMapping("/parts/production")
@@ -72,8 +69,7 @@ public class StudentController {
             @ApiResponse(responseCode = "200", description = "Orden generada satisfactoriamente", content = @Content(schema = @Schema(implementation = OrderDTO.class))),
             @ApiResponse(responseCode = "204", description = "No hay contenido para mostrar", content = @Content()),
             @ApiResponse(responseCode = "400", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Genera una nueva orden (OrderDTO) en produccion dado un numero de parte(partNumber), un numero de cliente (clientNumber) y un numero de posiciones(positions)")
     @Parameter(name = "partNumber", description = "Long : Numero de parte", required = true, example = "1")
     @Parameter(name = "clientNumber", description = "Long : Numero de cliente", required = true, example = "20271125")
@@ -98,9 +94,8 @@ public class StudentController {
     @Operation(summary = "Get all orders with status", responses = {
             @ApiResponse(responseCode = "200", description = "Ordenes obtenidas satisfactoriamente", content = @Content(schema = @Schema(implementation = OrderDTO.class))),
             @ApiResponse(responseCode = "204", description = "No hay contenido para mostrar", content = @Content()),
-            @ApiResponse(responseCode = "400", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Retorna una lista de todas ordenes (OrderDTO) en el sistema")
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> getAllOrdersWithStatus() {
@@ -121,8 +116,7 @@ public class StudentController {
             @ApiResponse(responseCode = "200", description = "Fechas de ordenes obtenidas satisfactoriamente", content = @Content(schema = @Schema(implementation = Date.class))),
             @ApiResponse(responseCode = "204", description = "No hay contenido para mostrar", content = @Content()),
             @ApiResponse(responseCode = "400", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
 
     }, description = "Retorna una lista con todas las fechas (Date)de las ordenes finalizadas")
     @GetMapping("/orders/ends")
@@ -142,8 +136,8 @@ public class StudentController {
     @Operation(summary = "Get status of orders", responses = {
             @ApiResponse(responseCode = "200", description = "Status of orders obtained successfully", content = @Content(schema = @Schema(implementation = Map.class))),
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Retorna una lista con todos los estados de ordenes posibles, retorna un Map<Long, String> con las ordenes con un posible status")
     @GetMapping("/orders/status")
     public ResponseEntity<Map<Long, String>> getStatus() {
@@ -163,9 +157,8 @@ public class StudentController {
     @Operation(summary = "Get orders by status", responses = {
             @ApiResponse(responseCode = "200", description = "Orders obtained successfully", content = @Content(schema = @Schema(implementation = OrderDTO.class))),
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Retorna una lista con todas las ordenes (OrderDTO) filtradas por un status como parametro")
     @Parameter(name = "orderStatus", description = "Estado de orden", required = true, example = "1")
     @GetMapping("/orders/status/{orderStatus}")
@@ -188,9 +181,8 @@ public class StudentController {
     @Operation(summary = "Get all orders with time", responses = {
             @ApiResponse(responseCode = "200", description = "Tiempo de producción obtenido satisfactoriamente", content = @Content(schema = @Schema(implementation = PartDTO.class))),
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Se obtienen todas las ordenes (OrderDTO) con su tiempo de producción, retorna una lista <OrderDTO>")
     @GetMapping("/orders/time")
     public ResponseEntity<List<OrderDTO>> getAllOrdersTime() {
@@ -212,9 +204,8 @@ public class StudentController {
     @Operation(summary = "Get performance indicators", responses = {
             @ApiResponse(responseCode = "200", description = "Indicators obtenidos satisfactoriamente", content = @Content(schema = @Schema(implementation = IndicatorAux.class))),
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Retorna una lista con todos los indicadores (IndicatorAux) en el sistema, obtiene los indicadores de producción")
 
     @GetMapping("/indicators")
