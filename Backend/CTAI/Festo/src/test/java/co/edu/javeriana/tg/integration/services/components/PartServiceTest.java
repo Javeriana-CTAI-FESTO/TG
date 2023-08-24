@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
-import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 import co.edu.javeriana.tg.services.components.PartService;
@@ -171,6 +170,8 @@ public class PartServiceTest {
         when(workPlanService.getWorkPlanTypeByWorkPlanNumber(wp)).thenReturn(1l);
         when(partRepository.getAllProductionParts()).thenReturn(List.of(p));
         assertDoesNotThrow(() -> partService.getAllProductionProduceableParts());
+        when(workPlanService.getWorkPlanTypeByWorkPlanNumber(wp)).thenReturn(0l);
+        assertDoesNotThrow(() -> partService.getAllProductionProduceableParts());
     }
 
     @Test
@@ -181,6 +182,8 @@ public class PartServiceTest {
         p.setWorkPlanNumber(wp);
         when(workPlanService.getWorkPlanTypeByWorkPlanNumber(wp)).thenReturn(2l);
         when(partRepository.getAllProductionParts()).thenReturn(List.of(p));
+        assertDoesNotThrow(() -> partService.getAllCustomerProduceableParts());
+        when(workPlanService.getWorkPlanTypeByWorkPlanNumber(wp)).thenReturn(0l);
         assertDoesNotThrow(() -> partService.getAllCustomerProduceableParts());
     }
 

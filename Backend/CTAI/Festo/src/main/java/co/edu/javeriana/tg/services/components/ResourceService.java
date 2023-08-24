@@ -3,12 +3,15 @@ package co.edu.javeriana.tg.services.components;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
 
 @Component
+@Transactional
 public class ResourceService {
 
     private final ResourceRepository resourceRepository;

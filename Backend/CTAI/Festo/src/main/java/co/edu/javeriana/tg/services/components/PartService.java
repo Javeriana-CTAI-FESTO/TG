@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
@@ -12,6 +14,7 @@ import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.repositories.interfaces.PartRepository;
 
 @Component
+@Transactional
 public class PartService {
 
     private final PartRepository partRepository;

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
@@ -14,6 +16,7 @@ import co.edu.javeriana.tg.services.components.PartService;
 
 
 @Service
+@Transactional
 public class StudentService {
   
   private final OrderService orderService;

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
@@ -24,6 +26,7 @@ import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
 @Component
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -174,13 +177,9 @@ public class OrderService {
     }
 
     private String evaluateStatusForOrder(Order order) {
-        String status;
+        String status = "Unstarted";
         if (order.getRealStart() != null && order.getRealEnd() == null)
             status = "In process";
-        else if (order.getRealStart() == null)
-            status = "Unstarted";
-        else
-            status = "Error";
         return status;
     }
 

@@ -3,6 +3,8 @@ package co.edu.javeriana.tg.services.components;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.MachineReportDTO;
@@ -10,6 +12,7 @@ import co.edu.javeriana.tg.entities.dtos.ReportDTO;
 import co.edu.javeriana.tg.repositories.interfaces.MachineReportRepository;
 
 @Component
+@Transactional
 public class MachineReportService {
     
     private final MachineReportRepository reportRepository;

@@ -212,5 +212,4 @@ public class WorkPlanServiceTest {
         when(workPlanRepository.findById(id)).thenThrow(RuntimeException.class);
         assertEquals(0l, workPlanService.getWorkPlanTypeByWorkPlanNumber(id));
     }
-    
 }

@@ -3,12 +3,15 @@ package co.edu.javeriana.tg.services.components;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.repositories.interfaces.OperationRepository;
 
 @Component
+@Transactional
 public class OperationService {
     
     private final OperationRepository operationRepository;

@@ -25,10 +25,10 @@ import co.edu.javeriana.tg.entities.managed.StepParameterDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepRepository;
 import co.edu.javeriana.tg.services.components.OperationService;
 import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
-import co.edu.javeriana.tg.unit.repositories.StepParameterDefinitionRepoTest;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -50,6 +50,9 @@ public class StepServiceTest {
 
     @MockBean
     private OperationService operationService;
+
+    @MockBean
+    private StepRepository stepRepository;
 
     @Test
     public void testEmptyGetAll() {
@@ -120,7 +123,9 @@ public class StepServiceTest {
 
     @Test
     public void testEmptySaveStep(){
-        assertDoesNotThrow(() -> stepService.saveStep(new Step()));
+        Step s = new Step();
+        when(stepRepository.save(s)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> stepService.saveStep(s));
     }
 
     @Test

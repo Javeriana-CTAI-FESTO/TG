@@ -3,6 +3,8 @@ package co.edu.javeriana.tg.services.components;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.ClientDTO;
@@ -10,6 +12,7 @@ import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.repositories.interfaces.ClientRepository;
 
 @Component
+@Transactional
 public class ClientService {
     private final ClientRepository clientRepository;
 

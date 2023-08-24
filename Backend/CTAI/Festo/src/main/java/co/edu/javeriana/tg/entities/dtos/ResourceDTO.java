@@ -1,7 +1,5 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import javax.persistence.SecondaryTable;
-
 import co.edu.javeriana.tg.entities.managed.Resource;
 import io.swagger.v3.oas.annotations.media.Schema;
 

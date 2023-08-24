@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
@@ -17,6 +19,7 @@ import co.edu.javeriana.tg.repositories.interfaces.StepParameterRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepRepository;
 
 @Component
+@Transactional
 public class StepService {
 
     private final StepDefinitionRepository stepDefinitionRepository;
@@ -84,9 +87,6 @@ public class StepService {
     public void saveStep(Step step) {
         try {
             stepRepository.save(step);
-            // Necesito sacar todas las definiciones de los parametros para un paso en
-            // especifico de manera que pueda luego crear un parametro para el paso
-            // específico
             stepParameterDefinitionRepository
                     .findByRelatedWorkPlanAndStep(step.getWorkPlanNumber(), step.getStepNumber())
                     .forEach(stepParameterDefinition -> {

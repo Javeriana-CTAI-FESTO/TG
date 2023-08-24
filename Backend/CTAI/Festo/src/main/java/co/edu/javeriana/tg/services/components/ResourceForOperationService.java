@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
@@ -14,6 +16,7 @@ import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
 
 @Component
+@Transactional
 public class ResourceForOperationService {
     
     private final ResourceForOperationRepository resourceForOperationRepository;

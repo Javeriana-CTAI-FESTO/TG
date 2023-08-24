@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
@@ -18,6 +20,7 @@ import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
 
 @Component
+@Transactional
 public class WorkPlanService {
 
     private final WorkPlanDefinitionRepository workPlanRepository;

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
@@ -33,6 +35,7 @@ import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
 
 @Service
+@Transactional
 public class AdminService {
 
     private final MachineReportService reportService;
