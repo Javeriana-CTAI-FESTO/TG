@@ -159,9 +159,4 @@ public class TeacherServiceTest {
   public void testGetAllResources() {
     assertDoesNotThrow(() -> teacherService.getAllResources());
   }
-
-  @Test
-  public void testEnableOrder() {
-    assertDoesNotThrow(() -> teacherService.enableOrder(1l));
-  }
 }

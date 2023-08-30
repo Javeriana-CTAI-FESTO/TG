@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
-import co.edu.javeriana.tg.entities.auxiliary.OperationToPerformInWorkplanAux;
+import co.edu.javeriana.tg.entities.auxiliary.StepToPerformInWorkplanAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
@@ -97,7 +97,7 @@ public class WorkPlanServiceTest {
         plan.setShortDescription("T");
         plan.setPictureNumber(1l);
         plan.setPartNumber(1l);
-        plan.setOperations(new OperationToPerformInWorkplanAux[0]);
+        plan.setSteps(new StepToPerformInWorkplanAux[0]);
         WorkPlanType t = new WorkPlanType(id);
         t.setDescription("Test");
         WorkPlanDefinition w = new WorkPlanDefinition(id);
@@ -118,8 +118,12 @@ public class WorkPlanServiceTest {
         plan.setShortDescription("T");
         plan.setPictureNumber(1l);
         plan.setPartNumber(1l);
-        OperationToPerformInWorkplanAux[] aux = {new OperationToPerformInWorkplanAux(id, id, id, id, id, id, id, id), new OperationToPerformInWorkplanAux(id, id, id, id, id, id, id, id), new OperationToPerformInWorkplanAux(id, id, id, id, id, id, id, id)};
-        plan.setOperations(aux);
+        StepDefinition stepToCopy = new StepDefinition(new StepDefinitionPK(id, id));
+        StepToPerformInWorkplanAux[] aux = {
+            new StepToPerformInWorkplanAux(id, id, id, id, true, false, id)
+        };
+        plan.setSteps(aux);
+        when(stepDefinitionRepository.findById(new StepDefinitionPK(id, id))).thenReturn(Optional.of(stepToCopy));
         WorkPlanType t = new WorkPlanType(id);
         t.setDescription("Test");
         WorkPlanDefinition w = new WorkPlanDefinition(id);
@@ -133,18 +137,6 @@ public class WorkPlanServiceTest {
         assertNotNull(workPlanService.createWorkPlan(plan));
         plan.setWorkPlanNumber(0l);
         assertNotNull(workPlanService.createWorkPlan(plan));
-    }
-
-    @Test
-    public void testSaveStep() {
-        assertDoesNotThrow(
-                () -> workPlanService.saveStep(-1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
-        assertDoesNotThrow(
-                () -> workPlanService.saveStep(-1l, 1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
-        when(operationService.get(-1l)).thenThrow(RuntimeException.class);
-        assertDoesNotThrow(
-                () -> workPlanService.saveStep(-1l, 1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
-        assertNull(workPlanService.saveStep(-1l, 1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l, -1l));
     }
 
     @Test

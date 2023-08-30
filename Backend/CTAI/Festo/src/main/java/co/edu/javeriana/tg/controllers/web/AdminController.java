@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -423,30 +422,6 @@ public class AdminController {
         return new ResponseEntity<List<WorkPlanDTO>>(workPlans, status);
     }
     //
-
-    // View defined steps
-    @Operation(summary = "Get all defined steps", responses = {
-            @ApiResponse(responseCode = "200", description = "Steps obtenidos satisfactoriamente", content = @Content(schema = @Schema(implementation = StepDefinitionDTO.class))),
-            @ApiResponse(responseCode = "204", description = "No hay contenido para mostrar", content = @Content()),
-            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
-
-    }, description = "Retorna una orden (OrderDTO), dado un numero de orden (orderNumber)")
-    @Parameter(name = "orderNumber", description = "Numero de orden")
-    @PutMapping("/orders/{orderNumber}")
-    public ResponseEntity<OrderDTO> enableOrder(@PathVariable Long orderNumber) {
-        OrderDTO workPlans = null;
-        HttpStatus status = HttpStatus.OK;
-        try {
-            workPlans = adminService.enableOrder(orderNumber);
-            if (workPlans == null)
-                status = HttpStatus.NO_CONTENT;
-        } catch (Exception e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
-        return new ResponseEntity<OrderDTO>(workPlans, status);
-    }
 
     @Operation(summary = "Get all defined steps", responses = {
             @ApiResponse(responseCode = "200", description = "Steps obtenidos satisfactoriamente", content = @Content(schema = @Schema(implementation = StepDefinitionDTO.class))),

@@ -8,11 +8,12 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
-import co.edu.javeriana.tg.entities.dtos.OperationDTO;
+import co.edu.javeriana.tg.entities.auxiliary.StepToPerformInWorkplanAux;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
+import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
@@ -66,54 +67,35 @@ public class WorkPlanService {
             workPlanRepository.save(workplanEntity);
             workPlan = new WorkPlanDTO(workplanEntity,
                     workPlanTypeRepository.findByTypeNumber(createRequest.getWorkPlanType()).getDescription());
-            for (int i = 0; i < createRequest.getOperations().length; i++) {
-                this.saveStep(workplanEntity.getWorkPlanNumber(), Long.valueOf((i + 1) * 10),
-                        (i < createRequest.getOperations().length - 1) ? Long.valueOf((i + 2) * 10) : 0,
-                        createRequest.getOperations()[i].getNextWhenError(),
-                        createRequest.getOperations()[i].getNewPartNumber(),
-                        createRequest.getOperations()[i].getTransportTime(),
-                        createRequest.getOperations()[i].getOperationNumber(),
-                        createRequest.getOperations()[i].getElectricEnergy(),
-                        createRequest.getOperations()[i].getCompressedAir(),
-                        createRequest.getOperations()[i].getResource(),
-                        createRequest.getOperations()[i].getWorkingTime());
+            for (int i = 0; i < createRequest.getSteps().length; i++) {
+                StepToPerformInWorkplanAux stepToPerformInWorkplan = createRequest.getSteps()[i];
+                StepDefinitionPK stepToCopyPK = new StepDefinitionPK(stepToPerformInWorkplan.getDefinedStepWorkPlanNumber(), stepToPerformInWorkplan.getDefinedStepNumber());
+                StepDefinition stepToCopy = stepDefinitionRepository.findById(stepToCopyPK).get();
+
+                StepDefinition newStepDefinition = new StepDefinition();
+                newStepDefinition.setWorkPlan(stepToCopy.getWorkPlan());
+                newStepDefinition.setStepNumber(stepToPerformInWorkplan.getThisStepNumber());
+                newStepDefinition.setDescription(stepToCopy.getDescription());
+                newStepDefinition.setOperationNumber(stepToCopy.getOperation());
+                newStepDefinition.setNextStepNumber(stepToPerformInWorkplan.getNextStepNumber());
+                newStepDefinition.setFirstStep(stepToPerformInWorkplan.getFirstStep());
+                newStepDefinition.setNextWhenError(stepToPerformInWorkplan.getErrorStepNumber());
+                newStepDefinition.setNewPartNumber(stepToCopy.getNewPartNumber());
+                newStepDefinition.setOperationNumberType(stepToCopy.getOperationNumberType());
+                newStepDefinition.setResource(stepToCopy.getResource());
+                newStepDefinition.setTransportTime(stepToCopy.getTransportTime());
+                newStepDefinition.setError(stepToPerformInWorkplan.getErrorStep());
+                newStepDefinition.setSqlToWrite(stepToCopy.getSqlToWrite());
+                newStepDefinition.setCalculatedElectricEnergy(stepToCopy.getCalculatedElectricEnergy());
+                newStepDefinition.setCalculatedCompressedAir(stepToCopy.getCalculatedCompressedAir());
+                newStepDefinition.setCalculatedWorkingTime(stepToCopy.getCalculatedWorkingTime());
+                newStepDefinition.setFreeText(stepToCopy.getFreeText());
+                stepDefinitionRepository.save(newStepDefinition);
             }
         }
         } catch (Exception e) {
         }
         return workPlan;
-    }
-
-    public StepDefinitionDTO saveStep(Long workPlan, Long stepNumber, Long nextStepNumber, Long nextWhenError,
-            Long newPartNumber, Long transportTime, Long operationNumber, Long electricEnergy, Long compressedAir,
-            Long resourceId, Long workingTime) {
-        StepDefinitionDTO stepDefinitionDTO = null;
-        try {
-            OperationDTO operationDTO = operationService.get(operationNumber);
-            StepDefinition stepDefinition = new StepDefinition();
-            stepDefinition.setWorkPlan(workPlan);
-            stepDefinition.setStepNumber(stepNumber);
-            stepDefinition.setDescription(operationDTO.getDescription());
-            stepDefinition.setOperationNumber(operationNumber);
-            stepDefinition.setNextStepNumber(nextStepNumber);
-            stepDefinition.setFirstStep(stepNumber == 10);
-            stepDefinition.setNextWhenError(nextWhenError);
-            stepDefinition.setNewPartNumber(newPartNumber);
-            stepDefinition.setTransportTime(transportTime);
-            stepDefinition.setSqlToWrite(operationDTO.getQueryToWrite());
-            stepDefinition.setCalculatedElectricEnergy(electricEnergy);
-            stepDefinition.setCalculatedCompressedAir(compressedAir);
-            stepDefinition.setCalculatedWorkingTime(workingTime);
-            stepDefinition.setFreeText(operationDTO.getFreeText());
-            stepDefinition.setResource(resourceId);
-            stepDefinitionRepository.save(stepDefinition);
-            stepDefinitionDTO = new StepDefinitionDTO(stepDefinition, this.getWorkplanById(workPlan),
-                    operationService.get(operationNumber));
-            // Set Parameters
-
-        } catch (Exception e) {
-        }
-        return stepDefinitionDTO;
     }
 
     public List<WorkPlanDTO> getWorkPlansByType(Long type) {

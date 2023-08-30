@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +27,6 @@ import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.users.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -498,30 +496,6 @@ public class TeacherController {
                 }
 
                 return new ResponseEntity<List<OrderDTO>>(workPlans, status);
-        }
-
-        @Operation(summary = "Enable order production", description = "Dado un numero de orden, el metodo permite habilitar la orden para ser producida, actualiza la orden en el sistema y retorna la orden actualizada, retorna una OrdenDTO")
-        @ApiResponses(value = {
-                        @ApiResponse(responseCode = "200", description = "Orden habilitada", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class)) }),
-                        @ApiResponse(responseCode = "204", description = "Orden no encontrada", content = @Content),
-                        @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
-                        @ApiResponse(responseCode = "500", description = "Error en el servidor", content = @Content)
-        })
-        @Parameter(description = "Numero de orden para habilitar su producción", example = "1")
-        @PutMapping("/orders/{orderNumber}")
-        public ResponseEntity<OrderDTO> enableOrder(@PathVariable Long orderNumber) {
-                OrderDTO workPlans = null;
-                HttpStatus status = HttpStatus.OK;
-                try {
-                        workPlans = teacherService.enableOrder(orderNumber);
-                        if (workPlans == null)
-                                status = HttpStatus.NO_CONTENT;
-                } catch (Exception e) {
-                        status = HttpStatus.INTERNAL_SERVER_ERROR;
-                }
-
-                return new ResponseEntity<OrderDTO>(workPlans, status);
         }
 
         @Operation(summary = "Get all parts consumed by orders", responses = {

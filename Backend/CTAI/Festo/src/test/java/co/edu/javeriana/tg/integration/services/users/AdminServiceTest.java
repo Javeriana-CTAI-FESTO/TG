@@ -205,9 +205,4 @@ public class AdminServiceTest {
   public void testGetAllResources() {
     assertDoesNotThrow(() -> adminService.getAllResources());
   }
-
-  @Test
-  public void testEnableOrder() {
-    assertDoesNotThrow(() -> adminService.enableOrder(1l));
-  }
 }

@@ -40,9 +40,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -844,19 +841,6 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testEmptyGetEnableOrders() {
-        try {
-            Long orderNumber = 1l;
-            when(adminService.enableOrder(orderNumber)).thenReturn(null);
-            MockHttpServletResponse response = mvc.perform(put(BASEURI+"/orders/"+String.valueOf(orderNumber))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
     public void testEmptyGetSteps() {
         try {
             when(adminService.getAllStepsDefined()).thenReturn(new ArrayList<StepDefinitionDTO>(0));
@@ -885,32 +869,6 @@ public class AdminControllerTest {
         try {
             when(adminService.getAllStepsDefined()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/steps")
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testNonEmptyGetEnableOrders() {
-        try {
-            Long orderNumber = 1l;
-            when(adminService.enableOrder(orderNumber)).thenReturn(new OrderDTO());
-            MockHttpServletResponse response = mvc.perform(put(BASEURI+"/orders/"+String.valueOf(orderNumber))
-            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
-            assertEquals(HttpStatus.OK.value(), response.getStatus());
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testErrorEnableOrders() {
-        try {
-            Long orderNumber = 1l;
-            when(adminService.enableOrder(orderNumber)).thenThrow(new RuntimeException());
-            MockHttpServletResponse response = mvc.perform(put(BASEURI+"/orders/"+String.valueOf(orderNumber))
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {

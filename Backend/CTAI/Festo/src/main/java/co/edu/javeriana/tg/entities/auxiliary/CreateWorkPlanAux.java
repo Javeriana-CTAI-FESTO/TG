@@ -9,16 +9,16 @@ public class CreateWorkPlanAux {
     private String shortDescription;
     private Long pictureNumber;
     private Long partNumber;
-    private OperationToPerformInWorkplanAux[] operations;
+    private StepToPerformInWorkplanAux[] steps;
     public CreateWorkPlanAux(Long workPlanNumber, String description, Long workPlanType, String shortDescription,
-            Long pictureNumber, Long partNumber, OperationToPerformInWorkplanAux[] operations) {
+            Long pictureNumber, Long partNumber, StepToPerformInWorkplanAux[] steps) {
         this.workPlanNumber = workPlanNumber;
         this.description = description;
         this.workPlanType = workPlanType;
         this.shortDescription = shortDescription;
         this.pictureNumber = pictureNumber;
         this.partNumber = partNumber;
-        this.operations = operations;
+        this.steps = steps;
     }
     public CreateWorkPlanAux() {
     }
@@ -58,11 +58,11 @@ public class CreateWorkPlanAux {
     public void setPartNumber(Long partNumber) {
         this.partNumber = partNumber;
     }
-    public OperationToPerformInWorkplanAux[] getOperations() {
-        return operations;
+    public StepToPerformInWorkplanAux[] getSteps() {
+        return steps;
     }
-    public void setOperations(OperationToPerformInWorkplanAux[] operations) {
-        this.operations = operations;
+    public void setSteps(StepToPerformInWorkplanAux[] operations) {
+        this.steps = operations;
     }
     @Override
     public int hashCode() {
@@ -74,7 +74,7 @@ public class CreateWorkPlanAux {
         result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
         result = prime * result + ((pictureNumber == null) ? 0 : pictureNumber.hashCode());
         result = prime * result + ((partNumber == null) ? 0 : partNumber.hashCode());
-        result = prime * result + Arrays.hashCode(operations);
+        result = prime * result + Arrays.hashCode(steps);
         return result;
     }
     @Override
@@ -116,7 +116,7 @@ public class CreateWorkPlanAux {
                 return false;
         } else if (!partNumber.equals(other.partNumber))
             return false;
-        if (!Arrays.equals(operations, other.operations))
+        if (!Arrays.equals(steps, other.steps))
             return false;
         return true;
     }

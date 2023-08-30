@@ -27,11 +27,10 @@ import co.edu.javeriana.tg.services.components.ResourceService;
 import co.edu.javeriana.tg.services.components.StepService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
 
-
 @Service
 @Transactional
 public class TeacherService {
-  
+
   private final WorkPlanService workPlanService;
 
   private final OrderService orderService;
@@ -46,7 +45,9 @@ public class TeacherService {
 
   private final ResourceService resourceService;
 
-  public TeacherService(WorkPlanService workPlanService, OrderService orderService, PartService partService, StepService stepService, OperationService operationService, ResourceForOperationService resourceForOperationService, ResourceService resourceService) {
+  public TeacherService(WorkPlanService workPlanService, OrderService orderService, PartService partService,
+      StepService stepService, OperationService operationService,
+      ResourceForOperationService resourceForOperationService, ResourceService resourceService) {
     this.workPlanService = workPlanService;
     this.orderService = orderService;
     this.partService = partService;
@@ -141,10 +142,6 @@ public class TeacherService {
   }
 
   public List<ResourceDTO> getAllResources() {
-      return resourceService.getAllResources();
-    }
-
-  public OrderDTO enableOrder(Long orderNumber) {
-    return orderService.enableOrder(orderNumber);
+    return resourceService.getAllResources();
   }
 }
