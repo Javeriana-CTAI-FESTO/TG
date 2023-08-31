@@ -116,10 +116,14 @@ public class WorkPlanService {
     }
 
     public WorkPlanWithStepsDTO getWithStepsById(Long id) {
-        return new WorkPlanWithStepsDTO(this.getWorkplanById(id),
+        WorkPlanWithStepsDTO wp = null;
+        wp = new WorkPlanWithStepsDTO(this.getWorkplanById(id),
                 stepDefinitionRepository.findByWorkPlan(id).stream()
                         .map(step -> new StepDefinitionDTO(step, operationService.get(step.getOperation())))
                         .collect(Collectors.toList()));
+        if (wp.getWorkPlan() == null)
+            wp = null;
+        return wp;
     }
 
     public Long getWorkPlanTypeByWorkPlanNumber(Long workPlanNumber) {
