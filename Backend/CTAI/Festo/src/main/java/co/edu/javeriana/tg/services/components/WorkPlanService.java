@@ -73,7 +73,7 @@ public class WorkPlanService {
                 StepDefinition stepToCopy = stepDefinitionRepository.findById(stepToCopyPK).get();
 
                 StepDefinition newStepDefinition = new StepDefinition();
-                newStepDefinition.setWorkPlan(stepToCopy.getWorkPlan());
+                newStepDefinition.setWorkPlan(workplanEntity.getWorkPlanNumber());
                 newStepDefinition.setStepNumber(stepToPerformInWorkplan.getThisStepNumber());
                 newStepDefinition.setDescription(stepToCopy.getDescription());
                 newStepDefinition.setOperationNumber(stepToCopy.getOperation());
