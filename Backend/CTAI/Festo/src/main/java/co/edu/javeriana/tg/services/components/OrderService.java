@@ -19,6 +19,7 @@ import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
@@ -141,8 +142,9 @@ public class OrderService {
                     step.setPlannedStart(start);
                     step.setPlannedEnd(end);
                     step.setOperationNumberType(currentStep.getOperationNumberType());
-                    step.setResource(resourceForOperationRepository
-                            .minorTimeForOperation(steps.get(ste).getOperation().getOperationNumber()).getResource());
+                    ResourceForOperation res = resourceForOperationRepository
+                            .minorTimeForOperation(steps.get(ste).getOperation().getOperationNumber());
+                    step.setResource((res!=null)?res.getResource():0l);
                     step.setTransportTime(currentStep.getTransportTime());
                     step.setError(currentStep.getError());
                     step.setCalculatedElectricEnergy(0l);
@@ -242,15 +244,17 @@ public class OrderService {
             WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
             Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                     .mapToLong(
-                            operation -> resourceForOperationRepository.minorTimeForOperation(operation)
-                                    .getWorkingTime())
+                            operation -> {
+                                ResourceForOperation res = resourceForOperationRepository.minorTimeForOperation(operation);
+                                return (res!=null)?res.getWorkingTime():0l;
+                            })
                     .sum();
             return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime())
                     * positions;
         } catch (Exception e) {
 
         }
-        return null;
+        return 0l;
     }
 
     public List<PartsConsumedByOrderDTO> partsConsumedByOrders() {
