@@ -83,6 +83,7 @@ public class PartService {
             part.setType(createRequest.getType());
             if (createRequest.getType() == 3)
                 part.setWorkPlanNumber(createRequest.getWorkPlanNumber());
+            partRepository.save(part);
             createdPart = new PartDTO(part);
         } catch (Exception e) {
         }
