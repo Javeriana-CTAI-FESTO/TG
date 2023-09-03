@@ -1,0 +1,69 @@
+
+mat-card{
+    overflow: hidden;
+    box-shadow: 0px 5px 10px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+
+}
+table {
+    width: 100%;
+  }
+.pie{
+    box-shadow: 0px 5px 10px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+    background-color: white;
+}
+
+
+.stats-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .stats-cards mat-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .stats-cards mat-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .stats-cards mat-card {
+      width: calc(50% - 10px);
+      margin-bottom: 40px;
+    }
+  }
+  
+  @media screen and (min-width: 992px) {
+    .stats-cards mat-card {
+      width: calc(33.33% - 10px);
+      margin-bottom: 20px;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .container {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+  
+    .container > div {
+      width: calc(50% - 10px);
+      margin-right: 20px;
+    }
+  
+    .container > div:last-child {
+      margin-right: 0;
+    }
+  }

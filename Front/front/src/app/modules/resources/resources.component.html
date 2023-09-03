@@ -1,0 +1,54 @@
+<div class="mat-elevation-z8">
+  <div style="background-color: #FFFFFF;">
+    <h2 style="text-align: center;">Resources</h2>
+    <div style="display: flex;">
+      <input class="filter-input" style="width: 100%;" (keyup)=" applyFilter($event)" placeholder="Filter">
+    </div>
+
+  </div>
+  <div style="overflow-x: auto;">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="plcType">
+        <th mat-header-cell *matHeaderCellDef> plcType</th>
+        <td mat-cell *matCellDef="let element"> {{element.plcType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ip">
+        <th mat-header-cell *matHeaderCellDef> ip</th>
+        <td mat-cell *matCellDef="let element"> {{element.ip}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="topologyType">
+        <th mat-header-cell *matHeaderCellDef> topologyType</th>
+        <td mat-cell *matCellDef="let element"> {{element.topologyType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="resourceType">
+        <th mat-header-cell *matHeaderCellDef> resourceType</th>
+        <td mat-cell *matCellDef="let element"> {{element.resourceType}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

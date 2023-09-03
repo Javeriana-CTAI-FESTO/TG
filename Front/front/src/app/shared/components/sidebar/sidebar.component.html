@@ -1,0 +1,45 @@
+<mat-nav-list>
+    <div class="profile-card">
+        <div class="header">
+            <h2>{{username}}</h2>
+            <h4>Administrador</h4>
+        </div>
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h2 mat-subheader>Operations</h2>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+    </a>
+    
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/resources">
+        <mat-icon>settings</mat-icon>
+        Resources
+    </a>
+
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts">
+        <mat-icon>assignment</mat-icon>
+        WorkPlans
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/parts">
+        <mat-icon>extension</mat-icon>
+        Parts
+    </a>
+
+   
+    <!--<mat-divider></mat-divider>
+
+    <h2 matSubheader>Clientes</h2>-->
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/list">
+        <mat-icon>contact_phone</mat-icon>
+        Clients
+    </a>
+
+</mat-nav-list>
+
+

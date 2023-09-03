@@ -1,0 +1,21 @@
+.filter-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    width: 200px;
+}
+
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-info {
+  margin-right: 10px;
+}
+
+.btn-outline-info:hover {
+  color: white;
+}
+
+button:hover mat-icon {
+  color: white;
+}
