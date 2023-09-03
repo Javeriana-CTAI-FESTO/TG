@@ -262,7 +262,7 @@ public class OrderServiceTest {
 
     @Test
     public void testEmptyTimeForOrder(){
-        assertNull(orderService.timeForWorkPlan(1l, 1l));
+        assertEquals(0l, orderService.timeForWorkPlan(1l, 1l));
     }
 
     @Test
