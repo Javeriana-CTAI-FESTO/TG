@@ -1,22 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from 'src/app/login/login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PiezasServiceService {
-
+  urlBase = 'http://localhost:8080/api/';
   piezas: Pieza[] = [];
   piezaAgregada = new Subject<Pieza>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private loginService: LoginService ) { }
+
+  rol(){
+    const rol = this.loginService.getRole();
+    if (rol === 'estudiante') {
+      return 'students';
+    }
+    if (rol === 'profesor') {
+      return 'teacher';
+    }
+    return 'admin';
+
+  }
 
 
   getPiezasPorDefecto(): Observable<Pieza[]>  {
-    return this.http.get<Pieza[]>('http://localhost:8080/api/admin/parts');
-
-   
+    return this.http.get<Pieza[]>(this.urlBase + this.rol() + '/parts');
   }
 
   getPiezas(): Pieza[] {

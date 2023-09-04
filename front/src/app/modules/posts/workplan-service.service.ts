@@ -2,37 +2,49 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { WorkPlan } from './posts.component';
+import { LoginService } from 'src/app/login/login.service';
 @Injectable({
   providedIn: 'root'
 })
 export class WorkplanServiceService {
+  urlBase = 'http://localhost:8080/api/';
   workplans: Workplan[] = [];
   workplanAgregado = new Subject<Workplan>();
+  rol(){
+    const rol = this.loginService.getRole();
+    if (rol === 'estudiante') {
+      return 'students';
+    }
+    if (rol === 'profesor') {
+      return 'teacher';
+    }
+    return 'admin';
+  }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private loginService: LoginService ) { }
 
   getWorkPlansPorDefecto(): Observable<Workplan[]> {
-    return this.http.get<Workplan[]>('http://localhost:8080/api/admin/work-plans');
+   return this.http.get<Workplan[]>(this.urlBase + this.rol() + '/work-plans');
   }
   getWorkplanById(workplanId: number): Observable<Workplan> {
+   // const url = this.urlBase + this.rol() + '/work-plans/' + workplanId;
     const url = `http://localhost:8080/api/admin/work-plans/${workplanId}`;
     return this.http.get<Workplan>(url);
   }
   getSteps(): Observable<Step[]> {
-    return this.http.get<Step[]>('http://localhost:8080/api/admin/steps');
+    return this.http.get<Step[]>(this.urlBase + this.rol() + '/steps');
   }
 
   getWorkplans(): Workplan[] {
-    console.log(this.workplans);
     return this.workplans;
 
   }
 
   addWorkPlan(workPlan: WorkPlan) {
-    return this.http.post('http://localhost:8080/api/admin/work-plans', workPlan);
+    return this.http.post(this.urlBase + this.rol() + '/work-plans', workPlan);
   }
   getWorkPlanTypes(): Observable<any> {
-    return this.http.get('http://localhost:8080/api/admin/work-plans/type');
+    return this.http.get(this.urlBase + this.rol() + '/work-plans/type');
   }
 
 }

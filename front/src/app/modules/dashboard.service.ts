@@ -1,13 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from '../login/login.service';
 import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class DashboardService{
 
-  constructor(private http: HttpClient) { }
+  urlBase = 'http://localhost:8080/api/';
+  rol (){
+    const rol = this.loginService.getRole();
+    if (rol === 'estudiante') {
+      return 'students';
+    }
+    if (rol === 'profesor') {
+      return 'teacher';
+    }
+    return 'admin';
+  }
+
+  constructor(private http: HttpClient, private loginService: LoginService ) { }
   bigChart() {
     return [{
       type: 'column',
@@ -21,7 +34,7 @@ export class DashboardService {
   }
 
   getPieChartData() {
-    return this.http.get<IndicatorData[]>('http://localhost:8080/api/admin/indicators')
+      return this.http.get<IndicatorData[]>(this.urlBase + this.rol() + '/indicators')
       .pipe(
         map(data => data.map(item => ({
           name: item.indicatorName,
@@ -32,7 +45,7 @@ export class DashboardService {
   }
 
   async ganttChart() {
-    const response = await fetch('http://localhost:8080/api/admin/orders/ends');
+    const response = await fetch(this.urlBase + this.rol() +'/orders/ends');
     const data = await response.json();
     return data.filter((date: string) => date !== null).map((date: string) => {
       const startDate = new Date(date);
@@ -50,14 +63,14 @@ export class DashboardService {
   }
 
   getStations(): Observable<Estations[]> {
-    return this.http.get<Estations[]>('http://localhost:8080/api/admin/resources');
+    return this.http.get<Estations[]>(this.urlBase + this.rol() + '/resources');
   }
   getParts(): Observable<Part[]> {
-    return this.http.get<Part[]>('http://localhost:8080/api/students/parts/production');
+    return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production');
   }
   placeNewOrder(partNumber: number, clientNumber: number, positions: number): Observable<any> {
+    //const url = this.urlBase + this.rol() + `/parts/production/new-order?partNumber=${partNumber}&clientNumber=${clientNumber}&positions=${positions}`;
     const url = `http://localhost:8080/api/students/parts/production/new-order?partNumber=${partNumber}&clientNumber=${clientNumber}&positions=${positions}`;
-    console.log(url);
     return this.http.post(url, {});
   }
 }

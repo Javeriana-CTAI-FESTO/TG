@@ -46,7 +46,7 @@
                     <button type="button" class="btn btn-outline-danger">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    
+
                     <!--<button type="button" class="btn btn-outline-info" (click)="openDialog(workplan)">
                         <mat-icon>visibility</mat-icon>
                     </button>
@@ -65,7 +65,9 @@
         </table>
 
     </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [hidden]="showWorkplan" [length]="dataSource.data.length"></mat-paginator></div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [hidden]="showWorkplan"
+        [length]="dataSource.data.length"></mat-paginator>
+</div>
 <br>
 <button type="button" class="btn btn-primary btn-lg mat-elevation-z8" (click)="toggleWorkplan()">
     {{ showWorkplan ? 'Cancel' : 'Create Workplan' }}
@@ -75,12 +77,13 @@
         <div class="container mt-5 mb-5">
 
             <h2>
-                Digita la siguiente información para crear un Nuevo Workplan
+                Enter the following information to create a New WorkPlan
             </h2>
-
+            
             <div class="mb-3">
                 <label for="workPlanNumber" class="form-label">workPlanNumber</label>
-                <input type="number" class="form-control" id="workPlanNumber" name="workPlanNumber" placeholder="workPlanNumber" [(ngModel)]="workPlanNumber">
+                <input type="number" class="form-control" id="workPlanNumber" name="workPlanNumber"
+                    placeholder="workPlanNumber" [(ngModel)]="workPlanNumber">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -93,63 +96,68 @@
                     <option *ngFor="let type of workPlanTypes" [value]="type.key">{{type.value}}</option>
                 </select>
             </div>
-            
+
             <div class="mb-3">
                 <label for="shortDescription" class="form-label">shortDescription</label>
-                <input type="text" class="form-control" id="shortDescription" name="workPlanType" placeholder="shortDescription"
-                    [(ngModel)]="shortDescription">
+                <input type="text" class="form-control" id="shortDescription" name="workPlanType"
+                    placeholder="shortDescription" [(ngModel)]="shortDescription">
             </div>
             <div class="mb-3">
                 <label for="pictureNumber" class="form-label">pictureNumber</label>
-                <input type="number" class="form-control" id="pictureNumber" name="pictureNumber" placeholder="pictureNumber"
-                    [(ngModel)]="pictureNumber">
+                <input type="number" class="form-control" id="pictureNumber" name="pictureNumber"
+                    placeholder="pictureNumber" [(ngModel)]="pictureNumber">
             </div>
             <div class="mb-3">
                 <label for="partNumber" class="form-label">partNumberr</label>
                 <input type="number" class="form-control" id="partNumber" name="partNumber" placeholder="partNumber"
                     [(ngModel)]="partNumber">
             </div>
+
         </div>
     </form>
     <div class="container mt-5 mb-5">
         <h2>
-            Arrastre las Estaciones para empezar a crear el Workplan
+            Drag and Drop the necessary steps to create the WorkPlan
         </h2>
 
         <div cdkDropListGroup>
-   
+
             <div class="example-container">
-                <h3>Disponibles</h3>
-                <input class="filter-input" style="width: 100%;" (keyup)="applyFilterTodo($event)" placeholder="Filter">
-                <div cdkDropList [cdkDropListData]="filteredTodo" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of filteredTodo" cdkDrag>{{item.description}}</div>
+                <h3>Available</h3>
+                <div class="mat-elevation-z8 ">
+                    <input class="filter-input" style="width: 100%;" (keyup)="applyFilterTodo($event)"
+                        placeholder="Filter">
+                    <div cdkDropList [cdkDropListData]="filteredTodo" class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of filteredTodo" cdkDrag>{{item.description}}</div>
+                    </div>
+
+                    <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons 
+                        (page)="pageEvent($event)">
+                    </mat-paginator>
+
                 </div>
-                <mat-paginator [length]="totalItems"
-                               [pageSize]="itemsPerPage"
-                               [pageSizeOptions]="[5, 10, 25, 100]"
-                               (page)="pageEvent($event)">
-                </mat-paginator>
             </div>
-            
-              
             <div class="example-container">
-                <h3>Elegidos</h3>
-                <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of done" cdkDrag>
-                        <div style="display: block;"><strong>{{item.description}}</strong></div>
-                        <div style="display: block;">
-                            <div class="mb-3 d-flex">
-                                <div class="flex-grow-1">
-                                    <label for="thisStepNumber" class="form-label">thisStepNumber</label>
-                                    <input type="number" class="form-control" id="thisStepNumber" name="thisStepNumber" min="0"
-                                        placeholder="thisStepNumber" [(ngModel)]="item.thisStepNumber">
+                <h3>Chosen</h3>
+                <div class="mat-elevation-z8 ">
+                    <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of done" cdkDrag>
+                            <div style="display: block;"><strong>{{item.description}}</strong></div>
+                            <div style="display: block;">
+                                <div class="mb-3 d-flex">
+                                    <div class="flex-grow-1">
+                                        <label for="thisStepNumber" class="form-label">thisStepNumber</label>
+                                        <input type="number" class="form-control" id="thisStepNumber"
+                                            name="thisStepNumber" min="0" placeholder="thisStepNumber"
+                                            [(ngModel)]="item.thisStepNumber">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <label for="nextStep" class="form-label">nextStep</label>
+                                        <input type="number" class="form-control" id="extStep" name="extStep" min="0"
+                                            placeholder="nextStepNumber" [(ngModel)]="item.nextStep">
+                                    </div>
                                 </div>
-                                <div class="flex-grow-1">
-                                    <label for="nextStep" class="form-label">nextStep</label>
-                                    <input type="number" class="form-control" id="extStep" name="extStep" min="0"
-                                        placeholder="nextStepNumber" [(ngModel)]="item.nextStep">
-                                </div>
-                            </div>
                                 <div class="mb-3">
                                     <div ngInit="item.errorStep = false">
                                         <div class="form-check">
@@ -159,14 +167,16 @@
                                         </div>
                                     </div>
                                 </div>
-                           
-                           
-                            <div class="mb-3">
-                                <label for="errorStepNumber" class="form-label">errorStepNumber</label>
-                                <input type="number" class="form-control" id="errorStepNumber" name="errorStepNumber"
-                                    placeholder="errorStepNumber" min="0" [(ngModel)]="item.errorStepNumber">
+
+
+                                <div class="mb-3">
+                                    <label for="errorStepNumber" class="form-label">errorStepNumber</label>
+                                    <input type="number" class="form-control" id="errorStepNumber"
+                                        name="errorStepNumber" placeholder="errorStepNumber" min="0"
+                                        [(ngModel)]="item.errorStepNumber">
+                                </div>
+
                             </div>
-                            
                         </div>
                     </div>
                 </div>
