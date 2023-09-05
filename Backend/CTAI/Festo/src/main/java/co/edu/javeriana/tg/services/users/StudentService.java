@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
+import co.edu.javeriana.tg.services.components.WorkPlanService;
 
 
 @Service
@@ -23,9 +25,12 @@ public class StudentService {
 
   private final PartService partService;
 
-  public StudentService( OrderService orderService,  PartService partService) {
+  private WorkPlanService workPlanService;
+
+  public StudentService( OrderService orderService,  PartService partService, WorkPlanService workPlanService) {
     this.orderService = orderService;
     this.partService = partService;
+    this.workPlanService = workPlanService;
   }
 
   public List<PartDTO> getAllParts() {
@@ -70,5 +75,9 @@ public class StudentService {
 
   public List<PartDTO> getPartsThatCanBeProduced() {
     return partService.getPartsThatCanBeProduced();
+  }
+
+  public WorkPlanWithStepsDTO getWorkPlanById(Long id) {
+    return workPlanService.getWithStepsById(id);
   }
 }

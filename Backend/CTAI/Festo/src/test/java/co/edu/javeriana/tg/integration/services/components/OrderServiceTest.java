@@ -120,6 +120,7 @@ public class OrderServiceTest {
         when(resourceForOperationRepository.minorTimeForOperation(op2no)).thenReturn(new ResourceForOperation(new ResourceForOperationPK(resource, op2no)));
         when(stepService.stepsByWorkplan(wp)).thenReturn(List.of(step, step2));
         assertNotNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
+        when(resourceForOperationRepository.minorTimeForOperation(op2no)).thenReturn(null);
         assertNotNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
         finishedN = 10L;
         when(finishedOrderRepository.getOrderNumbers()).thenReturn(List.of(finishedN));
@@ -273,6 +274,8 @@ public class OrderServiceTest {
         ResourceForOperation r = new ResourceForOperation();
         r.setWorkingTime(0l);
         when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(r);
+        assertNotNull(orderService.timeForWorkPlan(wp, positions));
+        when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(null);
         assertNotNull(orderService.timeForWorkPlan(wp, positions));
     }
 
