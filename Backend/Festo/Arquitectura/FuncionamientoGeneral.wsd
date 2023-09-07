@@ -1,0 +1,29 @@
+@startuml High Level
+
+skinparam ConditionStyle bold
+skinparam activity {
+  StartColor green
+  BarColor SaddleBrown
+  EndColor red
+  BackgroundColor WhiteSmoke
+  BorderColor Black
+  FontName Arial
+}
+
+(*) --> "Recepcion de la solicitud"
+"Recepcion de la solicitud" --> "Almacenamiento de la solicitud"
+--> if "Evaluacion de la solicitud" then
+
+  -left->[Requiere procesamiento en las máquinas] "Envio de la solicitud hacia las máquinas"
+  --> === RetornoRespuesta ===
+
+else
+
+  -right->[No requiere procesamiento en las maquinas] "Extracción de la información solicitada" 
+  --> === RetornoRespuesta ===
+
+endif
+
+--> "Preparación de la respuesta a devolver"
+--> (*)
+@enduml

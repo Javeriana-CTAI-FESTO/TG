@@ -27,8 +27,7 @@ export class WorkplanServiceService {
    return this.http.get<Workplan[]>(this.urlBase + this.rol() + '/work-plans');
   }
   getWorkplanById(workplanId: number): Observable<Workplan> {
-   // const url = this.urlBase + this.rol() + '/work-plans/' + workplanId;
-    const url = `http://localhost:8080/api/admin/work-plans/${workplanId}`;
+    const url = this.urlBase + this.rol() + '/work-plans/' + workplanId;
     return this.http.get<Workplan>(url);
   }
   getSteps(): Observable<Step[]> {

@@ -24,12 +24,14 @@ import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperationPK;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
+import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
 import co.edu.javeriana.tg.services.components.ClientService;
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
@@ -57,6 +59,9 @@ public class OrderServiceTest {
 
     @MockBean
     private ResourceForOperationRepository resourceForOperationRepository;
+
+    @MockBean
+    private ResourceRepository resourceRepository;
 
     @MockBean
     private StepService stepService;
@@ -105,6 +110,7 @@ public class OrderServiceTest {
         when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(r);        
         assertNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
         StepDefinitionDTO step = new StepDefinitionDTO();
+        step.setCalculatedWorkingTime(1l);
         OperationDTO operation = new OperationDTO();
         Long opno = 1L, resource = 1L;
         operation.setOperationNumber(opno);
@@ -117,9 +123,11 @@ public class OrderServiceTest {
         Long op2no = 2L;
         operation2.setOperationNumber(op2no);
         step2.setOperation(operation2);
+        step2.setCalculatedWorkingTime(op2no);
         when(resourceForOperationRepository.minorTimeForOperation(op2no)).thenReturn(new ResourceForOperation(new ResourceForOperationPK(resource, op2no)));
         when(stepService.stepsByWorkplan(wp)).thenReturn(List.of(step, step2));
         assertNotNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
+        when(resourceForOperationRepository.minorTimeForOperation(op2no)).thenReturn(null);
         assertNotNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
         finishedN = 10L;
         when(finishedOrderRepository.getOrderNumbers()).thenReturn(List.of(finishedN));
@@ -262,7 +270,7 @@ public class OrderServiceTest {
 
     @Test
     public void testEmptyTimeForOrder(){
-        assertNull(orderService.timeForWorkPlan(1l, 1l));
+        assertEquals(0l, orderService.timeForWorkPlan(1l, 1l));
     }
 
     @Test
@@ -273,6 +281,8 @@ public class OrderServiceTest {
         ResourceForOperation r = new ResourceForOperation();
         r.setWorkingTime(0l);
         when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(r);
+        assertNotNull(orderService.timeForWorkPlan(wp, positions));
+        when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(null);
         assertNotNull(orderService.timeForWorkPlan(wp, positions));
     }
 
@@ -297,5 +307,25 @@ public class OrderServiceTest {
         assertTrue(orderService.enableOrder(on).getEnabled());
         when(orderRepository.findById(on)).thenThrow(RuntimeException.class);
         assertNull(orderService.enableOrder(on));
+    }
+
+    @Test
+    public void testGetOEEForMachine(){
+        Long resource = 1l, time =1l;
+        Double timeD = 1.0;
+        String name = "Test";
+        when(resourceRepository.findNameById(resource)).thenReturn(name);
+        when(resourceRepository.findAllExceptZero()).thenReturn(List.of(new Resource(resource)));
+        when(stepService.getWorkTimeForMachine(resource)).thenReturn(time);
+        when(stepService.getPlannedWorkTimeForMachine(resource)).thenReturn(time);
+        when(stepService.getIdealWorkTimeForMachine(resource)).thenReturn(timeD);
+        when(stepService.getTotalCountForMachine(resource)).thenReturn(time);
+        assertDoesNotThrow(() -> orderService.getIndicators());
+        when(stepService.getPlannedWorkTimeForMachine(resource)).thenReturn(0l);
+        assertDoesNotThrow(() -> orderService.getIndicators());
+        when(stepService.getWorkTimeForMachine(resource)).thenReturn(0l);
+        assertDoesNotThrow(() -> orderService.getIndicators());
+        when(resourceRepository.findAllExceptZero()).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> orderService.getIndicators());
     }
 }

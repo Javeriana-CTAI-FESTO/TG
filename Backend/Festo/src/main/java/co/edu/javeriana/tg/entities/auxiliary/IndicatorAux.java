@@ -3,9 +3,9 @@ package co.edu.javeriana.tg.entities.auxiliary;
 public class IndicatorAux {
     private String indicatorName;
     private String indicatorDescription;
-    private Long indicatorValue;
+    private Double indicatorValue;
 
-    public IndicatorAux(String indicatorName, String indicatorDescription, Long indicatorValue) {
+    public IndicatorAux(String indicatorName, String indicatorDescription, Double indicatorValue) {
         this.indicatorName = indicatorName;
         this.indicatorDescription = indicatorDescription;
         this.indicatorValue = indicatorValue;
@@ -30,11 +30,11 @@ public class IndicatorAux {
         this.indicatorDescription = indicatorDescription;
     }
 
-    public Long getIndicatorValue() {
+    public Double getIndicatorValue() {
         return indicatorValue;
     }
 
-    public void setIndicatorValue(Long indicatorValue) {
+    public void setIndicatorValue(Double indicatorValue) {
         this.indicatorValue = indicatorValue;
     }
 }

@@ -5,7 +5,9 @@ import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,12 +19,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
+import co.edu.javeriana.tg.entities.managed.FinishedStep;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.StepParameterDefinition;
 import co.edu.javeriana.tg.entities.managed.StepParameterDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
+import co.edu.javeriana.tg.repositories.interfaces.FinishedStepRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepRepository;
@@ -53,6 +57,9 @@ public class StepServiceTest {
 
     @MockBean
     private StepRepository stepRepository;
+
+    @MockBean
+    private FinishedStepRepository finishedStepRepository;
 
     @Test
     public void testEmptyGetAll() {
@@ -147,5 +154,157 @@ public class StepServiceTest {
         assertDoesNotThrow(() -> stepService.saveStep(step));
         when(stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(workPlanNumber, stepNumber)).thenReturn(new ArrayList<>(0));
         assertDoesNotThrow(() -> stepService.saveStep(step));
+    }
+
+    @Test
+    public void testEmptyGetWorkTimeForMachine(){
+        Long resource = 1l;
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+        when(finishedStepRepository.findByResource(resource)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+    }
+
+    @Test
+    public void testNonEmptyGetWorkTimeForMachine(){
+        Long resource = 1l;
+        Step step = new Step();
+        step.setRealStart(Date.from(Instant.now()));
+        step.setRealEnd(Date.from(Instant.now()));
+        FinishedStep fstep = new FinishedStep();
+        fstep.setRealStart(Date.from(Instant.now()));
+        fstep.setRealEnd(Date.from(Instant.now()));
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+        fstep.setRealStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+        fstep.setRealEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+        step.setRealStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+        step.setRealEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getWorkTimeForMachine(resource));
+    }
+
+    @Test
+    public void testEmptyGetPlannedWorkTimeForMachine(){
+        Long resource = 1l;
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+        when(finishedStepRepository.findByResource(resource)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+    }
+
+    @Test
+    public void testNonEmptyGetPlannedWorkTimeForMachine(){
+        Long resource = 1l;
+        Step step = new Step();
+        step.setPlannedStart(Date.from(Instant.now()));
+        step.setPlannedEnd(Date.from(Instant.now()));
+        FinishedStep fstep = new FinishedStep();
+        fstep.setPlannedStart(Date.from(Instant.now()));
+        fstep.setPlannedEnd(Date.from(Instant.now()));
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+        fstep.setPlannedStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+        fstep.setPlannedEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+        step.setPlannedStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+        step.setPlannedEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getPlannedWorkTimeForMachine(resource));
+    }
+
+    @Test
+    public void testEmptyGetIdealWorkTimeForMachine(){
+        Long resource = 1l;
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+        when(finishedStepRepository.findByResource(resource)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+    }
+
+    @Test
+    public void testNonEmptyGetIdealWorkTimeForMachine(){
+        Long resource = 1l;
+        Step step = new Step();
+        step.setPlannedStart(Date.from(Instant.now()));
+        step.setPlannedEnd(Date.from(Instant.now()));
+        FinishedStep fstep = new FinishedStep();
+        fstep.setPlannedStart(Date.from(Instant.now()));
+        fstep.setPlannedEnd(Date.from(Instant.now()));
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+        fstep.setPlannedStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+        fstep.setPlannedEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+        step.setPlannedStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+        step.setPlannedEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getIdealWorkTimeForMachine(resource));
+    }
+
+    @Test
+    public void testEmptyGetTotalCountForMachine(){
+        Long resource = 1l;
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
+        when(finishedStepRepository.findByResource(resource)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
+    }
+
+    @Test
+    public void testNonEmptyGetTotalCountForMachine(){
+        Long resource = 1l;
+        Step step = new Step();
+        step.setRealStart(Date.from(Instant.now()));
+        step.setRealEnd(Date.from(Instant.now()));
+        FinishedStep fstep = new FinishedStep();
+        fstep.setRealStart(Date.from(Instant.now()));
+        fstep.setRealEnd(Date.from(Instant.now()));
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
+        fstep.setRealStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
+        fstep.setRealEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
+        step.setRealStart(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
+        step.setRealEnd(null);
+        when(stepRepository.findByResource(resource)).thenReturn(List.of(step));
+        when(finishedStepRepository.findByResource(resource)).thenReturn(List.of(fstep));
+        assertDoesNotThrow(() -> stepService.getTotalCountForMachine(resource));
     }
 }

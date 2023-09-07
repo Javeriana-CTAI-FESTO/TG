@@ -190,6 +190,8 @@ public class WorkPlanServiceTest {
         s.setOperationNumber(id);
         when(stepDefinitionRepository.findByWorkPlan(id)).thenReturn(List.of(s));
         assertNotNull(workPlanService.getWithStepsById(id));
+        when(workPlanRepository.findById(id)).thenReturn(null);
+        assertNull(workPlanService.getWithStepsById(id));
     }
 
     @Test

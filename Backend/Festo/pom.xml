@@ -26,6 +26,7 @@
 		<gson.version>2.10.1</gson.version>
 		<jacoco.version>0.8.10</jacoco.version>
 		<springweb.version>3.0.0</springweb.version>
+		<snyk.version>2.0.0</snyk.version>
 	</properties>
 
 	<dependencies>
@@ -172,6 +173,35 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>io.snyk</groupId>
+				<artifactId>snyk-maven-plugin</artifactId>
+				<version>${snyk.version}</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>snyk-test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>snyk-monitor</id>
+						<goals>
+							<goal>monitor</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<failOnIssues>false</failOnIssues>
+					<apiToken>${env.SNYK_TOKEN}</apiToken>
+					<args>
+					  <arg>--severity-threshold=critical</arg>
+					</args>
+				</configuration>
+    	</plugin>
+
 		</plugins>
 	</build>
 

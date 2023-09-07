@@ -17,6 +17,7 @@ import co.edu.javeriana.tg.controllers.web.StudentController;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.users.StudentService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -156,6 +157,44 @@ public class StudentControllerTest {
         }
     }
 
+    @Test
+    public void testEmptyGetWorkPlansById() {
+        try {
+            Long product = 1l;
+            when(studentService.getWorkPlanById(product)).thenReturn(null);
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/"+String.valueOf(product))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetWorkPlansById() {
+        try {
+            Long product = 1l;
+            when(studentService.getWorkPlanById(product)).thenReturn(new WorkPlanWithStepsDTO());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/"+String.valueOf(product))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetWorkPlansById() {
+        try {
+            Long product = 1l;
+            when(studentService.getWorkPlanById(product)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/work-plans/"+String.valueOf(product))
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
     @Test
     public void testEmptyGetAllOrdersPlannedEnds() {
         try {

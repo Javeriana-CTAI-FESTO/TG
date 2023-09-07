@@ -1,5 +1,6 @@
 package co.edu.javeriana.tg.services.components;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepParameter;
+import co.edu.javeriana.tg.repositories.interfaces.FinishedStepRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepParameterRepository;
@@ -30,6 +32,8 @@ public class StepService {
 
     private final StepRepository stepRepository;
 
+    private final FinishedStepRepository finishedStepRepository;
+
     private final WorkPlanService workPlanService;
 
     private final OperationService operationService;
@@ -37,13 +41,14 @@ public class StepService {
     public StepService(StepDefinitionRepository stepDefinitionRepository, WorkPlanService workPlanService,
             OperationService operationService, StepRepository stepRepository,
             StepParameterDefinitionRepository stepParameterDefinitionRepository,
-            StepParameterRepository stepParameterRepository) {
+            StepParameterRepository stepParameterRepository, FinishedStepRepository finishedStepRepository) {
         this.stepDefinitionRepository = stepDefinitionRepository;
         this.workPlanService = workPlanService;
         this.operationService = operationService;
         this.stepRepository = stepRepository;
         this.stepParameterDefinitionRepository = stepParameterDefinitionRepository;
         this.stepParameterRepository = stepParameterRepository;
+        this.finishedStepRepository = finishedStepRepository;
     }
 
     public List<StepDefinitionDTO> getAll() {
@@ -96,6 +101,70 @@ public class StepService {
                         stepParameterRepository.save(stepParameter);
                     });
         } catch (Exception e) {
+        }
+    }
+
+    public Long getWorkTimeForMachine(Long resource) {
+        try {
+            return stepRepository.findByResource(resource).stream().filter(step -> step.getRealEnd() != null)
+                    .filter(step -> step.getRealStart() != null).mapToLong(step -> Duration
+                            .between(step.getRealStart().toInstant(), step.getRealEnd().toInstant()).toSeconds())
+                    .sum()
+                    + finishedStepRepository.findByResource(resource).stream().filter(step -> step.getRealEnd() != null)
+                            .filter(step -> step.getRealStart() != null).mapToLong(step -> Duration
+                                    .between(step.getRealStart().toInstant(), step.getRealEnd().toInstant())
+                                    .toSeconds())
+                            .sum();
+        } catch (Exception e) {
+            return 1l;
+        }
+    }
+
+    public Long getPlannedWorkTimeForMachine(Long resource) {
+        try {
+            return stepRepository.findByResource(resource).stream().filter(step -> step.getPlannedEnd() != null)
+                    .filter(step -> step.getPlannedStart() != null).mapToLong(step -> Duration
+                            .between(step.getPlannedStart().toInstant(), step.getPlannedEnd().toInstant()).toSeconds())
+                    .sum()
+                    + finishedStepRepository.findByResource(resource).stream()
+                            .filter(step -> step.getPlannedEnd() != null)
+                            .filter(step -> step.getPlannedStart() != null).mapToLong(step -> Duration
+                                    .between(step.getPlannedStart().toInstant(), step.getPlannedEnd().toInstant())
+                                    .toSeconds())
+                            .sum();
+        } catch (Exception e) {
+            return 1l;
+        }
+    }
+
+    public double getIdealWorkTimeForMachine(Long resource) {
+        try {
+            Double timeA = stepRepository.findByResource(resource).stream()
+                    .filter(step -> step.getPlannedEnd() != null)
+                    .filter(step -> step.getPlannedStart() != null).mapToLong(step -> Duration
+                            .between(step.getPlannedStart().toInstant(), step.getPlannedEnd().toInstant())
+                            .toSeconds())
+                    .average().getAsDouble(),
+                    timeB = finishedStepRepository.findByResource(resource).stream()
+                            .filter(step -> step.getPlannedEnd() != null)
+                            .filter(step -> step.getPlannedStart() != null).mapToLong(step -> Duration
+                                    .between(step.getPlannedStart().toInstant(), step.getPlannedEnd().toInstant())
+                                    .toSeconds())
+                            .average().getAsDouble();
+            return timeA + timeB;
+        } catch (Exception e) {
+            return 1l;
+        }
+    }
+
+    public Long getTotalCountForMachine(Long resource) {
+        try {
+            return stepRepository.findByResource(resource).stream().filter(step -> step.getRealEnd() != null)
+                    .filter(step -> step.getRealStart() != null).count()
+                    + finishedStepRepository.findByResource(resource).stream().filter(step -> step.getRealEnd() != null)
+                            .filter(step -> step.getRealStart() != null).count();
+        } catch (Exception e) {
+            return 1l;
         }
     }
 }

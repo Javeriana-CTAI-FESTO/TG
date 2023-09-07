@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
+import co.edu.javeriana.tg.services.components.WorkPlanService;
 import co.edu.javeriana.tg.services.users.StudentService;
 
 @RunWith(SpringRunner.class)
@@ -28,6 +29,9 @@ public class StudentServiceTest {
 
   @MockBean
   private PartService partService;
+
+  @MockBean
+  private WorkPlanService workPlanService;
 
   @Test
   public void testGetOrdersWithStatus() {
@@ -67,6 +71,11 @@ public class StudentServiceTest {
   @Test
   public void testGetPartsByType() {
     assertDoesNotThrow(() -> studentService.getAllPartsByType(1l));
+  }
+
+  @Test
+  public void testGetWorkplansById() {
+    assertDoesNotThrow(() -> studentService.getWorkPlanById(1l));
   }
 
   @Test
