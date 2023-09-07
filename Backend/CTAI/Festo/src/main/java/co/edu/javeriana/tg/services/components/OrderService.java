@@ -19,12 +19,14 @@ import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
+import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
+import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
 
 @Component
 @Transactional
@@ -40,6 +42,8 @@ public class OrderService {
 
     private final ResourceForOperationRepository resourceForOperationRepository;
 
+    private final ResourceRepository resourceRepository;
+
     private final StepService stepService;
 
     private final PartService partService;
@@ -47,7 +51,7 @@ public class OrderService {
     public OrderService(FinishedOrderRepository finishedOrderRepository, OrderRepository orderRepository,
             OrderPositionRepository orderPositionRepository,
             ClientService clientService, ResourceForOperationRepository resourceForOperationRepository,
-            StepService stepService, PartService workPlanService) {
+            StepService stepService, PartService workPlanService, ResourceRepository resourceRepository) {
         this.finishedOrderRepository = finishedOrderRepository;
         this.orderRepository = orderRepository;
         this.orderPositionRepository = orderPositionRepository;
@@ -55,6 +59,7 @@ public class OrderService {
         this.resourceForOperationRepository = resourceForOperationRepository;
         this.stepService = stepService;
         this.partService = workPlanService;
+        this.resourceRepository = resourceRepository;
     }
 
     public List<OrderDTO> getAllOrders() {
@@ -140,11 +145,12 @@ public class OrderService {
                     step.setNextWhenError(currentStep.getNextWhenError());
                     step.setNewPartNumber(currentStep.getNewPartNumber());
                     step.setPlannedStart(start);
-                    step.setPlannedEnd(end);
+                    secondsToAdd = currentStep.getCalculatedWorkingTime();
+                    step.setPlannedEnd(Date.from(Instant.now().plus(secondsToAdd, ChronoUnit.SECONDS)));
                     step.setOperationNumberType(currentStep.getOperationNumberType());
                     ResourceForOperation res = resourceForOperationRepository
                             .minorTimeForOperation(steps.get(ste).getOperation().getOperationNumber());
-                    step.setResource((res!=null)?res.getResource():0l);
+                    step.setResource((res != null) ? res.getResource() : 0l);
                     step.setTransportTime(currentStep.getTransportTime());
                     step.setError(currentStep.getError());
                     step.setCalculatedElectricEnergy(0l);
@@ -216,7 +222,7 @@ public class OrderService {
                         : (status == 2) ? getAllInProcessOrders() : getAllFinishedOrders();
     }
 
-    private Long evaluateNameToGetIndicator(String name) {
+    private Double evaluateNameToGetIndicator(String name) {
         Long value;
         if (name.equals("Unstarted"))
             value = orderRepository.notStartedOrdersCount();
@@ -226,17 +232,88 @@ public class OrderService {
             value = finishedOrderRepository.finishedOrdersCount();
         else
             value = orderRepository.allOrdersCount();
-        return value;
+        return Double.valueOf(value);
+    }
+
+    public IndicatorAux getAvailabilityForMachine(Long resource, String resource_name) {
+        IndicatorAux aux = null;
+        Long runtimeForMachine = stepService.getWorkTimeForMachine(resource);
+        Long plannedTime = stepService.getPlannedWorkTimeForMachine(resource);
+        if (plannedTime == 0l)
+            plannedTime = runtimeForMachine + 1;
+        aux = new IndicatorAux("Availability For " + resource_name,
+                "This is the availability for resource " + resource_name, Double.parseDouble(String.format("%.4f", Double.valueOf(runtimeForMachine)/Double.valueOf(plannedTime))));
+        return aux;
+    }
+
+    public IndicatorAux getPerfomanceForMachine(Long resource, String resource_name) {
+        IndicatorAux aux = null;
+        Long runtimeForMachine = stepService.getWorkTimeForMachine(resource);
+        Double idealCycleTime = stepService.getIdealWorkTimeForMachine(resource);
+        Long totalCount = stepService.getTotalCountForMachine(resource);
+        runtimeForMachine = (runtimeForMachine > 0) ? runtimeForMachine :1l;
+        aux = new IndicatorAux("Perfomance For " + resource_name,
+                "This is the perfomance for resource " + resource_name,
+                Double.parseDouble(String.format("%.4f", Double.valueOf(idealCycleTime * totalCount) / Double.valueOf(runtimeForMachine))));
+        return aux;
+    }
+
+    public IndicatorAux getQualityForMachine(Long resource, String resource_name) {
+        IndicatorAux aux = null;
+        // Machines don't reprocess, therefore quality is always 1
+        aux = new IndicatorAux("Quality For " + resource_name, "This is the quality for resource " + resource_name, 1.0);
+        return aux;
+    }
+
+    public List<IndicatorAux> getOEEForMachine(Long resource) {
+        // https://www.oee.com/calculating-oee/
+        String resource_name = resourceRepository.findNameById(resource);
+        IndicatorAux availability = this.getAvailabilityForMachine(resource, resource_name);
+        IndicatorAux perfomance = this.getPerfomanceForMachine(resource, resource_name);
+        IndicatorAux quality = this.getQualityForMachine(resource, resource_name);
+        IndicatorAux oee = new IndicatorAux("OEE for machine " + resource_name,
+                "Overall equipment efficiency for machine " + resource_name,
+                availability.getIndicatorValue() * perfomance.getIndicatorValue() * quality.getIndicatorValue());
+        return List.of(availability, perfomance, quality, oee);
     }
 
     public List<IndicatorAux> getIndicators() {
         final Map<String, String> indicators = Map.of("Unstarted", "This is the amount of unstarted orders",
                 "In process", "This is the amount of in process orders", "Finished",
                 "This is the amount of finished orders", "All",
-                "This is the amount of orders processed by the system", "Availability", "This is the general availability of the system ");
-        // Availability is calculated as the ratio of Run Time to Planned Production Time: Availability = Run Time / Planned Production Time. Run Time = Planned Production Time − Stop Time
-        return indicators.entrySet().stream().map(entry -> new IndicatorAux(entry.getKey(), entry.getValue(),
-                this.evaluateNameToGetIndicator(entry.getKey()))).collect(Collectors.toList());
+                "This is the amount of orders processed by the system");
+        List<IndicatorAux> ind = indicators.entrySet().stream()
+                .map(entry -> new IndicatorAux(entry.getKey(), entry.getValue(),
+                        this.evaluateNameToGetIndicator(entry.getKey())))
+                .collect(Collectors.toList());
+        try {
+            Long totalResources = resourceRepository.findAll().stream().count();
+            Double overallA = 0.0, overallP = 0.0, overallQ = 0.0, overallOEE = 0.0;
+
+            List<IndicatorAux> indOee;
+            for (Resource r : resourceRepository.findAllExceptZero()) {
+                indOee = getOEEForMachine(r.getId());
+                overallA += indOee.get(0).getIndicatorValue();
+                overallP += indOee.get(1).getIndicatorValue();
+                overallQ += indOee.get(2).getIndicatorValue();
+                overallOEE += indOee.get(3).getIndicatorValue();
+                ind.addAll(indOee);
+            }
+            overallA /= totalResources;
+            overallA = Double.parseDouble(String.format("%.4f", overallA));
+            overallP /= totalResources;
+            overallP = Double.parseDouble(String.format("%.4f", overallP));
+            overallQ /= totalResources;
+            overallQ = Double.parseDouble(String.format("%.4f", overallQ));
+            overallOEE /= totalResources;
+            overallOEE = Double.parseDouble(String.format("%.4f", overallOEE));
+            ind.add(new IndicatorAux("Availability", "This is the general availability of the system", overallA));
+            ind.add(new IndicatorAux("Perfomance", "This is the general perfomance of the system", overallP));
+            ind.add(new IndicatorAux("Quality", "This is the general quality of the system", overallQ));
+            ind.add(new IndicatorAux("OEE", "This is the general efficiency of the system", overallOEE));
+        } catch (Exception e) {
+        }
+        return ind;
     }
 
     public Long timeForWorkPlan(Long workPlanNumber, Long positions) {
@@ -245,8 +322,9 @@ public class OrderService {
             Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
                     .mapToLong(
                             operation -> {
-                                ResourceForOperation res = resourceForOperationRepository.minorTimeForOperation(operation);
-                                return (res!=null)?res.getWorkingTime():0l;
+                                ResourceForOperation res = resourceForOperationRepository
+                                        .minorTimeForOperation(operation);
+                                return (res != null) ? res.getWorkingTime() : 0l;
                             })
                     .sum();
             return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime())
@@ -265,7 +343,6 @@ public class OrderService {
     }
 
     private List<PartDTO> getPartsConsumedByOrder(Long orderNumber) {
-        // TODO No se como hacer esto
         return null;
     }
 
