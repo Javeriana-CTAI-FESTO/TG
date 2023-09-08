@@ -45,13 +45,11 @@ export class AddWorkPlanToProductionComponent implements OnInit {
       const placeOrder = () => {
         if (count < quantity) {
           this.DashboradService.placeNewOrder(part.partNumber, 0, 1).subscribe(response => {
-            console.log(response);
-            console.log(response.orderNumber);
             this.cards.push({
               id: part?.partNumber || startingId + count,
               idworkPlan: part?.workPlanNumber|| startingId + count,
               title: part?.description || '',
-              state: response.orderNumber,
+              OrderNumber: response.orderNumber,
               imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
             });
             count++;

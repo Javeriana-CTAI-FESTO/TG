@@ -94,7 +94,7 @@ export interface Card {
   id: number;
   idworkPlan: number;
   title: string;
-  state: string;
+  OrderNumber: string;
   imageUrl: string;
 }
 export interface Part {

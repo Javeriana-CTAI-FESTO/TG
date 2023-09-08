@@ -72,18 +72,22 @@ export class PostsComponent implements OnInit {
   }
 
 
+  moveItem(item: any, sourceList: any[], destList: any[]) {
+    const index = sourceList.indexOf(item);
+    if (index >= 0) {
+        sourceList.splice(index, 1);
+        destList.push(item);
+    }
+}
 
 
   pageEvent(event: PageEvent) {
-    // Obtener el índice de la página actual y el tamaño de página
     const pageIndex = event.pageIndex;
     const pageSize = event.pageSize;
 
-    // Calcular el índice de inicio y fin para obtener los datos
     const startIndex = pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
 
-    // Obtener los datos para la página actual
     this.filteredTodo = this.todo.slice(startIndex, endIndex);
 }
 

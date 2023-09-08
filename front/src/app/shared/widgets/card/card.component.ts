@@ -14,7 +14,7 @@ export class CardComponent implements OnInit {
 
   
 
-  cards: { id: number,idworkPlan:number, title: string, state: string, imageUrl: string }[] = [];
+  cards: { id: number,idworkPlan:number, title: string, OrderNumber: string, imageUrl: string }[] = [];
 
   constructor(private workplanService: WorkplanServiceService, private dialog: MatDialog, private toastr: ToastrService) { }
 
@@ -37,7 +37,7 @@ export class CardComponent implements OnInit {
             id: card.id,
             idworkPlan: card.idworkPlan,
             title: card.title,
-            state: card.state,
+            OrderNumber: card.OrderNumber,
             imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
           });
         });

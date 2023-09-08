@@ -79,7 +79,7 @@
             <h2>
                 Enter the following information to create a New WorkPlan
             </h2>
-            
+
             <div class="mb-3">
                 <label for="workPlanNumber" class="form-label">workPlanNumber</label>
                 <input type="number" class="form-control" id="workPlanNumber" name="workPlanNumber"
@@ -129,11 +129,19 @@
                         placeholder="Filter">
                     <div cdkDropList [cdkDropListData]="filteredTodo" class="example-list"
                         (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of filteredTodo" cdkDrag>{{item.description}}</div>
+                        <div class="example-box" *ngFor="let item of filteredTodo" cdkDrag>
+                            {{item.description}}
+                            <br>
+                            <button mat-icon-button class="mat-icon-button-green"
+                                (click)="moveItem(item, filteredTodo, done)">
+                                <mat-icon>keyboard_arrow_right</mat-icon>
+                            </button>
+                        </div>
+
                     </div>
 
-                    <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons 
-                        (page)="pageEvent($event)">
+                    <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons (page)="pageEvent($event)">
                     </mat-paginator>
 
                 </div>
@@ -175,7 +183,9 @@
                                         name="errorStepNumber" placeholder="errorStepNumber" min="0"
                                         [(ngModel)]="item.errorStepNumber">
                                 </div>
-
+                                <button mat-icon-button (click)="moveItem(item, done, filteredTodo)">
+                                    <mat-icon>keyboard_arrow_left</mat-icon>
+                                </button>
                             </div>
                         </div>
                     </div>
