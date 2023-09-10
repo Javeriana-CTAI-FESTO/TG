@@ -6,10 +6,10 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService{
+export class DashboardService {
 
   urlBase = 'http://localhost:8080/api/';
-  rol (){
+  rol() {
     const rol = this.loginService.getRole();
     if (rol === 'estudiante') {
       return 'students';
@@ -20,7 +20,7 @@ export class DashboardService{
     return 'admin';
   }
 
-  constructor(private http: HttpClient, private loginService: LoginService ) { }
+  constructor(private http: HttpClient, private loginService: LoginService) { }
   bigChart() {
     return [{
       type: 'column',
@@ -34,7 +34,7 @@ export class DashboardService{
   }
 
   getPieChartData() {
-      return this.http.get<IndicatorData[]>(this.urlBase + this.rol() + '/indicators')
+    return this.http.get<IndicatorData[]>(this.urlBase + this.rol() + '/indicators')
       .pipe(
         map(data => data.map(item => ({
           name: item.indicatorName,
@@ -44,23 +44,15 @@ export class DashboardService{
       );
   }
 
-  async ganttChart() {
-    const response = await fetch(this.urlBase + this.rol() +'/orders/ends');
-    const data = await response.json();
-    return data.filter((date: string) => date !== null).map((date: string) => {
-      const startDate = new Date(date);
-      const endDate = new Date(date);
-      endDate.setMonth(startDate.getMonth() + 1);
-      return {
-        start: Math.round(startDate.getTime() / 1000),
-        end: Math.round(endDate.getTime() / 1000),
-        name: 'end',
-        completed: {
-          amount: 1
-        }
-      };
-    });
+  async ganttChart() { 
+    const response = await fetch(this.urlBase + this.rol() + '/orders/ends'); 
+    const data = await response.json(); 
+    return data.filter((date: string) => date !== null).map((date: string) => { 
+      const startDate = new Date(date); 
+      return [startDate.getTime(), 1]; 
+    }); 
   }
+
 
   getStations(): Observable<Estations[]> {
     return this.http.get<Estations[]>(this.urlBase + this.rol() + '/resources');

@@ -27,7 +27,7 @@ export class GanttComponent implements OnInit, OnChanges {
   updateChartOptions(data: any[]): void {
     this.chartOptions = {
       title: {
-        text: "Task execution history"
+        text: "Historial de ejecución de tareas"
       },
       
       exporting: {
@@ -37,32 +37,18 @@ export class GanttComponent implements OnInit, OnChanges {
         enabled: false
       },
       
+      xAxis: {
+        type: 'datetime'
+      },
       
       series: [
         {
-          type: "gantt",
+          type: "scatter",
           name: "Tareas",
           data
         }
       ],
-      navigator: {
-        enabled: true,
-        liveRedraw: true,
-        series: {
-          type: 'gantt',
-          pointPlacement: 0.5,
-          pointPadding: 0.25,
-          accessibility: {
-            enabled: false
-          }
-        },
-        yAxis: {
-          min: 0,
-          max: 3,
-          reversed: true,
-          categories: []
-        }
-      },
+      
       scrollbar: {
         enabled: true
       }
