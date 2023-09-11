@@ -21,13 +21,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
+import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
+import co.edu.javeriana.tg.entities.managed.OperationParameter;
 import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperationPK;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
+import co.edu.javeriana.tg.repositories.interfaces.OperationParameterRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
@@ -68,6 +72,9 @@ public class OrderServiceTest {
 
     @MockBean
     private PartService partService;
+
+    @MockBean
+    private OperationParameterRepository operationParameterRepository;
 
     @Test
     public void testEmptyGetAll() {
@@ -327,5 +334,35 @@ public class OrderServiceTest {
         assertDoesNotThrow(() -> orderService.getIndicators());
         when(resourceRepository.findAllExceptZero()).thenThrow(RuntimeException.class);
         assertDoesNotThrow(() -> orderService.getIndicators());
+    }
+
+    @Test
+    public void testGetPartsConsumedByOrder(){
+        Long orderNumber = 1l, workPlanNumber = 1l, operationNumberOne = 1l, operationNumberTwo = 2l;
+        StepDefinitionDTO stepOne = new StepDefinitionDTO();
+        StepDefinitionDTO stepTwo = new StepDefinitionDTO();
+        OperationDTO operationOne = new OperationDTO();
+        OperationDTO operationTwo = new OperationDTO();
+        PartDTO partToReturn = new PartDTO(new Part());
+        OperationParameter operationParameterOne = new OperationParameter(operationNumberOne, orderNumber, "part number", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "25", "Query", operationNumberOne, operationNumberTwo);
+        OperationParameter operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "PNo", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "25", "Query", operationNumberOne, operationNumberTwo);
+        operationOne.setOperationNumber(operationNumberOne);
+        operationTwo.setOperationNumber(operationNumberTwo);
+        stepOne.setOperation(operationOne);
+        stepTwo.setOperation(operationTwo);
+        assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
+        when(operationParameterRepository.findByOperationNumber(operationNumberOne)).thenReturn(List.of(operationParameterOne, operationParameterTwo));
+        when(orderPositionRepository.getWorkPlanNumberByOrderNumber(orderNumber)).thenReturn(workPlanNumber);
+        when(stepService.stepsByWorkplan(workPlanNumber)).thenReturn(List.of(stepOne, stepTwo));
+        when(partService.findByPartNumber(25l)).thenReturn(partToReturn);
+        assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
+        operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "PNo", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "0", "Query", operationNumberOne, operationNumberTwo);
+        when(operationParameterRepository.findByOperationNumber(operationNumberOne)).thenReturn(List.of(operationParameterOne, operationParameterTwo));
+        assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
+        operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "Test", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "0", "Query", operationNumberOne, operationNumberTwo);
+        when(operationParameterRepository.findByOperationNumber(operationNumberOne)).thenReturn(List.of(operationParameterOne, operationParameterTwo));
+        assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
+        when(partService.findByPartNumber(25l)).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
     }
 }

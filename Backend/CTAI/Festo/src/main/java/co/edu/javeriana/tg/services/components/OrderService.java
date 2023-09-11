@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -17,12 +18,14 @@ import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.managed.OperationParameter;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
 import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedOrderRepository;
+import co.edu.javeriana.tg.repositories.interfaces.OperationParameterRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderPositionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.OrderRepository;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepository;
@@ -31,6 +34,8 @@ import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
 @Component
 @Transactional
 public class OrderService {
+
+    private final OperationParameterRepository operationParameterRepository;
 
     private final OrderRepository orderRepository;
 
@@ -51,7 +56,8 @@ public class OrderService {
     public OrderService(FinishedOrderRepository finishedOrderRepository, OrderRepository orderRepository,
             OrderPositionRepository orderPositionRepository,
             ClientService clientService, ResourceForOperationRepository resourceForOperationRepository,
-            StepService stepService, PartService workPlanService, ResourceRepository resourceRepository) {
+            StepService stepService, PartService workPlanService, ResourceRepository resourceRepository,
+            OperationParameterRepository operationParameterRepository) {
         this.finishedOrderRepository = finishedOrderRepository;
         this.orderRepository = orderRepository;
         this.orderPositionRepository = orderPositionRepository;
@@ -60,6 +66,7 @@ public class OrderService {
         this.stepService = stepService;
         this.partService = workPlanService;
         this.resourceRepository = resourceRepository;
+        this.operationParameterRepository = operationParameterRepository;
     }
 
     public List<OrderDTO> getAllOrders() {
@@ -242,7 +249,8 @@ public class OrderService {
         if (plannedTime == 0l)
             plannedTime = runtimeForMachine + 1;
         aux = new IndicatorAux("Availability For " + resource_name,
-                "This is the availability for resource " + resource_name, Double.parseDouble(String.format("%.4f", Double.valueOf(runtimeForMachine)/Double.valueOf(plannedTime))));
+                "This is the availability for resource " + resource_name, Double.parseDouble(
+                        String.format("%.4f", Double.valueOf(runtimeForMachine) / Double.valueOf(plannedTime))));
         return aux;
     }
 
@@ -251,17 +259,19 @@ public class OrderService {
         Long runtimeForMachine = stepService.getWorkTimeForMachine(resource);
         Double idealCycleTime = stepService.getIdealWorkTimeForMachine(resource);
         Long totalCount = stepService.getTotalCountForMachine(resource);
-        runtimeForMachine = (runtimeForMachine > 0) ? runtimeForMachine :1l;
+        runtimeForMachine = (runtimeForMachine > 0) ? runtimeForMachine : 1l;
         aux = new IndicatorAux("Perfomance For " + resource_name,
                 "This is the perfomance for resource " + resource_name,
-                Double.parseDouble(String.format("%.4f", Double.valueOf(idealCycleTime * totalCount) / Double.valueOf(runtimeForMachine))));
+                Double.parseDouble(String.format("%.4f",
+                        Double.valueOf(idealCycleTime * totalCount) / Double.valueOf(runtimeForMachine))));
         return aux;
     }
 
     public IndicatorAux getQualityForMachine(Long resource, String resource_name) {
         IndicatorAux aux = null;
         // Machines don't reprocess, therefore quality is always 1
-        aux = new IndicatorAux("Quality For " + resource_name, "This is the quality for resource " + resource_name, 1.0);
+        aux = new IndicatorAux("Quality For " + resource_name, "This is the quality for resource " + resource_name,
+                1.0);
         return aux;
     }
 
@@ -342,7 +352,24 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    private List<PartDTO> getPartsConsumedByOrder(Long orderNumber) {
+    public List<PartDTO> getPartsConsumedByOrder(Long orderNumber) {
+        try {
+            Long workPlanNumber = orderPositionRepository.getWorkPlanNumberByOrderNumber(orderNumber);
+            List<StepDefinitionDTO> steps = stepService.stepsByWorkplan(workPlanNumber);
+            Predicate<OperationParameter> partCondition1 = operationParameter -> operationParameter.getDescription()
+                    .startsWith("part number");
+            Predicate<OperationParameter> partCondition2 = operationParameter -> operationParameter.getDescription()
+                    .startsWith("PNo");
+            List<PartDTO> parts = steps.stream()
+                    .flatMap(step -> operationParameterRepository
+                            .findByOperationNumber(step.getOperation().getOperationNumber()).stream())
+                    .filter(partCondition1.or(partCondition2)).filter(op -> !op.getParameter().equals("0"))
+                    .map(operationParameter -> partService
+                            .findByPartNumber(Long.valueOf(operationParameter.getParameter())))
+                    .collect(Collectors.toList());
+            return parts;
+        } catch (Exception e) {
+        }
         return null;
     }
 
