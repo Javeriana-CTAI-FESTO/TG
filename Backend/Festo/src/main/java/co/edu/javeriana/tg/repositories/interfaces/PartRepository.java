@@ -10,6 +10,8 @@ import co.edu.javeriana.tg.entities.managed.Part;
 public interface PartRepository extends CrudRepository<Part, Long> {
     List<Part> findAll();
 
+    Part findByPartNumber(Long partNumber);
+
     List<Part> findByType(Long typeId);
 
     @Query("select p from Part p where p.type = 3")

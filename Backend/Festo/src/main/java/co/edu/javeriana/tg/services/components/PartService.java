@@ -100,19 +100,29 @@ public class PartService {
     }
 
     public List<PartDTO> getAllProductionProduceableParts() {
-        return partRepository.getAllProductionParts().stream().filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber())==1).map(PartDTO::new).collect(Collectors.toList());
+        return partRepository.getAllProductionParts().stream()
+                .filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber()) == 1)
+                .map(PartDTO::new).collect(Collectors.toList());
     }
 
     public List<PartDTO> getAllCustomerProduceableParts() {
-        return partRepository.getAllProductionParts().stream().filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber())==2).map(PartDTO::new).collect(Collectors.toList());
+        return partRepository.getAllProductionParts().stream()
+                .filter(part -> workPlanService.getWorkPlanTypeByWorkPlanNumber(part.getWorkPlanNumber()) == 2)
+                .map(PartDTO::new).collect(Collectors.toList());
     }
 
     public List<PartDTO> getPartsThatCanBeProduced() {
         List<PartDTO> produceableParts = this.getAllProductionProduceableParts();
         produceableParts.addAll(this.getAllCustomerProduceableParts());
         return produceableParts;
-      }
+    }
 
-    
+    public PartDTO findByPartNumber(Long partNumber) {
+        try {
+            return new PartDTO(partRepository.findByPartNumber(partNumber));
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
 }

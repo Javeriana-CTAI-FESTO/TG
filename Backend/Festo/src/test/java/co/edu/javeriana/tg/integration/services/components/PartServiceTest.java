@@ -191,4 +191,17 @@ public class PartServiceTest {
     public void testProduceableParts(){
         assertDoesNotThrow(() -> partService.getPartsThatCanBeProduced());
     }
+
+    @Test
+    public void testEmptyFindByPartNumber() {
+        Long number = 1l;
+        assertDoesNotThrow(() -> partService.findByPartNumber(number));
+    }
+
+    @Test
+    public void testNonEmptyFindByPartNumber() {
+        Long number = 1l;
+        when(partRepository.findByPartNumber(number)).thenReturn(new Part(number));
+        assertDoesNotThrow(() -> partService.findByPartNumber(number));
+    }
 }

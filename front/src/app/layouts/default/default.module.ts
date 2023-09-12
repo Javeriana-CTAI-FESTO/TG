@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { ResourcesComponent } from 'src/app/modules/resources/resources.component';
 import { MatTableModule } from '@angular/material/table';
-
+import { ReportsComponent } from 'src/app/modules/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { MatTableModule } from '@angular/material/table';
     HelpComponent,
     ListComponent,
     PartsComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    ReportsComponent
   ],
   imports: [
     CommonModule,
