@@ -7,7 +7,6 @@ server:
 
 # Configuracion de Spring
 spring:
-  profiles.active: dev
   main:
     allow-circular-references: true
   # Configuración de Spring JPA
