@@ -41,8 +41,8 @@ const routes: Routes = [{
     canActivate: [RoleGuard]
   },{
     path: 'reports',
-    component: ReportsComponent
-   // canActivate: [RoleGuard]
+    component: ReportsComponent,
+    canActivate: [RoleGuard]
   }],
 }, {
   path: 'login',

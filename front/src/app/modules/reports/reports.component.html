@@ -1,1 +1,45 @@
-<p>reports works!</p>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<div class="mat-elevation-z8 ">
+    <div style="background-color: #FFFFFF;">
+        <h2 style="text-align: center;">List of Reports</h2>
+        <input class="filter-input" style="width: 100%;" placeholder="Filter" (keyup)="applyFilter($event)">
+    </div>
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="report">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.report.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="resource">
+            <th mat-header-cell *matHeaderCellDef> Resource </th>
+            <td mat-cell *matCellDef="let element"> {{element.resource.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef> Time Stamp </th>
+            <td mat-cell *matCellDef="let element"> {{element.report.timestamp | date:'medium'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="operations">
+            <th mat-header-cell *matHeaderCellDef> Operations </th>
+            <td mat-cell *matCellDef="let workplan">
+
+                <button type="button" class="btn btn-outline-success">
+                    <mat-icon>description</mat-icon>
+                </button>
+                <button type="button" class="btn btn-outline-success">
+                    <mat-icon>extension</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

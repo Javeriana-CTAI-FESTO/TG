@@ -31,8 +31,8 @@ export class PostsComponent implements OnInit {
   workPlanTypes: { key: string, value: string }[] = [];
   workplans: Workplan[] = [];
   filteredTodo: any[] = [];
-  itemsPerPage = 5; // Puedes cambiar este valor a lo que necesites
-  totalItems = 0; // Puedes cambiar este valor a lo que necesites
+  itemsPerPage = 5;
+  totalItems = 0;
 
 
   dataSource: MatTableDataSource<Workplan>;
@@ -122,13 +122,8 @@ export class PostsComponent implements OnInit {
   }
  
   applyFilterTodo(event: Event) {
-    // Obtener el valor del filtro
     const filterValue = (event.target as HTMLInputElement).value;
-
-    // Filtrar los datos
     this.filteredTodo = this.todo.filter(item => item.description.toLowerCase().includes(filterValue.toLowerCase()));
-
-    // Actualizar el paginador
     this.totalItems = this.filteredTodo.length;
     this.filteredTodo = this.filteredTodo.slice(0, this.itemsPerPage);
 }
