@@ -38,6 +38,8 @@ import { AddWorkPlanToProductionComponent } from './widgets/card/Dialogs/add-wor
 import { ReportDialogComponent } from '../modules/reports/Dialogs/report-dialog/report-dialog.component';
 import { ResourceDialogComponent } from '../modules/reports/Dialogs/resource-dialog/resource-dialog.component';
 import { ResourceInfoDialogComponent } from '../modules/resources/Dialogs/resource-info-dialog/resource-info-dialog.component';
+import { ResourceReportsDialogComponent } from '../modules/resources/Dialogs/resource-reports-dialog/resource-reports-dialog.component';
+import { ResourceReportFailsDialogComponent } from '../modules/resources/Dialogs/resource-report-fails-dialog/resource-report-fails-dialog.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -60,13 +62,16 @@ import { ResourceInfoDialogComponent } from '../modules/resources/Dialogs/resour
     AddWorkPlanToProductionComponent,
     ReportDialogComponent,
     ResourceDialogComponent,
-    ResourceInfoDialogComponent
+    ResourceInfoDialogComponent,
+    ResourceReportsDialogComponent,
+    ResourceReportFailsDialogComponent
   ],
   imports: [
     CommonModule,
     MatDividerModule,
     MatToolbarModule,
     MatIconModule,
+    MatTableModule,
     MatButtonModule,
     FlexLayoutModule,
     MatMenuModule,
@@ -75,6 +80,7 @@ import { ResourceInfoDialogComponent } from '../modules/resources/Dialogs/resour
     HighchartsChartModule,
     FormsModule,
     DragDropModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatInputModule,
     ToastrModule.forRoot(),

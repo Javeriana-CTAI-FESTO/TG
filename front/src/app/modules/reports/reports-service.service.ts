@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Estations } from '../dashboard.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,24 +15,15 @@ export class ReportsServiceService {
   getReportsFails(): Observable<ResponseData[]> {
     return this.http.get<ResponseData[]>(this.baseUrl + '/fails');
   }
-}
-interface Resource {
-  id: number;
-  name: string;
-  description: string;
-  plcType: number;
-  ip: string;
-  picture: string;
-  parallelProcessing: boolean;
-  automatic: boolean;
-  webPage: string;
-  openWithDefaultBrowser: boolean;
-  topologyType: number;
-  agv: boolean;
-  resourceType: number;
+  getReportById(id: number): Observable<Report[]> {
+    return this.http.get<Report[]>(this.baseUrl + '/' + id);
+  }
+  getReportFailsById(id: number): Observable<Report[]> {
+    return this.http.get<Report[]>(this.baseUrl + '/fails/' + id);
+  }
 }
 
-interface Report {
+export interface Report {
   timestamp: string;
   id: number;
   automaticMode: boolean;
@@ -44,6 +36,6 @@ interface Report {
 }
 
 export interface ResponseData {
-  resource: Resource;
+  resource: Estations;
   report: Report;
 }
