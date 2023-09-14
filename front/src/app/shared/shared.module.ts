@@ -35,7 +35,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GanttComponent } from './widgets/gantt/gantt.component';
 import { WorkPlanProgressDialogComponent } from './widgets/card/Dialogs/work-plan-progress-dialog/work-plan-progress-dialog.component';
 import { AddWorkPlanToProductionComponent } from './widgets/card/Dialogs/add-work-plan-to-production/add-work-plan-to-production.component';
-
+import { ReportDialogComponent } from '../modules/reports/Dialogs/report-dialog/report-dialog.component';
+import { ResourceDialogComponent } from '../modules/reports/Dialogs/resource-dialog/resource-dialog.component';
+import { ResourceInfoDialogComponent } from '../modules/resources/Dialogs/resource-info-dialog/resource-info-dialog.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -56,8 +58,9 @@ import { AddWorkPlanToProductionComponent } from './widgets/card/Dialogs/add-wor
     GanttComponent,
     WorkPlanProgressDialogComponent,
     AddWorkPlanToProductionComponent,
-   
-
+    ReportDialogComponent,
+    ResourceDialogComponent,
+    ResourceInfoDialogComponent
   ],
   imports: [
     CommonModule,

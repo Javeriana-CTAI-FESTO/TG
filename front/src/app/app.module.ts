@@ -8,13 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { HttpHeaders } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

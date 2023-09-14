@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService, Estations } from '../dashboard.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { ResourceInfoDialogComponent } from './Dialogs/resource-info-dialog/resource-info-dialog.component';
 @Component({
   selector: 'app-resources',
   templateUrl: './resources.component.html',
@@ -11,8 +12,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ResourcesComponent implements OnInit {
 
   estations: Estations[] = [];
-  constructor(private dashboardService: DashboardService) { }
-  displayedColumns: string[] = ['id', 'name', 'description', 'plcType', 'ip', 'topologyType','resourceType' ];
+  constructor(private dashboardService: DashboardService, private dialog: MatDialog) { }
+  displayedColumns: string[] = ['id', 'name', 'plcType', 'ip','operations' ];
   dataSource = new MatTableDataSource<Estations>();
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -27,5 +28,10 @@ export class ResourcesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase(); 
+  }
+  openDialogInfo(resource: Estations) {
+    const dialogRef = this.dialog.open(ResourceInfoDialogComponent, {
+      data: resource
+    });
   }
 }

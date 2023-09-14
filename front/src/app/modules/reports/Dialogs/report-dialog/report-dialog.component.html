@@ -1,0 +1,19 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<div class="container mt-5 mb-5">
+    <h2 mat-dialog-title>Report Details</h2>
+    <p><strong>ID:</strong> {{ data.report.id }}</p>
+    <p><strong>Timestamp:</strong> {{ data.report.timestamp | date:'medium' }}</p>
+    <p><strong>Automatic Mode:</strong> {{ data.report.automaticMode}}</p>
+    <p><strong>Manual Mode:</strong> {{ data.report.manualMode}} </p>
+    <p><strong>Busy:</strong> {{ data.report.busy}} </p>
+    <p><strong>Reset: </strong>{{ data.report.reset}} </p>
+    <p><strong>Error L0:</strong> {{ data.report.errorL0}} </p>
+    <p><strong>Error L1:</strong> {{ data.report.errorL1}} </p>
+    <p><strong>Error L2:</strong> {{ data.report.errorL2}} </p>
+</div>
+<button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+</button>

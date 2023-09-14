@@ -4,7 +4,9 @@ import { OnInit } from '@angular/core';
 import { ReportsServiceService } from './reports-service.service';
 import { ResponseData } from './reports-service.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportDialogComponent } from './Dialogs/report-dialog/report-dialog.component';
+import { ResourceDialogComponent } from './Dialogs/resource-dialog/resource-dialog.component';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -17,11 +19,10 @@ export class ReportsComponent implements OnInit {
   failDisplayedColumns: string[] = ['report', 'resource', 'timestamp', 'operations'];
   filterValue = '';
   filterValueFail = '';
-  
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild('failPaginator', {static: true}) failPaginator!: MatPaginator;
-  constructor(private reportsService: ReportsServiceService) {
+  constructor(private reportsService: ReportsServiceService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<ResponseData>();
     this.dataSource.filterPredicate = (data: ResponseData, filter: string) => {
       const dataStr = data.resource.name.toLowerCase() + data.report.id.toString().toLowerCase();
@@ -67,5 +68,14 @@ export class ReportsComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.failDataSource.filter = filterValue.trim().toLowerCase();
   }
- 
+  openDialogReport(report: any) {
+    const dialogRef = this.dialog.open(ReportDialogComponent, {
+      data: { report }
+    });
+  }
+  openDialogResource(resource: any) {
+    const dialogRef = this.dialog.open(ResourceDialogComponent, {
+      data: { resource }
+    });
+  }
 }

@@ -15,7 +15,7 @@ export class ReportsServiceService {
     return this.http.get<ResponseData[]>(this.baseUrl + '/fails');
   }
 }
-export interface Resource {
+interface Resource {
   id: number;
   name: string;
   description: string;
