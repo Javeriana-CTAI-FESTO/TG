@@ -11,7 +11,7 @@ export class ReportsServiceService {
   getReports(): Observable<ResponseData[]> {
     return this.http.get<ResponseData[]>(this.baseUrl);
   }
-  getFails(): Observable<ResponseData[]> {
+  getReportsFails(): Observable<ResponseData[]> {
     return this.http.get<ResponseData[]>(this.baseUrl + '/fails');
   }
 }

@@ -12,14 +12,24 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ReportsComponent implements OnInit {
   dataSource: MatTableDataSource<ResponseData>;
+  failDataSource: MatTableDataSource<ResponseData>;
   displayedColumns: string[] = ['report','resource','timestamp','operations'];
+  failDisplayedColumns: string[] = ['report', 'resource', 'timestamp', 'operations'];
   filterValue = '';
+  filterValueFail = '';
+  
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
-
+  @ViewChild('failPaginator', {static: true}) failPaginator!: MatPaginator;
   constructor(private reportsService: ReportsServiceService) {
     this.dataSource = new MatTableDataSource<ResponseData>();
     this.dataSource.filterPredicate = (data: ResponseData, filter: string) => {
+      const dataStr = data.resource.name.toLowerCase() + data.report.id.toString().toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
+  
+    this.failDataSource = new MatTableDataSource<ResponseData>();
+    this.failDataSource.filterPredicate = (data: ResponseData, filter: string) => {
       const dataStr = data.resource.name.toLowerCase() + data.report.id.toString().toLowerCase();
       return dataStr.indexOf(filter) !== -1;
     };
@@ -31,6 +41,17 @@ export class ReportsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.paginator.length = response.length;
     });
+  
+    this.reportsService.getReportsFails().subscribe((response: ResponseData[]) => {
+      this.failDataSource.data = response;
+      this.failDataSource.paginator = this.failPaginator;
+      this.failDataSource.paginator.length = response.length;
+    });
+    
+    this.failDataSource.filterPredicate = (data: ResponseData, filter: string) => {
+      const dataStr = data.resource.name.toLowerCase() + data.report.id.toString().toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
   
   ngAfterViewInit(): void {
@@ -42,4 +63,9 @@ export class ReportsComponent implements OnInit {
     this.filterValue = filterValue.trim().toLowerCase();
     this.dataSource.filter = this.filterValue;
   }
+  applyFailFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.failDataSource.filter = filterValue.trim().toLowerCase();
+  }
+ 
 }
