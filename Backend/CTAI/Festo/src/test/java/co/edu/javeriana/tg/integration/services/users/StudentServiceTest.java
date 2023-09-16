@@ -92,4 +92,9 @@ public class StudentServiceTest {
   public void testGenerateNewOrder(){
     assertDoesNotThrow(() -> studentService.generateNewOrder(1l, 0l, 1l));
   }
+    
+  @Test
+  public void testGetStepsWithTimeByOrder() {
+    assertDoesNotThrow(() -> studentService.getStepsWithTimeByOrder(1l));
+  }
 }

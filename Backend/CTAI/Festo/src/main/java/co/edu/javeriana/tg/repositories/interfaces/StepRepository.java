@@ -9,4 +9,5 @@ import co.edu.javeriana.tg.entities.managed.StepPK;
 
 public interface StepRepository extends CrudRepository<Step, StepPK> {
   List<Step> findByResource(Long resource);
+  List<Step> findByOrderNumber(Long orderNumber);
 }

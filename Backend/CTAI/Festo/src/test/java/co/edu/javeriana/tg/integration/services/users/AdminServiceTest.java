@@ -204,5 +204,10 @@ public class AdminServiceTest {
   @Test
   public void testGetAllResources() {
     assertDoesNotThrow(() -> adminService.getAllResources());
+  }  
+
+  @Test
+  public void testGetStepsWithTimeByOrder() {
+    assertDoesNotThrow(() -> adminService.getStepsWithTimeByOrder(1l));
   }
 }

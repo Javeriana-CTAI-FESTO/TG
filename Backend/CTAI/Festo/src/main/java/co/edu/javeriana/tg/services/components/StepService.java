@@ -11,8 +11,10 @@ import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.auxiliary.WorkPlanTimeAux;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.managed.Step;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
+import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
 import co.edu.javeriana.tg.entities.managed.StepParameter;
 import co.edu.javeriana.tg.repositories.interfaces.FinishedStepRepository;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
@@ -102,6 +104,22 @@ public class StepService {
                     });
         } catch (Exception e) {
         }
+    }
+
+    public List<StepTimeDTO> stepsWithTimeByOrder(Long order) {
+        List<StepTimeDTO> steps = null;
+        ;
+        try {
+            steps = stepRepository
+                    .findByOrderNumber(order)
+                    .stream()
+                    .map(step -> new StepTimeDTO(new StepDefinitionDTO(stepDefinitionRepository
+                            .findById(new StepDefinitionPK(step.getWorkPlanNumber(), step.getStepNumber())).get(),
+                            operationService.get(step.getOperation())), step.getRealStart(), step.getRealEnd()))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+        }
+        return steps;
     }
 
     public Long getWorkTimeForMachine(Long resource) {
