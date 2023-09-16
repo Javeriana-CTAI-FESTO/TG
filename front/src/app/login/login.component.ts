@@ -24,8 +24,7 @@ export class LoginComponent {
     student: false,
     teacher: false
   };
-  selection = '';
-
+  
   constructor(private loginService: LoginService, private router: Router, private toastr: ToastrService) {}
 
   onSubmit() {
@@ -45,10 +44,9 @@ export class LoginComponent {
   
 
   onRegister() {
-    console.log(this.selection);
-    this.registerData.admin = this.selection === 'admin';
-    this.registerData.student = this.selection === 'student';
-    this.registerData.teacher = this.selection === 'teacher';
+    this.registerData.admin = false;
+    this.registerData.student = true;
+    this.registerData.teacher = false;
     this.loginService.register(this.registerData).subscribe(response => {
       this.toastr.success(response.message);
       this.showRegisterForm = false;
