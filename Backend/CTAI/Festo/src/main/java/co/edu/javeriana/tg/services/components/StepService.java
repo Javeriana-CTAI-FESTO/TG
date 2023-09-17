@@ -106,12 +106,20 @@ public class StepService {
         }
     }
 
+    public List<Step> getStepsByOrderNumber(Long orderNumber) {
+        List<Step> steps = stepRepository
+                .findByOrderNumber(orderNumber);
+        if (steps == null || steps.size() == 0)
+            steps = finishedStepRepository
+                    .findByOrderNumber(orderNumber);
+        return steps;
+    }
+
     public List<StepTimeDTO> stepsWithTimeByOrder(Long order) {
         List<StepTimeDTO> steps = null;
         ;
         try {
-            steps = stepRepository
-                    .findByOrderNumber(order)
+            steps = this.getStepsByOrderNumber(order)
                     .stream()
                     .map(step -> new StepTimeDTO(new StepDefinitionDTO(stepDefinitionRepository
                             .findById(new StepDefinitionPK(step.getWorkPlanNumber(), step.getStepNumber())).get(),
