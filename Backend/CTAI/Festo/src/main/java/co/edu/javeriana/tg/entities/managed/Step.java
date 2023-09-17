@@ -67,6 +67,37 @@ public class Step {
   @Column(name = "ErrorRetVal", nullable = true)
   private Long errorReturnValue;
 
+  public Step() {
+  }
+
+  public Step(FinishedStep step) {
+    this.workPlanNumber = step.getWorkPlanNumber();
+    this.stepNumber = step.getStepNumber();
+    this.orderNumber = step.getOrderNumber();
+    this.orderPosition = step.getOrderPosition();
+    this.description = step.getDescription();
+    this.operation = step.getOperation();
+    this.nextStepNumber = step.getNextStepNumber();
+    this.firstStep = step.getFirstStep();
+    this.nextWhenError = step.getNextWhenError();
+    this.newPartNumber = step.getNewPartNumber();
+    this.plannedStart = step.getPlannedStart();
+    this.plannedEnd = step.getPlannedEnd();
+    this.realStart = step.getRealStart();
+    this.realEnd = step.getRealEnd();
+    this.operationNumberType = step.getOperationNumberType();
+    this.resource = step.getResource();
+    this.transportTime = step.getTransportTime();
+    this.error = step.getError();
+    this.calculatedElectricEnergy = step.getCalculatedElectricEnergy();
+    this.realElectricEnergy = step.getRealElectricEnergy();
+    this.calculatedCompressedAir = step.getCalculatedCompressedAir();
+    this.realCompressedAir = step.getRealCompressedAir();
+    this.freeText = step.getFreeText();
+    this.staffId = step.getStaffId();
+    this.errorReturnValue = step.getErrorReturnValue();
+  }
+
   public Long getOrderNumber() {
     return orderNumber;
   }
