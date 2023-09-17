@@ -27,7 +27,7 @@ export class GanttComponent implements OnInit, OnChanges {
   updateChartOptions(data: any[]): void {
     this.chartOptions = {
       title: {
-        text: "Historial de ejecución de tareas"
+        text: "Orders Ends"
       },
       
       exporting: {
@@ -45,7 +45,10 @@ export class GanttComponent implements OnInit, OnChanges {
         {
           type: "scatter",
           name: "Tareas",
-          data
+          data,
+          tooltip: {
+            pointFormat: 'Fecha: {point.x:%e de %b de %Y %H:%M:%S}'
+          }
         }
       ],
       

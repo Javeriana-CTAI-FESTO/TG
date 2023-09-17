@@ -63,13 +63,13 @@ export class AreaComponent implements OnInit, OnChanges {
       },
       xAxis: {
         title: {
-          text: 'Estaciones'
+          text: 'Steps'
         },
         categories: data.categories
       },
       yAxis: {
           title: {
-              text: 'tiempo (Minutos)'
+              text: 'Time (minutes)'
           },
           labels: {
               formatter: function (this:{value:number}): string {
