@@ -21,16 +21,48 @@ export class DashboardService {
   }
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
-  bigChart() {
-    return [{
-      type: 'column',
-      name: 'Estacion',
-      borderRadius: 5,
-      colorByPoint: true,
-      data: [5, 8, 4, 3, 3, 2, 10, 7,
-        5, 2.8, 3.6, 2.8, 1.45, 6.9, 4.5],
-      showInLegend: false
-    }]
+
+  GetOrdesBigChart(id: number): Observable<ChartData> {
+    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/'+id+'/status').pipe(
+      map(steps => {
+        const result: ChartData = {
+          categories: [],
+          series: [{
+            type: 'column',
+            name: 'Estacion',
+            borderRadius: 5,
+            colorByPoint: true,
+            data: [],
+            showInLegend: false
+          }]
+        };
+  
+        steps.forEach(step => {
+          result.categories.push(Number(step.step.stepNumber));
+  
+          const start = step.start ? new Date(step.start).getTime() : 0;
+          const end = step.end ? new Date(step.end).getTime() : 0;
+          const diff = end - start;
+  
+          result.series[0].data.push(diff);
+        });
+  
+        return result;
+      })
+    );
+  }
+  bigChartInit(): ChartData {
+    return {
+      categories: [],
+      series: [{
+        type: 'column',
+        name: 'Estacion',
+        borderRadius: 5,
+        colorByPoint: true,
+        data: [],
+        showInLegend: false
+      }]
+    };
   }
 
   getPieChartData() {
@@ -105,4 +137,21 @@ interface IndicatorData {
   indicatorName: string;
   indicatorDescription: string;
   indicatorValue: number;
+}
+interface Step {
+  stepNumber: number;
+  start: string | null;
+  end: string | null;
+}
+
+interface ChartData {
+  categories: number[];
+  series: {
+    type: string;
+    name: string;
+    borderRadius: number;
+    colorByPoint: boolean;
+    data: number[];
+    showInLegend: boolean;
+  }[];
 }

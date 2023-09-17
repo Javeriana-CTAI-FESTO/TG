@@ -1,6 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -8,24 +7,29 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  bigChart: any = [];
+  pieChart: any = [];
+  ganttChart: any = [];
+  cardData = '';
 
-  bigChart:any = [];
-  pieChart:any = [];
-  ganttChart:any = [];
-
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
-    
-    this.bigChart = this.dashboardService.bigChart();
+    this.bigChart = this.dashboardService.bigChartInit();
     this.dashboardService.getPieChartData().subscribe(data => {
       this.pieChart = data;
     });
-    
+
     this.dashboardService.ganttChart().then(data => {
       this.ganttChart = data;
     });
-
   }
 
+  updateCardData(data: string) {
+    this.cardData = data;
+    this.dashboardService.GetOrdesBigChart(Number(this.cardData)).subscribe(data => {
+      this.bigChart = data;
+    }
+    );
+  }
 }

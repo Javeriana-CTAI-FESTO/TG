@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
 
@@ -7,15 +7,27 @@ import HC_exporting from 'highcharts/modules/exporting';
   templateUrl: './area.component.html',
   styleUrls: ['./area.component.css']
 })
-export class AreaComponent implements OnInit {
+export class AreaComponent implements OnInit, OnChanges {
 
   chartOptions: {} = {};
 
   @Input() data:any = {};
   Highcharts = Highcharts;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.updateChartOptions(this.data);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['data'] && changes['data'].currentValue) {
+      this.updateChartOptions(changes['data'].currentValue);
+    }
+  }
+
+  updateChartOptions(data: any): void {
     this.chartOptions = {
       title: {
           text: 'Machine Stations Performance',
@@ -53,8 +65,7 @@ export class AreaComponent implements OnInit {
         title: {
           text: 'Estaciones'
         },
-  
-          categories: ['primera', 'segunda', 'tercer', 'cuarta', 'quinta', 'sexta', 'septima', 'Octava', 'Novena', 'Decima', 'Undecima', 'Duodecima', 'Decimotercera', 'Decimocuarta', 'Decimoquinta']
+        categories: data.categories
       },
       yAxis: {
           title: {
@@ -66,9 +77,8 @@ export class AreaComponent implements OnInit {
               }
             }
       },
-      series: this.data
-  };
-
+      series: data.series
+    };
 
     HC_exporting(Highcharts);
     setTimeout(() => {
@@ -76,7 +86,6 @@ export class AreaComponent implements OnInit {
         new Event('resize')
       );
     }, 300);
-
   }
 
 }

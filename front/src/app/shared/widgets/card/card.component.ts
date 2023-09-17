@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { WorkplanServiceService, Workplan } from 'src/app/modules/posts/workplan-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WorkPlanProgressDialogComponent } from './Dialogs/work-plan-progress-dialog/work-plan-progress-dialog.component';
@@ -12,7 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CardComponent implements OnInit {
 
-  
+  @Output() dataChanged = new EventEmitter<string>();
+
 
   cards: { id: number,idworkPlan:number, title: string, OrderNumber: string, imageUrl: string }[] = [];
 
@@ -59,5 +60,9 @@ export class CardComponent implements OnInit {
     }, (error) => {
       console.error(`Error getting workplan with id ${firstWorkplanId}: ${error}`);
     });
+  }
+
+  sendData(data: string) {
+    this.dataChanged.emit(data);
   }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.users.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -90,27 +91,26 @@ public class StudentController {
     }
     //
 
-     @Operation(summary = "Get workPlan by id", responses = {
-                        @ApiResponse(responseCode = "200", description = "WorkPlan obtenido satisfactoriamente", content = @Content(schema = @Schema(implementation = WorkPlanWithStepsDTO.class))),
-                        @ApiResponse(responseCode = "204", description = "No hay contenido para mostrar", content = @Content()),
-                        @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
-                        @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
-        }, description = "Retorna un workPlan (workPlanWithStepsDTO) y un status OK, dado un id de workPlan como parametro")
-        @Parameter(description = "Id del workPlan")
-        @GetMapping("/work-plans/{id}")
-        public ResponseEntity<WorkPlanWithStepsDTO> getWorkPlansById(@PathVariable Long id) {
-                WorkPlanWithStepsDTO workPlans = null;
-                HttpStatus status = HttpStatus.OK;
-                try {
-                        workPlans = studentService.getWorkPlanById(id);
-                        if (workPlans == null)
-                                status = HttpStatus.NO_CONTENT;
-                } catch (Exception e) {
-                        status = HttpStatus.INTERNAL_SERVER_ERROR;
-                }
-                return new ResponseEntity<WorkPlanWithStepsDTO>(workPlans, status);
+    @Operation(summary = "Get workPlan by id", responses = {
+            @ApiResponse(responseCode = "200", description = "WorkPlan obtenido satisfactoriamente", content = @Content(schema = @Schema(implementation = WorkPlanWithStepsDTO.class))),
+            @ApiResponse(responseCode = "204", description = "No hay contenido para mostrar", content = @Content()),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
+    }, description = "Retorna un workPlan (workPlanWithStepsDTO) y un status OK, dado un id de workPlan como parametro")
+    @Parameter(description = "Id del workPlan")
+    @GetMapping("/work-plans/{id}")
+    public ResponseEntity<WorkPlanWithStepsDTO> getWorkPlansById(@PathVariable Long id) {
+        WorkPlanWithStepsDTO workPlans = null;
+        HttpStatus status = HttpStatus.OK;
+        try {
+            workPlans = studentService.getWorkPlanById(id);
+            if (workPlans == null)
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-
+        return new ResponseEntity<WorkPlanWithStepsDTO>(workPlans, status);
+    }
 
     // The user can view what is being produced
     @Operation(summary = "Get all orders with status", responses = {
@@ -222,6 +222,22 @@ public class StudentController {
     }
     //
 
+    // View order steps with time
+    @GetMapping("/orders/{id}/status")
+    public ResponseEntity<List<StepTimeDTO>> getOrderWithStepsAndTime(@PathVariable(name = "id") Long order) {
+        List<StepTimeDTO> workPlans = null;
+        HttpStatus status = HttpStatus.OK;
+        try {
+            workPlans = studentService.getStepsWithTimeByOrder(order);
+            if (workPlans.isEmpty())
+                status = HttpStatus.NO_CONTENT;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<StepTimeDTO>>(workPlans, status);
+    }
+    //
+
     // View perfomance indicators
     @Operation(summary = "Get performance indicators", responses = {
             @ApiResponse(responseCode = "200", description = "Indicators obtenidos satisfactoriamente", content = @Content(schema = @Schema(implementation = IndicatorAux.class))),
@@ -244,5 +260,4 @@ public class StudentController {
         return new ResponseEntity<List<IndicatorAux>>(workPlans, status);
     }
     //
-
 }

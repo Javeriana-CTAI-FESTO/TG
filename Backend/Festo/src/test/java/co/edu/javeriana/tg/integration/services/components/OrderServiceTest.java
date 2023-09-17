@@ -114,7 +114,7 @@ public class OrderServiceTest {
         when(stepService.getWorkPlanTime(wp)).thenReturn(aux);
         ResourceForOperation r = new ResourceForOperation();
         r.setWorkingTime(0l);
-        when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(r);        
+        when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(r);
         assertNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
         StepDefinitionDTO step = new StepDefinitionDTO();
         step.setCalculatedWorkingTime(1l);
@@ -123,7 +123,8 @@ public class OrderServiceTest {
         operation.setOperationNumber(opno);
         step.setOperation(operation);
         when(stepService.stepsByWorkplan(wp)).thenReturn(List.of(step));
-        when(resourceForOperationRepository.minorTimeForOperation(opno)).thenReturn(new ResourceForOperation(new ResourceForOperationPK(resource, opno)));
+        when(resourceForOperationRepository.minorTimeForOperation(opno))
+                .thenReturn(new ResourceForOperation(new ResourceForOperationPK(resource, opno)));
         assertNotNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
         StepDefinitionDTO step2 = new StepDefinitionDTO();
         OperationDTO operation2 = new OperationDTO();
@@ -131,7 +132,8 @@ public class OrderServiceTest {
         operation2.setOperationNumber(op2no);
         step2.setOperation(operation2);
         step2.setCalculatedWorkingTime(op2no);
-        when(resourceForOperationRepository.minorTimeForOperation(op2no)).thenReturn(new ResourceForOperation(new ResourceForOperationPK(resource, op2no)));
+        when(resourceForOperationRepository.minorTimeForOperation(op2no))
+                .thenReturn(new ResourceForOperation(new ResourceForOperationPK(resource, op2no)));
         when(stepService.stepsByWorkplan(wp)).thenReturn(List.of(step, step2));
         assertNotNull(orderService.generateNewOrder(partNumber, clientNumber, positions));
         when(resourceForOperationRepository.minorTimeForOperation(op2no)).thenReturn(null);
@@ -151,7 +153,7 @@ public class OrderServiceTest {
         Long clientNumber = 1L;
         Long positions = 1L;
         when(stepService.getWorkPlanOperationsCount(workPlanNumber)).thenReturn(0l);
-        assertNull(orderService.generateNewOrder(workPlanNumber,clientNumber ,positions ));
+        assertNull(orderService.generateNewOrder(workPlanNumber, clientNumber, positions));
     }
 
     @Test
@@ -182,7 +184,7 @@ public class OrderServiceTest {
     @Test
     public void testNonEmptyGetOrdersWithTime() {
         assertNotNull(orderService.getOrdersWithTime());
-        Long on = 1l,  wp = 1l, positions = 1l;
+        Long on = 1l, wp = 1l, positions = 1l;
         WorkPlanTimeAux aux = new WorkPlanTimeAux(wp, List.of(0l));
         when(stepService.getWorkPlanTime(wp)).thenReturn(aux);
         ResourceForOperation r = new ResourceForOperation();
@@ -195,7 +197,7 @@ public class OrderServiceTest {
         when(orderRepository.findAll()).thenReturn(List.of(o));
         assertNotNull(orderService.getOrdersWithTime());
     }
-    
+
     @Test
     public void testEmptyGetPossibleStatus() {
         assertEquals(3, orderService.getPossibleStatus().size());
@@ -276,12 +278,12 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testEmptyTimeForOrder(){
+    public void testEmptyTimeForOrder() {
         assertEquals(0l, orderService.timeForWorkPlan(1l, 1l));
     }
 
     @Test
-    public void testTimeForWorkplan(){
+    public void testTimeForWorkplan() {
         Long wp = 1l, positions = 1l;
         WorkPlanTimeAux aux = new WorkPlanTimeAux(wp, List.of(0l));
         when(stepService.getWorkPlanTime(wp)).thenReturn(aux);
@@ -294,7 +296,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testPartsConsumedByOrders(){ 
+    public void testPartsConsumedByOrders() {
         assertDoesNotThrow(() -> orderService.partsConsumedByOrders());
         Long on = 1l;
         Order order = new Order();
@@ -304,7 +306,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testEnableOrder(){
+    public void testEnableOrder() {
         Long on = 1l;
         Order order = new Order();
         order.setOrderNumber(on);
@@ -317,8 +319,8 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testGetOEEForMachine(){
-        Long resource = 1l, time =1l;
+    public void testGetOEEForMachine() {
+        Long resource = 1l, time = 1l;
         Double timeD = 1.0;
         String name = "Test";
         when(resourceRepository.findNameById(resource)).thenReturn(name);
@@ -337,32 +339,46 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testGetPartsConsumedByOrder(){
+    public void testGetPartsConsumedByOrder() {
         Long orderNumber = 1l, workPlanNumber = 1l, operationNumberOne = 1l, operationNumberTwo = 2l;
         StepDefinitionDTO stepOne = new StepDefinitionDTO();
         StepDefinitionDTO stepTwo = new StepDefinitionDTO();
         OperationDTO operationOne = new OperationDTO();
         OperationDTO operationTwo = new OperationDTO();
         PartDTO partToReturn = new PartDTO(new Part());
-        OperationParameter operationParameterOne = new OperationParameter(operationNumberOne, orderNumber, "part number", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "25", "Query", operationNumberOne, operationNumberTwo);
-        OperationParameter operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "PNo", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "25", "Query", operationNumberOne, operationNumberTwo);
+        OperationParameter operationParameterOne = new OperationParameter(operationNumberOne, orderNumber,
+                "part number", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "25", "Query",
+                operationNumberOne, operationNumberTwo);
+        OperationParameter operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "PNo",
+                operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "25", "Query", operationNumberOne,
+                operationNumberTwo);
         operationOne.setOperationNumber(operationNumberOne);
         operationTwo.setOperationNumber(operationNumberTwo);
         stepOne.setOperation(operationOne);
         stepTwo.setOperation(operationTwo);
         assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
-        when(operationParameterRepository.findByOperationNumber(operationNumberOne)).thenReturn(List.of(operationParameterOne, operationParameterTwo));
+        when(operationParameterRepository.findByOperationNumber(operationNumberOne))
+                .thenReturn(List.of(operationParameterOne, operationParameterTwo));
         when(orderPositionRepository.getWorkPlanNumberByOrderNumber(orderNumber)).thenReturn(workPlanNumber);
         when(stepService.stepsByWorkplan(workPlanNumber)).thenReturn(List.of(stepOne, stepTwo));
         when(partService.findByPartNumber(25l)).thenReturn(partToReturn);
         assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
-        operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "PNo", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "0", "Query", operationNumberOne, operationNumberTwo);
-        when(operationParameterRepository.findByOperationNumber(operationNumberOne)).thenReturn(List.of(operationParameterOne, operationParameterTwo));
+        operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "PNo", operationNumberTwo,
+                operationNumberTwo, orderNumber, workPlanNumber, "0", "Query", operationNumberOne, operationNumberTwo);
+        when(operationParameterRepository.findByOperationNumber(operationNumberOne))
+                .thenReturn(List.of(operationParameterOne, operationParameterTwo));
         assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
-        operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "Test", operationNumberTwo, operationNumberTwo, orderNumber, workPlanNumber, "0", "Query", operationNumberOne, operationNumberTwo);
-        when(operationParameterRepository.findByOperationNumber(operationNumberOne)).thenReturn(List.of(operationParameterOne, operationParameterTwo));
+        operationParameterTwo = new OperationParameter(operationNumberOne, orderNumber, "Test", operationNumberTwo,
+                operationNumberTwo, orderNumber, workPlanNumber, "0", "Query", operationNumberOne, operationNumberTwo);
+        when(operationParameterRepository.findByOperationNumber(operationNumberOne))
+                .thenReturn(List.of(operationParameterOne, operationParameterTwo));
         assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
         when(partService.findByPartNumber(25l)).thenThrow(RuntimeException.class);
         assertDoesNotThrow(() -> orderService.getPartsConsumedByOrder(orderNumber));
+    }
+
+    @Test
+    public void testGetStepsWithTimeByOrder() {
+        assertDoesNotThrow(() -> orderService.getStepsWithTimeByOrder(1l));
     }
 }

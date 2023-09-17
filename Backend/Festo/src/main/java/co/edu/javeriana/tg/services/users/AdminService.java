@@ -21,6 +21,7 @@ import co.edu.javeriana.tg.entities.dtos.ReportDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.entities.managed.Client;
@@ -84,6 +85,10 @@ public class AdminService {
       return reportService.getAllMachineFailsForMachine(resourceId);
     }
 
+    public List<StepTimeDTO> getStepsWithTimeByOrder(Long orderNumber) {
+    return orderService.getStepsWithTimeByOrder(orderNumber);
+  }
+  
     public List<ClientDTO> getAllClients() {
       return clientService.getAllClients();
     }

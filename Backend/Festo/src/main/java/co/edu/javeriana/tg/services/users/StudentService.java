@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import co.edu.javeriana.tg.entities.auxiliary.IndicatorAux;
 import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
@@ -71,6 +72,10 @@ public class StudentService {
 
   public List<IndicatorAux> getProductionIndicators() {
     return orderService.getIndicators();
+  }
+
+  public List<StepTimeDTO> getStepsWithTimeByOrder(Long orderNumber) {
+    return orderService.getStepsWithTimeByOrder(orderNumber);
   }
 
   public List<PartDTO> getPartsThatCanBeProduced() {

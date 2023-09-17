@@ -25,6 +25,7 @@ import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.users.TeacherService;
@@ -825,6 +826,42 @@ public class TeacherControllerTest {
             when(teacherService.getOrdersWithTime()).thenThrow(new RuntimeException());
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/time")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEmptyGetOrderWithStepsAndTime() {
+        try {
+            when(teacherService.getStepsWithTimeByOrder(1l)).thenReturn(new ArrayList<StepTimeDTO>(0));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/1/status/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+            assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testNonEmptyGetOrderWithStepsAndTime() {
+        try {
+            when(teacherService.getStepsWithTimeByOrder(1l)).thenReturn(List.of(new StepTimeDTO()));
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/1/status/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
+            assertEquals(HttpStatus.OK.value(), response.getStatus());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testErrorGetOrderWithStepsAndTime() {
+        try {
+            when(teacherService.getStepsWithTimeByOrder(1l)).thenThrow(new RuntimeException());
+            MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/1/status/")
+            .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         } catch (Exception e) {
             fail();

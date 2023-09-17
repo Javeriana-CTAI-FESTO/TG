@@ -17,6 +17,7 @@ import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.components.OperationService;
@@ -91,6 +92,10 @@ public class TeacherService {
 
   public List<WorkPlanDTO> getWorkPlansByType(Long typeId) {
     return workPlanService.getWorkPlansByType(typeId);
+  }
+
+  public List<StepTimeDTO> getStepsWithTimeByOrder(Long orderNumber) {
+    return orderService.getStepsWithTimeByOrder(orderNumber);
   }
 
   public WorkPlanDTO createWorkPlan(CreateWorkPlanAux createRequest) {

@@ -18,6 +18,7 @@ import co.edu.javeriana.tg.entities.dtos.OrderDTO;
 import co.edu.javeriana.tg.entities.dtos.PartDTO;
 import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.managed.OperationParameter;
 import co.edu.javeriana.tg.entities.managed.Order;
 import co.edu.javeriana.tg.entities.managed.OrderPosition;
@@ -265,6 +266,10 @@ public class OrderService {
                 Double.parseDouble(String.format("%.4f",
                         Double.valueOf(idealCycleTime * totalCount) / Double.valueOf(runtimeForMachine))));
         return aux;
+    }
+
+    public List<StepTimeDTO> getStepsWithTimeByOrder(Long orderNumber) {
+        return stepService.stepsWithTimeByOrder(orderNumber);
     }
 
     public IndicatorAux getQualityForMachine(Long resource, String resource_name) {

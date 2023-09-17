@@ -119,6 +119,11 @@ public class TeacherServiceTest {
   public void testCreateWorkplan() {
     assertDoesNotThrow(() -> teacherService.createWorkPlan(new CreateWorkPlanAux()));
   }
+  
+  @Test
+  public void testGetStepsWithTimeByOrder() {
+    assertDoesNotThrow(() -> teacherService.getStepsWithTimeByOrder(1l));
+  }
 
   @Test
   public void testGetOrdersWithStatus() {

@@ -22,6 +22,7 @@ import co.edu.javeriana.tg.entities.dtos.PartsConsumedByOrderDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
 import co.edu.javeriana.tg.entities.dtos.ResourceForOperationDTO;
 import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
+import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.services.users.TeacherService;
@@ -542,6 +543,22 @@ public class TeacherController {
                 }
                 return new ResponseEntity<List<OrderDTO>>(workPlans, status);
         }
+
+        // View order steps with time
+        @GetMapping("/orders/{id}/status")
+        public ResponseEntity<List<StepTimeDTO>> getOrderWithStepsAndTime(@PathVariable(name = "id") Long order) {
+                List<StepTimeDTO> workPlans = null;
+                HttpStatus status = HttpStatus.OK;
+                try {
+                        workPlans = teacherService.getStepsWithTimeByOrder(order);
+                        if (workPlans.isEmpty())
+                                status = HttpStatus.NO_CONTENT;
+                } catch (Exception e) {
+                        status = HttpStatus.INTERNAL_SERVER_ERROR;
+                }
+                return new ResponseEntity<List<StepTimeDTO>>(workPlans, status);
+        }
+        //
 
         // View indicators
         @Operation(summary = "Get all indicators", responses = {
