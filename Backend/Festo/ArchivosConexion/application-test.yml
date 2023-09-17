@@ -7,8 +7,8 @@ spring:
   # Configuracion del datasource para Spring JPA
   datasource:
     driverClassName: net.ucanaccess.jdbc.UcanaccessDriver
-   # url: jdbc:ucanaccess://C:\\Users\\aulasingenieria\\Desktop\\ModeloWilson\\Mes\\FestoMES_test.accdb;showSchema=true
-   url: jdbc:ucanaccess://home/capitan/Documentos/GitHub/TG/BackEnd/Festo/FestoMES_test.accdb;showSchema=true
+    #url: jdbc:ucanaccess://C:\\Users\\aulasingenieria\\Desktop\\ModeloWilson\\Mes\\FestoMES_test.accdb;showSchema=true
+    url: jdbc:ucanaccess://home/capitan/Documentos/GitHub/TG/BackEnd/Festo/FestoMES_test.accdb;showSchema=true
   # Configuración de Spring JPA
   jpa:
     generate-ddl: false

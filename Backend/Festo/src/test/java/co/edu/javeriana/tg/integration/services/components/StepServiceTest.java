@@ -332,6 +332,8 @@ public class StepServiceTest {
         when(stepDefinitionRepository.findById(new StepDefinitionPK(wpNumber, stepNumber))).thenReturn(Optional.of(stepDefinition));
         when(operationService.get(orderNumber)).thenReturn(new OperationDTO());
         assertDoesNotThrow(() -> stepService.stepsWithTimeByOrder(orderNumber));
+        when(stepDefinitionRepository.findById(new StepDefinitionPK(wpNumber, stepNumber))).thenThrow(RuntimeException.class);
+        assertDoesNotThrow(() -> stepService.stepsWithTimeByOrder(orderNumber));
         when(stepRepository.findByOrderNumber(orderNumber)).thenThrow(RuntimeException.class);
         assertDoesNotThrow(()->stepService.stepsWithTimeByOrder(orderNumber));
     }

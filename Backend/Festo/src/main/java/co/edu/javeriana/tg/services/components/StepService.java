@@ -107,23 +107,33 @@ public class StepService {
     }
 
     public List<Step> getStepsByOrderNumber(Long orderNumber) {
-        List<Step> steps = stepRepository
-                .findByOrderNumber(orderNumber);
-        if (steps == null || steps.size() == 0)
-            steps = finishedStepRepository
-                    .findByOrderNumber(orderNumber);
+        List<Step> steps = new ArrayList<>();
+        steps.addAll(finishedStepRepository
+                .findByOrderNumber(orderNumber).stream().map(Step::new).collect(Collectors.toList()));
+        steps.addAll(stepRepository
+                .findByOrderNumber(orderNumber));
         return steps;
+    }
+
+    public StepDefinitionDTO getStepDefinitionById(Long stepNumber, Long workPlanNumber) {
+        StepDefinitionPK primary = new StepDefinitionPK(workPlanNumber, stepNumber);
+        StepDefinitionDTO stepDefinitionDTO = null;
+        try {
+            StepDefinition step = stepDefinitionRepository.findById(primary).get();
+            stepDefinitionDTO = new StepDefinitionDTO(step, operationService.get(step.getOperation()));
+        } catch (Exception e) {
+        }
+        return stepDefinitionDTO;
     }
 
     public List<StepTimeDTO> stepsWithTimeByOrder(Long order) {
         List<StepTimeDTO> steps = null;
-        ;
         try {
             steps = this.getStepsByOrderNumber(order)
                     .stream()
-                    .map(step -> new StepTimeDTO(new StepDefinitionDTO(stepDefinitionRepository
-                            .findById(new StepDefinitionPK(step.getWorkPlanNumber(), step.getStepNumber())).get(),
-                            operationService.get(step.getOperation())), step.getRealStart(), step.getRealEnd()))
+                    .map(step -> new StepTimeDTO(
+                            this.getStepDefinitionById(step.getStepNumber(), step.getWorkPlanNumber()),
+                            step.getRealStart(), step.getRealEnd()))
                     .collect(Collectors.toList());
         } catch (Exception e) {
         }

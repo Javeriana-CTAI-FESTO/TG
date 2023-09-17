@@ -23,7 +23,7 @@ export class DashboardService {
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   GetOrdesBigChart(id: number): Observable<ChartData> {
-    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/'+id+'/status').pipe(
+    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/'+3426+'/status').pipe(
       map(steps => {
         const result: ChartData = {
           categories: [],
@@ -43,8 +43,9 @@ export class DashboardService {
           const start = step.start ? new Date(step.start).getTime() : 0;
           const end = step.end ? new Date(step.end).getTime() : 0;
           const diff = end - start;
+          const diffInMinutes = diff / 60000;
   
-          result.series[0].data.push(diff);
+          result.series[0].data.push(diffInMinutes);
         });
   
         return result;
