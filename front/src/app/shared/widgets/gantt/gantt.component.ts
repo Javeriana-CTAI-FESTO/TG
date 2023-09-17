@@ -44,7 +44,7 @@ export class GanttComponent implements OnInit, OnChanges {
       series: [
         {
           type: "scatter",
-          name: "Tareas",
+          name: "Orders",
           data,
           tooltip: {
             pointFormat: 'Fecha: {point.x:%e de %b de %Y %H:%M:%S}'
