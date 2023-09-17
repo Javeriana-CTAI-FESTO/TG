@@ -1,8 +1,9 @@
 package co.edu.javeriana.ctai.tgsecurity.controller;
 
+import co.edu.javeriana.ctai.tgsecurity.patterns.builder.ClienteBuilder;
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.User;
-import co.edu.javeriana.ctai.tgsecurity.patterns.builder.ClienteBuilder;
+
 import co.edu.javeriana.ctai.tgsecurity.patterns.builder.UserBuilder;
 import co.edu.javeriana.ctai.tgsecurity.repository.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;

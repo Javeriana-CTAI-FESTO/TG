@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class Cliente {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Usuario_id")  // Cambié "Usuarioid" a "Usuario_id" para seguir las convenciones de nomenclatura.
+    @JoinColumn(name = "Usuario_id")
     private User usuario;
 
     @Column(name = "nombre")
@@ -47,6 +48,8 @@ public class Cliente {
     @Column(name = "profesor")
     private boolean profesor;
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Order> orders;
 
     public Cliente(User usuario, String nombre, String apellido, Long identificacion, Long celular, String correoElectronico, boolean admin, boolean estudiante, boolean profesor) {
         this.usuario = usuario;
@@ -67,7 +70,5 @@ public class Cliente {
                 + correoElectronico + "]";
     }
 
-    // getters y setters
-
-
+    // Getters y setters
 }

@@ -2,8 +2,12 @@ package co.edu.javeriana.ctai.tgsecurity.patterns.builder;
 
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.User;
+import co.edu.javeriana.ctai.tgsecurity.patterns.model.Order; // Importa la clase Order
 
-public class ClienteBuilder implements IBuilder <Cliente>{
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClienteBuilder {
 
     private User usuario;
     private String nombre;
@@ -11,10 +15,10 @@ public class ClienteBuilder implements IBuilder <Cliente>{
     private Long identificacion;
     private Long celular;
     private String correoElectronico;
-
     private boolean admin;
     private boolean estudiante;
     private boolean profesor;
+    private List<Order> orders = new ArrayList<>(); // Inicializa la lista de órdenes como vacía por defecto
 
     public ClienteBuilder setUsuario(User usuario) {
         this.usuario = usuario;
@@ -61,9 +65,14 @@ public class ClienteBuilder implements IBuilder <Cliente>{
         return this;
     }
 
+    public ClienteBuilder addOrder(Order order) {
+        this.orders.add(order);
+        return this;
+    }
 
-    @Override
     public Cliente build() {
-        return new Cliente(usuario, nombre, apellido, identificacion, celular, correoElectronico, admin, estudiante, profesor);
+        Cliente cliente = new Cliente(usuario, nombre, apellido, identificacion, celular, correoElectronico, admin, estudiante, profesor);
+        cliente.setOrders(orders);
+        return cliente;
     }
 }
