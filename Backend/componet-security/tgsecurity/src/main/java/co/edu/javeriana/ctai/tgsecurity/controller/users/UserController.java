@@ -136,9 +136,11 @@ public class UserController {
         order.setId_workPlan(orderRequest.getId_workPlan());
 
         orderRepository.save(order);
+        System.out.println("Order saved: " + order.getOrderNumber());
         if (orderQueue.offer(order)) {
-            // Éxito: La orden se encoló correctamente
-            System.out.println("Order saved: " + order.getOrderNumber());
+            System.out.println("Order en Cola: " + order.getOrderNumber());
+            processOrders();
+
         } else {
             // Fallo: La cola está llena, no se pudo encolar la orden
             System.out.println("La cola está llena, no se pudo encolar la orden");
@@ -151,33 +153,42 @@ public class UserController {
 
     @Scheduled(fixedRate = 5000) // 5 segundos
     public void processOrders() {
+         final Object lock = new Object();
 
-        while (!orderQueue.isEmpty()) {
-            Order order = orderQueue.poll();
-
-            try {
-
-                String url = "http://localhost:8080/api/students/parts/production/new-order?partNumber=" + order.getOrderNumber()
-                        + "&clientNumber=0&positions=1";
-
-                // Realiza la solicitud POST con la URL construida
-                ResponseEntity<String> responseEntity = restTemplate.exchange(
-                        url,
-                        HttpMethod.POST,
-                        null, // No se envía un cuerpo en este caso
-                        String.class
-                );
-
-
-                System.out.println("Procesando order: " + order.getOrderNumber());
-                String response = responseEntity.getStatusCode().toString();
-                System.out.println("Respuesta de FESTO module: " + response);
-
-
-            } catch (Exception e) {
-                System.out.println("Proceso de Orden Numero: " + order.getOrderNumber());
-                e.printStackTrace();
+        synchronized (lock) {
+            if (orderQueue.isEmpty()) {
+                System.out.println("No hay ordenes en la cola");
+                return;
             }
+            while (!orderQueue.isEmpty()) {
+                Order order = orderQueue.poll();
+
+                try {
+
+                    // URL para realizar la solicitud POST
+                    String url = "http://localhost:8080/api/students/parts/production/new-order?partNumber=" + order.getId_part()
+                            + "&clientNumber=0&positions=1";
+
+                    // Realiza la solicitud POST con la URL construida
+                    ResponseEntity<String> responseEntity = restTemplate.exchange(
+                            url,
+                            HttpMethod.POST,
+                            null, // No se envía un cuerpo en este caso
+                            String.class
+                    );
+
+
+                    System.out.println("Procesando order: " + order.getOrderNumber());
+                    String response = responseEntity.getStatusCode().toString();
+                    System.out.println("Respuesta de FESTO module: " + response);
+
+
+                } catch (Exception e) {
+                    System.out.println("Proceso de Orden Numero: " + order.getOrderNumber());
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 
