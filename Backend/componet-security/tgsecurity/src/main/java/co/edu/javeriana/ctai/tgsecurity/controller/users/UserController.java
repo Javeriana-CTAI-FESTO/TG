@@ -156,27 +156,21 @@ public class UserController {
             Order order = orderQueue.poll();
 
             try {
-                // Convertir la orden a JSON
-                ObjectMapper objectMapper = new ObjectMapper();
-                String orderJson = objectMapper.writeValueAsString(order);
 
-                // Crenado los headers para el request
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
+                String url = "http://localhost:8080/api/students/parts/production/new-order?partNumber=" + order.getOrderNumber()
+                        + "&clientNumber=0&positions=1";
 
-                // crenado el request con los headers y el JSON
-                HttpEntity<String> requestEntity = new HttpEntity<>(orderJson, headers);
-
-                // Enviando el request al modulo FESTO
+                // Realiza la solicitud POST con la URL construida
                 ResponseEntity<String> responseEntity = restTemplate.exchange(
-                        "FESTO_MODULE_URL_HERE", // Replace with the actual FESTO module URL
+                        url,
                         HttpMethod.POST,
-                        requestEntity,
+                        null, // No se envía un cuerpo en este caso
                         String.class
                 );
 
+
                 System.out.println("Procesando order: " + order.getOrderNumber());
-                String response = responseEntity.getBody();
+                String response = responseEntity.getStatusCode().toString();
                 System.out.println("Respuesta de FESTO module: " + response);
 
 
