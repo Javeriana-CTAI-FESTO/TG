@@ -3,7 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Card } from 'src/app/modules/dashboard.service';
 import { DashboardService, Part } from 'src/app/modules/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { HttpClient } from '@angular/common/http';
+import { LoginService } from 'src/app/login/login.service';
 @Component({
   selector: 'app-add-work-plan-to-production',
   templateUrl: './add-work-plan-to-production.component.html',
@@ -19,7 +20,7 @@ export class AddWorkPlanToProductionComponent implements OnInit {
     public dialogRef: MatDialogRef<AddWorkPlanToProductionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private DashboradService: DashboardService,
-    private toastr: ToastrService
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -40,20 +41,33 @@ export class AddWorkPlanToProductionComponent implements OnInit {
     const part = this.selectedPart;
     const quantity = this.quantity;
     const startingId = this.cards.length;
+    const authToken = localStorage.getItem('authToken') ?? '';
+    const username = this.loginService.getUsername();
     if (part) {
       let count = 0;
       const placeOrder = () => {
         if (count < quantity) {
           this.DashboradService.placeNewOrder(part.partNumber, 0, 1).subscribe(response => {
-            this.cards.push({
-              id: part?.partNumber || startingId + count,
-              idworkPlan: part?.workPlanNumber|| startingId + count,
-              title: part?.description || '',
-              OrderNumber: response.orderNumber,
-              imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+            this.DashboradService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
+              const orderData = {
+                id_part: part.partNumber,
+                id_workPlan: part.workPlanNumber,
+                cliente_Cedula: cedulaResponse.cedula,
+                title: part.description,
+                orderNumber: response.orderNumber
+              };
+              this.DashboradService.saveOrder(orderData, authToken).subscribe(() => {
+                this.cards.push({
+                  id: part?.partNumber || startingId + count,
+                  idworkPlan: part?.workPlanNumber|| startingId + count,
+                  title: part?.description || '',
+                  OrderNumber: response.orderNumber,
+                  imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+                });
+                count++;
+                placeOrder();
+              });
             });
-            count++;
-            placeOrder();
           });
         } else {
           this.dialogRef.close(this.cards);
@@ -62,7 +76,6 @@ export class AddWorkPlanToProductionComponent implements OnInit {
       placeOrder();
     }
   }
-  
   
   
 

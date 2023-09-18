@@ -25,8 +25,7 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class LoginService {
-  private loginUrl = 'https://localhost:8443/api/auth/login';
-  private registerUrl = 'https://localhost:8443/api/auth/register';
+  private urlBase='https://localhost:8443/api/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -35,11 +34,11 @@ export class LoginService {
       'Authorization': 'Basic ' + btoa(username + ':' + password)
     });
     localStorage.setItem('username', username);
-    return this.http.post<LoginResponse>(this.loginUrl, {}, { headers });
+    return this.http.post<LoginResponse>(this.urlBase+'auth/login', {}, { headers });
   }
 
   register(data: RegisterData): Observable<any> {
-    return this.http.post(this.registerUrl, data);
+    return this.http.post(this.urlBase+'auth/register', data);
   }
 
   logout() {
@@ -61,7 +60,6 @@ export class LoginService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const username = localStorage.getItem('username');
-    return this.http.get<{ rol: string }>('https://localhost:8443/api/rolclient/username=' + username, { headers });
+    return this.http.get<{ rol: string }>(this.urlBase+'user/rol/username=' + username, { headers });
   }
-  
 }

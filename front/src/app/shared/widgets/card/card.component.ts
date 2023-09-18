@@ -5,6 +5,10 @@ import { WorkPlanProgressDialogComponent } from './Dialogs/work-plan-progress-di
 import { AddWorkPlanToProductionComponent } from './Dialogs/add-work-plan-to-production/add-work-plan-to-production.component';
 import { Card } from 'src/app/modules/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
+import { DashboardService } from 'src/app/modules/dashboard.service';
+import { HttpClient } from '@angular/common/http';
+import { LoginService } from 'src/app/login/login.service';
+
 @Component({
   selector: 'app-widget-card',
   templateUrl: './card.component.html',
@@ -14,13 +18,38 @@ export class CardComponent implements OnInit {
 
   @Output() dataChanged = new EventEmitter<string>();
 
+  cards: { id: number, idworkPlan: number, title: string, OrderNumber: string, imageUrl: string }[] = [];
 
-  cards: { id: number,idworkPlan:number, title: string, OrderNumber: string, imageUrl: string }[] = [];
-
-  constructor(private workplanService: WorkplanServiceService, private dialog: MatDialog, private toastr: ToastrService) { }
+  constructor(
+    private workplanService: WorkplanServiceService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+    private dashboardService: DashboardService,
+    private http: HttpClient,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
-   
+    const authToken = localStorage.getItem('authToken') ?? '';
+    const username = this.loginService.getUsername();
+    this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
+      const cedula = cedulaResponse.cedula;
+      const headers = {
+        Authorization: `Bearer ${authToken}`
+      };
+      this.http.get(`https://localhost:8443/api/user/order/cedula=${cedula}`, { headers }).subscribe((orders: Object) => {
+        const ordersArray = orders as any[];
+        ordersArray.forEach((order, index) => {
+          this.cards.push({
+            id: order.id_part,
+            idworkPlan: order.id_workPlan,
+            title: order.title,
+            OrderNumber: order.orderNumber,
+            imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+          });
+        });
+      });
+    });
   }
 
   openAddDialog() {
@@ -47,9 +76,8 @@ export class CardComponent implements OnInit {
     });
   }
   
-
   openProgressDialog(firstWorkplanId: number) {
-      this.workplanService.getWorkplanById(firstWorkplanId).subscribe((workplan) => {
+    this.workplanService.getWorkplanById(firstWorkplanId).subscribe((workplan) => {
       const firstSteps = workplan.steps;
       const dialogRef = this.dialog.open(WorkPlanProgressDialogComponent, {
         data: { steps: firstSteps }

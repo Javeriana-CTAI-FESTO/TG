@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class DashboardService {
 
   urlBase = 'http://localhost:8080/api/';
+  urlBaseSecurity = 'https://localhost:8443/api/';
   rol() {
     const rol = this.loginService.getRole();
     if (rol === 'estudiante') {
@@ -23,7 +24,7 @@ export class DashboardService {
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   GetOrdesBigChart(id: number): Observable<ChartData> {
-    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/'+3426+'/status').pipe(
+    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/'+id+'/status').pipe(
       map(steps => {
         const result: ChartData = {
           categories: [],
@@ -97,6 +98,19 @@ export class DashboardService {
     //const url = this.urlBase + this.rol() + `/parts/production/new-order?partNumber=${partNumber}&clientNumber=${clientNumber}&positions=${positions}`;
     const url = `http://localhost:8080/api/students/parts/production/new-order?partNumber=${partNumber}&clientNumber=${clientNumber}&positions=${positions}`;
     return this.http.post(url, {});
+  }
+  getCedulaByUsername(username: string, authToken: string) {
+    const headers = {
+      Authorization: `Bearer ${authToken}`
+    };
+    return this.http.get(this.urlBaseSecurity+`user/cedula/username=${username}`, { headers });
+  }
+
+  saveOrder(orderData: any, authToken: string) {
+    const headers = {
+      Authorization: `Bearer ${authToken}`
+    };
+    return this.http.post(this.urlBaseSecurity+'user/save/order', orderData, { headers });
   }
 }
 

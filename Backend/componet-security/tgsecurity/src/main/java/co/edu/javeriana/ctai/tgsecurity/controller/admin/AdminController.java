@@ -23,6 +23,8 @@ public class AdminController {
 
         // Configura la variable de entorno DATABASE_FILE
         String dbRoute = dbRouteRequest.getDbRoute();
+        String rutaModuloJar = dbRouteRequest.getRutaModuloJar();
+
         System.setProperty("DATABASE_FILE", dbRoute);
 
         // Verifica si el proceso está en ejecución y lo detiene
@@ -33,7 +35,7 @@ public class AdminController {
         // Ejecuta el módulo JAR en un subproceso en segundo plano
         Thread executionThread = new Thread(() -> {
             try {
-                ejecutarModuloJar();
+                ejecutarModuloJar(rutaModuloJar);
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -80,10 +82,10 @@ public class AdminController {
         return false; // Proceso no encontrado o no se pudo detener
     }
 
-    private void ejecutarModuloJar() throws IOException {
+    private void ejecutarModuloJar(String rutaModuloJar) throws IOException {
         // Comando para ejecutar el módulo JAR
         // Ruta del módulo JAR (configurada externamente)
-        String rutaModuloJar = "/Users/nabu/Desktop/TG-Backend-2/Backend/CTAI/Festo/target/tg-0.0.1-SNAPSHOT.jar";
+
         String[] comando = {"java", "-jar", "-Dspring.profiles.active=dev", rutaModuloJar};
 
         // Iniciar el proceso

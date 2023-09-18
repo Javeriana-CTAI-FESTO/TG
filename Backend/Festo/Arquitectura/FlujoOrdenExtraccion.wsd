@@ -1,0 +1,17 @@
+@startuml Order
+skinparam ConditionStyle bold
+skinparam activity {
+  StartColor green
+  BarColor SaddleBrown
+  EndColor red
+  BackgroundColor WhiteSmoke
+  BorderColor Black
+  FontName Arial
+}
+
+start
+:Recepción de la solicitud de extraccion de informacion relacionada con la orden;
+:Extraccion de informacion relacionada con la orden;
+:Preparacion de la respuesta a devolver;
+stop
+@enduml
