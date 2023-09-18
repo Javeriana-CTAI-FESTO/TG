@@ -1,11 +1,13 @@
 package co.edu.javeriana.ctai.tgsecurity.service.payload;
 
-import co.edu.javeriana.ctai.tgsecurity.patterns.model.Cliente;
+import com.sun.istack.NotNull;
 
 public class OrderRequest {
 
+    @NotNull
     private int id_part;
     private int id_workPlan;
+    @NotNull
     private Long cliente_Cedula;
     private String title;
     private long orderNumber;
