@@ -9,6 +9,8 @@ import co.edu.javeriana.ctai.tgsecurity.service.intf.IClientService;
 import co.edu.javeriana.ctai.tgsecurity.service.payload.OrderRequest;
 import co.edu.javeriana.ctai.tgsecurity.service.payload.OrderResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
@@ -112,9 +114,7 @@ public class UserController {
 
     //Servicio para guardar ordenes y enviarlas al modulo FESTO
     @PostMapping("/save/order")
-    public ResponseEntity saveOrder(@RequestBody OrderRequest orderRequest) {
-
-        //TODO: Validar que el usuario exista y tenga permisos para crear ordenes
+    public ResponseEntity<OrderRequest> saveOrder(@RequestBody OrderRequest orderRequest) {
 
         if(orderRequest == null ){
             System.out.println("OrderRequest is null");
@@ -129,17 +129,30 @@ public class UserController {
 
         // -2 Crear orden y guardarla en la base de datos
         Order order = new Order();
-        order.setOrderNumber(orderRequest.getOrderNumber());
+        order.setOrderNumber(0);
         order.setTitle(orderRequest.getTitle());
         order.setCliente(clientService.findByCedula(orderRequest.getCliente_Cedula()));
         order.setId_part(orderRequest.getId_part());
         order.setId_workPlan(orderRequest.getId_workPlan());
 
-        orderRepository.save(order);
-        System.out.println("Order saved: " + order.getOrderNumber());
+        // -3 Encolar la orden
         if (orderQueue.offer(order)) {
-            System.out.println("Order en Cola: " + order.getOrderNumber());
-            processOrders();
+            System.out.println("Order en Cola: Part= " + order.getId_part());
+
+            // -4 Procesar la cola
+            String response = processOrders();
+            if(response == null){
+                System.out.println("Error al procesar la cola");
+                return ResponseEntity.badRequest().build();
+            }
+            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+            int orderNumber = jsonObject.get("orderNumber").getAsInt();
+            order.setOrderNumber(orderNumber);
+            orderRequest.setOrderNumber(orderNumber);
+
+            // -5 Guardar la orden en la base de datos
+            orderRepository.save(order);
+            System.out.println("Orden numero: " + order.getOrderNumber() + " guardada en la base de datos");
 
         } else {
             // Fallo: La cola está llena, no se pudo encolar la orden
@@ -147,29 +160,29 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(orderRequest);
 
     }
 
-    @Scheduled(fixedRate = 5000) // 5 segundos
-    public void processOrders() {
-         final Object lock = new Object();
+    @Scheduled(fixedRate = 10000) // 5 segundos
+    public String processOrders() {
+        String body = "No hay ordenes en la cola";
 
-        synchronized (lock) {
+        synchronized (orderQueue) {
             if (orderQueue.isEmpty()) {
                 System.out.println("No hay ordenes en la cola");
-                return;
+                return body;
             }
+
             while (!orderQueue.isEmpty()) {
                 Order order = orderQueue.poll();
 
                 try {
-
                     // URL para realizar la solicitud POST
                     String url = "http://localhost:8080/api/students/parts/production/new-order?partNumber=" + order.getId_part()
                             + "&clientNumber=0&positions=1";
 
-                    // Realiza la solicitud POST con la URL construida
+                    // Realiza la solicitud POST con el URL construido
                     ResponseEntity<String> responseEntity = restTemplate.exchange(
                             url,
                             HttpMethod.POST,
@@ -177,20 +190,25 @@ public class UserController {
                             String.class
                     );
 
-
-                    System.out.println("Procesando order: " + order.getOrderNumber());
+                    System.out.println("Procesando order: " + orderQueue.size() + " en cola");
                     String response = responseEntity.getStatusCode().toString();
                     System.out.println("Respuesta de FESTO module: " + response);
-
+                    body = responseEntity.getBody();
 
                 } catch (Exception e) {
-                    System.out.println("Proceso de Orden Numero: " + order.getOrderNumber());
+                    // Manejo de errores
+                    System.out.println("Error al procesar la orden");
+                    System.out.println("Proceso de Re-encolar Orden : " + orderQueue.size());
+                    // Volver a encolar la orden
+                    orderQueue.offer(order);
                     e.printStackTrace();
                 }
             }
-
         }
+
+        return body;
     }
+
 
     //Servicio para consultar ordenes segun el numero de cedula del cliente
     @GetMapping("/order/cedula={cedula}")
