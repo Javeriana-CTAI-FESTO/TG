@@ -86,10 +86,10 @@ public class AdminController {
         // Comando para ejecutar el módulo JAR
         // Ruta del módulo JAR (configurada externamente)
 
-        String[] comando = {"java", "-jar", "-Dspring.profiles.active=dev", rutaModuloJar};
+        String[] comandoProduccion = {"java", "-jar", "-Dspring.profiles.active=dev", rutaModuloJar};
 
         // Iniciar el proceso
-        ProcessBuilder processBuilder = new ProcessBuilder(comando);
+        ProcessBuilder processBuilder = new ProcessBuilder(comandoProduccion);
         processBuilder.environment().put("DATABASE_FILE", System.getProperty("DATABASE_FILE"));
 
         Process process = processBuilder.start();

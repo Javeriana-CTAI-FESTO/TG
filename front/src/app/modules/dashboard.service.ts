@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { map } from 'rxjs/operators';
 @Injectable({
@@ -24,7 +24,7 @@ export class DashboardService {
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   GetOrdesBigChart(id: number): Observable<ChartData> {
-    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/'+id+'/status').pipe(
+    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/' + id + '/status').pipe(
       map(steps => {
         const result: ChartData = {
           categories: [],
@@ -37,18 +37,18 @@ export class DashboardService {
             showInLegend: false
           }]
         };
-  
+
         steps.forEach(step => {
           result.categories.push(Number(step.step.stepNumber));
-  
+
           const start = step.start ? new Date(step.start).getTime() : 0;
           const end = step.end ? new Date(step.end).getTime() : 0;
           const diff = end - start;
           const diffInMinutes = diff / 60000;
-  
+
           result.series[0].data.push(diffInMinutes);
         });
-  
+
         return result;
       })
     );
@@ -78,13 +78,13 @@ export class DashboardService {
       );
   }
 
-  async ganttChart() { 
-    const response = await fetch(this.urlBase + this.rol() + '/orders/ends'); 
-    const data = await response.json(); 
-    return data.filter((date: string) => date !== null).map((date: string) => { 
-      const startDate = new Date(date); 
-      return [startDate.getTime(), 1]; 
-    }); 
+  async ganttChart() {
+    const response = await fetch(this.urlBase + this.rol() + '/orders/ends');
+    const data = await response.json();
+    return data.filter((date: string) => date !== null).map((date: string) => {
+      const startDate = new Date(date);
+      return [startDate.getTime(), 1];
+    });
   }
 
 
@@ -94,23 +94,29 @@ export class DashboardService {
   getParts(): Observable<Part[]> {
     return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production');
   }
-  placeNewOrder(partNumber: number, clientNumber: number, positions: number): Observable<any> {
-    //const url = this.urlBase + this.rol() + `/parts/production/new-order?partNumber=${partNumber}&clientNumber=${clientNumber}&positions=${positions}`;
-    const url = `http://localhost:8080/api/students/parts/production/new-order?partNumber=${partNumber}&clientNumber=${clientNumber}&positions=${positions}`;
-    return this.http.post(url, {});
-  }
   getCedulaByUsername(username: string, authToken: string) {
     const headers = {
       Authorization: `Bearer ${authToken}`
     };
-    return this.http.get(this.urlBaseSecurity+`user/cedula/username=${username}`, { headers });
+    return this.http.get(this.urlBaseSecurity + `user/cedula/username=${username}`, { headers });
   }
 
   saveOrder(orderData: any, authToken: string) {
     const headers = {
       Authorization: `Bearer ${authToken}`
     };
-    return this.http.post(this.urlBaseSecurity+'user/save/order', orderData, { headers });
+    return this.http.post(this.urlBaseSecurity + 'user/save/order', orderData, { headers });
+  }
+
+ postDbRoute(dbRoute: string, rutaModuloJar: string) {
+  
+    const authToken = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
+    const body = {
+      dbRoute,
+      rutaModuloJar
+    };
+    return this.http.post(this.urlBaseSecurity + 'admin/dbroute', body, { headers });
   }
 }
 

@@ -19,6 +19,8 @@ export class CardComponent implements OnInit {
   @Output() dataChanged = new EventEmitter<string>();
 
   cards: { id: number, idworkPlan: number, title: string, OrderNumber: string, imageUrl: string }[] = [];
+  filteredCards: { id: number, idworkPlan: number, title: string, OrderNumber: string, imageUrl: string }[] = [];
+  searchTerm: string = '';
 
   constructor(
     private workplanService: WorkplanServiceService,
@@ -48,6 +50,7 @@ export class CardComponent implements OnInit {
             imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
           });
         });
+        this.filteredCards = this.cards;
       });
     });
   }
@@ -59,6 +62,7 @@ export class CardComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe(result => {
+      this.searchTerm = '';
       if (result) {
         const cards = result as Card[];
         const isFirstCard = this.cards.length === 0;
@@ -71,6 +75,7 @@ export class CardComponent implements OnInit {
             imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
           });
         });
+        this.filteredCards = this.cards;
         this.toastr.success(`Se agregó el workplan "${cards[cards.length - 1].title}" un total de ${cards.length} veces a la producción`);
       }
     });
@@ -92,5 +97,13 @@ export class CardComponent implements OnInit {
 
   sendData(data: string) {
     this.dataChanged.emit(data);
+  }
+
+  filterCards() {
+    this.filteredCards = this.cards.filter(card => 
+      card.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      card.id.toString().includes(this.searchTerm) ||
+      card.OrderNumber.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 }

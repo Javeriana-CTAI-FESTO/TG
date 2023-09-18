@@ -47,16 +47,15 @@ export class AddWorkPlanToProductionComponent implements OnInit {
       let count = 0;
       const placeOrder = () => {
         if (count < quantity) {
-          this.DashboradService.placeNewOrder(part.partNumber, 0, 1).subscribe(response => {
             this.DashboradService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
               const orderData = {
                 id_part: part.partNumber,
                 id_workPlan: part.workPlanNumber,
                 cliente_Cedula: cedulaResponse.cedula,
                 title: part.description,
-                orderNumber: response.orderNumber
+                orderNumber: 4
               };
-              this.DashboradService.saveOrder(orderData, authToken).subscribe(() => {
+              this.DashboradService.saveOrder(orderData, authToken).subscribe((response: any) => {
                 this.cards.push({
                   id: part?.partNumber || startingId + count,
                   idworkPlan: part?.workPlanNumber|| startingId + count,
@@ -68,7 +67,6 @@ export class AddWorkPlanToProductionComponent implements OnInit {
                 placeOrder();
               });
             });
-          });
         } else {
           this.dialogRef.close(this.cards);
         }
@@ -83,3 +81,4 @@ export class AddWorkPlanToProductionComponent implements OnInit {
     this.dialogRef.close();
   }
 }
+

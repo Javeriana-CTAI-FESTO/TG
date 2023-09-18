@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   ganttChart: any = [];
   cardData = '';
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
     this.bigChart = this.dashboardService.bigChartInit();
