@@ -17,52 +17,96 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * Servicio para procesar órdenes y realizar solicitudes HTTP a un servicio externo.
+ */
 @Service
 public class OrderProcessingService {
 
+    // Cola concurrente para almacenar órdenes a procesar
     private final ConcurrentLinkedQueue<Order> orderQueue = new ConcurrentLinkedQueue<>();
+
+    // Cliente HTTP para realizar solicitudes HTTP
     private final RestTemplate restTemplate = new RestTemplate();
+
+    // Número de orden actual
     private int orderNumber;
 
+    // Repositorio de órdenes
     @Autowired
     private IOrderRepository orderRepository;
 
+    /**
+     * Inicializa el procesamiento de órdenes en un hilo separado al iniciar la aplicación.
+     */
     @PostConstruct
     public void startProcessing() {
+        // Crea un nuevo hilo para procesar órdenes en segundo plano
         Thread processingThread = new Thread(() -> {
             try {
-                processOrders();
+                processOrders(); // Llama al método para procesar órdenes
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
         processingThread.setDaemon(true); // Permite que el hilo se ejecute en segundo plano
-        processingThread.start();
+        processingThread.start(); // Inicia el hilo
         System.out.println("Cola de órdenes inicializada");
     }
 
-    private void processOrders() throws InterruptedException {
 
+    /**
+     * Obtiene el número de orden actual.
+     *
+     * @return El número de orden actual.
+     */
+    public int getOrderNumber() {
+        return orderNumber; // Retorna el número de orden actual
+    }
+
+    /**
+     * Establece el número de orden actual.
+     *
+     * @param orderNumber El número de orden a establecer.
+     */
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber; // Establece el número de orden
+    }
+
+    /**
+     * Agrega una orden a la cola de procesamiento.
+     *
+     * @param order La orden a encolar.
+     */
+    public void enqueueOrder(Order order) {
+        orderQueue.offer(order); // Agrega la orden a la cola
+    }
+
+    /**
+     * Procesa las órdenes en la cola y realiza solicitudes HTTP a un servicio externo.
+     *
+     * @throws InterruptedException Si se interrumpe el hilo.
+     */
+    private void processOrders() throws InterruptedException {
         while (true) {
             try {
                 if (!orderQueue.isEmpty()) {
-                    Order order = orderQueue.poll();
+                    Order order = orderQueue.poll(); // Obtiene una orden de la cola
 
-                    if(sendHttpRequest(order)) {
-                        // Si la solicitud fue exitosa, se elimina la orden de la cola
-                        System.out.println("Orden procesada");
+                    if (sendHttpRequest(order)) {
+                        // Si la solicitud HTTP fue exitosa, elimina la orden de la cola
+                        System.out.println("Orden Enviada");
                     } else {
-                        // Si la solicitud no fue exitosa, reintenta la solicitud
+                        // Si la solicitud HTTP no fue exitosa, reintenta la solicitud
                         System.out.println("Reintentando solicitud");
-                        orderQueue.offer(order);
+                        orderQueue.offer(order); // Vuelve a encolar la orden
                     }
-
-
                 } else {
                     // Si no hay órdenes en cola, espera un tiempo antes de revisar nuevamente
-                    sleep(3000); // Espera 5 segundos antes de revisar nuevamente
+                    sleep(3000); // Espera 3 segundos antes de revisar nuevamente
                 }
             } catch (InterruptedException e) {
+                // Manejo de interrupción del hilo
                 Thread.currentThread().interrupt();
 
             } catch (Exception ex) {
@@ -111,15 +155,5 @@ public class OrderProcessingService {
         }
     }
 
-    public void enqueueOrder(Order order) {
-        orderQueue.offer(order);
-    }
 
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 }

@@ -53,7 +53,7 @@ public class PostController {
             orderProcessingService.enqueueOrder(order);
             orderRequest.setOrderNumber(orderProcessingService.getOrderNumber() + 1);
 
-            
+
             return ResponseEntity.ok().body(orderRequest);
 
         } catch (RestClientException ex) {
