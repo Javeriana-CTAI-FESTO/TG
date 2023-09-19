@@ -8,11 +8,13 @@
         <div fxFlex fxLayout fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
 
+
                 <li>
                     <button mat-icon-button routerLink="/help" matTooltip="Go to Help">
                         <mat-icon>help_outline</mat-icon>
                     </button>
                 </li>
+
                 <!--<li>
                     <button mat-icon-button [matMenuTriggerFor]="menu1">
                         <mat-icon>list</mat-icon>
@@ -33,13 +35,13 @@
                         </button>
                       </mat-menu>
                 </li>-->
-
-                <li>
-                    <button mat-icon-button (click)="openPrompt()">
-                      <mat-icon>list</mat-icon>
-                    </button>
-                  </li>
-
+                <div *ngIf="rol =='admin'">
+                    <li>
+                        <button mat-icon-button (click)=" openPrompt()">
+                            <mat-icon>link</mat-icon>
+                        </button>
+                    </li>
+                </div>
 
                 <li>
                     <button mat-icon-button [matMenuTriggerFor]="menu">

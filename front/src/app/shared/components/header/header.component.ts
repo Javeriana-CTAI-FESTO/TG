@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { LoginService } from 'src/app/login/login.service';
 import { DashboardService } from 'src/app/modules/dashboard.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -14,17 +15,22 @@ export class HeaderComponent {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
   string1: string = '';
   string2: string = '';
+  rol: string = '';
 
-  constructor(private loginService: LoginService, private dashboardsService: DashboardService) { }
+  constructor(private loginService: LoginService,
+    private dashboardsService: DashboardService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
-    /*this.dashboardsService.postDbRoute("/home/capitan/Documentos/GitHub/TG/Backend/Festo/FestoMES_be.accdb","/home/capitan/Documentos/GitHub/TG/Backend/Festo/target/tg-0.0.1-SNAPSHOT.jar").subscribe(data => {
-      console.log(data);
-    },
-    error => {
-      console.log(error);
-    });   */
-   }
+    const dbRoute = localStorage.getItem('dbRoute');
+    const rutaModuloJar = localStorage.getItem('rutaModuloJar');
+    if (dbRoute && rutaModuloJar) {
+      this.string1 = dbRoute;
+      this.string2 = rutaModuloJar;
+      this.onSubmit();
+    }
+    this.rol = this.loginService.getRole();
+  }
 
   toggleSideBar() {
     this.toggleSideBarForMe.emit();
@@ -38,11 +44,11 @@ export class HeaderComponent {
   }
 
   openPrompt() {
-    const promptString1 = prompt('String 1:');
+    const promptString1 = prompt('Ruta Base de Datos:');
     if (promptString1 !== null) {
       this.string1 = promptString1;
     }
-    const promptString2 = prompt('String 2:');
+    const promptString2 = prompt('Ruta Modulo JAR:');
     if (promptString2 !== null) {
       this.string2 = promptString2;
     }
@@ -50,12 +56,9 @@ export class HeaderComponent {
   }
 
   onSubmit() {
-    this.dashboardsService.postDbRoute(this.string1, this.string2).subscribe(data => {
-      console.log(data);
-    },
-    error => {
-      console.log(error);
-    }
-    );
+    this.dashboardsService.postDbRoute(this.string1, this.string2).subscribe();
+    this.toastr.success('Rutas guardadas con exito', 'Rutas');
+    localStorage.setItem('dbRoute', this.string1);
+    localStorage.setItem('rutaModuloJar', this.string2);
   }
 }
