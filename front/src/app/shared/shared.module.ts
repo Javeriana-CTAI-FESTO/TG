@@ -40,6 +40,7 @@ import { ResourceDialogComponent } from '../modules/reports/Dialogs/resource-dia
 import { ResourceInfoDialogComponent } from '../modules/resources/Dialogs/resource-info-dialog/resource-info-dialog.component';
 import { ResourceReportsDialogComponent } from '../modules/resources/Dialogs/resource-reports-dialog/resource-reports-dialog.component';
 import { ResourceReportFailsDialogComponent } from '../modules/resources/Dialogs/resource-report-fails-dialog/resource-report-fails-dialog.component';
+import { DialogRutasComponent } from '../modules/dashboard/Dialogs/dialog-rutas/dialog-rutas.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -64,7 +65,8 @@ import { ResourceReportFailsDialogComponent } from '../modules/resources/Dialogs
     ResourceDialogComponent,
     ResourceInfoDialogComponent,
     ResourceReportsDialogComponent,
-    ResourceReportFailsDialogComponent
+    ResourceReportFailsDialogComponent,
+    DialogRutasComponent
   ],
   imports: [
     CommonModule,
