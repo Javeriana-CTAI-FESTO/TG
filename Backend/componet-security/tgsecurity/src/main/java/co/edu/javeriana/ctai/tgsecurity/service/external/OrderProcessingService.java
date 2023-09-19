@@ -2,10 +2,8 @@ package co.edu.javeriana.ctai.tgsecurity.service.external;
 
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.Order;
 import co.edu.javeriana.ctai.tgsecurity.repository.IOrderRepository;
-import co.edu.javeriana.ctai.tgsecurity.service.payload.OrderRequest;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.hibernate.hql.internal.ast.tree.TableReferenceNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
