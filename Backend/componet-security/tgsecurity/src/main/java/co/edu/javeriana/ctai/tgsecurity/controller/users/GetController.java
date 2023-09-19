@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,7 +89,7 @@ public class GetController {
      * @return Cédula del usuario en formato JSON.
      */
     @GetMapping("/cedula/username={user_name}")
-    public ResponseEntity<String> getUserCedula(@PathVariable String user_name) {
+    public ResponseEntity<String> getUserCedula(@PathVariable String user_name) throws ConnectException {
 
         if (user_name != null) {
 

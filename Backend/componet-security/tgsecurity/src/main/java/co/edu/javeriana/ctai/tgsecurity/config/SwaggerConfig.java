@@ -23,8 +23,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Swagger: librería para la generación de la documentación de la API REST
  * 
- * http://localhost:8080/swagger-ui/ --> HTML
- * http://localhost:8080/v2/api-docs -- JSON
+ * https://localhost:8443/swagger-ui/index.html
+ *
  */
 @Configuration // anotacion para todas las clases spring de configuracion
 @EnableSwagger2
