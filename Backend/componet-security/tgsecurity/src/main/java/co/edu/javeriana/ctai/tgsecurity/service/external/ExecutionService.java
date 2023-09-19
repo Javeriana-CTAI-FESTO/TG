@@ -66,7 +66,7 @@ public class ExecutionService {
             // Lee la salida del comando "jps"
             BufferedReader jpsReader = new BufferedReader(new InputStreamReader(jpsProcess.getInputStream()));
             String line;
-            
+
             while ((line = jpsReader.readLine()) != null) {
                 // Busca una línea que contenga el nombre del módulo JAR
                 if (line.contains("tg-0.0.1-SNAPSHOT.jar")) {

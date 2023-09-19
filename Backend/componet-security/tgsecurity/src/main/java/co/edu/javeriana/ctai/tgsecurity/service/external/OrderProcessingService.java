@@ -85,7 +85,7 @@ public class OrderProcessingService {
      *
      * @throws InterruptedException Si se interrumpe el hilo.
      */
-    private void processOrders() throws InterruptedException {
+    private boolean processOrders() throws InterruptedException {
         while (true) {
             try {
                 if (!orderQueue.isEmpty()) {
@@ -94,14 +94,16 @@ public class OrderProcessingService {
                     if (sendHttpRequest(order)) {
                         // Si la solicitud HTTP fue exitosa, elimina la orden de la cola
                         System.out.println("Orden Enviada");
+                        return true;
                     } else {
-                        // Si la solicitud HTTP no fue exitosa, reintenta la solicitud
+                        // Si la solicitud HTTP no fue exitosa, reintenta la solicitud vuelve a encolar la orden
                         System.out.println("Reintentando solicitud");
-                        orderQueue.offer(order); // Vuelve a encolar la orden
+                        orderQueue.offer(order);
+                        return false;
                     }
                 } else {
                     // Si no hay órdenes en cola, espera un tiempo antes de revisar nuevamente
-                    sleep(3000); // Espera 3 segundos antes de revisar nuevamente
+                    sleep(1000); // Espera 1 segundos antes de revisar nuevamente
                 }
             } catch (InterruptedException e) {
                 // Manejo de interrupción del hilo

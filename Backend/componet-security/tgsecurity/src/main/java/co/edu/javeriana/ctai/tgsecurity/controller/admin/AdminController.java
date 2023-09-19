@@ -2,7 +2,6 @@ package co.edu.javeriana.ctai.tgsecurity.controller.admin;
 
 import co.edu.javeriana.ctai.tgsecurity.service.external.ExecutionService;
 import co.edu.javeriana.ctai.tgsecurity.service.payload.dbRouteRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/admin")
 public class AdminController {
 
-    @Autowired
-    private ExecutionService executionService;
+    private final ExecutionService executionService;
 
-    // Servicio para añadir la ruta de la base de datos al módulo FESTO y ejecutar en segundo plano
+    public AdminController(ExecutionService executionService) {
+        this.executionService = executionService;
+    }
+
+    /**
+     * Servicio para añadir la ruta de la base de datos al módulo FESTO y ejecutar en segundo plano.
+     *
+     * @param dbRouteRequest Objeto que contiene la ruta de la base de datos y la ruta del módulo JAR.
+     * @return ResponseEntity con un mensaje indicando que la ejecución está en curso en segundo plano.
+     */
     @PostMapping("/dbroute")
     public ResponseEntity<String> putDBRoute(@RequestBody dbRouteRequest dbRouteRequest) {
         if (dbRouteRequest == null || dbRouteRequest.getDbRoute() == null || dbRouteRequest.getDbRoute().isEmpty()) {
@@ -47,6 +54,5 @@ public class AdminController {
         // Responde inmediatamente indicando que la solicitud se está procesando en segundo plano
         return ResponseEntity.ok().body("Modulo Controller de MES4 ddbb para FESTO. EN EJECUCION");
     }
-
-
 }
+

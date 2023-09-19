@@ -49,12 +49,27 @@ public class PostController {
             order.setId_part(orderRequest.getId_part());
             order.setId_workPlan(orderRequest.getId_workPlan());
 
+            // Nueva ordenResponse
+            OrderRequest orderResponse = new OrderRequest();
+            orderResponse.setOrderNumber(0);
+            orderResponse.setTitle(order.getTitle());
+            orderResponse.setCliente_Cedula(order.getCliente().getIdentificacion());
+            orderResponse.setId_part(order.getId_part());
+            orderResponse.setId_workPlan(order.getId_workPlan());
+
             // Llama al servicio externo de FESTO para obtener el número de orden
             orderProcessingService.enqueueOrder(order);
-            orderRequest.setOrderNumber(orderProcessingService.getOrderNumber() + 1);
 
+            // Espera hasta que el número de orden esté disponible
+            while (order.getOrderNumber() == 0) {
+                sleep(1000);
+                System.out.println("Esperando número de orden...");
+            }
+            int orderNumber = orderProcessingService.getOrderNumber();
 
-            return ResponseEntity.ok().body(orderRequest);
+            orderResponse.setOrderNumber(orderNumber);
+            return ResponseEntity.ok().body(orderResponse);
+
 
         } catch (RestClientException ex) {
             // Captura excepciones de problemas de red o conexión
@@ -65,6 +80,7 @@ public class PostController {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
+
     }
 }
 
