@@ -62,8 +62,8 @@ public class PostController {
 
             // Espera hasta que el número de orden esté disponible
             while (order.getOrderNumber() == 0) {
-                sleep(1000);
                 System.out.println("Esperando número de orden...");
+                sleep(1000);
             }
             int orderNumber = orderProcessingService.getOrderNumber();
 
