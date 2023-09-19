@@ -8,8 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardService {
 
-  urlBase = 'http://localhost:8080/api/';
-  urlBaseSecurity = 'https://localhost:8443/api/';
+  urlBase = 'http://172.21.26.53:8080/api/';
+  urlBaseSecurity = 'http://172.21.26.53:8443/api/';
   rol() {
     const rol = this.loginService.getRole();
     if (rol === 'estudiante') {
@@ -98,14 +98,14 @@ export class DashboardService {
     const headers = {
       Authorization: `Bearer ${authToken}`
     };
-    return this.http.get(this.urlBaseSecurity + `user/cedula/username=${username}`, { headers });
+    return this.http.get(this.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
   }
 
   saveOrder(orderData: any, authToken: string) {
     const headers = {
       Authorization: `Bearer ${authToken}`
     };
-    return this.http.post(this.urlBaseSecurity + 'user/save/order', orderData, { headers });
+    return this.http.post(this.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
   }
 
  postDbRoute(dbRoute: string, rutaModuloJar: string) {

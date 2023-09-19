@@ -25,7 +25,7 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class LoginService {
-  private urlBase='https://localhost:8443/api/'
+  private urlBase='http://172.21.26.53:8443/api/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -60,6 +60,6 @@ export class LoginService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const username = localStorage.getItem('username');
-    return this.http.get<{ rol: string }>(this.urlBase+'user/rol/username=' + username, { headers });
+    return this.http.get<{ rol: string }>(this.urlBase+'user/get/rol/username=' + username, { headers });
   }
 }

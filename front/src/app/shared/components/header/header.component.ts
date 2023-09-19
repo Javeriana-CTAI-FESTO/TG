@@ -3,6 +3,8 @@ import { LoginService } from 'src/app/login/login.service';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
+import { tap } from 'rxjs/operators';
+
 import { DialogRutasComponent } from 'src/app/modules/dashboard/Dialogs/dialog-rutas/dialog-rutas.component';
 @Component({
   selector: 'app-header',
@@ -45,34 +47,32 @@ export class HeaderComponent {
     this.loginService.logout();
   }
 
-  openPrompt() {/*
-    const promptString1 = prompt('Ruta Base de Datos:');
-    if (promptString1 !== null) {
-      this.string1 = promptString1;
-    }
-    const promptString2 = prompt('Ruta Modulo JAR:');
-    if (promptString2 !== null) {
-      this.string2 = promptString2;
-    }
-    this.onSubmit();*/
+  openPrompt() {
     const dialogRef = this.dialog.open(DialogRutasComponent, {
       width: '250px',
       data: { string1: this.string1, string2: this.string2 }
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.string1 = result.string1;
-        this.string2 = result.string2;
+        this.string2 = "3";
         this.onSubmit();
       }
     });
   }
 
   onSubmit() {
-    this.dashboardsService.postDbRoute(this.string1, this.string2).subscribe();
-    this.toastr.success('Rutas guardadas con exito', 'Rutas');
-    localStorage.setItem('dbRoute', this.string1);
-    localStorage.setItem('rutaModuloJar', this.string2);
+    this.dashboardsService.postDbRoute(this.string1, this.string2).subscribe(res => {
+
+      this.toastr.success('Rutas guardada con exito', 'Rutas');
+      localStorage.setItem('dbRoute', this.string1);
+
+    }, err => {
+      this.toastr.error('Error al guardar las rutas', 'Rutas');
+      console.log(err);
+    }
+    );
+   // localStorage.setItem('rutaModuloJar', this.string2);
   }
 }

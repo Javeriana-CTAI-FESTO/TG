@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PersonasService {
-  urlBase = 'http://localhost:8080/api/admin/clients';
+  urlBase = 'http://172.21.26.53:8080/api/admin/clients';
   personas: Persona[] = [];
   personaAgregada = new Subject<Persona>();
 

@@ -7,7 +7,7 @@ import { LoginService } from 'src/app/login/login.service';
   providedIn: 'root'
 })
 export class WorkplanServiceService {
-  urlBase = 'http://localhost:8080/api/';
+  urlBase = 'http://172.21.26.53:8080/api/';
   workplans: Workplan[] = [];
   workplanAgregado = new Subject<Workplan>();
   rol(){
