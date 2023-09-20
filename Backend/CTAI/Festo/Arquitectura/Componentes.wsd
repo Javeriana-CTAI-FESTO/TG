@@ -1,0 +1,34 @@
+@startuml Componentes
+  package "Controllers" as controllers {
+
+    package "Web" as controllers.web
+    
+    package "Interfaces" as controllers.interfaces
+  }
+
+  package "Services" as services {
+    
+    package "Components" as services.components
+    package "Users" as services.users  
+  }
+
+  package "Repositories" as repositories
+
+  package "Entities" as entities {
+
+    package "Auxiliary" as entities.auxiliary
+
+    package "Managed" as entities.managed
+
+    package "DTOs" as entities.dtos
+   
+  }
+
+  
+  controllers -down-> services : <<Import>>
+  services -down-> repositories : <<Import>>
+  repositories -down-> entities : <<Access>>
+  controllers -right-> entities : <<Access>>
+  services -right-> entities : <<Access>>
+
+@enduml
