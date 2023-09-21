@@ -7,7 +7,7 @@ import { Estations } from '../dashboard.service';
 })
 export class ReportsServiceService {
 
-  baseUrl = 'http://172.21.26.53:8080/api/admin/reports';
+  baseUrl = 'http://localhost:8080/api/admin/reports';
   constructor(private http: HttpClient) { }
   getReports(): Observable<ResponseData[]> {
     return this.http.get<ResponseData[]>(this.baseUrl);

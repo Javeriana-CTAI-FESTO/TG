@@ -7,7 +7,7 @@ import { LoginService } from 'src/app/login/login.service';
   providedIn: 'root'
 })
 export class PiezasServiceService {
-  urlBase = 'http://172.21.26.53:8080/api/';
+  urlBase = 'http://localhost:8080/api/';
   piezas: Pieza[] = [];
   piezaAgregada = new Subject<Pieza>();
 

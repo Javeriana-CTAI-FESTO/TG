@@ -8,8 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardService {
 
-  urlBase = 'http://172.21.26.53:8080/api/';
-  urlBaseSecurity = 'http://172.21.26.53:8443/api/';
+  urlBase = 'http://localhost:8080/api/';
+  urlBaseSecurity = 'https://localhost:8443/api/';
   rol() {
     const rol = this.loginService.getRole();
     if (rol === 'estudiante') {

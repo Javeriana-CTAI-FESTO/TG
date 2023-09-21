@@ -25,7 +25,7 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class LoginService {
-  private urlBase='http://172.21.26.53:8443/api/'
+  private urlBase='https://localhost:8443/api/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
