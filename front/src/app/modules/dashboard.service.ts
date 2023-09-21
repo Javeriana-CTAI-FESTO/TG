@@ -23,6 +23,13 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
+  getOrders(cedula: string, authToken: string): Observable<Object> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.get(`${this.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers });
+  }
+  
   GetOrdesBigChart(id: number): Observable<ChartData> {
     return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/' + id + '/status').pipe(
       map(steps => {

@@ -1,0 +1,31 @@
+# DataSource URL
+datasource: ${DATABASE_FILE:FestoMES_test.accdb}
+
+# Configuracion del servidor
+server:
+  port: ${SERVERTEST__PORT:8088}
+
+# Configuracion de Spring
+spring:
+  # Configuracion del datasource para Spring JPA
+  datasource:
+    driverClassName: net.ucanaccess.jdbc.UcanaccessDriver
+    url: jdbc:ucanaccess://${DATABASE_FILE:FestoMES_test.accdb};showSchema=true
+  # Configuración de Spring JPA
+  jpa:
+    generate-ddl: false
+    # Propiedades de Spring JPA
+    properties:
+      # Propiedades de Hibernate
+      hibernate:
+        dialect: net.ucanaccess.hibernate.dialect.UCanAccessDialect
+        globally_quoted_identifiers: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        hbm2ddl:
+          auto: none
+    # Configuración de Hibernate
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update

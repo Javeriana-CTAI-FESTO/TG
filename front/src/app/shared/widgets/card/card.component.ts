@@ -36,10 +36,7 @@ export class CardComponent implements OnInit {
     const username = this.loginService.getUsername();
     this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
       const cedula = cedulaResponse.cedula;
-      const headers = {
-        Authorization: `Bearer ${authToken}`
-      };
-      this.http.get(`https://localhost:8443/api/user/order/cedula=${cedula}`, { headers }).subscribe((orders: Object) => {
+      this.dashboardService.getOrders(cedula, authToken).subscribe((orders: Object) => {
         const ordersArray = orders as any[];
         ordersArray.forEach((order, index) => {
           this.cards.push({
