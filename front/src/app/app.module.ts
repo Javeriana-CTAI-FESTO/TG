@@ -13,8 +13,8 @@ import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-   ],
+    LoginComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,7 +24,7 @@ import { MatTableModule } from '@angular/material/table';
     HttpClientModule,
     FormsModule,
     MatTableModule
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

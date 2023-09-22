@@ -11,6 +11,7 @@ import { ResourcesComponent } from './modules/resources/resources.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { ReportsComponent } from './modules/reports/reports.component';
+import { CreateComponent } from './modules/create/create.component';
 const routes: Routes = [{
   path: '',
   component: DefaultComponent,
@@ -42,6 +43,10 @@ const routes: Routes = [{
   },{
     path: 'reports',
     component: ReportsComponent,
+    canActivate: [RoleGuard]
+  },{
+    path: 'create',
+    component: CreateComponent,
     canActivate: [RoleGuard]
   }],
 }, {

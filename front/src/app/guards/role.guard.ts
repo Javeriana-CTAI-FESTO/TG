@@ -24,8 +24,8 @@ export class RoleGuard implements CanActivate {
         return false;
       }
     } else if (userRole === 'profesor') {
-      // Si el usuario tiene el rol 'profesor', permite acceso a todas las rutas excepto a la ruta 'list' y a la ruta 'reports'
-      if (route.url[0].path === 'list' || route.url[0].path === 'reports') {
+      // Si el usuario tiene el rol 'profesor', permite acceso a todas las rutas excepto a la ruta 'list', a la ruta 'reports' y a la ruta 'create'
+      if (route.url[0].path === 'list' || route.url[0].path === 'reports' || route.url[0].path === 'create') {
         this.router.navigate(['/']);
         return false;
       } else {
