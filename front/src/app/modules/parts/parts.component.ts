@@ -17,7 +17,7 @@ export class PartsComponent implements OnInit {
 
   piezas: Pieza[] = [];
   dataSource: MatTableDataSource<Pieza>;
-  columnas: string[] = ['Picture', 'PartNumber', 'Type '];
+  columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
 
   selectedRow: any;
   
@@ -52,73 +52,39 @@ export class PartsComponent implements OnInit {
   mostrarInfo(pieza: Pieza): void {
     this.seleccionarPieza(pieza);
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openEditDialogSettings(pieza: Pieza) {
-    const PiezaCopy = Object.assign({}, pieza);
     const dialogRef = this.dialog.open(DefaultSettingsComponent, {
-      data: PiezaCopy
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.toastr.success('Se han guardado los cambios', 'Cambios guardados');
-        this.piezasService.editarPieza(pieza, result);
-        this.dataSource.data = this.piezasService.getPiezas();
-        this.piezaSeleccionada = result;
-      }
+      data: pieza
     });
 
   }
 
   openEditDialogWorkPlan(pieza: Pieza) {
-    const PiezaCopy = Object.assign({}, pieza);
     const dialogRef = this.dialog.open(DefaultWorkPlanComponent, {
-      data: PiezaCopy
+      data: pieza
     });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.toastr.success('Se han guardado los cambios', 'Cambios guardados');
-        this.piezasService.editarPieza(pieza, result);
-        this.dataSource.data = this.piezasService.getPiezas();
-        this.piezaSeleccionada = result;
-      }
-    });
+   
 
   }
 
   openEditDialogMRP(pieza: Pieza) {
-    const PiezaCopy = Object.assign({}, pieza);
     const dialogRef = this.dialog.open(DefaultMRPComponent, {
-      data: PiezaCopy
+      data: pieza
     });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.toastr.success('Se han guardado los cambios', 'Cambios guardados');
-        this.piezasService.editarPieza(pieza, result);
-        this.dataSource.data = this.piezasService.getPiezas();
-        this.piezaSeleccionada = result;
-      }
-    });
+    
   }
 
   openEditDialogOtherSettings(pieza: Pieza) {
-    const PiezaCopy = Object.assign({}, pieza);
     const dialogRef = this.dialog.open(DefaultOtherSettingsComponent, {
-      data: PiezaCopy
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.toastr.success('Se han guardado los cambios', 'Cambios guardados');
-        this.piezasService.editarPieza(pieza, result);
-        this.dataSource.data = this.piezasService.getPiezas();
-        this.piezaSeleccionada = result;
-      }
+      data: pieza
     });
   }
-
 
 
 
