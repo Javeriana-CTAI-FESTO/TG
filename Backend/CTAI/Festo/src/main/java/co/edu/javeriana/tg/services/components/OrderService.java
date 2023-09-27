@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -381,10 +382,13 @@ public class OrderService {
     public OrderDTO enableOrder(Long orderNumber) {
         OrderDTO o = null;
         try {
-            Order order = orderRepository.findById(orderNumber).get();
-            order.setEnabled(true);
-            orderRepository.save(order);
-            o = new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()), "Starting ...");
+            Optional<Order> optionalOrder = orderRepository.findById(orderNumber);
+            if (optionalOrder.isPresent()) {
+                Order order = optionalOrder.get();
+                order.setEnabled(true);
+                orderRepository.save(order);
+                o = new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()), "Starting ...");
+            }
         } catch (Exception e) {
 
         }

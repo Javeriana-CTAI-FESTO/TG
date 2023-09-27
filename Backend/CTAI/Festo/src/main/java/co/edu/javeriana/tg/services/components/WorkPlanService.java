@@ -2,6 +2,7 @@ package co.edu.javeriana.tg.services.components;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -56,43 +57,48 @@ public class WorkPlanService {
     public WorkPlanDTO createWorkPlan(CreateWorkPlanAux createRequest) {
         WorkPlanDTO workPlan = null;
         try {
-            if (!workPlanRepository.existsById(createRequest.getWorkPlanNumber())){
-            WorkPlanDefinition workplanEntity = new WorkPlanDefinition();
-            workplanEntity.setWorkPlanNumber(createRequest.getWorkPlanNumber());
-            workplanEntity.setWorkPlanType(createRequest.getWorkPlanType());
-            workplanEntity.setDescription(createRequest.getDescription());
-            workplanEntity.setShortDescription(createRequest.getShortDescription());
-            workplanEntity.setPictureNumber(createRequest.getPictureNumber());
-            workplanEntity.setPartNumber(createRequest.getPartNumber());
-            workPlanRepository.save(workplanEntity);
-            workPlan = new WorkPlanDTO(workplanEntity,
-                    workPlanTypeRepository.findByTypeNumber(createRequest.getWorkPlanType()).getDescription());
-            for (int i = 0; i < createRequest.getSteps().length; i++) {
-                StepToPerformInWorkplanAux stepToPerformInWorkplan = createRequest.getSteps()[i];
-                StepDefinitionPK stepToCopyPK = new StepDefinitionPK(stepToPerformInWorkplan.getDefinedStepWorkPlanNumber(), stepToPerformInWorkplan.getDefinedStepNumber());
-                StepDefinition stepToCopy = stepDefinitionRepository.findById(stepToCopyPK).get();
+            if (!workPlanRepository.existsById(createRequest.getWorkPlanNumber())) {
+                WorkPlanDefinition workplanEntity = new WorkPlanDefinition();
+                workplanEntity.setWorkPlanNumber(createRequest.getWorkPlanNumber());
+                workplanEntity.setWorkPlanType(createRequest.getWorkPlanType());
+                workplanEntity.setDescription(createRequest.getDescription());
+                workplanEntity.setShortDescription(createRequest.getShortDescription());
+                workplanEntity.setPictureNumber(createRequest.getPictureNumber());
+                workplanEntity.setPartNumber(createRequest.getPartNumber());
+                workPlanRepository.save(workplanEntity);
+                workPlan = new WorkPlanDTO(workplanEntity,
+                        workPlanTypeRepository.findByTypeNumber(createRequest.getWorkPlanType()).getDescription());
+                for (int i = 0; i < createRequest.getSteps().length; i++) {
+                    StepToPerformInWorkplanAux stepToPerformInWorkplan = createRequest.getSteps()[i];
+                    StepDefinitionPK stepToCopyPK = new StepDefinitionPK(
+                            stepToPerformInWorkplan.getDefinedStepWorkPlanNumber(),
+                            stepToPerformInWorkplan.getDefinedStepNumber());
+                    Optional<StepDefinition> optionalStepToCopy = stepDefinitionRepository.findById(stepToCopyPK);
+                    if (optionalStepToCopy.isPresent()) {
+                        StepDefinition stepToCopy = optionalStepToCopy.get();
 
-                StepDefinition newStepDefinition = new StepDefinition();
-                newStepDefinition.setWorkPlan(workplanEntity.getWorkPlanNumber());
-                newStepDefinition.setStepNumber(stepToPerformInWorkplan.getThisStepNumber());
-                newStepDefinition.setDescription(stepToCopy.getDescription());
-                newStepDefinition.setOperationNumber(stepToCopy.getOperation());
-                newStepDefinition.setNextStepNumber(stepToPerformInWorkplan.getNextStepNumber());
-                newStepDefinition.setFirstStep(stepToPerformInWorkplan.getFirstStep());
-                newStepDefinition.setNextWhenError(stepToPerformInWorkplan.getErrorStepNumber());
-                newStepDefinition.setNewPartNumber(stepToCopy.getNewPartNumber());
-                newStepDefinition.setOperationNumberType(stepToCopy.getOperationNumberType());
-                newStepDefinition.setResource(stepToCopy.getResource());
-                newStepDefinition.setTransportTime(stepToCopy.getTransportTime());
-                newStepDefinition.setError(stepToPerformInWorkplan.getErrorStep());
-                newStepDefinition.setSqlToWrite(stepToCopy.getSqlToWrite());
-                newStepDefinition.setCalculatedElectricEnergy(stepToCopy.getCalculatedElectricEnergy());
-                newStepDefinition.setCalculatedCompressedAir(stepToCopy.getCalculatedCompressedAir());
-                newStepDefinition.setCalculatedWorkingTime(stepToCopy.getCalculatedWorkingTime());
-                newStepDefinition.setFreeText(stepToCopy.getFreeText());
-                stepDefinitionRepository.save(newStepDefinition);
+                        StepDefinition newStepDefinition = new StepDefinition();
+                        newStepDefinition.setWorkPlan(workplanEntity.getWorkPlanNumber());
+                        newStepDefinition.setStepNumber(stepToPerformInWorkplan.getThisStepNumber());
+                        newStepDefinition.setDescription(stepToCopy.getDescription());
+                        newStepDefinition.setOperationNumber(stepToCopy.getOperation());
+                        newStepDefinition.setNextStepNumber(stepToPerformInWorkplan.getNextStepNumber());
+                        newStepDefinition.setFirstStep(stepToPerformInWorkplan.getFirstStep());
+                        newStepDefinition.setNextWhenError(stepToPerformInWorkplan.getErrorStepNumber());
+                        newStepDefinition.setNewPartNumber(stepToCopy.getNewPartNumber());
+                        newStepDefinition.setOperationNumberType(stepToCopy.getOperationNumberType());
+                        newStepDefinition.setResource(stepToCopy.getResource());
+                        newStepDefinition.setTransportTime(stepToCopy.getTransportTime());
+                        newStepDefinition.setError(stepToPerformInWorkplan.getErrorStep());
+                        newStepDefinition.setSqlToWrite(stepToCopy.getSqlToWrite());
+                        newStepDefinition.setCalculatedElectricEnergy(stepToCopy.getCalculatedElectricEnergy());
+                        newStepDefinition.setCalculatedCompressedAir(stepToCopy.getCalculatedCompressedAir());
+                        newStepDefinition.setCalculatedWorkingTime(stepToCopy.getCalculatedWorkingTime());
+                        newStepDefinition.setFreeText(stepToCopy.getFreeText());
+                        stepDefinitionRepository.save(newStepDefinition);
+                    }
+                }
             }
-        }
         } catch (Exception e) {
         }
         return workPlan;
@@ -108,8 +114,10 @@ public class WorkPlanService {
     public WorkPlanDTO getWorkplanById(Long id) {
         WorkPlanDTO workPlan = null;
         try {
-            workPlan = new WorkPlanDTO(workPlanRepository.findById(id).get(), workPlanTypeRepository
-                    .findByTypeNumber(workPlanRepository.findById(id).get().getWorkPlanType()).getDescription());
+            Optional<WorkPlanDefinition> optionalWorkPlan = workPlanRepository.findById(id);
+            if (optionalWorkPlan.isPresent())
+                workPlan = new WorkPlanDTO(optionalWorkPlan.get(), workPlanTypeRepository
+                        .findByTypeNumber(optionalWorkPlan.get().getWorkPlanType()).getDescription());
         } catch (Exception e) {
         }
         return workPlan;
@@ -128,7 +136,9 @@ public class WorkPlanService {
 
     public Long getWorkPlanTypeByWorkPlanNumber(Long workPlanNumber) {
         try {
-            return workPlanRepository.findById(workPlanNumber).get().getWorkPlanType();
+            Optional<WorkPlanDefinition> optionalWorkPlan = workPlanRepository.findById(workPlanNumber);
+            if (optionalWorkPlan.isPresent())
+                return optionalWorkPlan.get().getWorkPlanType();
         } catch (Exception e) {
 
         }

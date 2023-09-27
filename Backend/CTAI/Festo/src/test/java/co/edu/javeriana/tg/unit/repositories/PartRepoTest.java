@@ -48,7 +48,7 @@ public class PartRepoTest {
         // Read
         assertEquals(partRepository.count(), 0);
         assertEquals(Optional.empty(), partRepository.findById(testID));
-        partRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        partRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setDescription("Description");
         assertThrows(JpaSystemException.class, () -> partRepository.save(emptyOrder));

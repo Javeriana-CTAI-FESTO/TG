@@ -48,7 +48,7 @@ public class ResourceRepoTest {
         // Read
         assertEquals(resourceRepository.count(), 0);
         assertEquals(Optional.empty(), resourceRepository.findById(testID));
-        resourceRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        resourceRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setName("Name");
         assertThrows(JpaSystemException.class, () -> resourceRepository.save(emptyOrder));

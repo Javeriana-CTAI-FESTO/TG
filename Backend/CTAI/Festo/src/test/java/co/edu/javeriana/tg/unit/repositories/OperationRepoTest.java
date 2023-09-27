@@ -48,7 +48,7 @@ public class OperationRepoTest {
         // Read
         assertEquals(operationRepository.count(), 0);
         assertEquals(Optional.empty(), operationRepository.findById(testID));
-        operationRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        operationRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setShortDescription("Short");
         assertThrows(JpaSystemException.class, () -> operationRepository.save(emptyOrder));

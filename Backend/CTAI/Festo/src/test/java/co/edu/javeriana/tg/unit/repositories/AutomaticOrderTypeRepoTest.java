@@ -44,7 +44,7 @@ public class AutomaticOrderTypeRepoTest {
         // Read
         assertEquals(automaticOrderTypeRepository.count(), 0);
         assertEquals(Optional.empty(), automaticOrderTypeRepository.findById(testID));
-        automaticOrderTypeRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        automaticOrderTypeRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setDescription(String.valueOf(testID));
         assertThrows(JpaSystemException.class, () -> automaticOrderTypeRepository.save(emptyOrder));

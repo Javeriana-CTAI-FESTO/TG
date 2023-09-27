@@ -20,7 +20,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public List<ClientDTO> getAllClients(){
+    public List<ClientDTO> getAllClients() {
         return clientRepository.findAll().stream().map(ClientDTO::new).collect(Collectors.toList());
     }
 
@@ -32,10 +32,18 @@ public class ClientService {
         return null;
     }
 
-    public ClientDTO createClient(Client client){
+    public ClientDTO createClient(ClientDTO client) {
         try {
-            clientRepository.save(client);
-            return new ClientDTO(client);
+            Client c = new Client();
+            c.setClientNumber(client.getClientNumber());
+            c.setFirstName(client.getFirstName());
+            c.setLastName(client.getLastName());
+            c.setAddress(client.getAddress());
+            c.setCompany(client.getCompany());
+            c.setEmail(client.getEmail());
+            c.setPhone(client.getPhone());
+            clientRepository.save(c);
+            return new ClientDTO(c);
         } catch (Exception e) {
         }
         return null;

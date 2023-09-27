@@ -48,7 +48,7 @@ public class WorkPlanDefinitionRepoTest{
         // Read
         assertEquals(workPlanDefinitionRepository.count(), 0);
         assertEquals(Optional.empty(), workPlanDefinitionRepository.findById(testID));
-        workPlanDefinitionRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        workPlanDefinitionRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setPictureNumber(1L);
         assertThrows(JpaSystemException.class, () -> workPlanDefinitionRepository.save(emptyOrder));

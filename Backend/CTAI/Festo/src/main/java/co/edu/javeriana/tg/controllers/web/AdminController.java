@@ -29,7 +29,6 @@ import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
-import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.services.users.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -181,7 +180,7 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Metodo POST, dado un cliente (Client) como parametro, crea el cliente en el sistema")
     @PostMapping("/clients")
-    public ResponseEntity<ClientDTO> createClient(@RequestBody Client client) {
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO client) {
         ClientDTO clientDTO = null;
         HttpStatus status = HttpStatus.OK;
         try {

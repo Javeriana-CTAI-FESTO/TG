@@ -210,10 +210,13 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
+				<sonar.coverage.jacoco.xmlReportPaths>target/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 				<!-- Optional URL to server. Default value is http://localhost:9000 -->
 				<sonar.host.url>
 					http://localhost:9000
 				</sonar.host.url>
+				<sonar.login>admin</sonar.login>
+				<sonar.password>password</sonar.password>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -222,6 +225,9 @@
 					<version>${sonar.version}</version>
 				</dependency>
 			</dependencies>
+			<build>
+				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-sonar</finalName>
+			</build>
 		</profile>
 	</profiles>
 

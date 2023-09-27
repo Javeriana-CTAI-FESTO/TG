@@ -1,6 +1,7 @@
 package co.edu.javeriana.tg.services.components;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.tg.entities.dtos.ResourceDTO;
+import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.repositories.interfaces.ResourceRepository;
 
 @Component
@@ -27,7 +29,9 @@ public class ResourceService {
     public ResourceDTO getResourceById(Long resource) {
         ResourceDTO result = null;
         try {
-            result = new ResourceDTO(resourceRepository.findById(resource).get());
+            Optional<Resource> optionalResource = resourceRepository.findById(resource);
+            if (optionalResource.isPresent())
+                result = new ResourceDTO(optionalResource.get());
         } catch (Exception e) {
         }
         return result;

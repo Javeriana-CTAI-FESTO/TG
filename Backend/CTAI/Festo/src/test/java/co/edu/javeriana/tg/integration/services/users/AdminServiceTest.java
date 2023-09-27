@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.javeriana.tg.entities.auxiliary.CreatePartAux;
 import co.edu.javeriana.tg.entities.auxiliary.CreateWorkPlanAux;
-import co.edu.javeriana.tg.entities.managed.Client;
+import co.edu.javeriana.tg.entities.dtos.ClientDTO;
 import co.edu.javeriana.tg.services.components.ClientService;
 import co.edu.javeriana.tg.services.components.MachineReportService;
 import co.edu.javeriana.tg.services.components.OperationService;
@@ -88,7 +88,7 @@ public class AdminServiceTest {
 
   @Test
   public void testCreateClient() {
-    assertDoesNotThrow(() -> adminService.createClient(new Client()));
+    assertDoesNotThrow(() -> adminService.createClient(new ClientDTO()));
   }
 
   @Test

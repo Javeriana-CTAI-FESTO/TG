@@ -3,6 +3,7 @@ package co.edu.javeriana.tg.services.components;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -119,8 +120,11 @@ public class StepService {
         StepDefinitionPK primary = new StepDefinitionPK(workPlanNumber, stepNumber);
         StepDefinitionDTO stepDefinitionDTO = null;
         try {
-            StepDefinition step = stepDefinitionRepository.findById(primary).get();
-            stepDefinitionDTO = new StepDefinitionDTO(step, operationService.get(step.getOperation()));
+            Optional<StepDefinition> optionalStep = stepDefinitionRepository.findById(primary);
+            if (optionalStep.isPresent()) {
+                StepDefinition step = optionalStep.get();
+                stepDefinitionDTO = new StepDefinitionDTO(step, operationService.get(step.getOperation()));
+            }
         } catch (Exception e) {
         }
         return stepDefinitionDTO;
