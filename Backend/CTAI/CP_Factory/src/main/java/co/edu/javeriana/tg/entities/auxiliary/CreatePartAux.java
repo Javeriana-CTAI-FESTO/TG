@@ -12,6 +12,7 @@ public class CreatePartAux {
     private Long lotSize;
     private Long defaultResourceId;
 
+    // Method left blank for object serialization/deserialization
     public CreatePartAux() {
     }
 

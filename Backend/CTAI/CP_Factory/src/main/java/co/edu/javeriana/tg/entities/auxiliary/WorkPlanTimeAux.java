@@ -3,6 +3,7 @@ package co.edu.javeriana.tg.entities.auxiliary;
 import java.util.List;
 
 public class WorkPlanTimeAux {
+    
     private Long transportTime;
     private List<Long> operationsInvolvedIds;
 
