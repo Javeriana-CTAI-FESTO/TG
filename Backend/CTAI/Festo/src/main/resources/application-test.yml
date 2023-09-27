@@ -3,7 +3,7 @@ datasource: ${DATABASE_FILE:FestoMES_test.accdb}
 
 # Configuracion del servidor
 server:
-  port: ${SERVERTEST__PORT:8088}
+  port: ${SERVER_TEST_PORT:8088}
 
 # Configuracion de Spring
 spring:

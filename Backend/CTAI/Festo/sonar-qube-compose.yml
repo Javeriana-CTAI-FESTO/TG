@@ -1,0 +1,17 @@
+# Compose file for testing the application with sonar qube (https://github.com/tutorialesvip/Instalar-SonarQube-en-Docker-Container/)
+services:
+  sonarqube:
+    image: docker.io/sonarqube:8.2-community
+    ports:
+      - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar
+
+  db:
+    image: docker.io/postgres
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+

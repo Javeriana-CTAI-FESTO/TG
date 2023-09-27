@@ -3,7 +3,7 @@ datasource: ${DATABASE_FILE:FestoMES_be.accdb}
 
 # Configuracion del servidor
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PROD_PORT:8080}
 
 # Configuracion de Spring
 spring:

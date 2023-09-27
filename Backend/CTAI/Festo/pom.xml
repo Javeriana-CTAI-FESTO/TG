@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.15</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.7.16</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>co.edu.javeriana</groupId>
@@ -27,6 +28,7 @@
 		<jacoco.version>0.8.10</jacoco.version>
 		<springweb.version>3.0.0</springweb.version>
 		<snyk.version>2.0.0</snyk.version>
+		<sonar.version>3.10.0.2594</sonar.version>
 	</properties>
 
 	<dependencies>
@@ -78,12 +80,12 @@
 			<artifactId>junit-vintage-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-         <groupId>org.mockito</groupId>
-         <artifactId>mockito-core</artifactId>
-		 <scope>test</scope>
-      </dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -93,18 +95,139 @@
 		</dependency>
 
 	</dependencies>
-	<build>
-		<pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar.version}</version>
-            </plugin>
-        </plugins>
-    </pluginManagement>
-		<plugins>
 
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<build>
+				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-prod</finalName>
+			</build>
+			<properties>
+				<activatedProperties>prod</activatedProperties>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>qa</id>
+			<properties>
+				<activatedProperties>test</activatedProperties>
+			</properties>
+			<build>
+				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-qa</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>co/edu/javeriana/tg/entities/**/*.class</exclude>
+										<exclude>co/edu/javeriana/tg/*.class</exclude>
+										<exclude>net/**/*.class</exclude>
+									</excludes>
+									<outputDirectory>target/jacoco-report</outputDirectory>
+								</configuration>
+							</execution>
+							<execution>
+								<id>jacoco-check</id>
+								<goals>
+									<goal>check</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>co/edu/javeriana/tg/entities/**/*.class</exclude>
+										<exclude>co/edu/javeriana/tg/*.class</exclude>
+										<exclude>net/**/*.class</exclude>
+									</excludes>
+									<rules>
+										<rule>
+											<element>PACKAGE</element>
+											<limits>
+												<limit>
+													<counter>LINE</counter>
+													<value>COVEREDRATIO</value>
+													<minimum>0.9</minimum>
+												</limit>
+												<limit>
+													<counter>INSTRUCTION</counter>
+													<value>COVEREDRATIO</value>
+													<minimum>0.9</minimum>
+												</limit>
+											</limits>
+										</rule>
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>io.snyk</groupId>
+						<artifactId>snyk-maven-plugin</artifactId>
+						<version>${snyk.version}</version>
+						<inherited>false</inherited>
+						<executions>
+							<execution>
+								<id>snyk-test</id>
+								<goals>
+									<goal>test</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>snyk-monitor</id>
+								<goals>
+									<goal>monitor</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<failOnIssues>false</failOnIssues>
+							<apiToken>${env.SNYK_TOKEN}</apiToken>
+							<args>
+								<arg>--severity-threshold=critical</arg>
+							</args>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>sonar</id>
+			<properties>
+				<!-- Optional URL to server. Default value is http://localhost:9000 -->
+				<sonar.host.url>
+					http://localhost:9000
+				</sonar.host.url>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+	<build>
+
+		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -114,95 +237,15 @@
 					</profiles>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<!-- attached to Maven test phase -->
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-						  <excludes>
-							  <exclude>co/edu/javeriana/tg/entities/**/*.class</exclude>
-								<exclude>co/edu/javeriana/tg/*.class</exclude>
-								<exclude>net/**/*.class</exclude>
-							</excludes>
-							<outputDirectory>target/jacoco-report</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>jacoco-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-						  <excludes>
-							  <exclude>co/edu/javeriana/tg/entities/**/*.class</exclude>
-								<exclude>co/edu/javeriana/tg/*.class</exclude>
-								<exclude>net/**/*.class</exclude>
-							</excludes>
-							<rules>
-								<rule>
-									<element>PACKAGE</element>
-									<limits>
-										<limit>
-											<counter>LINE</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.9</minimum>
-										</limit>
-										<limit>
-											<counter>INSTRUCTION</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.9</minimum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>io.snyk</groupId>
-				<artifactId>snyk-maven-plugin</artifactId>
-				<version>${snyk.version}</version>
-				<inherited>false</inherited>
-				<executions>
-					<execution>
-						<id>snyk-test</id>
-						<goals>
-							<goal>test</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>snyk-monitor</id>
-						<goals>
-							<goal>monitor</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<failOnIssues>false</failOnIssues>
-					<apiToken>${env.SNYK_TOKEN}</apiToken>
-					<args>
-					  <arg>--severity-threshold=critical</arg>
-					</args>
-				</configuration>
-    	</plugin>
-
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 	</build>
 
 </project>
