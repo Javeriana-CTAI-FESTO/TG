@@ -1,0 +1,4 @@
+2023/09/28 11:33:51 [error] 7712#15760: *1 CreateFile() "C:\Users\home\Downloads\nginx-1.25.2/html/favicon.ico" failed (2: El sistema no puede encontrar el archivo especificado), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2023/09/28 11:34:25 [notice] 1436#17296: signal process started
+2023/09/28 12:06:01 [emerg] 10692#17332: unexpected "}" in C:\Users\home\Downloads\nginx-1.25.2/conf/nginx.conf:20
+2023/09/28 12:06:29 [emerg] 5972#12772: unexpected "}" in C:\Users\home\Downloads\nginx-1.25.2/conf/nginx.conf:20
