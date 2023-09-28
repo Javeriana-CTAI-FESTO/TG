@@ -1,28 +1,14 @@
 @echo off
+REM Obtiene la ruta actual
+set NGINX_PATH=%~dp0
+set STARTUP_PATH=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 
-echo Cambiando al directorio 'front'
-cd front
+REM Crea el archivo start_nginx.bat
+echo @echo off > %NGINX_PATH%start_nginx.bat
+echo call start "" "%NGINX_PATH%nginx.exe" >> %NGINX_PATH%start_nginx.bat
+echo call exit >> %NGINX_PATH%start_nginx.bat
 
-echo Construyendo la aplicación Angular para producción
-call ng build --configuration production
+REM Copia el archivo start_nginx.bat a la carpeta de inicio
+call copy %NGINX_PATH%start_nginx.bat %STARTUP_PATH%
 
-echo Instalando Express
-call npm install express
-
-echo Instalando PM2 globalmente
-call npm install pm2 -g
-
-echo Instalando pm2-windows-startup globalmente
-call npm install pm2-windows-startup -g
-
-echo Iniciando el servidor con PM2
-call pm2 start server.js
-
-echo Configurando PM2 para iniciar automáticamente en el arranque
-call pm2-startup install
-
-echo Guardando la lista actual de procesos de PM2
-call pm2 save
-
-echo Verificando el estado de PM2
-call pm2 status
+call exit
