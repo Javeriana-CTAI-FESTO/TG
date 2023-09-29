@@ -210,7 +210,8 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
-				<sonar.coverage.exclusions>co/edu/javeriana/tg/entities/**/*,co/edu/javeriana/tg/*,net/**/*</sonar.coverage.exclusions>
+				<sonar.exclusions>net/**/*</sonar.exclusions>
+				<sonar.coverage.exclusions>co/edu/javeriana/tg/entities/**/*,co/edu/javeriana/tg/*</sonar.coverage.exclusions>
 				<sonar.coverage.jacoco.xmlReportPaths>target/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 				<!-- Optional URL to server. Default value is http://localhost:9000 -->
 				<sonar.host.url>
