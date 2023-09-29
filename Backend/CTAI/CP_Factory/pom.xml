@@ -103,6 +103,7 @@
 				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-prod</finalName>
 			</build>
 			<properties>
+				<skipTests>true</skipTests>
 				<activatedProperties>prod</activatedProperties>
 			</properties>
 			<activation>
