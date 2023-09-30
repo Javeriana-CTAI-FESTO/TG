@@ -2,3 +2,4 @@
 2023/09/28 11:34:25 [notice] 1436#17296: signal process started
 2023/09/28 12:06:01 [emerg] 10692#17332: unexpected "}" in C:\Users\home\Downloads\nginx-1.25.2/conf/nginx.conf:20
 2023/09/28 12:06:29 [emerg] 5972#12772: unexpected "}" in C:\Users\home\Downloads\nginx-1.25.2/conf/nginx.conf:20
+2023/09/28 12:46:19 [notice] 13944#9368: signal process started
