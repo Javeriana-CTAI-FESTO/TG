@@ -100,7 +100,7 @@
 		<profile>
 			<id>prod</id>
 			<build>
-				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-prod</finalName>
+				<finalName>${project.name}-${project.parent.version}-prod</finalName>
 			</build>
 			<properties>
 				<skipTests>true</skipTests>
@@ -117,7 +117,7 @@
 				<activatedProperties>test</activatedProperties>
 			</properties>
 			<build>
-				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-qa</finalName>
+				<finalName>${project.name}-${project.parent.version}-qa</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.jacoco</groupId>
@@ -229,7 +229,7 @@
 				</dependency>
 			</dependencies>
 			<build>
-				<finalName>${project.name}-${project.parent.version}-SNAPSHOT-${maven.buildNumber}-sonar</finalName>
+				<finalName>${project.name}-${project.parent.version}-sonar</finalName>
 			</build>
 		</profile>
 	</profiles>

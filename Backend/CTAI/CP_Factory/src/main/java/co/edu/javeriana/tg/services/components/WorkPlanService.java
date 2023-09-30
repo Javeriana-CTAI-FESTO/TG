@@ -15,9 +15,11 @@ import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
+import co.edu.javeriana.tg.entities.managed.StepParameterDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
 
@@ -33,13 +35,16 @@ public class WorkPlanService {
 
     private final StepDefinitionRepository stepDefinitionRepository;
 
+    private final StepParameterDefinitionRepository stepParameterDefinitionRepository;
+
     public WorkPlanService(WorkPlanDefinitionRepository workPlanRepository,
             WorkPlanTypeRepository workPlanTypeRepository, OperationService operationService,
-            StepDefinitionRepository stepDefinitionRepository) {
+            StepDefinitionRepository stepDefinitionRepository, StepParameterDefinitionRepository stepParameterDefinitionRepository) {
         this.workPlanRepository = workPlanRepository;
         this.workPlanTypeRepository = workPlanTypeRepository;
         this.operationService = operationService;
         this.stepDefinitionRepository = stepDefinitionRepository;
+        this.stepParameterDefinitionRepository = stepParameterDefinitionRepository;
     }
 
     public List<WorkPlanDTO> getAll() {
@@ -96,6 +101,18 @@ public class WorkPlanService {
                         newStepDefinition.setCalculatedWorkingTime(stepToCopy.getCalculatedWorkingTime());
                         newStepDefinition.setFreeText(stepToCopy.getFreeText());
                         stepDefinitionRepository.save(newStepDefinition);
+
+                        List<StepParameterDefinition> stepParameters = stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(stepToCopy.getWorkPlan(), stepToCopy.getStepNumber());
+                        stepParameters.stream().forEach(stepParameter -> {
+                            StepParameterDefinition newParameterDefinition = new StepParameterDefinition();
+                            newParameterDefinition.setStep(newStepDefinition.getStepNumber());
+                            newParameterDefinition.setRelatedWorkPlan(newStepDefinition.getWorkPlan());
+                            newParameterDefinition.setParameterType(stepParameter.getParameterType());
+                            newParameterDefinition.setParameter(stepParameter.getParameter());
+                            newParameterDefinition.setParameterNumber(stepParameter.getParameterNumber());
+                            newParameterDefinition.setChooseParameter(stepParameter.getChooseParameter());
+                            stepParameterDefinitionRepository.save(newParameterDefinition);
+                        });
                     }
                 }
             }
