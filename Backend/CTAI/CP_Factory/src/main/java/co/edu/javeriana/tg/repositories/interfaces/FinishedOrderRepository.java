@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public interface FinishedOrderRepository extends CrudRepository<FinishedOrder, Long>{
+    @Query("select finished from FinishedOrder finished")
     List<FinishedOrder> findAll();
 
     @Query("select count(o) from FinishedOrder o where o.realEnd is not null")
