@@ -1,5 +1,5 @@
 # DataSource URL
-datasource: ${DATABASE_FILE:FestoMES_test.accdb}
+datasource: ${DATABASE_TEST__FILE:FestoMES_test.accdb}
 
 # Configuracion del servidor
 server:
@@ -10,7 +10,7 @@ spring:
   # Configuracion del datasource para Spring JPA
   datasource:
     driverClassName: net.ucanaccess.jdbc.UcanaccessDriver
-    url: jdbc:ucanaccess://${DATABASE_FILE:FestoMES_test.accdb};showSchema=true
+    url: jdbc:ucanaccess://${DATABASE_TEST_FILE:FestoMES_test.accdb};showSchema=true
   # Configuración de Spring JPA
   jpa:
     generate-ddl: false
