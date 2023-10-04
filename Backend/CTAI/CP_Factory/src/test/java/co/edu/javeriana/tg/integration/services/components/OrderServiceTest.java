@@ -26,6 +26,7 @@ import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.OperationParameter;
 import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.OrderPosition;
 import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
@@ -94,7 +95,9 @@ public class OrderServiceTest {
 
     @Test
     public void testNonEmptyGetAllPlanedEnds() {
-        when(orderPositionRepository.findPlannedEnd()).thenReturn(List.of(new Date()));
+        OrderPosition o = new OrderPosition();
+        o.setPlannedEnd(Date.from(Instant.now()));
+        when(orderPositionRepository.findAll()).thenReturn(List.of(o));
         assertEquals(1, orderService.getAllOrdersPlannedEnds().size());
     }
 

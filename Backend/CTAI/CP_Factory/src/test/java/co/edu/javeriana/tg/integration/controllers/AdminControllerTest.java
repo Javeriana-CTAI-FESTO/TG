@@ -41,8 +41,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 @RunWith(SpringRunner.class)
@@ -680,7 +681,7 @@ public class AdminControllerTest {
     @Test
     public void testEmptyGetAllPlannedEnds() {
         try {
-            when(adminService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<Date>(0));
+            when(adminService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<ZonedDateTime>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI + "/orders/ends")
                     .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -692,7 +693,7 @@ public class AdminControllerTest {
     @Test
     public void testNonEmptyGetAllPlannedEnds() {
         try {
-            when(adminService.getAllOrdersPlannedEnds()).thenReturn(List.of(new Date()));
+            when(adminService.getAllOrdersPlannedEnds()).thenReturn(List.of(ZonedDateTime.now()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI + "/orders/ends")
                     .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.OK.value(), response.getStatus());

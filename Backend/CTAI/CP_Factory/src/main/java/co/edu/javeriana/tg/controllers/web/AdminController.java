@@ -1,5 +1,6 @@
 package co.edu.javeriana.tg.controllers.web;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -541,8 +542,8 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Obtiene todas las ordenes finalizadas, retorna una lista de Date en caso de que fue obtenido satisfactoriamente")
     @GetMapping("/orders/ends")
-    public ResponseEntity<List<Date>> getAllPlannedEnds() {
-        List<Date> workPlans = null;
+    public ResponseEntity<List<ZonedDateTime>> getAllPlannedEnds() {
+        List<ZonedDateTime> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         try {
             workPlans = adminService.getAllOrdersPlannedEnds();
@@ -551,7 +552,7 @@ public class AdminController {
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<List<Date>>(workPlans, status);
+        return new ResponseEntity<List<ZonedDateTime>>(workPlans, status);
     }
 
     @Operation(summary = "Get all orders possible status", responses = {

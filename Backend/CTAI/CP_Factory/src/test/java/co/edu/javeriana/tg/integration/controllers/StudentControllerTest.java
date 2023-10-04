@@ -24,8 +24,8 @@ import co.edu.javeriana.tg.services.users.StudentService;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -199,7 +199,7 @@ public class StudentControllerTest {
     @Test
     public void testEmptyGetAllOrdersPlannedEnds() {
         try {
-            when(studentService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<Date>(0));
+            when(studentService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<ZonedDateTime>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -211,7 +211,7 @@ public class StudentControllerTest {
     @Test
     public void testNonEmptyGetAllOrdersPlannedEnds() {
         try {
-            when(studentService.getAllOrdersPlannedEnds()).thenReturn(List.of(new Date()));
+            when(studentService.getAllOrdersPlannedEnds()).thenReturn(List.of(ZonedDateTime.now()));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());

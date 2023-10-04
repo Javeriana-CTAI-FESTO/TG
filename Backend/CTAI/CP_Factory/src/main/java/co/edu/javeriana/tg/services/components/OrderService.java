@@ -1,6 +1,8 @@
 package co.edu.javeriana.tg.services.components;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -77,8 +79,8 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public List<Date> getAllOrdersPlannedEnds() {
-        return orderPositionRepository.findPlannedEnd();
+    public List<ZonedDateTime> getAllOrdersPlannedEnds() {
+        return orderPositionRepository.findAll().stream().map(orderPosition -> orderPosition.getPlannedEnd().toInstant().atZone(ZoneId.of("America/Bogota"))).collect(Collectors.toList());
     }
 
     private List<OrderDTO> getAllFinishedOrders() {

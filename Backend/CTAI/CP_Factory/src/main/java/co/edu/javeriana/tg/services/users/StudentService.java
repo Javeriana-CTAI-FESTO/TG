@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.services.users;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +54,7 @@ public class StudentService {
     return orderService.getOrdersWithStatus();
   }
 
-  public List<Date> getAllOrdersPlannedEnds() {
+  public List<ZonedDateTime> getAllOrdersPlannedEnds() {
     return orderService.getAllOrdersPlannedEnds();
   }
 
