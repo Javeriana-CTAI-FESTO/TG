@@ -140,6 +140,7 @@ public class StepService {
                             step.getRealStart(), step.getRealEnd()))
                     .collect(Collectors.toList());
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return steps;
     }

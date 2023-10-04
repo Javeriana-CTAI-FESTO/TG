@@ -11,8 +11,14 @@ public class StepTimeDTO {
 
   public StepTimeDTO(StepDefinitionDTO step, Date start, Date end) {
     this.step = step;
-    this.start = ZonedDateTime.ofInstant(start.toInstant(), ZoneId.of("America/Bogota"));
-    this.end = ZonedDateTime.ofInstant(end.toInstant(), ZoneId.of("America/Bogota"));
+    if (start != null)
+      this.start = ZonedDateTime.ofInstant(start.toInstant(), ZoneId.of("America/Bogota"));
+    else
+      this.start = null;
+    if (end != null)
+      this.end = ZonedDateTime.ofInstant(end.toInstant(), ZoneId.of("America/Bogota"));
+    else
+      this.end = null;
   }
 
   public StepTimeDTO() {
