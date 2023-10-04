@@ -100,6 +100,7 @@ public class OrderServiceTest {
     @Test
     public void testNonEmptyGetAllPlanedEnds() {
         OrderPosition o = new OrderPosition();
+        o.setOrder(1l);
         o.setPlannedEnd(Date.from(Instant.now()));
         when(orderPositionRepository.findAll()).thenReturn(List.of(o));
         assertEquals(1, orderService.getAllOrdersPlannedEnds().size());
