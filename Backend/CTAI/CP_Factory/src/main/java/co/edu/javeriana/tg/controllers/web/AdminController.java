@@ -542,8 +542,8 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Obtiene todas las ordenes finalizadas, retorna una lista de Date en caso de que fue obtenido satisfactoriamente")
     @GetMapping("/orders/ends")
-    public ResponseEntity<List<ZonedDateTime>> getAllPlannedEnds() {
-        List<ZonedDateTime> workPlans = null;
+    public ResponseEntity<List<Map<Long,ZonedDateTime>>> getAllPlannedEnds() {
+        List<Map<Long,ZonedDateTime>> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         try {
             workPlans = adminService.getAllOrdersPlannedEnds();
@@ -552,7 +552,7 @@ public class AdminController {
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<List<ZonedDateTime>>(workPlans, status);
+        return new ResponseEntity<List<Map<Long,ZonedDateTime>>>(workPlans, status);
     }
 
     @Operation(summary = "Get all orders possible status", responses = {

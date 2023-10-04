@@ -79,8 +79,8 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public List<ZonedDateTime> getAllOrdersPlannedEnds() {
-        return orderPositionRepository.findAll().stream().map(orderPosition -> orderPosition.getPlannedEnd().toInstant().atZone(ZoneId.of("America/Bogota"))).collect(Collectors.toList());
+    public List<Map<Long, ZonedDateTime>> getAllOrdersPlannedEnds() {
+        return orderPositionRepository.findAll().stream().map(orderPosition -> Map.of(orderPosition.getOrder(), orderPosition.getPlannedEnd().toInstant().atZone(ZoneId.of("America/Bogota")))).collect(Collectors.toList());
     }
 
     private List<OrderDTO> getAllFinishedOrders() {

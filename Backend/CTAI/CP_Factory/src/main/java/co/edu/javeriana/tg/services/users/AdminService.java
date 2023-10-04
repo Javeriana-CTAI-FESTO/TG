@@ -156,7 +156,7 @@ public class AdminService {
       return orderService.getOrdersWithStatus();
     }
 
-    public List<ZonedDateTime> getAllOrdersPlannedEnds() {
+    public List<Map<Long,ZonedDateTime>> getAllOrdersPlannedEnds() {
       return orderService.getAllOrdersPlannedEnds();
     }
 

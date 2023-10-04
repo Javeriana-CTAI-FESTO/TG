@@ -651,7 +651,7 @@ public class TeacherControllerTest {
     @Test
     public void testEmptyGetAllPlannedEnds() {
         try {
-            when(teacherService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<ZonedDateTime>(0));
+            when(teacherService.getAllOrdersPlannedEnds()).thenReturn(new ArrayList<Map<Long,ZonedDateTime>>(0));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
             assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
@@ -663,7 +663,7 @@ public class TeacherControllerTest {
     @Test
     public void testNonEmptyGetAllPlannedEnds() {
         try {
-            when(teacherService.getAllOrdersPlannedEnds()).thenReturn(List.of(ZonedDateTime.now()));
+            when(teacherService.getAllOrdersPlannedEnds()).thenReturn(List.of(Map.of(1l,ZonedDateTime.now())));
             MockHttpServletResponse response = mvc.perform(get(BASEURI+"/orders/ends")
             .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();            
             assertEquals(HttpStatus.OK.value(), response.getStatus());

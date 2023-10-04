@@ -143,8 +143,8 @@ public class StudentController {
 
     }, description = "Retorna una lista con todas las fechas (Date)de las ordenes finalizadas")
     @GetMapping("/orders/ends")
-    public ResponseEntity<List<ZonedDateTime>> getAllPlannedEnds() {
-        List<ZonedDateTime> workPlans = null;
+    public ResponseEntity<List<Map<Long,ZonedDateTime>>> getAllPlannedEnds() {
+        List<Map<Long,ZonedDateTime>> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         try {
             workPlans = studentService.getAllOrdersPlannedEnds();
@@ -153,7 +153,7 @@ public class StudentController {
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<List<ZonedDateTime>>(workPlans, status);
+        return new ResponseEntity<List<Map<Long,ZonedDateTime>>>(workPlans, status);
     }
 
     @Operation(summary = "Get status of orders", responses = {
