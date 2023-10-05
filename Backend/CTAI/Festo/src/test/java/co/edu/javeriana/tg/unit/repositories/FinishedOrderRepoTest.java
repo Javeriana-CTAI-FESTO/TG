@@ -48,7 +48,7 @@ public class FinishedOrderRepoTest {
         // Read
         assertEquals(orderRepository.count(), 0);
         assertEquals(Optional.empty(), orderRepository.findById(testID));
-        orderRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        orderRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setEnabled(true);
         assertThrows(JpaSystemException.class, () -> orderRepository.save(emptyOrder));

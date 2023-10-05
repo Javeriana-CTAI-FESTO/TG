@@ -11,7 +11,11 @@ import java.util.List;
 
 public interface ResourceForOperationRepository extends CrudRepository<ResourceForOperation, ResourceForOperationPK>{
     List<ResourceForOperation> findAll();
+    
+    @Query("select r from ResourceForOperation r where r.operation = ?1")
     List<ResourceForOperation> findByOperation(Long operationNumber);
+
+    @Query("select r from ResourceForOperation r where r.resource = ?1")
     List<ResourceForOperation> findByResource(Long resourceId);
 
     @Query("select r from ResourceForOperation r where r.operation = ?1 and r.resource > 0 order by r.workingTime")

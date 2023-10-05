@@ -10,6 +10,7 @@ public class CreateWorkPlanAux {
     private Long pictureNumber;
     private Long partNumber;
     private StepToPerformInWorkplanAux[] steps;
+
     public CreateWorkPlanAux(Long workPlanNumber, String description, Long workPlanType, String shortDescription,
             Long pictureNumber, Long partNumber, StepToPerformInWorkplanAux[] steps) {
         this.workPlanNumber = workPlanNumber;
@@ -20,50 +21,67 @@ public class CreateWorkPlanAux {
         this.partNumber = partNumber;
         this.steps = steps;
     }
+
+    // Method left blank for object serialization/deserialization
     public CreateWorkPlanAux() {
     }
+
     public Long getWorkPlanNumber() {
         return workPlanNumber;
     }
+
     public void setWorkPlanNumber(Long workPlanNumber) {
         this.workPlanNumber = workPlanNumber;
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public Long getWorkPlanType() {
         return workPlanType;
     }
+
     public void setWorkPlanType(Long workPlanType) {
         this.workPlanType = workPlanType;
     }
+
     public String getShortDescription() {
         return shortDescription;
     }
+
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
     }
+
     public Long getPictureNumber() {
         return pictureNumber;
     }
+
     public void setPictureNumber(Long pictureNumber) {
         this.pictureNumber = pictureNumber;
     }
+
     public Long getPartNumber() {
         return partNumber;
     }
+
     public void setPartNumber(Long partNumber) {
         this.partNumber = partNumber;
     }
+
     public StepToPerformInWorkplanAux[] getSteps() {
         return steps;
     }
+
     public void setSteps(StepToPerformInWorkplanAux[] operations) {
         this.steps = operations;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -77,6 +95,7 @@ public class CreateWorkPlanAux {
         result = prime * result + Arrays.hashCode(steps);
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -120,5 +139,5 @@ public class CreateWorkPlanAux {
             return false;
         return true;
     }
-    
+
 }

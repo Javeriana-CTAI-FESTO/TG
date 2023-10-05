@@ -1,6 +1,6 @@
 package co.edu.javeriana.tg.services.users;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +24,6 @@ import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
-import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.services.components.ClientService;
 import co.edu.javeriana.tg.services.components.MachineReportService;
 import co.edu.javeriana.tg.services.components.OperationService;
@@ -93,7 +92,7 @@ public class AdminService {
       return clientService.getAllClients();
     }
 
-    public ClientDTO createClient(Client client) {
+    public ClientDTO createClient(ClientDTO client) {
       return clientService.createClient(client);
     }
 
@@ -157,7 +156,7 @@ public class AdminService {
       return orderService.getOrdersWithStatus();
     }
 
-    public List<Date> getAllOrdersPlannedEnds() {
+    public List<Map<Long,ZonedDateTime>> getAllOrdersPlannedEnds() {
       return orderService.getAllOrdersPlannedEnds();
     }
 

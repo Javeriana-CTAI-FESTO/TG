@@ -1,5 +1,7 @@
 package co.edu.javeriana.tg.entities.dtos;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
@@ -17,17 +19,17 @@ public class OrderDTO {
     @Schema(name = "enabled", example = "true", description = "Indica si la orden esta habilitada a producción", required = true)
     private Boolean enabled;
     @Schema(name = "release", example = "2021-11-25", description = "Fecha de liberacion de la orden", required = true)
-    private Date release;
+    private ZonedDateTime release;
     @Schema(name = "orderPosition", example = "1", description = "Numero de posicion de la orden", required = true)
     private Long orderPosition;
     @Schema(name = "plannedStart", example = "2021-11-25", description = "Fecha de inicio de la orden", required = true)
-    private Date plannedStart;
+    private ZonedDateTime plannedStart;
     @Schema(name = "plannedEnd", example = "2021-11-25", description = "Fecha de fin de la orden", required = true)
-    private Date plannedEnd;
+    private ZonedDateTime plannedEnd;
     @Schema(name = "realStart", example = "2021-11-25", description = "Fecha de inicio real de la orden", required = true)
-    private Date realStart;
+    private ZonedDateTime realStart;
     @Schema(name = "realEnd", example = "2021-11-25", description = "Fecha de fin real de la orden", required = true)
-    private Date realEnd;
+    private ZonedDateTime realEnd;
     @Schema(name = "workPlanNumber", example = "1", description = "Numero de plan de trabajo", required = true)
     private Long workPlanNumber;
     @Schema(name = "stepNumber", example = "1", description = "Numero de paso de la orden", required = true)
@@ -72,38 +74,6 @@ public class OrderDTO {
 
     public void setOrderPosition(Long orderPosition) {
         this.orderPosition = orderPosition;
-    }
-
-    public Date getPlannedStart() {
-        return plannedStart;
-    }
-
-    public void setPlannedStart(Date plannedStart) {
-        this.plannedStart = plannedStart;
-    }
-
-    public Date getPlannedEnd() {
-        return plannedEnd;
-    }
-
-    public void setPlannedEnd(Date plannedEnd) {
-        this.plannedEnd = plannedEnd;
-    }
-
-    public Date getRealStart() {
-        return realStart;
-    }
-
-    public void setRealStart(Date realStart) {
-        this.realStart = realStart;
-    }
-
-    public Date getRealEnd() {
-        return realEnd;
-    }
-
-    public void setRealEnd(Date realEnd) {
-        this.realEnd = realEnd;
     }
 
     public Long getWorkPlanNumber() {
@@ -210,25 +180,19 @@ public class OrderDTO {
         this.enabled = enabled;
     }
 
-    public Date getRelease() {
-        return release;
-    }
-
-    public void setRelease(Date release) {
-        this.release = release;
-    }
-
     public OrderDTO(OrderPosition order, ClientDTO client, Long orderState, Boolean orderEnabled, Date orderRelease,
             PartDTO part) {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
-        this.release = orderRelease;
+        this.release = ZonedDateTime.ofInstant(orderRelease.toInstant(), ZoneId.of("America/Bogota"));
         this.orderPosition = order.getOrderPosition();
-        this.plannedStart = order.getPlannedStart();
-        this.plannedEnd = order.getPlannedEnd();
-        this.realStart = order.getRealStart();
-        this.realEnd = order.getRealEnd();
+        this.plannedStart = ZonedDateTime.ofInstant(order.getPlannedStart().toInstant(), ZoneId.of("America/Bogota"));
+        this.plannedEnd = ZonedDateTime.ofInstant(order.getPlannedEnd().toInstant(), ZoneId.of("America/Bogota"));
+        this.realStart = ZonedDateTime.ofInstant(order.getRealStart().toInstant(), ZoneId.of("America/Bogota"));
+        ;
+        this.realEnd = ZonedDateTime.ofInstant(order.getRealEnd().toInstant(), ZoneId.of("America/Bogota"));
+        ;
         this.workPlanNumber = order.getWorkPlanNumber();
         this.stepNumber = order.getStepNumber();
         this.mainOrderPosition = order.getMainOrderPosition();
@@ -248,7 +212,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
-        this.release = orderRelease;
+        this.release = ZonedDateTime.ofInstant(orderRelease.toInstant(), ZoneId.of("America/Bogota"));
         this.orderPosition = order.getOrderPosition();
         this.status = status;
         this.workPlanNumber = order.getWorkPlanNumber();
@@ -270,7 +234,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrder();
         this.orderState = orderState;
         this.enabled = orderEnabled;
-        this.release = orderRelease;
+        this.release = ZonedDateTime.ofInstant(orderRelease.toInstant(), ZoneId.of("America/Bogota"));
         this.orderPosition = order.getOrderPosition();
         this.timeNeeded = time + "s";
         this.workPlanNumber = order.getWorkPlanNumber();
@@ -291,7 +255,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
-        this.release = order.getRelease();
+        this.release = ZonedDateTime.ofInstant(order.getRelease().toInstant(), ZoneId.of("America/Bogota"));
         this.client = client;
     }
 
@@ -299,7 +263,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
-        this.release = order.getRelease();
+        this.release = ZonedDateTime.ofInstant(order.getRelease().toInstant(), ZoneId.of("America/Bogota"));
         this.client = client;
     }
 
@@ -307,7 +271,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
-        this.release = order.getRelease();
+        this.release = ZonedDateTime.ofInstant(order.getRelease().toInstant(), ZoneId.of("America/Bogota"));
         this.client = client;
         this.status = status;
     }
@@ -316,7 +280,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
-        this.release = order.getRelease();
+        this.release = ZonedDateTime.ofInstant(order.getRelease().toInstant(), ZoneId.of("America/Bogota"));
         this.client = client;
         this.status = status;
     }
@@ -325,7 +289,7 @@ public class OrderDTO {
         this.orderNumber = order.getOrderNumber();
         this.orderState = order.getState();
         this.enabled = order.getEnabled();
-        this.release = order.getRelease();
+        this.release = ZonedDateTime.ofInstant(order.getRelease().toInstant(), ZoneId.of("America/Bogota"));
         this.client = client;
         this.timeNeeded = time + "s";
     }
@@ -356,5 +320,45 @@ public class OrderDTO {
 
     public void setTimeNeeded(String timeNeeded) {
         this.timeNeeded = timeNeeded;
+    }
+
+    public ZonedDateTime getRelease() {
+        return release;
+    }
+
+    public void setRelease(ZonedDateTime release) {
+        this.release = release;
+    }
+
+    public ZonedDateTime getPlannedStart() {
+        return plannedStart;
+    }
+
+    public void setPlannedStart(ZonedDateTime plannedStart) {
+        this.plannedStart = plannedStart;
+    }
+
+    public ZonedDateTime getPlannedEnd() {
+        return plannedEnd;
+    }
+
+    public void setPlannedEnd(ZonedDateTime plannedEnd) {
+        this.plannedEnd = plannedEnd;
+    }
+
+    public ZonedDateTime getRealStart() {
+        return realStart;
+    }
+
+    public void setRealStart(ZonedDateTime realStart) {
+        this.realStart = realStart;
+    }
+
+    public ZonedDateTime getRealEnd() {
+        return realEnd;
+    }
+
+    public void setRealEnd(ZonedDateTime realEnd) {
+        this.realEnd = realEnd;
     }
 }

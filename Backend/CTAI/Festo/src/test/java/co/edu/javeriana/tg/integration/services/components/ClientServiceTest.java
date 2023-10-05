@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import co.edu.javeriana.tg.entities.dtos.ClientDTO;
 import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.repositories.interfaces.ClientRepository;
 import co.edu.javeriana.tg.services.components.ClientService;
@@ -54,13 +55,14 @@ public class ClientServiceTest {
 
     @Test
     public void testEmptyCreateClient() {
+        ClientDTO cl = new ClientDTO();
         Client c = new Client();
         when(clientRepository.save(c)).thenThrow(RuntimeException.class);
-        assertNull(clientService.createClient(c));
+        assertNull(clientService.createClient(cl));
     }
 
-     @Test
+    @Test
     public void testCreateClient() {
-        assertNotNull(clientService.createClient(new Client(1l)));
+        assertNotNull(clientService.createClient(new ClientDTO(new Client())));
     }
 }

@@ -88,9 +88,11 @@ export class DashboardService {
   async ganttChart() {
     const response = await fetch(this.urlBase + this.rol() + '/orders/ends');
     const data = await response.json();
-    return data.filter((date: string) => date !== null).map((date: string) => {
-      const startDate = new Date(date);
-      return [startDate.getTime(), 1];
+    return data.filter((entry: any) => entry !== null).flatMap((entry: any) => {
+      return Object.entries(entry).map(([key, date]: [string, any]) => {
+        const startDate = new Date(date);
+        return [startDate.getTime(), parseInt(key)];
+      });
     });
   }
 

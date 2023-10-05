@@ -48,7 +48,7 @@ public class ClientRepoTest {
         // Read
         assertEquals(clientRepository.count(), 0);
         assertEquals(Optional.empty(), clientRepository.findById(testID));
-        clientRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        clientRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setPhone(String.valueOf(testID));
         assertThrows(JpaSystemException.class, () -> clientRepository.save(emptyOrder));

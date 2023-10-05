@@ -18,7 +18,7 @@ import co.edu.javeriana.tg.repositories.interfaces.ResourceForOperationRepositor
 @Component
 @Transactional
 public class ResourceForOperationService {
-    
+
     private final ResourceForOperationRepository resourceForOperationRepository;
 
     private final StepService stepService;
@@ -27,11 +27,12 @@ public class ResourceForOperationService {
 
     private final ResourceService resourceService;
 
-    public ResourceForOperationService(ResourceForOperationRepository resourceForOperationRepository, StepService stepService, OperationService operationService, ResourceService resourceService) {
+    public ResourceForOperationService(ResourceForOperationRepository resourceForOperationRepository,
+            StepService stepService, OperationService operationService, ResourceService resourceService) {
         this.resourceForOperationRepository = resourceForOperationRepository;
         this.stepService = stepService;
-        this.operationService=operationService;
-        this.resourceService=resourceService;
+        this.operationService = operationService;
+        this.resourceService = resourceService;
     }
 
     public ResourceForOperationDTO convertToDTO(List<ResourceForOperation> resources) {
@@ -67,6 +68,8 @@ public class ResourceForOperationService {
             if (resources.get(i).getOperation().equals(operationToCompare)) {
                 operationResources.add(resources.get(i));
                 i++;
+                if (resources.size() == 1)
+                    operationResourcesDTOs.add(convertToDTO(operationResources));
             } else {
                 operationResourcesDTOs.add(convertToDTO(operationResources));
                 needToStartAgain = true;
@@ -76,11 +79,13 @@ public class ResourceForOperationService {
     }
 
     public Long timeForWorkPlan(Long workPlanNumber) {
-        try{
-        WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
-        Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
-                .mapToLong(operation -> resourceForOperationRepository.minorTimeForOperation(operation).getWorkingTime()).sum();
-        return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime());
+        try {
+            WorkPlanTimeAux auxiliaryWorkPlanTime = stepService.getWorkPlanTime(workPlanNumber);
+            Long timeTakenByOperations = auxiliaryWorkPlanTime.getOperationsInvolved().stream()
+                    .mapToLong(operation -> resourceForOperationRepository.minorTimeForOperation(operation)
+                            .getWorkingTime())
+                    .sum();
+            return (timeTakenByOperations + auxiliaryWorkPlanTime.getTransportTime());
         } catch (Exception e) {
 
         }

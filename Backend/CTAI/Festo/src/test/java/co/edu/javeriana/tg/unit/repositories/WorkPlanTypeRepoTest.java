@@ -48,7 +48,7 @@ public class WorkPlanTypeRepoTest{
         // Read
         assertEquals(workPlanTypeRepository.count(), 0);
         assertEquals(Optional.empty(), workPlanTypeRepository.findById(testID));
-        workPlanTypeRepository.findAllById(idsList).forEach(element -> assertEquals(Optional.empty(), element));
+        workPlanTypeRepository.findAllById(idsList).forEach(element -> assertNull(element));
         // Update
         emptyOrder.setDescription("Name");
         assertThrows(JpaSystemException.class, () -> workPlanTypeRepository.save(emptyOrder));

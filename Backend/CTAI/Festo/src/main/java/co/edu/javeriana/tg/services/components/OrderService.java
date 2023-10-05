@@ -1,10 +1,13 @@
 package co.edu.javeriana.tg.services.components;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -76,8 +79,8 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public List<Date> getAllOrdersPlannedEnds() {
-        return orderPositionRepository.findPlannedEnd();
+    public List<Map<Long, ZonedDateTime>> getAllOrdersPlannedEnds() {
+        return orderPositionRepository.findAll().stream().map(orderPosition -> Map.of(orderPosition.getOrder(), orderPosition.getPlannedEnd().toInstant().atZone(ZoneId.of("America/Bogota")))).collect(Collectors.toList());
     }
 
     private List<OrderDTO> getAllFinishedOrders() {
@@ -381,10 +384,13 @@ public class OrderService {
     public OrderDTO enableOrder(Long orderNumber) {
         OrderDTO o = null;
         try {
-            Order order = orderRepository.findById(orderNumber).get();
-            order.setEnabled(true);
-            orderRepository.save(order);
-            o = new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()), "Starting ...");
+            Optional<Order> optionalOrder = orderRepository.findById(orderNumber);
+            if (optionalOrder.isPresent()) {
+                Order order = optionalOrder.get();
+                order.setEnabled(true);
+                orderRepository.save(order);
+                o = new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()), "Starting ...");
+            }
         } catch (Exception e) {
 
         }

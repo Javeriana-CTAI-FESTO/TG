@@ -93,7 +93,7 @@ public class ResourceForOperationServiceTest {
         Long operationID = 1l;
         Long resoutrceID = 1L;
         when(resourceForOperationRepository.findByResource(resoutrceID)).thenReturn(List.of(new ResourceForOperation(new ResourceForOperationPK(resoutrceID, operationID))));
-        assertEquals(0,resourceForOperationService.getOperationsGivenResource(resoutrceID).size());
+        assertEquals(1,resourceForOperationService.getOperationsGivenResource(resoutrceID).size());
     }
 
     @Test

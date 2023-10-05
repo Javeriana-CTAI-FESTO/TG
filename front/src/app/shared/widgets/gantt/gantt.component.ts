@@ -25,6 +25,7 @@ export class GanttComponent implements OnInit, OnChanges {
   }
 
   updateChartOptions(data: any[]): void {
+    console.log('data', data);
     this.chartOptions = {
       title: {
         text: "Orders Ends"
@@ -45,9 +46,10 @@ export class GanttComponent implements OnInit, OnChanges {
         {
           type: "scatter",
           name: "Orders",
-          data,
+          data: data.map(([x, y]) => ({ x, y: 0, originalY: y })),
           tooltip: {
-            pointFormat: 'Fecha: {point.x:%e de %b de %Y %H:%M:%S}'
+            shared: true,
+            pointFormat: 'Order Number: {point.originalY:.0f}<br/>Fecha: {point.x:%e de %b de %Y %H:%M:%S}'
           }
         }
       ],
@@ -57,7 +59,7 @@ export class GanttComponent implements OnInit, OnChanges {
       }
     };
     HC_exporting(Highcharts);
-
+  
     setTimeout(() => {
       window.dispatchEvent(
         new Event('resize')

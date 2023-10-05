@@ -12,7 +12,7 @@ public class ResourceDTO {
     private String description;
     @Schema(name = "plcType", example = "1", description = "plcType", required = true)
     private Long plcType;
-    @Schema(name = "IP", example = "89.207.132.170", description = "Dirección IP", required = true)
+    @Schema(name = "IP", example = "xx.xx.xx.xx", description = "Dirección IP", required = true)
     private String ip;
     @Schema(name = "picture", example = "imagen.png", description = "Imagen del recurso", required = true)
     private String picture;
@@ -20,7 +20,7 @@ public class ResourceDTO {
     private Boolean parallelProcessing;
     @Schema(name = "automatic", example = "false", description = "Indica si el recurso es automático", required = true)
     private Boolean automatic;
-    @Schema(name = "webPage", example = "172.17.0.1", description = "Web page del recurso", required = true)
+    @Schema(name = "webPage", example = "172.xx.xx.xx", description = "Web page del recurso", required = true)
     private String webPage;
     @Schema(name = "openWithDefaultBrowser", example = "true", description = "Indica si el recurso abre con el navegador por defecto", required = true)
     private Boolean openWithDefaultBrowser;

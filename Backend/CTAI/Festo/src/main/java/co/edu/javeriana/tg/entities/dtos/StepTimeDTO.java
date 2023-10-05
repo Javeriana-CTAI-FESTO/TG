@@ -1,16 +1,24 @@
 package co.edu.javeriana.tg.entities.dtos;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class StepTimeDTO {
   private StepDefinitionDTO step;
-  private Date start;
-  private Date end;
+  private ZonedDateTime start;
+  private ZonedDateTime end;
 
   public StepTimeDTO(StepDefinitionDTO step, Date start, Date end) {
     this.step = step;
-    this.start = start;
-    this.end = end;
+    if (start != null)
+      this.start = ZonedDateTime.ofInstant(start.toInstant(), ZoneId.of("America/Bogota"));
+    else
+      this.start = null;
+    if (end != null)
+      this.end = ZonedDateTime.ofInstant(end.toInstant(), ZoneId.of("America/Bogota"));
+    else
+      this.end = null;
   }
 
   public StepTimeDTO() {
@@ -24,19 +32,19 @@ public class StepTimeDTO {
     this.step = step;
   }
 
-  public Date getStart() {
+  public ZonedDateTime getStart() {
     return start;
   }
 
-  public void setStart(Date start) {
+  public void setStart(ZonedDateTime start) {
     this.start = start;
   }
 
-  public Date getEnd() {
+  public ZonedDateTime getEnd() {
     return end;
   }
 
-  public void setEnd(Date end) {
+  public void setEnd(ZonedDateTime end) {
     this.end = end;
   }
 }

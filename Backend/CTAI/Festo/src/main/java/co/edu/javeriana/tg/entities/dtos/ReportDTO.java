@@ -1,13 +1,14 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import co.edu.javeriana.tg.entities.managed.MachineReport;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReportDTO {
     @Schema(name = "timestamp", example = "2021-11-25", description = "Fecha y hora del reporte", required = true)
-    private Date timestamp;
+    private ZonedDateTime timestamp;
     @Schema(name = "id", example = "1", description = "Identificador del reporte", required = true)
     private Long id;
     @Schema(name = "automaticMode", example = "false", description = "Indica si el reporte es automático", required = true)
@@ -26,7 +27,7 @@ public class ReportDTO {
     private Boolean errorL2;
 
     public ReportDTO(MachineReport report) {
-        this.timestamp = report.getTimestamp();
+        this.timestamp = ZonedDateTime.ofInstant(report.getTimestamp().toInstant(), ZoneId.of("America/Bogota"));
         this.id = report.getId();
         this.automaticMode = report.getAutomaticMode();
         this.manualMode = report.getManualMode();
@@ -40,13 +41,6 @@ public class ReportDTO {
     public ReportDTO() {
     }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
 
     public Long getId() {
         return id;
@@ -110,5 +104,13 @@ public class ReportDTO {
 
     public void setErrorL2(Boolean errorL2) {
         this.errorL2 = errorL2;
+    }
+
+    public ZonedDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

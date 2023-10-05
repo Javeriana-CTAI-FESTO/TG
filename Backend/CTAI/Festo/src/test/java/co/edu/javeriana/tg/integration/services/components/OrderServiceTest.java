@@ -26,6 +26,7 @@ import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.managed.FinishedOrder;
 import co.edu.javeriana.tg.entities.managed.OperationParameter;
 import co.edu.javeriana.tg.entities.managed.Order;
+import co.edu.javeriana.tg.entities.managed.OrderPosition;
 import co.edu.javeriana.tg.entities.managed.Part;
 import co.edu.javeriana.tg.entities.managed.Resource;
 import co.edu.javeriana.tg.entities.managed.ResourceForOperation;
@@ -83,7 +84,11 @@ public class OrderServiceTest {
 
     @Test
     public void testNonEmptyGetAll() {
-        when(orderRepository.findAll()).thenReturn(List.of(new Order(1L)));
+        
+        Order o = new Order(1L);
+        Date now = Date.from(Instant.now());
+        o.setRelease(now);
+        when(orderRepository.findAll()).thenReturn(List.of(o));
         assertEquals(1, orderService.getAllOrders().size());
     }
 
@@ -94,7 +99,10 @@ public class OrderServiceTest {
 
     @Test
     public void testNonEmptyGetAllPlanedEnds() {
-        when(orderPositionRepository.findPlannedEnd()).thenReturn(List.of(new Date()));
+        OrderPosition o = new OrderPosition();
+        o.setOrder(1l);
+        o.setPlannedEnd(Date.from(Instant.now()));
+        when(orderPositionRepository.findAll()).thenReturn(List.of(o));
         assertEquals(1, orderService.getAllOrdersPlannedEnds().size());
     }
 
@@ -164,7 +172,10 @@ public class OrderServiceTest {
     @Test
     public void testNonEmptyGetOrdersWithStatus() {
         Order order = new Order(1L);
+        Date now = Date.from(Instant.now());
+        order.setRelease(now);
         FinishedOrder finishedOrder = new FinishedOrder(1l);
+        finishedOrder.setRelease(now);
         when(orderRepository.findAll()).thenReturn(List.of(order));
         assertEquals("Unstarted", orderService.getOrdersWithStatus().get(0).getStatus());
         order.setRealStart(Date.from(Instant.now()));
@@ -191,6 +202,8 @@ public class OrderServiceTest {
         r.setWorkingTime(0l);
         when(resourceForOperationRepository.minorTimeForOperation(0l)).thenReturn(r);
         Order o = new Order(on);
+        Date now = Date.from(Instant.now());
+        o.setRelease(now);
         o.setClientNumber(on);
         when(orderPositionRepository.getWorkPlanNumberByOrderNumber(on)).thenReturn(wp);
         when(orderPositionRepository.countByOrder(on)).thenReturn(positions);
@@ -219,8 +232,12 @@ public class OrderServiceTest {
     public void testNonEmptyFilterByStatusUnstarted() {
         Long status = 1l;
         Order unstarted = new Order(1l);
+        Date now = Date.from(Instant.now());
+        unstarted.setRelease(now);
         Order inProcess = new Order(2l);
+        inProcess.setRelease(now);
         FinishedOrder finished = new FinishedOrder(3l);
+        finished.setRelease(now);
         when(finishedOrderRepository.finishedOrders()).thenReturn(List.of(finished));
         when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
         when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
@@ -234,9 +251,13 @@ public class OrderServiceTest {
     @Test
     public void testNonEmptyFilterByStatusInProcess() {
         Long status = 2l;
+        Date now = Date.from(Instant.now());
         Order unstarted = new Order(1l);
+        unstarted.setRelease(now);
         Order inProcess = new Order(2l);
+        inProcess.setRelease(now);
         FinishedOrder finished = new FinishedOrder(3l);
+        finished.setRelease(now);
         when(finishedOrderRepository.finishedOrders()).thenReturn(List.of(finished));
         when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
         when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
@@ -250,9 +271,13 @@ public class OrderServiceTest {
     @Test
     public void testNonEmptyFilterByStatusFinished() {
         Long status = 3l;
+        Date now = Date.from(Instant.now());
         Order unstarted = new Order(1l);
+        unstarted.setRelease(now);
         Order inProcess = new Order(2l);
+        inProcess.setRelease(now);
         FinishedOrder finished = new FinishedOrder(3l);
+        finished.setRelease(now);
         when(finishedOrderRepository.finishedOrders()).thenReturn(List.of(finished));
         when(orderRepository.inProcessOrders()).thenReturn(List.of(inProcess));
         when(orderRepository.notStartedOrders()).thenReturn(List.of(unstarted));
@@ -300,6 +325,9 @@ public class OrderServiceTest {
         assertDoesNotThrow(() -> orderService.partsConsumedByOrders());
         Long on = 1l;
         Order order = new Order();
+        Date now = Date.from(Instant.now());
+        order.setRelease(now);
+        
         order.setOrderNumber(on);
         when(orderRepository.findAll()).thenReturn(List.of(order));
         assertDoesNotThrow(() -> orderService.partsConsumedByOrders());
@@ -308,7 +336,9 @@ public class OrderServiceTest {
     @Test
     public void testEnableOrder() {
         Long on = 1l;
+        Date now = Date.from(Instant.now());
         Order order = new Order();
+        order.setRelease(now);
         order.setOrderNumber(on);
         order.setClientNumber(on);
         when(clientService.getClientByClientNumber(on)).thenReturn(null);

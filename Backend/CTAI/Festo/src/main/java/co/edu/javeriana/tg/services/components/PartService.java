@@ -2,6 +2,7 @@ package co.edu.javeriana.tg.services.components;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -92,7 +93,9 @@ public class PartService {
 
     public Long getWorkPlanNumberByPart(Long partNumber) {
         try {
-            return partRepository.findById(partNumber).get().getWorkPlanNumber();
+            Optional<Part> optionalPart = partRepository.findById(partNumber);
+            if (optionalPart.isPresent())
+                return optionalPart.get().getWorkPlanNumber();
         } catch (Exception e) {
 
         }

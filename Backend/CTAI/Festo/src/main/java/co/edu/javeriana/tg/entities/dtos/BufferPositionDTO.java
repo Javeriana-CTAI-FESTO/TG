@@ -1,6 +1,7 @@
 package co.edu.javeriana.tg.entities.dtos;
 
-import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import co.edu.javeriana.tg.entities.managed.BufferPosition;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,7 +28,7 @@ public class BufferPositionDTO {
     @Schema(name = "quantityMax", example = "1", description = "Indica la cantidad maxima", required = false)
     private Long quantityMax;
     @Schema(name = "timestamp", example = "1", description = "Indica la marca de tiempo", required = false)
-    private Date timestamp;
+    private ZonedDateTime timestamp;
     @Schema(name = "pallet", example = "1", description = "Indica el pallet", required = false)
     private Long pallet;
     @Schema(name = "box", example = "1", description = "Indica la caja", required = false)
@@ -51,7 +52,7 @@ public class BufferPositionDTO {
         this.zone = bufferPosition.getZone();
         this.quantity = bufferPosition.getQuantity();
         this.quantityMax = bufferPosition.getQuantityMax();
-        this.timestamp = bufferPosition.getTimestamp();
+        this.timestamp = ZonedDateTime.ofInstant(bufferPosition.getTimestamp().toInstant(), ZoneId.of("America/Bogota"));
         this.pallet = bufferPosition.getPallet();
         this.box = bufferPosition.getBox();
         this.partNumberGroup = bufferPosition.getPartNumberGroup();
@@ -137,15 +138,6 @@ public class BufferPositionDTO {
     public void setQuantityMax(Long quantityMax) {
         this.quantityMax = quantityMax;
     }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public Long getPallet() {
         return pallet;
     }
@@ -176,5 +168,13 @@ public class BufferPositionDTO {
 
     public void setBooked(Boolean booked) {
         this.booked = booked;
+    }
+
+    public ZonedDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

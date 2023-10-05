@@ -11,6 +11,7 @@ public class IndicatorAux {
         this.indicatorValue = indicatorValue;
     }
 
+    // Method left blank for object serialization/deserialization
     public IndicatorAux() {
     }
 

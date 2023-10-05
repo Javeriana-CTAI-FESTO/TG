@@ -1,5 +1,6 @@
 package co.edu.javeriana.tg.controllers.web;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,6 @@ import co.edu.javeriana.tg.entities.dtos.StepDefinitionDTO;
 import co.edu.javeriana.tg.entities.dtos.StepTimeDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanDTO;
 import co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO;
-import co.edu.javeriana.tg.entities.managed.Client;
 import co.edu.javeriana.tg.services.users.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -181,7 +181,7 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Metodo POST, dado un cliente (Client) como parametro, crea el cliente en el sistema")
     @PostMapping("/clients")
-    public ResponseEntity<ClientDTO> createClient(@RequestBody Client client) {
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO client) {
         ClientDTO clientDTO = null;
         HttpStatus status = HttpStatus.OK;
         try {
@@ -542,8 +542,8 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Obtiene todas las ordenes finalizadas, retorna una lista de Date en caso de que fue obtenido satisfactoriamente")
     @GetMapping("/orders/ends")
-    public ResponseEntity<List<Date>> getAllPlannedEnds() {
-        List<Date> workPlans = null;
+    public ResponseEntity<List<Map<Long,ZonedDateTime>>> getAllPlannedEnds() {
+        List<Map<Long,ZonedDateTime>> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         try {
             workPlans = adminService.getAllOrdersPlannedEnds();
@@ -552,7 +552,7 @@ public class AdminController {
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<List<Date>>(workPlans, status);
+        return new ResponseEntity<List<Map<Long,ZonedDateTime>>>(workPlans, status);
     }
 
     @Operation(summary = "Get all orders possible status", responses = {
