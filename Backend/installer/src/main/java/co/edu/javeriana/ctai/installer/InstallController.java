@@ -26,13 +26,22 @@ public class InstallController {
     private Label statusLabel;
 
     public void initialize() {
-        this.install = new Install();
-        statusLabel.setText("OS: " +
-                install.getOsName() +
-                "\nMain directory: " +
-                install.getMainDirectory() +
-                "\nCommand: " +
-                install.getMvnwCommand());
+        this.install = Install.getInstance();
+        if(install.isAppAlreadyRunning()){
+            statusLabel.setText("OS: " +
+                    install.getOsName() +
+                    "\nMain directory: " +
+                    install.getMainDirectory() +
+                    "\nCommand: " +
+                    install.getMvnwCommand());
+
+
+        }else {
+            System.out.println("Ya hay una instancia de la aplicación corriendo");
+            System.exit(0);
+        }
+
+
 
     }
 

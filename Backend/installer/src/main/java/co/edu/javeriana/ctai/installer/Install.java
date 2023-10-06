@@ -1,6 +1,7 @@
 package co.edu.javeriana.ctai.installer;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
@@ -9,6 +10,7 @@ import java.nio.file.Paths;
 public class Install {
 
     // Variables de instancia
+    private static Install instance;
     private final Path mainDirectory;
     private final String osName;
     private String mvnwCommand;
@@ -33,6 +35,13 @@ public class Install {
 
         // Ruta por defecto de la base de datos
         this.mes4DDBBpath = "FestoMES_be.accdb";
+    }
+
+    public static Install getInstance() {
+        if (instance == null) {
+            instance = new Install();
+        }
+        return instance;
     }
 
     // Obtener el nombre del sistema operativo
@@ -62,6 +71,23 @@ public class Install {
             System.out.println("Sistema operativo no compatible.");
         }
     }
+    public boolean isAppAlreadyRunning() {
+        Path lockFilePath = Paths.get(System.getProperty("user.home"), ".TG9.lock");
+        File lockFile = lockFilePath.toFile();
+
+        if (lockFile.exists()) {
+            return false;
+        } else {
+            try {
+                File lockFileCreated = new File(lockFilePath.toString());
+                lockFileCreated.createNewFile();
+                return true;
+            } catch (IOException e) {
+                System.out.println("Unable to create lock file");
+                return false;
+            }
+        }
+    }
 
     // Método para ejecutar la instalación
     public boolean exec() {
@@ -74,6 +100,7 @@ public class Install {
             return false;
         }
     }
+
 
     // Método para ejecutar el módulo de seguridad
     public void execSecurityModule() {
@@ -154,8 +181,14 @@ public class Install {
                 }
             }
         }
-
         reader.close();
+
+        // Eliminar el archivo de bloqueo
+        Path lockFilePath = Paths.get(System.getProperty("user.home"), ".TG9.lock");
+        File lockFile = lockFilePath.toFile();
+        if (lockFile.exists()) {
+            lockFile.delete();
+        }
     }
 
     // Método para obtener el proceso de listado de procesos según el sistema operativo
@@ -195,6 +228,8 @@ public class Install {
                 ProcessBuilder killProcessBuilder = new ProcessBuilder("kill", "-9", this.pidTgSecurity.toString());
                 killProcessBuilder.start();
                 System.out.println("Proceso detenido: " + this.pidTgSecurity.toString());
+
+
             } catch (IOException e) {
                 System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
@@ -204,6 +239,8 @@ public class Install {
                 ProcessBuilder killProcessBuilder = new ProcessBuilder("kill", "-9", this.pidTgFesto.toString());
                 killProcessBuilder.start();
                 System.out.println("Proceso detenido: " + this.pidTgFesto.toString());
+
+
             } catch (IOException e) {
                 System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
@@ -214,7 +251,7 @@ public class Install {
             try {
                 String pid = this.pidTgSecurity.toString();
                 // Crear el proceso de PowerShell
-                ProcessBuilder processBuilder = new ProcessBuilder(rutaPowerShell, "-Command", "Stop-Process","-Id",pid, "-Force");
+                ProcessBuilder processBuilder = new ProcessBuilder(rutaPowerShell, "-Command", "Stop-Process","-Id", pid , "-Force");
 
                 // Redirigir la salida estándar y la salida de errores
                 processBuilder.redirectErrorStream(true);
@@ -222,6 +259,8 @@ public class Install {
                 // Iniciar el proceso de PowerShell
                 processBuilder.start();
                 System.out.println("Proceso detenido W: " + pid);
+
+
             } catch (IOException e) {
                 System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
@@ -239,11 +278,14 @@ public class Install {
                 // Iniciar el proceso de PowerShell
                 processBuilder.start();
                 System.out.println("Proceso detenido W: " + this.pidTgFesto.toString());
+
+
             } catch (IOException e) {
                 System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
         }
-        System.out.println("Proceso detenido: " + pidActual);
+
+
     }
 
     // Establecer la ruta de la base de datos MES
