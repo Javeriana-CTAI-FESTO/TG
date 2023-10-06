@@ -1,9 +1,11 @@
 package co.edu.javeriana.ctai.installer;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -329,5 +331,36 @@ public class Install {
 
         // Iniciar el hilo
         executionThread.start();
+    }
+
+    // Método para ejecutar el navegador
+    public boolean navExE(){
+        String url = "http://localhost:4200"; // Reemplaza esto con la URL de la página que deseas abrir
+
+        try {
+            // Verifica si el soporte de escritorio está disponible
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+
+                // Asegúrate de que el navegador web predeterminado esté registrado en el sistema
+                if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                    // Abre la página web en el navegador predeterminado
+                    desktop.browse(new URI(url));
+                } else {
+                    System.out.println("El navegador web no está soportado en este sistema.");
+                }
+            } else {
+                System.out.println("La funcionalidad del escritorio no está soportada en este sistema.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    // Método para ejecutar el módulo de frontend
+    public boolean frontExE(){
+        return true;
     }
 }

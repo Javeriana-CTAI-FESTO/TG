@@ -68,6 +68,7 @@ public class InstallController {
                     install.getMvnwCommand() +
                     "\ntg-security: En linea"  +
                     "\ntg-festo: En linea");
+            install.navExE();
 
         } else {
             statusLabel.setText("OS: " +
