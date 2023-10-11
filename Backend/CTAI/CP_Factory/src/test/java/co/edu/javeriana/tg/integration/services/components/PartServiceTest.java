@@ -61,6 +61,8 @@ public class PartServiceTest {
     @Test
     public void testEmptyGetWorkPlanNumberByPart() {
         assertNull(partService.getWorkPlanNumberByPart(1l));
+        when(partRepository.findById(1l)).thenThrow(RuntimeException.class);
+        assertNull(partService.getWorkPlanNumberByPart(1l));
     }
 
     @Test

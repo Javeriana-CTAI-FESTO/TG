@@ -200,7 +200,7 @@
 							<failOnIssues>false</failOnIssues>
 							<apiToken>${env.SNYK_TOKEN}</apiToken>
 							<args>
-								<arg>--severity-threshold=critical</arg>
+								<arg>--severity-threshold=low</arg>
 							</args>
 						</configuration>
 					</plugin>
