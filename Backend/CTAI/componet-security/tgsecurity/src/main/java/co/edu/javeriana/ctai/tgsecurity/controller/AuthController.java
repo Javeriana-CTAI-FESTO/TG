@@ -47,8 +47,8 @@ public class AuthController {
     @Autowired
     private IClientService clientService;
 
-    @Autowired
-    private MailService mailService;
+    //@Autowired
+    //private MailService mailService;
 
     private final PasswordEncoder encoder;
     private final JwtTokenUtil jwtTokenUtil;
@@ -83,12 +83,14 @@ public class AuthController {
         String jwt = jwtTokenUtil.generateJwtToken(authentication);
         Cliente cliente = clientService.findByUsuario(userRepository.findByUsername(username).get());
 
-        mailService.sendEmail("soportequickparked@gmail.com", cliente.getCorreoElectronico(),
-                " TG9 CTAI-FESTO Login ","! Hola "+   cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase()
-                        + ", Bienvenido a TG9 CTAI-FESTO !"
-                        + "\n\n"
-                        + " -> TOKEN: TG9" + cliente.hashCode()
-        );
+        /**
+         mailService.sendEmail("soportequickparked@gmail.com", cliente.getCorreoElectronico(),
+         " TG9 CTAI-FESTO Login ","! Hola "+   cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase()
+         + ", Bienvenido a TG9 CTAI-FESTO !"
+         + "\n\n"
+         + " -> TOKEN: TG9" + cliente.hashCode()
+         );
+         */
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
@@ -139,20 +141,23 @@ public class AuthController {
                         .setAdmin(signUpRequest.isAdmin())
                         .setEstudiante(signUpRequest.isStudent())
                         .setProfesor(signUpRequest.isTeacher())
+                        .setComprador(signUpRequest.isComprador())
                         .build();
 
                 clientService.save(cliente);
 
-                mailService.sendEmail("soportequickparked@gmail.com", cliente.getCorreoElectronico(),
-                        " TG9 CTAI-FESTO Login ","! Hola "+   cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase()
-                                + ", Bienvenido a TG9 CTAI-FESTO !"
-                                + "\n\n"
-                                + " -> TOKEN: TG9" + cliente.hashCode()
-                                + "\n\n"
-                                + " -> USUARIO: " + cliente.getUsuario().getUsername()
-                                + "\n\n"
-                                + " -> CONTRASEÑA: " + Base64.getEncoder().encodeToString(signUpRequest.getPassword().getBytes()) + " (CODIFICADA)"
-                );
+                /**
+                 mailService.sendEmail("soportequickparked@gmail.com", cliente.getCorreoElectronico(),
+                 " TG9 CTAI-FESTO Login ","! Hola "+   cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase()
+                 + ", Bienvenido a TG9 CTAI-FESTO !"
+                 + "\n\n"
+                 + " -> TOKEN: TG9" + cliente.hashCode()
+                 + "\n\n"
+                 + " -> USUARIO: " + cliente.getUsuario().getUsername()
+                 + "\n\n"
+                 + " -> CONTRASEÑA: " + Base64.getEncoder().encodeToString(signUpRequest.getPassword().getBytes()) + " (CODIFICADA)"
+                 );
+                 */
             }
 
         }

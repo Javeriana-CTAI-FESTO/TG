@@ -65,6 +65,8 @@ public class GetController {
                     role = "profesor";
                 } else if (cliente.isEstudiante()) {
                     role = "estudiante";
+                }else if (cliente.isComprador()) {
+                    role = "comprador";
                 } else {
                     role = "cliente";
                 }

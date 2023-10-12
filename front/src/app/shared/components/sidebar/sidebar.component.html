@@ -13,7 +13,13 @@
         <mat-icon>dashboard</mat-icon>
         Dashboard
     </a>
-    <div *ngIf="rol !== 'Estudiante'">
+    <div *ngIf="rol == 'Comprador'">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/buy">
+            <mat-icon>attach_money</mat-icon>
+            Buy
+        </a>
+    </div>
+    <div *ngIf="rol !== 'Estudiante' && rol !== 'Comprador'">
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/resources">
             <mat-icon>settings</mat-icon>
             Resources

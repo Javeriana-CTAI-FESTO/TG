@@ -22,7 +22,8 @@ export class LoginComponent {
     phone: 0,
     admin: false,
     student: false,
-    teacher: false
+    teacher: false,
+    comprador: false
   };
   
   constructor(private loginService: LoginService, private router: Router, private toastr: ToastrService) {}

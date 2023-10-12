@@ -18,8 +18,8 @@ export class CardComponent implements OnInit {
 
   @Output() dataChanged = new EventEmitter<string>();
 
-  cards: { id: number, idworkPlan: number, title: string, OrderNumber: string, imageUrl: string }[] = [];
-  filteredCards: { id: number, idworkPlan: number, title: string, OrderNumber: string, imageUrl: string }[] = [];
+  cards: { id: number, idworkPlan: number, title: string, OrderNumber: string}[] = [];
+  filteredCards: { id: number, idworkPlan: number, title: string, OrderNumber: string}[] = [];
   searchTerm: string = '';
 
   constructor(
@@ -43,8 +43,7 @@ export class CardComponent implements OnInit {
             id: order.id_part,
             idworkPlan: order.id_workPlan,
             title: order.title,
-            OrderNumber: order.orderNumber,
-            imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+            OrderNumber: order.orderNumber          
           });
         });
         this.filteredCards = this.cards;
@@ -68,8 +67,7 @@ export class CardComponent implements OnInit {
             id: card.id,
             idworkPlan: card.idworkPlan,
             title: card.title,
-            OrderNumber: card.OrderNumber,
-            imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
+            OrderNumber: card.OrderNumber
           });
         });
         this.filteredCards = this.cards;

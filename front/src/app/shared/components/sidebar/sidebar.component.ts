@@ -15,15 +15,14 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.loginService.getUsername();
     this.rol = this.loginService.getRole();
-    if (this.rol === 'admin') {
-      this.rol = 'Administrador';
-    }
-    if (this.rol === 'estudiante') {
-      this.rol = 'Estudiante';
-    }
-    if (this.rol === 'profesor') {
-      this.rol = 'Profesor';
-    }
-
+  
+    const roleMap: Record<string, string> = {
+      'admin': 'Administrador',
+      'estudiante': 'Estudiante',
+      'profesor': 'Profesor',
+      'comprador': 'Comprador'
+    };
+  
+    this.rol = roleMap[this.rol] || this.rol;
   }
 }

@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ResourcesComponent } from 'src/app/modules/resources/resources.component';
 import { MatTableModule } from '@angular/material/table';
 import { ReportsComponent } from 'src/app/modules/reports/reports.component';
+import { BuyComponent } from 'src/app/modules/buy/buy.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ReportsComponent } from 'src/app/modules/reports/reports.component';
     ListComponent,
     PartsComponent,
     ResourcesComponent,
-    ReportsComponent
+    ReportsComponent,
+    BuyComponent
   ],
   imports: [
     CommonModule,

@@ -18,7 +18,8 @@ export class CreateComponent {
     phone: 0,
     admin: false,
     student: false,
-    teacher: false
+    teacher: false,
+    comprador: false
   };
 
   selected = '';
@@ -31,6 +32,8 @@ export class CreateComponent {
       this.registerData.teacher = true;
     }else if (this.selected == 'Student'){
       this.registerData.student = true;
+    }else if (this.selected == 'Comprador'){
+      this.registerData.comprador = true;
     }
   
     this.loginService.register(this.registerData).subscribe(response => {
@@ -39,7 +42,6 @@ export class CreateComponent {
       this.toastr.error(error.error.message);
     });
   
-    // Reiniciar los valores del formulario
     this.registerData = {
       username: '',
       password: '',
@@ -50,7 +52,8 @@ export class CreateComponent {
       phone: 0,
       admin: false,
       student: false,
-      teacher: false
+      teacher: false,
+      comprador: false,
     };
     this.selected = '';
   }

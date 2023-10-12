@@ -17,13 +17,12 @@
             <div class="product-stripe">
                 <div [ngClass]="{'stripe-container': filteredCards.length > 0}">
                     <div *ngFor="let card of filteredCards" class="card" style="height: 25rem;">
-                        <img [src]="card.imageUrl" class="card-img-top" style="height: 200px;" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">{{ card.title }}</h5>
+                            <h5 class="card-title">{{ card.title }}</h5> 
                             <span class="badge bg-primary">id: {{ card.id }}</span>
                             <br>
                             <span class="badge bg-primary">Order Number: {{ card.OrderNumber }}</span>
-                            <br><br>
+                            <br><br><br> 
                             <div class="d-flex flex-column">
                                 <div class="d-flex flex-column">
                                     <button type="button" class="btn btn-primary "(click)="sendData(card.OrderNumber)">Progress</button>

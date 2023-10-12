@@ -21,4 +21,5 @@ public class RegisterRequest {
     private boolean admin;
     private boolean student;
     private boolean teacher;
+    private boolean comprador;
 }

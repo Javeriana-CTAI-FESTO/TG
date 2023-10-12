@@ -19,6 +19,7 @@ export interface RegisterData {
   admin: boolean;
   student: boolean;
   teacher: boolean;
+  comprador: boolean;
 }
 
 @Injectable({
