@@ -28,7 +28,6 @@ const routes: Routes = [{
   }, {
     path: 'help',
     component: HelpComponent,
-    canActivate: [RoleGuard]
   }, {
     path: 'list',
     component: ListComponent,
