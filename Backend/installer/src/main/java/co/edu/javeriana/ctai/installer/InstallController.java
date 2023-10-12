@@ -26,7 +26,11 @@ public class InstallController {
     private Label statusLabel;
 
     public void initialize() {
+
+        //Singleton de la calse install
         this.install = Install.getInstance();
+
+        // Verifica para no permitir dobles instancias.
         if(install.isAppAlreadyRunning()){
             statusLabel.setText("OS: " +
                     install.getOsName() +
@@ -37,6 +41,7 @@ public class InstallController {
 
 
         }else {
+            //En caso que no sea posible levantar el servicio por que hay una instancia corriendo.
             System.out.println("Ya hay una instancia de la aplicación corriendo");
             System.exit(0);
         }
@@ -47,7 +52,11 @@ public class InstallController {
 
     @FXML
     void onExitButtonClick(ActionEvent event) throws IOException {
-       //install.detenerProceso();
+
+        //Elimina el archivo de bloqueo
+        install.blockFileDelete();
+
+        //Detiene los procesos TG ejecutados
         install.stopOlds("tg-0.0.1-SNAPSHOT.jar");
         install.stopOlds("tgsecurity-0.0.1-SNAPSHOT.jar");
         System.exit(0);
@@ -55,9 +64,12 @@ public class InstallController {
 
     @FXML
     void runButtonAction(ActionEvent event) throws IOException {
+
+        //Detiene los procesos TG ejecutados
         install.stopOlds("tgsecurity-0.0.1-SNAPSHOT.jar");
         install.stopOlds("tg-0.0.1-SNAPSHOT.jar");
 
+        // Inicia ejecución de los procesos TG
         if (install.exec()){
             install.runTgfestoModule();
             statusLabel.setText("OS: " +
@@ -68,6 +80,8 @@ public class InstallController {
                     install.getMvnwCommand() +
                     "\ntg-security: En linea"  +
                     "\ntg-festo: En linea");
+
+            // Inica Shortcut para abrir el frondEnd
             install.navExE();
 
         } else {

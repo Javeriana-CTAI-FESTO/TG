@@ -18,6 +18,7 @@ public class ClienteBuilder {
     private boolean admin;
     private boolean estudiante;
     private boolean profesor;
+    private boolean comprador;
     private List<Order> orders = new ArrayList<>(); // Inicializa la lista de órdenes como vacía por defecto
 
     public ClienteBuilder setUsuario(User usuario) {
@@ -65,13 +66,18 @@ public class ClienteBuilder {
         return this;
     }
 
+    public ClienteBuilder setComprador(boolean comprador){
+        this.comprador = comprador;
+        return this;
+    }
+
     public ClienteBuilder addOrder(Order order) {
         this.orders.add(order);
         return this;
     }
 
     public Cliente build() {
-        Cliente cliente = new Cliente(usuario, nombre, apellido, identificacion, celular, correoElectronico, admin, estudiante, profesor);
+        Cliente cliente = new Cliente(usuario, nombre, apellido, identificacion, celular, correoElectronico, admin, estudiante, profesor, comprador);
         cliente.setOrders(orders);
         return cliente;
     }

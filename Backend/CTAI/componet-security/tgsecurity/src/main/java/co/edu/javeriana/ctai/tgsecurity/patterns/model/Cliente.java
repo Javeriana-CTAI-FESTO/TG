@@ -48,10 +48,13 @@ public class Cliente {
     @Column(name = "profesor")
     private boolean profesor;
 
+    @Column(name = "comprador")
+    private boolean comprador;
+
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public Cliente(User usuario, String nombre, String apellido, Long identificacion, Long celular, String correoElectronico, boolean admin, boolean estudiante, boolean profesor) {
+    public Cliente(User usuario, String nombre, String apellido, Long identificacion, Long celular, String correoElectronico, boolean admin, boolean estudiante, boolean profesor, boolean comprador) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -61,6 +64,7 @@ public class Cliente {
         this.admin = admin;
         this.estudiante = estudiante;
         this.profesor = profesor;
+        this.comprador = comprador;
     }
 
     @Override

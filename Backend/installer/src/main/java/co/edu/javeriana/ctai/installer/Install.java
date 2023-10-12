@@ -1,6 +1,15 @@
 package co.edu.javeriana.ctai.installer;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.Writer;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +17,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Install {
 
@@ -79,14 +91,26 @@ public class Install {
 
         if (lockFile.exists()) {
             return false;
+
         } else {
             try {
                 File lockFileCreated = new File(lockFilePath.toString());
-                lockFileCreated.createNewFile();
-                return true;
+                return lockFileCreated.createNewFile();
             } catch (IOException e) {
-                System.out.println("Unable to create lock file");
+                System.out.println("Fallo en crear el archivo de bloqueo");
                 return false;
+            }
+        }
+    }
+
+    public void blockFileDelete(){
+        // Eliminar el archivo de bloqueo
+        Path lockFilePath = Paths.get(System.getProperty("user.home"), ".TG9.lock");
+        File lockFile = lockFilePath.toFile();
+
+        if (lockFile.exists()) {
+            if (lockFile.delete()){
+                System.out.println(".TG9.lock Eliminado");
             }
         }
     }
@@ -102,7 +126,6 @@ public class Install {
             return false;
         }
     }
-
 
     // Método para ejecutar el módulo de seguridad
     public void execSecurityModule() {
@@ -162,6 +185,7 @@ public class Install {
 
     // Método para detener procesos antiguos
     public void stopOlds(String processName) throws IOException {
+
         Process proceso = getProceso();
         String line;
         BufferedReader reader = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
@@ -184,13 +208,6 @@ public class Install {
             }
         }
         reader.close();
-
-        // Eliminar el archivo de bloqueo
-        Path lockFilePath = Paths.get(System.getProperty("user.home"), ".TG9.lock");
-        File lockFile = lockFilePath.toFile();
-        if (lockFile.exists()) {
-            lockFile.delete();
-        }
     }
 
     // Método para obtener el proceso de listado de procesos según el sistema operativo
@@ -218,6 +235,7 @@ public class Install {
 
     // Método para detener procesos
     public void stopProcesses() {
+
         // Ruta completa al ejecutable de PowerShell (solo para Windows)
         String rutaPowerShell = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
 
@@ -286,8 +304,6 @@ public class Install {
                 System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
         }
-
-
     }
 
     // Establecer la ruta de la base de datos MES
@@ -297,7 +313,8 @@ public class Install {
 
     // Ejecutar el módulo de FESTO
     public void runTgfestoModule() {
-        // Definir las rutas a los directorios de los módulos
+
+        // Extraer Ruta de modulo tg
         String festoModule = this.mainDirectory.resolve("Backend").resolve("CTAI").resolve("Festo").resolve("target").resolve("tg-0.0.1-SNAPSHOT.jar").toString();
 
         // Comando para ejecutar el módulo JAR
@@ -306,18 +323,18 @@ public class Install {
         // Iniciar el proceso en un hilo aparte
         Thread executionThread = new Thread(() -> {
             try {
-                // Crear el proceso
+                // Crear el proceso para ejecutar modulo tg
                 ProcessBuilder processBuilder = new ProcessBuilder(runComandSecurityModule);
-
+                // Seteando las variables de entorno correspondientes al modulo tg
                 processBuilder.environment().put("DATABASE_FILE", this.mes4DDBBpath);
 
-                // Iniciar el proceso
+                // Iniciar el proceso del modulo tg
                 Process process = processBuilder.start();
                 this.pidTgFesto = process.pid();
                 System.out.println("Modulo FESTO. Encendido Codigo ");
                 printProcess(process);
 
-                // Esperar a que el proceso secundario finalice
+                // Esperar a que el proceso que ejecuta el modulo tg finalice
                 int exitCode = process.waitFor();
                 System.out.println("Modulo FESTO. DETENIDO Codigo: " + exitCode);
 
@@ -329,20 +346,55 @@ public class Install {
             }
         });
 
-        // Iniciar el hilo
+        // Iniciar el hilo que ejecuta procesos tg
         executionThread.start();
     }
 
-    // Método para ejecutar el navegador
-    public boolean navExE(){
-        String url = "http://localhost:4200"; // Reemplaza esto con la URL de la página que deseas abrir
+    // Método para ejecutar el módulo de frontend
+    public boolean frontExE(){
 
+        String exePath = this.mainDirectory.resolve("Frontend").resolve("nginx.exe").toString();
+
+        //Ejecución solo para Windows
+        if(Objects.equals(this.osName, "win")){
+            // Comando para ejecutar el archivo .exe usando PowerShell
+            String rutaPowerShell = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
+            String powerShellCommand = "Start-Process -FilePath \"" + exePath + "\"";
+
+
+            try {
+                // Crear un proceso de PowerShell
+                ProcessBuilder processBuilder = new ProcessBuilder(rutaPowerShell, "-Command", powerShellCommand);
+                processBuilder.redirectErrorStream(true);
+
+                processBuilder.start();
+                System.out.println("Modulo Frondend: En linea");
+
+            } catch (IOException e) {
+                System.out.println("Modulo Frondend: Fallindo");
+                return false;
+            }
+        }else {
+            System.out.println("Es mAc :( no se pude");
+        }
+
+        return true;
+    }
+
+    // Método para ejecutar el navegador
+    public void navExE(){
+        // Ejecutar Frondend
+        if(!frontExE()){
+            System.out.println("Error al ejecutar el Frondend.");
+        }
+
+        String url = "http://localhost:4200"; // Reemplaza esto con la URL de la página que deseas abrir
         try {
             // Verifica si el soporte de escritorio está disponible
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
 
-                // Asegúrate de que el navegador web predeterminado esté registrado en el sistema
+                // Asegúrar de que el navegador web predeterminado esté registrado en el sistema
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
                     // Abre la página web en el navegador predeterminado
                     desktop.browse(new URI(url));
@@ -352,15 +404,52 @@ public class Install {
             } else {
                 System.out.println("La funcionalidad del escritorio no está soportada en este sistema.");
             }
+
+            generateQRCode("NALA", "Nairobi2021", url, "qr.png");
+
+
+
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Shortcut de navegador Fallido");
         }
 
-        return true;
     }
 
-    // Método para ejecutar el módulo de frontend
-    public boolean frontExE(){
-        return true;
+
+    /**
+     * WIFI:S:CP-F-CO-Javeriana-5GHz;T:WPA2;P:robotino;;
+     * URL:https://localhost:4200
+     */
+    public static void generateQRCode(String wifiSSID, String wifiPassword, String websiteURL, String outputPath) {
+        try {
+            int width = 300;
+            int height = 300;
+
+            // Configurar la información de la red Wi-Fi y la URL
+            String wifiConfig = "WIFI:S:" + wifiSSID + ";T:WPA2;P:" + wifiPassword + ";;";
+            String urlConfig = "URL:" + websiteURL;
+            String combinedText = wifiConfig + "\n" + urlConfig;
+
+            Map<EncodeHintType, Object> hints = new HashMap<>();
+            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+            Writer writer = new QRCodeWriter();
+            BitMatrix bitMatrix = writer.encode(combinedText, BarcodeFormat.QR_CODE, width, height, hints);
+
+            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    image.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+                }
+            }
+
+            File outputFile = new File(outputPath);
+            ImageIO.write(image, "png", outputFile);
+
+            System.out.println("Código QR generado con éxito en " + outputPath);
+        } catch (Exception e) {
+            System.out.println("Código QR no generado");
+        }
     }
 }

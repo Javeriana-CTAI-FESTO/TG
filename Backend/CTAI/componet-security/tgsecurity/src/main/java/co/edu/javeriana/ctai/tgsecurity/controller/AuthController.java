@@ -141,6 +141,7 @@ public class AuthController {
                         .setAdmin(signUpRequest.isAdmin())
                         .setEstudiante(signUpRequest.isStudent())
                         .setProfesor(signUpRequest.isTeacher())
+                        .setComprador(signUpRequest.isComprador())
                         .build();
 
                 clientService.save(cliente);
