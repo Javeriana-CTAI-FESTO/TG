@@ -405,7 +405,7 @@ public class Install {
                 System.out.println("La funcionalidad del escritorio no está soportada en este sistema.");
             }
 
-            generateQRCode("NALA", "Nairobi2021", url, "qr.png");
+            generateQRImagesConcurrent("CP-F-CO-Javeriana-5GHz","robotino","https://localhost:4200","QR-WIFI.png","QR-URL.png" );
 
 
 
@@ -420,7 +420,7 @@ public class Install {
      * WIFI:S:CP-F-CO-Javeriana-5GHz;T:WPA2;P:robotino;;
      * URL:https://localhost:4200
      */
-    public static void generateQRCode(String wifiSSID, String wifiPassword, String websiteURL, String outputPath) {
+    public void generateQRCode(String wifiSSID, String wifiPassword, String websiteURL, String outputPath) {
         try {
             int width = 300;
             int height = 300;
@@ -428,14 +428,13 @@ public class Install {
             // Configurar la información de la red Wi-Fi y la URL
             String wifiConfig = "WIFI:S:" + wifiSSID + ";T:WPA2;P:" + wifiPassword + ";;";
             String urlConfig = "URL:" + websiteURL;
-            String combinedText = wifiConfig + "\n" + urlConfig;
 
             Map<EncodeHintType, Object> hints = new HashMap<>();
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 
             Writer writer = new QRCodeWriter();
-            BitMatrix bitMatrix = writer.encode(combinedText, BarcodeFormat.QR_CODE, width, height, hints);
+            BitMatrix bitMatrix = writer.encode(wifiSSID.isEmpty() ? urlConfig : wifiConfig, BarcodeFormat.QR_CODE, width, height, hints);
 
             BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             for (int x = 0; x < width; x++) {
@@ -450,6 +449,21 @@ public class Install {
             System.out.println("Código QR generado con éxito en " + outputPath);
         } catch (Exception e) {
             System.out.println("Código QR no generado");
+        }
+    }
+
+    public void generateQRImagesConcurrent(String wifiSSID, String wifiPassword, String websiteURL, String outputPath1, String outputPath2) {
+        Thread thread1 = new Thread(() -> generateQRCode(wifiSSID, wifiPassword, "", outputPath1));
+        Thread thread2 = new Thread(() -> generateQRCode("", "", websiteURL, outputPath2));
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            System.out.println("Falla en generacion QR");
         }
     }
 }
