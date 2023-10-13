@@ -4,19 +4,19 @@ import co.edu.javeriana.tg.entities.managed.Client;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ClientDTO {
-    @Schema(name = "Numero de cliente", example = "20271125", description = "Numero que representa un cliente en el sistema", required = true)
+    @Schema(name = "clientNumber", example = "20271125", description = "Numero que representa un cliente en el sistema", required = true)
     private Long clientNumber;
-    @Schema(name = "Nombre", example = "Juan", description = "Nombre del cliente", required = true)
+    @Schema(name = "nombre", example = "Juan", description = "Nombre del cliente", required = true)
     private String firstName;
-    @Schema(name = "Apellido", example = "Perez", description = "Apellido del cliente", required = true)
+    @Schema(name = "apellido", example = "Perez", description = "Apellido del cliente", required = true)
     private String lastName;
-    @Schema(name = "Direccion", example = "Calle falsa 123", description = "Direccion del cliente", required = true)
+    @Schema(name = "direccion", example = "Calle falsa 123", description = "Direccion del cliente", required = true)
     private String address;
-    @Schema(name = "Telefono", example = "3192752726", description = "Telefono del cliente", required = true)
+    @Schema(name = "telefono", example = "3192752726", description = "Telefono del cliente", required = true)
     private String phone;
-    @Schema(name = "Email", example = "q6m9Q@example.com", description = "Email del cliente", required = true)
+    @Schema(name = "email", example = "q6m9Q@example.com", description = "Email del cliente", required = true)
     private String email;
-    @Schema(name = "Empresa", example = "Javeriana", description = "Empresa del cliente", required = true)
+    @Schema(name = "empresa", example = "Javeriana", description = "Empresa del cliente", required = true)
     private String company;
 
     public ClientDTO() {
