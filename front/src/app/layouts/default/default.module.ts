@@ -22,6 +22,8 @@ import { ResourcesComponent } from 'src/app/modules/resources/resources.componen
 import { MatTableModule } from '@angular/material/table';
 import { ReportsComponent } from 'src/app/modules/reports/reports.component';
 import { BuyComponent } from 'src/app/modules/buy/buy.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { BuyComponent } from 'src/app/modules/buy/buy.component';
     MatMenuModule,
     FormsModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     DashboardService

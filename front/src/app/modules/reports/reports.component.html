@@ -7,7 +7,7 @@
     <div style="background-color: #FFFFFF;">
         <h2 style="text-align: center;">List of Reports</h2>
 
-        <input class="filter-input" style="width: 100%;" placeholder="Filter" (keyup)="applyFilter($event)">
+        <input class="filter-input form-control" style="width: 100%;" placeholder="Filter" (keyup)="applyFilter($event)">
     </div>
     <table mat-table [dataSource]="dataSource">
 
@@ -51,7 +51,7 @@
 <div class="mat-elevation-z8 ">
     <div style="background-color: #FFFFFF;">
         <h2 style="text-align: center;">List of Reports Fails</h2>
-        <input class="filter-input" style="width: 100%;" placeholder="Filter" (keyup)="applyFailFilter($event)">
+        <input class="filter-input form-control" style="width: 100%;" placeholder="Filter" (keyup)="applyFailFilter($event)">
     </div>
     <table mat-table [dataSource]="failDataSource">
 

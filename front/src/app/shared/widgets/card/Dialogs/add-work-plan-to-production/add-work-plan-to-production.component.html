@@ -6,13 +6,20 @@
     <mat-form-field>
         <mat-label>Select a part</mat-label>
         <mat-select [(ngModel)]="selectedPart">
-            <mat-option *ngFor="let workplan of parts" [value]="workplan">{{workplan.partNumber}}: {{workplan.description}}</mat-option>
+            <mat-option *ngFor="let workplan of parts" [value]="workplan">{{workplan.partNumber}}:
+                {{workplan.description}}</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
         <input matInput type="number" placeholder="Quantity" [(ngModel)]="quantity" name="quantity" required>
     </mat-form-field>
-    <button type="button" class="btn btn-primary" (click)="addPart()">Add</button>
+    <div mat-dialog-actions class="d-flex align-items-center">
+        <button type="button" class="btn btn-primary" (click)="addPart()"
+            [disabled]="!selectedPart || quantity <= 0 || isLoading">Add</button>
+        <div class="spinner-border text-primary ml-2" role="status" *ngIf="isLoading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
 </div>
 <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">

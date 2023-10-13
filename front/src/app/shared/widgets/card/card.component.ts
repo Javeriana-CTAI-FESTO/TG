@@ -15,6 +15,7 @@ import { LoginService } from 'src/app/login/login.service';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
+  rol: string = '';
 
   @Output() dataChanged = new EventEmitter<string>();
 
@@ -49,6 +50,8 @@ export class CardComponent implements OnInit {
         this.filteredCards = this.cards;
       });
     });
+    this.rol=this.loginService.getRole();
+    console.log(this.rol);
   }
 
   openAddDialog() {

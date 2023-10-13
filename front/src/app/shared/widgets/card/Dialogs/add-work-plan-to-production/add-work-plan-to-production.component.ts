@@ -11,6 +11,8 @@ import { LoginService } from 'src/app/login/login.service';
   styleUrls: ['./add-work-plan-to-production.component.css']
 })
 export class AddWorkPlanToProductionComponent implements OnInit {
+  isLoading = false;
+
   selectedPart: Part | undefined;
   parts: Part[] = [];
   quantity = 0;
@@ -33,11 +35,8 @@ export class AddWorkPlanToProductionComponent implements OnInit {
       }
     );
   }
-
-  
-
-
   addPart(): void {
+    this.isLoading = true;
     const part = this.selectedPart;
     const quantity = this.quantity;
     const startingId = this.cards.length;
@@ -69,6 +68,7 @@ export class AddWorkPlanToProductionComponent implements OnInit {
             });
         } else {
           this.dialogRef.close(this.cards);
+          this.isLoading = false;
         }
       };
       placeOrder();

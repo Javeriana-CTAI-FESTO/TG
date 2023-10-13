@@ -25,7 +25,6 @@ export class GanttComponent implements OnInit, OnChanges {
   }
 
   updateChartOptions(data: any[]): void {
-    console.log('data', data);
     this.chartOptions = {
       title: {
         text: "Orders Ends"
