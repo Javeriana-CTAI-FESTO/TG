@@ -350,7 +350,7 @@ public class Install {
     }
     public void killFrond(){
         if (this.osName.contains("win")) {
-            String exePath = this.mainDirectory.resolve("Frontend").resolve("nginx.exe").toFile().toString();
+            String exePath = this.mainDirectory.resolve("nginx-1.25.2").resolve("nginx.exe").toFile().toString();
 
             // Detener el proceso existente si está en ejecución
             tools.stopProcess(exePath);
@@ -363,6 +363,30 @@ public class Install {
             }
 
             System.out.println("Proceso FronEnd Pausado");
+        } else {
+            System.out.println("No es Windows, no se puede reiniciar el proceso.");
+        }
+    }
+
+    public void killFronEndµ(){
+        if (this.osName.contains("win")) {
+
+            String exePath = this.mainDirectory.resolve("nginx-1.25.2").toAbsolutePath().toString();
+
+            // Detener el proceso existente si está en ejecución
+            tools.runCmdCommand("cd "+ exePath +" && nginx -s stop");
+
+            // Esperar un tiempo prudencial para que el proceso se cierre completamente
+            try {
+                Thread.sleep(5000); // Esperar 5 segundos (ajusta según tus necesidades)
+            } catch (InterruptedException e) {
+                System.out.println("O");
+            }
+            System.out.println("Proceso FronEnd Pausado");
+
+            tools.runCmdCommand("cd "+ exePath +" && nginx");
+
+
         } else {
             System.out.println("No es Windows, no se puede reiniciar el proceso.");
         }
