@@ -121,7 +121,7 @@ public class InstallController {
              * WIFI:S:CP-F-CO-Javeriana-5GHz;T:WPA2;P:robotino;;
              * URL:https://localhost:4200
              */
-            install.generateQRImagesConcurrent("CP-F-CO-Javeriana-5GHz","robotino",
+            install.getTools().generateQRImagesConcurrent("CP-F-CO-Javeriana-5GHz","robotino",
                     "https://localhost:4200", "QR-Wifi.png", "QR-Url.png");
 
             statusLabel.setText("OS: " +
