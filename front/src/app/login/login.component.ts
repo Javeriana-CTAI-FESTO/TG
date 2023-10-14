@@ -45,7 +45,6 @@ export class LoginComponent {
   
 
   onRegister() {
-    console.log("si");
     if(this.selected == 'Buyer'){
       this.registerData.comprador= true;
     }else if(this.selected == 'Student'){

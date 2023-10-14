@@ -10,7 +10,7 @@
   <div *ngIf="steps.length === 0">
     No steps
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" style="max-height: 60vh; overflow-y: auto;">
     <div *ngFor="let step of steps; let i = index" class="col-12 col-sm-6 col-md-4 mt-2">
       <div class="card p-4">
         <div class="card-title">
@@ -46,6 +46,7 @@
           <br>
           <label><strong>Compress Air:</strong></label>
           <span class="card-text">{{ step.calculatedCompressedAir }}</span>
+          <br><br>
         </div>
         <button mat-icon-button mat-dialog-close (click)="step.showDetails = !step.showDetails">
           <mat-icon>{{ step.showDetails ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
