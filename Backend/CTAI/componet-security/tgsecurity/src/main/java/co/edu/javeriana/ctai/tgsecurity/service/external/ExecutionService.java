@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
  */
 @Service
 public class ExecutionService {
-    @Value("${rutaModuloJar}") // Lee la ruta del módulo JAR desde la configuración (application.properties o application.yml)
+   // @Value("${rutaModuloJar}") // Lee la ruta del módulo JAR desde la configuración (application.properties o application.yml)
     private String rutaModuloJar;
 
     /**

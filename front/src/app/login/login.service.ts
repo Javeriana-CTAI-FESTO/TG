@@ -14,8 +14,8 @@ export interface RegisterData {
   name: string;
   lastName: string;
   email: string;
-  identification: number;
-  phone: number;
+  identification: number | null;
+  phone: number | null;
   admin: boolean;
   student: boolean;
   teacher: boolean;
@@ -26,7 +26,7 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class LoginService {
-  private urlBase='https://localhost:8443/api/'
+  private urlBase='http://localhost:8081/api/'
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -1,18 +1,15 @@
 package co.edu.javeriana.ctai.tgsecurity.controller;
 
 import co.edu.javeriana.ctai.tgsecurity.patterns.builder.ClienteBuilder;
+import co.edu.javeriana.ctai.tgsecurity.patterns.builder.UserBuilder;
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.patterns.model.User;
-
-import co.edu.javeriana.ctai.tgsecurity.patterns.builder.UserBuilder;
 import co.edu.javeriana.ctai.tgsecurity.repository.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.MessageResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.RegisterRequest;
-import co.edu.javeriana.ctai.tgsecurity.service.imp.MailService;
 import co.edu.javeriana.ctai.tgsecurity.service.intf.IClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +18,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 
 /**
  * Controlador para llevar a cabo la autenticación utilizando JWT
- *
+ * <p>
  * Se utiliza AuthenticationManager para autenticar las credenciales que son el
  * usuario y password que llegan por POST en el cuerpo de la petición
- *
+ * <p>
  * Si las credenciales son válidas se genera un token JWT como respuesta
  */
 
@@ -43,9 +43,7 @@ public class AuthController {
 
     private final AuthenticationManager authManager;
     private final IUserRepository userRepository;
-    @Qualifier("clientServiceImp")
-    @Autowired
-    private IClientService clientService;
+    private final IClientService clientService;
 
     //@Autowired
     //private MailService mailService;
@@ -56,11 +54,12 @@ public class AuthController {
     public AuthController(AuthenticationManager authManager,
                           IUserRepository userRepository,
                           PasswordEncoder encoder,
-                          JwtTokenUtil jwtTokenUtil) {
+                          JwtTokenUtil jwtTokenUtil, @Qualifier("clientServiceImp") IClientService clientService) {
         this.authManager = authManager;
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.clientService = clientService;
     }
 
     @PostMapping("/login")
@@ -81,9 +80,8 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenUtil.generateJwtToken(authentication);
-        Cliente cliente = clientService.findByUsuario(userRepository.findByUsername(username).get());
 
-        /**
+        /*
          mailService.sendEmail("soportequickparked@gmail.com", cliente.getCorreoElectronico(),
          " TG9 CTAI-FESTO Login ","! Hola "+   cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase()
          + ", Bienvenido a TG9 CTAI-FESTO !"
@@ -146,7 +144,7 @@ public class AuthController {
 
                 clientService.save(cliente);
 
-                /**
+                /*
                  mailService.sendEmail("soportequickparked@gmail.com", cliente.getCorreoElectronico(),
                  " TG9 CTAI-FESTO Login ","! Hola "+   cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase()
                  + ", Bienvenido a TG9 CTAI-FESTO !"

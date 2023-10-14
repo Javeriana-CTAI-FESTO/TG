@@ -51,7 +51,6 @@ export class CardComponent implements OnInit {
       });
     });
     this.rol=this.loginService.getRole();
-    console.log(this.rol);
   }
 
   openAddDialog() {
