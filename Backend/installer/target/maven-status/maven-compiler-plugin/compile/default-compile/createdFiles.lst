@@ -1,1 +1,6 @@
+co/edu/javeriana/ctai/installer/InstallController.class
 module-info.class
+co/edu/javeriana/ctai/installer/Install.class
+co/edu/javeriana/ctai/installer/Tools.class
+co/edu/javeriana/ctai/installer/Main.class
+co/edu/javeriana/ctai/installer/HelloApplication.class

@@ -19,7 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Install {
 
@@ -34,11 +33,15 @@ public class Install {
     private Long pidTgSecurity;
     private Long pidTgFesto;
 
+    private final Tools tools;
+
     // Constructor
     public Install() {
         // Detectar sistema operativo
         System.out.println("Sistema operativo: " + System.getProperty("os.name"));
         this.osName = System.getProperty("os.name").toLowerCase();
+
+         this.tools = Tools.getInstance();
 
         // Directorio de trabajo actual
         System.out.println("Directorio de trabajo: " + System.getProperty("user.dir"));
@@ -114,19 +117,6 @@ public class Install {
             }
         }
     }
-
-    // Método para ejecutar la instalación
-    public boolean exec() {
-        if (this.mainDirectory.endsWith("TG")) {
-            System.out.println("Ejecutando instalador...");
-            execSecurityModule();
-            return true;
-        } else {
-            System.out.println("No se encuentra en el directorio raíz del proyecto.");
-            return false;
-        }
-    }
-
     // Método para ejecutar el módulo de seguridad
     public void execSecurityModule() {
         // Ruta del archivo JAR del módulo de seguridad
@@ -141,14 +131,6 @@ public class Install {
             try {
                 // Crear el proceso
                 ProcessBuilder processBuilder = new ProcessBuilder(runComandSecurityModule);
-
-                // Configurar variables de entorno
-                Path variableEntornoRUTA_MODULO_JAR = this.mainDirectory.resolve("Backend").resolve("CTAI").resolve("Festo").resolve("target").resolve("tg-0.0.1-SNAPSHOT.jar");
-                Path variableEntornoSERVER_P12 = this.mainDirectory.resolve("Backend").resolve("CTAI").resolve("componet-security").resolve("server.p12");
-
-                processBuilder.environment().put("RUTA_MODULO_JAR", variableEntornoRUTA_MODULO_JAR.toString());
-                processBuilder.environment().put("SERVER_P12", variableEntornoSERVER_P12.toString());
-                processBuilder.environment().put("DATABASE_FILE", this.mes4DDBBpath);
 
                 // Iniciar el proceso
                 Process process = processBuilder.start();
@@ -174,6 +156,8 @@ public class Install {
         executionThread.start();
     }
 
+
+
     // Método para imprimir la salida de un proceso
     public void printProcess(Process p) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -197,13 +181,13 @@ public class Install {
                     pidTgSecurity = pid;
                     pidTgFesto = pid;
                     stopProcesses();
-                    System.out.println("kill tgsecurity" + pid);
+                    System.out.println("kill tgsecurity-0.0.1-SNAPSHOT.jar " + pid);
                 }
                 if (processName.equals("tg-0.0.1-SNAPSHOT.jar") || processName.equals("Process")) {
                     pidTgFesto = pid;
                     pidTgSecurity = pid;
                     stopProcesses();
-                    System.out.println("kill tg-0.0.1-SNAPSHOT.jar" + pid);
+                    System.out.println("kill tg-0.0.1-SNAPSHOT.jar " + pid);
                 }
             }
         }
@@ -304,6 +288,27 @@ public class Install {
                 System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
         }
+
+    }
+
+    public void killFrond(){
+        if (this.osName.contains("win")) {
+            String exePath = this.mainDirectory.resolve("Frontend").resolve(".\\nginx.exe").toFile().toString();
+
+            // Detener el proceso existente si está en ejecución
+            tools.stopProcess(exePath);
+
+            // Esperar un tiempo prudencial para que el proceso se cierre completamente
+            try {
+                Thread.sleep(5000); // Esperar 5 segundos (ajusta según tus necesidades)
+            } catch (InterruptedException e) {
+                System.out.println("O");
+            }
+
+            System.out.println("Proceso FronEnd Pausado");
+        } else {
+            System.out.println("No es Windows, no se puede reiniciar el proceso.");
+        }
     }
 
     // Establecer la ruta de la base de datos MES
@@ -353,32 +358,30 @@ public class Install {
     // Método para ejecutar el módulo de frontend
     public boolean frontExE(){
 
-        String exePath = this.mainDirectory.resolve("Frontend").resolve("nginx.exe").toString();
+        if (this.osName.contains("win")) {
+            String exePath = this.mainDirectory.resolve("nginx-1.25.2").resolve("nginx.exe").toString();
 
-        //Ejecución solo para Windows
-        if(Objects.equals(this.osName, "win")){
-            // Comando para ejecutar el archivo .exe usando PowerShell
-            String rutaPowerShell = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
-            String powerShellCommand = "Start-Process -FilePath \"" + exePath + "\"";
+            // Detener el proceso existente si está en ejecución
+            tools.stopProcess(exePath);
 
-
+            // Esperar un tiempo prudencial para que el proceso se cierre completamente
             try {
-                // Crear un proceso de PowerShell
-                ProcessBuilder processBuilder = new ProcessBuilder(rutaPowerShell, "-Command", powerShellCommand);
-                processBuilder.redirectErrorStream(true);
-
-                processBuilder.start();
-                System.out.println("Modulo Frondend: En linea");
-
-            } catch (IOException e) {
-                System.out.println("Modulo Frondend: Fallindo");
-                return false;
+                Thread.sleep(5000); // Esperar 5 segundos (ajusta según tus necesidades)
+            } catch (InterruptedException e) {
+                System.out.println("Falla al dormir 5ms el hilo");
             }
-        }else {
-            System.out.println("Es mAc :( no se pude");
+
+            // Iniciar el proceso nuevamente
+            tools.startProcess(exePath);
+
+            System.out.println("Proceso reiniciado");
+            return true;
+        } else {
+            System.out.println("No es Windows, no se puede reiniciar el proceso.");
+            return false;
         }
 
-        return true;
+
     }
 
     // Método para ejecutar el navegador
@@ -404,9 +407,6 @@ public class Install {
             } else {
                 System.out.println("La funcionalidad del escritorio no está soportada en este sistema.");
             }
-
-            generateQRImagesConcurrent("CP-F-CO-Javeriana-5GHz","robotino","https://localhost:4200","QR-WIFI.png","QR-URL.png" );
-
 
 
         } catch (Exception e) {
