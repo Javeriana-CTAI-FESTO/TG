@@ -24,7 +24,7 @@
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">3000</stringProp>
+        <stringProp name="ThreadGroup.num_threads">2000</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.delayedStart">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -190,7 +190,7 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.path">/api/student/parts/production/new-order?partNumber=45&amp;clientNumber=0&amp;positions=1</stringProp>
+          <stringProp name="HTTPSampler.path">/api/student/parts/production/new-order?partNumber=46&amp;clientNumber=0&amp;positions=1</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -341,7 +341,7 @@
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">3000</stringProp>
+        <stringProp name="ThreadGroup.num_threads">2000</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.delayedStart">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -470,7 +470,7 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;workPlanNumber&quot;: 0,&#xd;
+  &quot;workPlanNumber&quot;: 154562787891,&#xd;
   &quot;description&quot;: &quot;string&quot;,&#xd;
   &quot;workPlanType&quot;: 0,&#xd;
   &quot;shortDescription&quot;: &quot;string&quot;,&#xd;
@@ -967,7 +967,7 @@
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">3000</stringProp>
+        <stringProp name="ThreadGroup.num_threads">2000</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.delayedStart">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -1116,7 +1116,7 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;partNumber&quot;: 0,&#xd;
+  &quot;partNumber&quot;: 123453762781,&#xd;
   &quot;description&quot;: &quot;string&quot;,&#xd;
   &quot;type&quot;: 0,&#xd;
   &quot;workPlanNumber&quot;: 0,&#xd;
@@ -1153,7 +1153,7 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;clientNumber&quot;: 20271125,&#xd;
+  &quot;clientNumber&quot;: 2027,&#xd;
   &quot;nombre&quot;: &quot;Juan&quot;,&#xd;
   &quot;apellido&quot;: &quot;Perez&quot;,&#xd;
   &quot;direccion&quot;: &quot;Calle falsa 123&quot;,&#xd;
@@ -1187,7 +1187,7 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;workPlanNumber&quot;: 0,&#xd;
+  &quot;workPlanNumber&quot;: 167283,&#xd;
   &quot;description&quot;: &quot;string&quot;,&#xd;
   &quot;workPlanType&quot;: 0,&#xd;
   &quot;shortDescription&quot;: &quot;string&quot;,&#xd;
