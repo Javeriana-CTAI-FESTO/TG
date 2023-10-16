@@ -17,7 +17,8 @@ export class PartsComponent implements OnInit {
 
   piezas: Pieza[] = [];
   dataSource: MatTableDataSource<Pieza>;
-  columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
+  //columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
+  columnas: string[] = ['PartNumber', 'Type ', 'operations'];
 
   selectedRow: any;
   
