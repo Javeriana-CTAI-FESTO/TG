@@ -26,11 +26,12 @@ public class Install {
 
     // Constructor
     public Install() {
+
         // Detectar sistema operativo
         System.out.println("Sistema operativo: " + System.getProperty("os.name"));
         this.osName = System.getProperty("os.name").toLowerCase();
 
-         this.tools = Tools.getInstance();
+        this.tools = Tools.getInstance();
 
         // Directorio de trabajo actual
         System.out.println("Directorio de trabajo: " + System.getProperty("user.dir"));
@@ -160,10 +161,10 @@ public class Install {
     public void runTgfestoModule() {
 
         // Extraer Ruta de modulo tg
-        String festoModule = this.mainDirectory.resolve("Backend").resolve("CTAI").resolve("Festo").resolve("target").resolve("tg-0.0.1-SNAPSHOT.jar").toString();
+        String festoModule = this.mainDirectory.resolve("Backend").resolve("CTAI").resolve("CP_Factory").resolve("target").resolve("tg-2.7.16-prod.jar").toString();
 
         // Comando para ejecutar el módulo JAR
-        String[] runComandSecurityModule = {"java", "-jar","-Dspring.profiles.active=dev", festoModule};
+        String[] runComandSecurityModule = {"java", "-jar","-Dspring.profiles.active=prod", festoModule};
 
         // Iniciar el proceso en un hilo aparte
         Thread executionThread = new Thread(() -> {
@@ -234,11 +235,11 @@ public class Install {
                     stopProcesses();
                     System.out.println("kill tgsecurity-0.0.1-SNAPSHOT.jar " + pid);
                 }
-                if (processName.equals("tg-0.0.1-SNAPSHOT.jar") || processName.equals("Process")) {
+                if (processName.equals("tg-2.7.16-prod.ja") || processName.equals("Process")) {
                     pidTgFesto = pid;
                     pidTgSecurity = pid;
                     stopProcesses();
-                    System.out.println("kill tg-0.0.1-SNAPSHOT.jar " + pid);
+                    System.out.println("kill tg-2.7.16-prod.ja " + pid);
                 }
             }
         }
@@ -351,44 +352,44 @@ public class Install {
     public void killFrond(){
         if (this.osName.contains("win")) {
             String exePath = this.mainDirectory.resolve("nginx-1.25.2").resolve("nginx.exe").toFile().toString();
-
+            String exePath2 = this.mainDirectory.resolve("nginx-1.25.2").toAbsolutePath().toString();
             // Detener el proceso existente si está en ejecución
             tools.stopProcess(exePath);
 
-            // Esperar un tiempo prudencial para que el proceso se cierre completamente
             try {
-                Thread.sleep(5000); // Esperar 5 segundos (ajusta según tus necesidades)
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 System.out.println("O");
             }
 
-            System.out.println("Proceso FronEnd Pausado");
+            tools.runCmdCommand("cd "+ exePath2 +" && nginx -s quit");
+
+            System.out.println("nginx -s quit");
         } else {
             System.out.println("No es Windows, no se puede reiniciar el proceso.");
         }
     }
 
-    public void killFronEndµ(){
-        if (this.osName.contains("win")) {
+    public void exitFronEndPID(){
 
-            String exePath = this.mainDirectory.resolve("nginx-1.25.2").toAbsolutePath().toString();
-
-            // Detener el proceso existente si está en ejecución
-            tools.runCmdCommand("cd "+ exePath +" && nginx -s stop");
-
-            // Esperar un tiempo prudencial para que el proceso se cierre completamente
+        if(this.osName.contains("win")){
+            String rutaPowerShell = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
+            String pid = String.valueOf(this.tools.frontendPID(this.mainDirectory));
             try {
-                Thread.sleep(5000); // Esperar 5 segundos (ajusta según tus necesidades)
-            } catch (InterruptedException e) {
-                System.out.println("O");
+
+                // Crear el proceso de PowerShell
+                ProcessBuilder processBuilder = new ProcessBuilder(rutaPowerShell, "-Command", "Stop-Process","-Id",pid, "-Force");
+                // Redirigir la salida estándar y la salida de errores
+                processBuilder.redirectErrorStream(true);
+                // Iniciar el proceso de PowerShell
+                processBuilder.start();
+
+            } catch (IOException e) {
+                System.err.println("Error al detener el proceso anterior: " + e.getMessage());
             }
-            System.out.println("Proceso FronEnd Pausado");
-
-            tools.runCmdCommand("cd "+ exePath +" && nginx");
+            System.out.println("FronEnd: " + pid + " DETENIDO");
 
 
-        } else {
-            System.out.println("No es Windows, no se puede reiniciar el proceso.");
         }
     }
 

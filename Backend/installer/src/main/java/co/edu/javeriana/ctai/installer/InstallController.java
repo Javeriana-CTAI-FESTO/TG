@@ -15,7 +15,6 @@ public class InstallController {
 
     private Install install;
 
-
     @FXML
     Button mes4DDBBselectButton;
 
@@ -52,7 +51,7 @@ public class InstallController {
     }
 
     @FXML
-    void onExitButtonClick(ActionEvent event) throws IOException {
+    void onExitButtonClick(ActionEvent event) {
         // Detiene procesos antiguos antes de la instalación
         try {
             //Elimina el archivo de bloqueo
@@ -60,17 +59,17 @@ public class InstallController {
             install.stopOlds("tgsecurity-0.0.1-SNAPSHOT.jar");
             install.stopOlds("tg-0.0.1-SNAPSHOT.jar");
             install.killFrond();
+            install.exitFronEndPID();
+
         } catch (IOException e) {
             System.err.println("Error al detener procesos antiguos: " + e.getMessage());
             return;
         }
-
         System.exit(0);
     }
 
     @FXML
     void runButtonAction(ActionEvent event) throws IOException {
-
 
         // Verifica si la aplicación ya se está ejecutando
         if (install.isAppAlreadyRunning()) {
@@ -84,6 +83,7 @@ public class InstallController {
             );
             System.out.println("La aplicación ya está en ejecución.");
             return;
+
         } else {
             statusLabel.setText("OS: " +
                         install.getOsName() +
@@ -94,15 +94,16 @@ public class InstallController {
                         "\n Ejecutado ..."
             );
 
-
-
         }
 
         // Detiene procesos antiguos antes de la instalación
         try {
+
             install.stopOlds("tgsecurity-0.0.1-SNAPSHOT.jar");
             install.stopOlds("tg-0.0.1-SNAPSHOT.jar");
             install.killFrond();
+
+
         } catch (IOException e) {
             System.err.println("Error al detener procesos antiguos: " + e.getMessage());
             return;
@@ -117,6 +118,7 @@ public class InstallController {
             install.runTgfestoModule();
             // Abre el navegador web y genera códigos QR
             install.navExE();
+
             /**
              * WIFI:S:CP-F-CO-Javeriana-5GHz;T:WPA2;P:robotino;;
              * URL:https://localhost:4200
@@ -133,8 +135,8 @@ public class InstallController {
                     "\nInstalación exitosa."
             );
 
-
             System.out.println("Instalación exitosa.");
+
         } else {
 
             statusLabel.setText("OS: " +
@@ -147,12 +149,7 @@ public class InstallController {
             );
             System.out.println("Ejecutar dentro de la carpeta Tg");
         }
-
-
-
     }
-
-
 
     @FXML
     void onMes4DDBBselectButtonClick(ActionEvent event) {

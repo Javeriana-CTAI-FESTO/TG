@@ -43,7 +43,10 @@ public class Tools {
     // Método para detener un proceso por su ruta
     public void stopProcess(String exePath) {
         String powerShellCommand = "Stop-Process -Path \"" + exePath + "\" -Force";
+
+        String off="Stop-Process -Name nginx -Force";
         runPowerShellCommand(powerShellCommand);
+        runPowerShellCommand(off);
     }
 
     // Método para iniciar un proceso por su ruta
@@ -62,38 +65,29 @@ public class Tools {
         } catch (IOException e) {
             System.out.println("Error al ejecutar el comando de PowerShell: " + e.getMessage());
         }
+        System.out.println("Comando PowerShell Ejecutado");
     }
 
     public void runCmdCommand(String command) {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
             processBuilder.redirectErrorStream(true);
-            Process process = processBuilder.start();
-
-            // Leer la salida del comando
-            InputStream inputStream = process.getInputStream();
-            int bytesRead;
-            byte[] buffer = new byte[4096];
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                System.out.write(buffer, 0, bytesRead);
-            }
-
-            // Esperar a que el proceso termine
-            int exitCode = process.waitFor();
-            System.out.println("El comando ha finalizado con código de salida: " + exitCode);
-        } catch (IOException | InterruptedException e) {
+            processBuilder.start();
+        } catch (IOException e) {
             System.out.println("Error al ejecutar el comando de CMD: " + e.getMessage());
         }
+        System.out.println("Comando CMD Ejecutado");
     }
 
     // Método para ejecutar el módulo de frontend
     public boolean frontExE(String osName, Path mainDirectory) {
 
         if (osName.contains("win")) {
-            //String exePath = this.mainDirectory.resolve("nginx-1.25.2").resolve("nginx.exe").toString();
-            String exePath = mainDirectory.resolve("nginx-1.25.2").toAbsolutePath().toString();
+            String exePath = mainDirectory.resolve("nginx-1.25.2").resolve("nginx.exe").toString();
+            String exePath2 = mainDirectory.resolve("nginx-1.25.2").toAbsolutePath().toString();
             // Detener el proceso existente si está en ejecución
-            stopProcess(exePath);
+            //stopProcess(exePath);
+            runCmdCommand("cd "+ exePath2 +" && nginx -s quit");
 
             // Esperar un tiempo prudencial para que el proceso se cierre completamente
             try {
@@ -103,7 +97,8 @@ public class Tools {
             }
 
             // Iniciar el proceso nuevamente
-            startProcess(exePath);
+            //startProcess(exePath);
+            runCmdCommand("cd "+ exePath2 +" && nginx");
 
             System.out.println("Proceso reiniciado");
             return true;
@@ -164,5 +159,27 @@ public class Tools {
         } catch (InterruptedException e) {
             System.out.println("Falla en generacion QR");
         }
+    }
+
+    public long frontendPID(Path mainDirectory) {
+        long pid = 0; // Valor predeterminado en caso de error o si el archivo no contiene un PID válido
+
+        //C:\Users\diana\OneDrive\Escritorio\TG\nginx-1.25.2\logs
+        File nginx_PID_paht = mainDirectory.resolve("nginx-1.25.2").resolve("logs").resolve("nginx.pid").toFile();
+
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader(nginx_PID_paht));
+            String linea;
+            if ((linea = br.readLine()) != null) {
+                pid = Long.parseLong(linea.trim());
+            }
+            br.close();
+
+        } catch (IOException e) {
+            System.err.println("Error Leyendo PID FrondEnd");
+        }
+
+        return pid;
     }
 }

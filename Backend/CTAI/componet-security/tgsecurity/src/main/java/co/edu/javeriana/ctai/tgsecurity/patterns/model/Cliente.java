@@ -1,17 +1,10 @@
 package co.edu.javeriana.ctai.tgsecurity.patterns.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -40,19 +33,22 @@ public class Cliente {
     private String correoElectronico;
 
     @Column(name = "admin")
-    private boolean admin;
+    private Boolean admin;
 
     @Column(name = "estudiante")
-    private boolean estudiante;
+    private Boolean estudiante;
 
     @Column(name = "profesor")
-    private boolean profesor;
+    private Boolean profesor;
 
     @Column(name = "comprador")
-    private boolean comprador;
+    private Boolean comprador;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Order> orders;
+
+    public Cliente() {
+    }
 
     public Cliente(User usuario, String nombre, String apellido, Long identificacion, Long celular, String correoElectronico, boolean admin, boolean estudiante, boolean profesor, boolean comprador) {
         this.usuario = usuario;
@@ -74,5 +70,115 @@ public class Cliente {
                 + correoElectronico + "]";
     }
 
-    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Long getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(Long identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public Long getCelular() {
+        return celular;
+    }
+
+    public void setCelular(Long celular) {
+        this.celular = celular;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public Boolean getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Boolean estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Boolean getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Boolean profesor) {
+        this.profesor = profesor;
+    }
+
+    public Boolean getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(Boolean comprador) {
+        this.comprador = comprador;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public boolean isProfesor() {
+        return profesor;
+    }
+
+    public boolean isEstudiante() {
+        return estudiante;
+    }
+
+    public boolean isComprador() {
+        return comprador;
+    }
 }

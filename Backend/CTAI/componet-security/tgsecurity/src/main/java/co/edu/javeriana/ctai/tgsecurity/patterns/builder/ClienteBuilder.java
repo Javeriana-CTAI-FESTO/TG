@@ -51,22 +51,22 @@ public class ClienteBuilder {
         return this;
     }
 
-    public ClienteBuilder setAdmin(boolean admin) {
+    public ClienteBuilder setAdmin(Boolean admin) {
         this.admin = admin;
         return this;
     }
 
-    public ClienteBuilder setEstudiante(boolean estudiante) {
+    public ClienteBuilder setEstudiante(Boolean estudiante) {
         this.estudiante = estudiante;
         return this;
     }
 
-    public ClienteBuilder setProfesor(boolean profesor) {
+    public ClienteBuilder setProfesor(Boolean profesor) {
         this.profesor = profesor;
         return this;
     }
 
-    public ClienteBuilder setComprador(boolean comprador){
+    public ClienteBuilder setComprador(Boolean comprador){
         this.comprador = comprador;
         return this;
     }
