@@ -2,7 +2,7 @@
     padding: 1.5em .5em .5em;
     border-radius: 2em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
-    height: 18rem !important; 
+    height: 25rem !important; 
 }
 
 .form-control-big{
@@ -18,3 +18,7 @@
     right: 0;
     font-size: 0.6rem;
 }
+img {
+    width: 150px;
+    height: 150px;
+  }

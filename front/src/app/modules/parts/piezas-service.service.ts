@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/login/login.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +28,13 @@ export class PiezasServiceService {
 
 
   getPiezasPorDefecto(): Observable<Pieza[]>  {
-    return this.http.get<Pieza[]>(this.urlBase + this.rol() + '/parts');
+    return this.http.get<Pieza[]>(this.urlBase + this.rol() + '/parts').pipe(
+      map(piezas => piezas.map(pieza => {
+        const picturePath = pieza.picture.replace('Pictures', '../../../assets/Pictures').replace(/\\/g, '/');
+        return { ...pieza, picture: picturePath };
+      }))
+    );
   }
-
   getPiezas(): Pieza[] {
     return this.piezas;
   }
@@ -38,7 +43,9 @@ export class PiezasServiceService {
     if (index !== -1) {
       this.piezas[index] = piezaNueva;
     }
- 
+  }
+  agregarPieza(pieza: Pieza): Observable<Pieza> {
+    return this.http.post<Pieza>(this.urlBase + 'admin/parts', pieza);
   }
 }
 

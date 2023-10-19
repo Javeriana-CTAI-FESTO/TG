@@ -43,6 +43,10 @@ import { ResourceReportFailsDialogComponent } from '../modules/resources/Dialogs
 import { DialogRutasComponent } from '../modules/dashboard/Dialogs/dialog-rutas/dialog-rutas.component';
 import { CreateComponent } from '../modules/create/create.component';
 import { PurchaseHistoryDialogComponent } from '../modules/buy/Dialogs/purchase-history-dialog/purchase-history-dialog.component';
+import { AddPartComponent } from '../modules/parts/Dialogs/add-part/add-part.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -70,7 +74,8 @@ import { PurchaseHistoryDialogComponent } from '../modules/buy/Dialogs/purchase-
     ResourceReportFailsDialogComponent,
     DialogRutasComponent,
     CreateComponent,
-    PurchaseHistoryDialogComponent
+    PurchaseHistoryDialogComponent,
+    AddPartComponent
   ],
   imports: [
     CommonModule,
@@ -89,6 +94,7 @@ import { PurchaseHistoryDialogComponent } from '../modules/buy/Dialogs/purchase-
     MatPaginatorModule,
     MatSelectModule,
     MatInputModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot()
   ],
   exports: [

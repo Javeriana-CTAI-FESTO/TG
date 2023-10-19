@@ -14,14 +14,7 @@ export class DefaultMRPComponent{
     @Inject(MAT_DIALOG_DATA) public data: Pieza
   ) { 
   }
-  
-
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  
-
 }

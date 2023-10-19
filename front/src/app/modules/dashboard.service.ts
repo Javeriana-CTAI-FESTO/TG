@@ -60,6 +60,7 @@ export class DashboardService {
       })
     );
   }
+  
   bigChartInit(): ChartData {
     return {
       categories: [],
@@ -101,7 +102,12 @@ export class DashboardService {
     return this.http.get<Estations[]>(this.urlBase + this.rol() + '/resources');
   }
   getParts(): Observable<Part[]> {
-    return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production');
+    return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production').pipe(
+      map(piezas => piezas.map(pieza => {
+        const picturePath = pieza.picture.replace('Pictures', '../../../assets/Pictures').replace(/\\/g, '/');
+        return { ...pieza, picture: picturePath };
+      }))
+    );
   }
   getCedulaByUsername(username: string, authToken: string) {
     const headers = {

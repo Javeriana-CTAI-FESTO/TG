@@ -4,6 +4,9 @@ import { PartWithQuantity } from '../../buy.component';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 import { LoginService } from 'src/app/login/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
 
 interface DialogData {
   purchases: PartWithQuantity[];
@@ -35,40 +38,37 @@ export class PurchaseHistoryDialogComponent {
     this.isLoading = true;
     const authToken = localStorage.getItem('authToken') ?? '';
     const username = this.loginService.getUsername();
-
-    const processPartWithQuantity = async (partWithQuantity: PartWithQuantity) => {
-      const quantity = partWithQuantity.quantity;
-      let count = 0;
-      while (count < quantity) {
-        await this.dashboardService.getCedulaByUsername(username, authToken).toPromise().then((cedulaResponse: any) => {
-          const orderData = {
-            id_part: partWithQuantity.partNumber,
-            id_workPlan: partWithQuantity.workPlanNumber,
-            cliente_Cedula: cedulaResponse.cedula,
-            title: partWithQuantity.description,
-            orderNumber: 4
-          };
-          return this.dashboardService.saveOrder(orderData, authToken).toPromise();
-        });
-        count++;
-      }
-    };
-
+  
+    const tasks = this.data.purchases.flatMap(partWithQuantity => {
+      return Array(partWithQuantity.quantity).fill(null).map(() => {
+        return this.dashboardService.getCedulaByUsername(username, authToken).pipe(
+          mergeMap((cedulaResponse: any) => {
+            const orderData = {
+              id_part: partWithQuantity.partNumber,
+              id_workPlan: partWithQuantity.workPlanNumber,
+              cliente_Cedula: cedulaResponse.cedula,
+              title: partWithQuantity.description,
+              orderNumber: 4
+            };
+            return this.dashboardService.saveOrder(orderData, authToken);
+          })
+        ).toPromise();
+      });
+    });
+  
     try {
-      await this.data.purchases.reduce((promiseChain, partWithQuantity) => {
-        return promiseChain.then(() => processPartWithQuantity(partWithQuantity));
-      }, Promise.resolve());
-
+      await Promise.all(tasks);
+  
       this.toastr.success('The operation was completed successfully.', '¡Succes!');
     } catch (error) {
       this.toastr.error('The operation failed.', 'Error');
       console.error(error);
     } finally {
+      this.emptyCart.emit();
       this.dialogRef.close();
       this.isLoading = false;
     }
   }
-
   emptyShoppingCart(): void {
     this.emptyCart.emit();
     this.dialogRef.close();

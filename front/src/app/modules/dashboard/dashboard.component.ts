@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { retryWhen, delayWhen, take } from 'rxjs/operators';
 import { timer } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,19 +15,20 @@ export class DashboardComponent implements OnInit {
   ganttChart: any = [];
   cardData = '';
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService, private toastr: ToastrService) { }
 
   ngOnInit() {
+
     this.bigChart = this.dashboardService.bigChartInit();
     this.dashboardService.getPieChartData().pipe(
       retryWhen(errors => errors.pipe(
-        delayWhen(() => timer(10000)), 
-        take(5) 
+        delayWhen(() => timer(10000)),
+        take(5)
       ))
     ).subscribe(data => {
       this.pieChart = data;
     });
-    
+
     this.dashboardService.ganttChart().then(data => {
       this.ganttChart = data;
     }).catch(error => {
@@ -38,15 +41,21 @@ export class DashboardComponent implements OnInit {
           setTimeout(retryGanttChart, 10000);
         });
       };
-      setTimeout(retryGanttChart, 10000); 
+      setTimeout(retryGanttChart, 10000);
     });
+
   }
 
   updateCardData(data: string) {
     this.cardData = data;
-    this.dashboardService.GetOrdesBigChart(Number(this.cardData)).subscribe(data => {
-      this.bigChart = data;
-    }
+    this.dashboardService.GetOrdesBigChart(Number(this.cardData)).subscribe(
+      data => {
+        this.bigChart = data;
+      },
+      error => {
+        console.error('Error al obtener los datos del gráfico grande', error);
+        this.toastr.error('Incorrect data base');
+      }
     );
   }
 }

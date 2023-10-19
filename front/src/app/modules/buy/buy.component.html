@@ -21,6 +21,10 @@
     <div class="row justify-content-center">
         <div class="col-12 col-sm-6 col-md-4 mt-2" *ngFor="let part of filteredParts">
             <div class="card p-4">
+                <div class="d-flex justify-content-center">
+                    <img [src]="part.picture" alt="Imagen de la pieza"
+                        onerror="this.src='../../../assets/Pictures/Default/NoPicture.png'">
+                </div>
                 <div class="card-body">
                     <h2 class="card-title">{{part.description}}</h2>
                     <span class="badge bg-primary">Part Number: {{ part.partNumber}}</span>

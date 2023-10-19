@@ -5,6 +5,9 @@ import { DashboardService, Part } from 'src/app/modules/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/login/login.service';
+import { from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-add-work-plan-to-production',
   templateUrl: './add-work-plan-to-production.component.html',
@@ -42,36 +45,37 @@ export class AddWorkPlanToProductionComponent implements OnInit {
     const startingId = this.cards.length;
     const authToken = localStorage.getItem('authToken') ?? '';
     const username = this.loginService.getUsername();
+  
     if (part) {
-      let count = 0;
-      const placeOrder = () => {
-        if (count < quantity) {
-            this.DashboradService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
-              const orderData = {
-                id_part: part.partNumber,
-                id_workPlan: part.workPlanNumber,
-                cliente_Cedula: cedulaResponse.cedula,
-                title: part.description,
-                orderNumber: 4
-              };
-              this.DashboradService.saveOrder(orderData, authToken).subscribe((response: any) => {
-                this.cards.push({
-                  id: part?.partNumber || startingId + count,
-                  idworkPlan: part?.workPlanNumber|| startingId + count,
-                  title: part?.description || '',
-                  OrderNumber: response.orderNumber,
-                  imageUrl: '../../../../assets/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg'
-                });
-                count++;
-                placeOrder();
-              });
+      const tasks = Array(quantity).fill(null).map(() => {
+        return this.DashboradService.getCedulaByUsername(username, authToken).pipe(
+          mergeMap((cedulaResponse: any) => {
+            const orderData = {
+              id_part: part.partNumber,
+              id_workPlan: part.workPlanNumber,
+              cliente_Cedula: cedulaResponse.cedula,
+              title: part.description,
+              orderNumber: 4
+            };
+            return this.DashboradService.saveOrder(orderData, authToken);
+          }),
+          mergeMap((response: any) => {
+            this.cards.push({
+              id: part?.partNumber || startingId + this.cards.length,
+              idworkPlan: part?.workPlanNumber || startingId + this.cards.length,
+              title: part?.description || '',
+              OrderNumber: response.orderNumber,
+              imageUrl: part?.picture || ''
             });
-        } else {
-          this.dialogRef.close(this.cards);
-          this.isLoading = false;
-        }
-      };
-      placeOrder();
+            return from(this.cards);
+          })
+        ).toPromise();
+      });
+  
+      Promise.all(tasks).then(() => {
+        this.dialogRef.close(this.cards);
+        this.isLoading = false;
+      });
     }
   }
   

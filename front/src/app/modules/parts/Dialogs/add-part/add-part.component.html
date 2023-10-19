@@ -1,0 +1,55 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<div class="container mt-5 mb-5" style="max-height: 60vh; overflow-y: auto;">
+  <h1 class="modal-title mb-4">Add Part</h1>
+<form [formGroup]="partForm" (ngSubmit)="onSubmit()" class="mt-4">
+  <div class="mb-3">
+    <label for="partNumber" class="form-label">Part Number</label>
+    <input type="number" id="partNumber" formControlName="partNumber" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" id="description" formControlName="description" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="workPlanNumber" class="form-label">Work Plan Number</label>
+    <select id="workPlanNumber" formControlName="workPlanNumber" class="form-control">
+      <option selected disabled value="">Select a work plan</option>
+      <option *ngFor="let workPlan of workPlans" [value]="workPlan.workPlanNumber">{{workPlan.workPlanNumber}}: {{workPlan.shortDescription}}</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="basePallet" class="form-label">Base Pallet</label>
+    <input type="number" id="basePallet" formControlName="basePallet" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="mrpType" class="form-label">MRP Type</label>
+    <input type="number" id="mrpType" formControlName="mrpType" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="safetyStock" class="form-label">Safety Stock</label>
+    <input type="number" id="safetyStock" formControlName="safetyStock" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="lotSize" class="form-label">Lot Size</label>
+    <input type="number" id="lotSize" formControlName="lotSize" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="defaultResourceId" class="form-label">Default Resource ID</label>
+    <input type="number" id="defaultResourceId" formControlName="defaultResourceId" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="picture" class="form-label">Picture</label>
+    <input type="file" id="picture" (change)="onFileSelected($event)" class="form-control">
+    <select formControlName="pictureFolder" class="form-select mt-2">
+      <option selected disabled value="">Select the picture type</option>
+      <option *ngFor="let folder of folders" [value]="folder">{{folder}}</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!partForm.valid">Submit</button></form>
+</div>
+<button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">
+<mat-icon>close</mat-icon>
+</button>

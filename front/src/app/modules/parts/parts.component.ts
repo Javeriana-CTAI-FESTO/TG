@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DefaultWorkPlanComponent } from './Dialogs/default-work-plan/default-work-plan.component';
 import { DefaultMRPComponent } from './Dialogs/default-mrp/default-mrp.component';
 import { DefaultOtherSettingsComponent } from './Dialogs/default-other-settings/default-other-settings.component';
+import { AddPartComponent } from './Dialogs/add-part/add-part.component';
 @Component({
   selector: 'app-parts',
   templateUrl: './parts.component.html',
@@ -17,12 +18,9 @@ export class PartsComponent implements OnInit {
 
   piezas: Pieza[] = [];
   dataSource: MatTableDataSource<Pieza>;
-  //columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
-  columnas: string[] = ['PartNumber', 'Type ', 'operations'];
-
+  columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
   selectedRow: any;
-  
-  
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
@@ -47,25 +45,20 @@ export class PartsComponent implements OnInit {
   seleccionarPieza(pieza: Pieza | null): void {
     this.selectedRow = pieza;
     this.piezaSeleccionada = pieza;
-
   }
-
   mostrarInfo(pieza: Pieza): void {
     this.seleccionarPieza(pieza);
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   openEditDialogSettings(pieza: Pieza) {
     const dialogRef = this.dialog.open(DefaultSettingsComponent, {
       data: pieza
     });
 
   }
-
   openEditDialogWorkPlan(pieza: Pieza) {
     const dialogRef = this.dialog.open(DefaultWorkPlanComponent, {
       data: pieza
@@ -73,21 +66,22 @@ export class PartsComponent implements OnInit {
    
 
   }
-
   openEditDialogMRP(pieza: Pieza) {
     const dialogRef = this.dialog.open(DefaultMRPComponent, {
       data: pieza
     });
     
   }
-
   openEditDialogOtherSettings(pieza: Pieza) {
     const dialogRef = this.dialog.open(DefaultOtherSettingsComponent, {
       data: pieza
     });
   }
+  openAddPartDialog() {
+    const dialogRef = this.dialog.open(AddPartComponent);
 
-
-
-
+    dialogRef.componentInstance.piezaAdded.subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 }
