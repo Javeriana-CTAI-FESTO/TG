@@ -97,7 +97,9 @@ export class DashboardService {
     });
   }
 
-
+  getOrdersAdmin(): Observable<any[]> {
+    return this.http.get<any[]>(this.urlBase + 'admin/orders');
+  }
   getStations(): Observable<Estations[]> {
     return this.http.get<Estations[]>(this.urlBase + this.rol() + '/resources');
   }

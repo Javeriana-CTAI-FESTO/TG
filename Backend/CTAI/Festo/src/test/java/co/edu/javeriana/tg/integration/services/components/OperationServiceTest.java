@@ -48,6 +48,8 @@ public class OperationServiceTest {
     public void testEmptyGetForMachine() {
         Long operationNumber = 1l;
         assertNull(operationService.get(operationNumber));
+        when(operationRepository.findById(operationNumber)).thenThrow(RuntimeException.class);
+        assertNull(operationService.get(operationNumber));
     }
 
     @Test

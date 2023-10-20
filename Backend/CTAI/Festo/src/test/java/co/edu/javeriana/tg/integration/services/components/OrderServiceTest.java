@@ -341,6 +341,7 @@ public class OrderServiceTest {
         order.setRelease(now);
         order.setOrderNumber(on);
         order.setClientNumber(on);
+        assertNull(orderService.enableOrder(on));
         when(clientService.getClientByClientNumber(on)).thenReturn(null);
         when(orderRepository.findById(on)).thenReturn(Optional.of(order));
         assertTrue(orderService.enableOrder(on).getEnabled());

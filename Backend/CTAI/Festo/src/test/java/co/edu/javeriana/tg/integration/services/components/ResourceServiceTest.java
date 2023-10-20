@@ -44,6 +44,8 @@ public class ResourceServiceTest {
     public void testEmptyGetById() {
         Long resource = 1L;
         assertNull(resourceService.getResourceById(resource));
+        when(resourceRepository.findById(resource)).thenThrow(RuntimeException.class);
+        assertNull(resourceService.getResourceById(resource));
     }
 
     @Test

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { retryWhen, delayWhen, take } from 'rxjs/operators';
 import { timer } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +14,7 @@ export class DashboardComponent implements OnInit {
   ganttChart: any = [];
   cardData = '';
 
-  constructor(private dashboardService: DashboardService, private toastr: ToastrService) { }
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
 
@@ -54,7 +53,6 @@ export class DashboardComponent implements OnInit {
       },
       error => {
         console.error('Error al obtener los datos del gráfico grande', error);
-        this.toastr.error('Incorrect data base');
       }
     );
   }

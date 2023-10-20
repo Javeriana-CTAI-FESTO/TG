@@ -22,9 +22,11 @@ import co.edu.javeriana.tg.entities.auxiliary.StepToPerformInWorkplanAux;
 import co.edu.javeriana.tg.entities.dtos.OperationDTO;
 import co.edu.javeriana.tg.entities.managed.StepDefinition;
 import co.edu.javeriana.tg.entities.managed.StepDefinitionPK;
+import co.edu.javeriana.tg.entities.managed.StepParameterDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanDefinition;
 import co.edu.javeriana.tg.entities.managed.WorkPlanType;
 import co.edu.javeriana.tg.repositories.interfaces.StepDefinitionRepository;
+import co.edu.javeriana.tg.repositories.interfaces.StepParameterDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanDefinitionRepository;
 import co.edu.javeriana.tg.repositories.interfaces.WorkPlanTypeRepository;
 import co.edu.javeriana.tg.services.components.OperationService;
@@ -40,6 +42,9 @@ public class WorkPlanServiceTest {
 
     @MockBean
     private WorkPlanDefinitionRepository workPlanRepository;
+
+    @MockBean
+    private StepParameterDefinitionRepository stepParameterDefinitionRepository;
 
     @MockBean
     private WorkPlanTypeRepository workPlanTypeRepository;
@@ -137,6 +142,10 @@ public class WorkPlanServiceTest {
         assertNotNull(workPlanService.createWorkPlan(plan));
         plan.setWorkPlanNumber(0l);
         assertNotNull(workPlanService.createWorkPlan(plan));
+        when(stepParameterDefinitionRepository.findByRelatedWorkPlanAndStep(id, id)).thenReturn(List.of(new StepParameterDefinition()));
+        assertNotNull(workPlanService.createWorkPlan(plan));
+        when(stepDefinitionRepository.findById(new StepDefinitionPK(id, id))).thenReturn(Optional.empty());
+        assertNotNull(workPlanService.createWorkPlan(plan));
     }
 
     @Test
@@ -201,6 +210,7 @@ public class WorkPlanServiceTest {
         t.setDescription("Test");
         WorkPlanDefinition w = new WorkPlanDefinition(id);
         w.setWorkPlanType(id);
+        assertEquals(0l, workPlanService.getWorkPlanTypeByWorkPlanNumber(id));
         when(workPlanRepository.findById(id)).thenReturn(Optional.of(w));
         assertEquals(id, workPlanService.getWorkPlanTypeByWorkPlanNumber(id));
         when(workPlanRepository.findById(id)).thenThrow(RuntimeException.class);
