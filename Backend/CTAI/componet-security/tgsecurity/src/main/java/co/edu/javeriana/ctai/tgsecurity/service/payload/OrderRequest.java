@@ -12,15 +12,18 @@ public class OrderRequest {
     private String title;
     private long orderNumber;
 
+    private String image_filePath;
+
     public OrderRequest() {
     }
 
-    public OrderRequest(int id_part, int id_workPlan, Long cliente_Cedula, String title, long orderNumber) {
+    public OrderRequest(int id_part, int id_workPlan, Long cliente_Cedula, String title, long orderNumber, String image_filePath) {
         this.id_part = id_part;
         this.id_workPlan = id_workPlan;
         this.cliente_Cedula = cliente_Cedula;
         this.title = title;
         this.orderNumber = orderNumber;
+        this.image_filePath = image_filePath;
     }
 
     public int getId_part() {
@@ -61,5 +64,13 @@ public class OrderRequest {
 
     public void setOrderNumber(long orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public String getImage_filePath() {
+        return image_filePath;
+    }
+
+    public void setImage_filePath(String image_filePath) {
+        this.image_filePath = image_filePath;
     }
 }
