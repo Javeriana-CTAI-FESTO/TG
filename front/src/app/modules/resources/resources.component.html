@@ -4,7 +4,6 @@
     <div style="display: flex;">
       <input class="filter-input form-control" style="width: 100%;" (keyup)=" applyFilter($event)" placeholder="Filter">
     </div>
-
   </div>
   <div style="overflow-x: auto;">
     <table mat-table [dataSource]="dataSource">
@@ -33,15 +32,15 @@
         <th mat-header-cell *matHeaderCellDef> Operations </th>
         <td mat-cell *matCellDef="let element">
           <button type="button" class="btn btn-outline-info" (click)="openDialogInfo(element)">
-            <mat-icon>visibility</mat-icon>
+            <i class="material-icons">visibility</i>
           </button>
         
-            <button type="button" class="btn btn-outline-success" (click)="openDialogReports(element.id)" *ngIf="rol =='admin'">
-              <mat-icon>description</mat-icon>
-            </button>
-            <button type="button" class="btn btn-outline-danger" (click)="openDialogFails(element.id)" *ngIf="rol =='admin'">
-              <mat-icon>error</mat-icon>
-            </button>
+          <button type="button" class="btn btn-outline-success" (click)="openDialogReports(element.id)" *ngIf="rol =='admin'">
+            <i class="material-icons">description</i>
+          </button>
+          <button type="button" class="btn btn-outline-danger" (click)="openDialogFails(element.id)" *ngIf="rol =='admin'">
+            <i class="material-icons">error</i>
+          </button>
          
         </td>
       </ng-container>

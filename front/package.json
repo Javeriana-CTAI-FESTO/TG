@@ -26,6 +26,7 @@
     "highcharts": "^11.0.1",
     "highcharts-angular": "^3.1.2",
     "highcharts-gantt": "^0.1.7",
+    "material-design-icons": "^3.0.1",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

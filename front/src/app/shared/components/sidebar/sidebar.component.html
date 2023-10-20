@@ -10,38 +10,39 @@
 
     <h2 mat-subheader>Operations</h2>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
-        <mat-icon>dashboard</mat-icon>
+        <i class="material-icons">dashboard</i>
         Dashboard
     </a>
     <div *ngIf="rol == 'Comprador'">
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/buy">
-            <mat-icon>attach_money</mat-icon>
+            <i class="material-icons">attach_money</i>
             Buy
         </a>
     </div>
     <div *ngIf="rol !== 'Estudiante' && rol !== 'Comprador'">
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/resources">
-            <mat-icon>settings</mat-icon>
+            <i class="material-icons">settings</i>
             Resources
+            <br>
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts">
-            <mat-icon>assignment</mat-icon>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts" >
+            <i class="material-icons">assignment</i>
             WorkPlans
         </a>
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/parts">
-            <mat-icon>extension</mat-icon>
+            <i class="material-icons">extension</i>
             Parts
         </a>
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/list" *ngIf="rol !== 'Profesor'">
-            <mat-icon>contact_phone</mat-icon>
+            <i class="material-icons">contact_phone</i>
             Clients
         </a>
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/reports" *ngIf="rol =='Administrador'">
-            <mat-icon>description</mat-icon>
+            <i class="material-icons">description</i>
             Reports
         </a>
         <a mat-list-item routerLinkActive="list-item-active" routerLink="/create" *ngIf="rol =='Administrador'">
-            <mat-icon>create</mat-icon>
+            <i class="material-icons">create</i>
             Create
         </a>
     </div>

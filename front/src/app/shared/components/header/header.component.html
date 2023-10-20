@@ -1,7 +1,7 @@
 <mat-toolbar style="background-color: #193366;" color="primary">
     <mat-toolbar-row>
         <button mat-icon-button (click)="toggleSideBar()">
-            <mat-icon>menu</mat-icon>
+            <i class="material-icons">menu</i>
         </button>
         <span>CTAI</span>
 
@@ -11,54 +11,28 @@
 
                 <li>
                     <button mat-icon-button routerLink="/help" matTooltip="Go to Help">
-                        <mat-icon>help_outline</mat-icon>
+                        <i class="material-icons">help_outline</i>
                     </button>
                 </li>
-
-                <!--<li>
-                    <button mat-icon-button [matMenuTriggerFor]="menu1">
-                        <mat-icon>list</mat-icon>
-                      </button>
-                      <mat-menu #menu1="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon><span class="material-icons">
-                                precision_manufacturing
-                                </span></mat-icon>
-                            <span>Maquina 1</span>
-                        </button>
-
-                        <button mat-menu-item>
-                            <mat-icon><span class="material-icons">
-                                precision_manufacturing
-                                </span></mat-icon>
-                            <span>Maquina 2</span>
-                        </button>
-                      </mat-menu>
-                </li>-->
                 <div *ngIf="rol =='admin'">
                     <li>
                         <button mat-icon-button (click)=" openPrompt()">
-                            <mat-icon>link</mat-icon>
+                            <i class="material-icons">link</i>
                         </button>
                     </li>
                 </div>
 
                 <li>
                     <button mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon>person_outline</mat-icon>
+                        <i class="material-icons">person_outline</i>
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="onLogout()">
-                            <mat-icon>exit_to_app</mat-icon>
+                            <i class="material-icons">exit_to_app</i>
                             <span>Logout</span>
                         </button>
                     </mat-menu>
                 </li>
-
-
-
-
-
             </ul>
         </div>
     </mat-toolbar-row>
