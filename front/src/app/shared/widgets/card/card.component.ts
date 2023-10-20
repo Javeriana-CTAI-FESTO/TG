@@ -46,7 +46,10 @@ export class CardComponent implements OnInit {
         return this.dashboardService.getOrdersAdmin().pipe(
           map((adminOrders: any[]) => {
             ordersArray.forEach((order, index) => {
+             
               adminOrders.some(adminOrder => {
+                //console.log(order.orderNumber);
+                //console.log(adminOrder.orderNumber);
                 if (adminOrder.orderNumber === order.orderNumber  ) {
                   this.cards.push({
                     id: order.id_part,
