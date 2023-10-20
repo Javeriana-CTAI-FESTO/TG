@@ -36,7 +36,8 @@ public class Tools {
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line;
         while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+            System.err.println(line);
+            System.err.print("line\n");
         }
     }
 
@@ -182,4 +183,6 @@ public class Tools {
 
         return pid;
     }
+
+
 }

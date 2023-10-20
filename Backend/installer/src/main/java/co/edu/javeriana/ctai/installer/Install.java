@@ -94,17 +94,20 @@ public class Install {
 
         if (lockFile.exists()) {
             return false;
+        }
 
-        } else {
-            try {
-                File lockFileCreated = new File(lockFilePath.toString());
-                return lockFileCreated.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Fallo en crear el archivo de bloqueo");
-                return false;
+        try {
+            if (lockFile.createNewFile()) {
+                return true; // El archivo de bloqueo se creó con éxito
+            } else {
+                return false; // No se pudo crear el archivo de bloqueo
             }
+        } catch (IOException e) {
+            System.err.println("Error al crear o verificar el archivo de bloqueo: " + e.getMessage());
+            return false; // Manejo de error: se produjo una excepción
         }
     }
+
 
     // Eliminar el archivo de bloqueo
     public void blockFileDelete(){
@@ -392,7 +395,6 @@ public class Install {
 
         }
     }
-
 
 
 }

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+
 public class InstallController {
 
     private Install install;
@@ -22,10 +23,14 @@ public class InstallController {
     Button exitButton;
 
     @FXML
+    Button runButton;
+
+    @FXML
     TextField mes4DDBBpath;
 
     @FXML
     private Label statusLabel;
+
 
     public void initialize() {
 
@@ -44,6 +49,7 @@ public class InstallController {
         } else {
             //En caso que no sea posible levantar el servicio por que hay una instancia corriendo.
             System.out.println("Ya hay una instancia de la aplicación corriendo");
+            System.err.println("Ya hay una instancia de la aplicación corriendo");
             System.exit(0);
         }
 
@@ -52,6 +58,8 @@ public class InstallController {
 
     @FXML
     void onExitButtonClick(ActionEvent event) {
+        this.exitButton.setDisable(true);
+        this.runButton.setDisable(true);
         // Detiene procesos antiguos antes de la instalación
         try {
             //Elimina el archivo de bloqueo
@@ -70,7 +78,9 @@ public class InstallController {
 
     @FXML
     void runButtonAction(ActionEvent event) throws IOException {
-
+        // Desactivar boton de ejecución
+        this.exitButton.setDisable(true);
+        this.runButton.setDisable(true);
         // Verifica si la aplicación ya se está ejecutando
         if (install.isAppAlreadyRunning()) {
             statusLabel.setText("OS: " +
@@ -136,6 +146,7 @@ public class InstallController {
             );
 
             System.out.println("Instalación exitosa.");
+            this.exitButton.setDisable(false);
 
         } else {
 
@@ -148,7 +159,10 @@ public class InstallController {
                     "\nEjecutar dentro de la carpeta TG"
             );
             System.out.println("Ejecutar dentro de la carpeta Tg");
+            this.exitButton.setDisable(false);
+
         }
+        this.exitButton.setDisable(false);
     }
 
     @FXML
