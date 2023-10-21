@@ -1,38 +1,38 @@
-<div class="container mt-5 mb-5">
-  <h1 class="modal-title mb-4">Agregar Cliente</h1>
-  <form id="form" (submit)="$event.preventDefault(); onSubmit(nombre.value, apellido.value, +edad.value, address.value, phone.value, email.value, company.value)">
+<div class="container mt-5 mb-5" style="max-height: 60vh; overflow-y: auto;">
+  <h1 class="modal-title mb-4">Add Client</h1>
+  <form id="form" #form="ngForm" (submit)="$event.preventDefault(); onSubmit(nombre.value, apellido.value, +edad.value, address.value, phone.value, email.value, company.value)">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" #nombre>
+      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" #nombre="ngModel" [(ngModel)]="model.nombre" required>
     </div>
     <div class="mb-3">
       <label for="apellido" class="form-label">Apellido</label>
-      <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" #apellido>
+      <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" #apellido="ngModel" [(ngModel)]="model.apellido" required>
     </div>
     <div class="mb-3">
       <label for="ID" class="form-label">ID</label>
-      <input type="number" class="form-control" id="ID" name="ID" placeholder="ID" #edad>
+      <input type="number" class="form-control" id="ID" name="ID" placeholder="ID" #edad="ngModel" [(ngModel)]="model.edad" min="1" required>
     </div>
     <div class="mb-3">
       <label for="address" class="form-label">Address</label>
-      <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" #address>
+      <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" #address="ngModel" [(ngModel)]="model.address" required>
     </div>
     <div class="mb-3">
       <label for="Phone" class="form-label">Phone</label>
-      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" #phone>
+      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" #phone="ngModel" [(ngModel)]="model.phone" required>
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="text" class="form-control" id="email" name="email" placeholder="Email" #email>
+      <input type="text" class="form-control" id="email" name="email" placeholder="Email" #email="ngModel" [(ngModel)]="model.email" required>
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Company</label>
-      <input type="text" class="form-control" id="Company" name="Company" placeholder="Company" #company>
+      <input type="text" class="form-control" id="Company" name="Company" placeholder="Company" #company="ngModel" [(ngModel)]="model.company" required>
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Add</button>
     <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="closeDialog()">
-      <mat-icon>close</mat-icon>
-    </button>
+      <i class="material-icons">close</i>
+  </button>
   </form>
 </div>

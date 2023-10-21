@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  
+  model: any = {};
   constructor(public dialogRef: MatDialogRef<FormComponent>, private personasService: PersonasService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
