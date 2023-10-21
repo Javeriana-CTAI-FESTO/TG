@@ -35,38 +35,22 @@ export class CardComponent implements OnInit {
   ngOnInit() {
     const authToken = localStorage.getItem('authToken') ?? '';
     const username = this.loginService.getUsername();
-    
-    this.dashboardService.getCedulaByUsername(username, authToken).pipe(
-      mergeMap((cedulaResponse: any) => {
-        const cedula = cedulaResponse.cedula;
-        return this.dashboardService.getOrders(cedula, authToken);
-      }),
-      mergeMap((orders: Object) => {
+    this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
+      const cedula = cedulaResponse.cedula;
+      this.dashboardService.getOrders(cedula, authToken).subscribe((orders: Object) => {
         const ordersArray = orders as any[];
-        return this.dashboardService.getOrdersAdmin().pipe(
-          map((adminOrders: any[]) => {
-            ordersArray.forEach((order, index) => {
-             
-              adminOrders.some(adminOrder => {
-                //console.log(order.orderNumber);
-                //console.log(adminOrder.orderNumber);
-                if (adminOrder.orderNumber === order.orderNumber  ) {
-                  this.cards.push({
-                    id: order.id_part,
-                    idworkPlan: order.id_workPlan,
-                    title: order.title,
-                    OrderNumber: order.orderNumber          
-                  });
-                }
-              });
-            });
-            this.filteredCards = this.cards;
-          })
-        );
-      })
-    ).subscribe();
-  
-    this.rol = this.loginService.getRole();
+        ordersArray.forEach((order, index) => {
+          this.cards.push({
+            id: order.id_part,
+            idworkPlan: order.id_workPlan,
+            title: order.title,
+            OrderNumber: order.orderNumber          
+          });
+        });
+        this.filteredCards = this.cards;
+      });
+    });
+    this.rol=this.loginService.getRole();
   }
 
   openAddDialog() {
