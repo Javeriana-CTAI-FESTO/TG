@@ -218,34 +218,9 @@ export class PostsComponent implements OnInit {
     form.reset();
 
   }
-
-
-
-  /*openEditDialog(workplan: Workplan): void {
-    const personaCopy = Object.assign({}, workplan); 
-    const dialogRef = this.dialog.open(EditWorkplanDialogComponent, {
-      data: personaCopy 
-    });
-  
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.toastr.success('Persona editada', 'Éxito');
-        this.workplanService.editarWorkPlan(workplan, result); 
-        this.dataSource.data = this.workplanService.getWorkplans();
-      }
-    });
+  allFieldsFilled(): boolean {
+    return !!this.workPlanNumber && !!this.description && !!this.workPlanType && !!this.shortDescription && !!this.pictureNumber && !!this.partNumber;
   }
-  eliminarWorkplan(index: String) {
-    if(!confirm('¿Estás seguro de eliminar este workplan?')) {
-      this.toastr.error('Workplan no eliminado', 'Error');
-      return;
-    }
-    else {
-      this.workplanService.eliminarWorkPlan(index);
-      this.toastr.success('Workplan eliminado', 'Éxito');
-      this.dataSource.data = this.workplanService.getWorkplans();
-    }
-  }*/
 
 }
 

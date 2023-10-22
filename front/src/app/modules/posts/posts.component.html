@@ -3,7 +3,8 @@
 
         <div style="background-color: #FFFFFF;">
             <h2 style="text-align: center;">List of WorkPlans</h2>
-            <input class="filter-input form-control" style="width: 100%;" (keyup)=" applyFilter($event)" placeholder="Filter">
+            <input class="filter-input form-control" style="width: 100%;" (keyup)=" applyFilter($event)"
+                placeholder="Filter">
         </div>
         <table mat-table [dataSource]="dataSource">
 
@@ -26,7 +27,7 @@
                 <th mat-header-cell *matHeaderCellDef> Type</th>
                 <td mat-cell *matCellDef="let element"> {{ element.workPlanType }} </td>
             </ng-container>
-            
+
             <ng-container matColumnDef="Operaciones">
                 <th mat-header-cell *matHeaderCellDef> Operations </th>
                 <td mat-cell *matCellDef="let workplan">
@@ -167,5 +168,6 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" (click)="onSubmitWorkplan(f)">Crear Nuevo Workplan</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!allFieldsFilled() || !done.length"
+            (click)="onSubmitWorkplan(f)">Create New WorkPlan</button>
     </div>
