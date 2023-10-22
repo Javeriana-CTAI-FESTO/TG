@@ -26,13 +26,6 @@ export class HeaderComponent {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    /*const dbRoute = localStorage.getItem('dbRoute');
-    const rutaModuloJar = localStorage.getItem('rutaModuloJar');
-    if (dbRoute && rutaModuloJar) {
-      this.string1 = dbRoute;
-      this.string2 = rutaModuloJar;
-      this.onSubmit();
-    }*/
     this.rol = this.loginService.getRole();
   }
 

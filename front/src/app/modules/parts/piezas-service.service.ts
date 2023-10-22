@@ -45,8 +45,8 @@ export class PiezasServiceService {
     }
   }
   agregarPieza(pieza: Pieza): Observable<Pieza> {
-    return this.http.post<Pieza>(this.urlBase + 'admin/parts', pieza);
-  }
+    return this.http.post<Pieza>(this.urlBase + this.rol() +'/parts', pieza);
+  } 
 }
 
 export interface Pieza {

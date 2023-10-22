@@ -58,4 +58,4 @@
     </div>
 </div>
 <br>
-<button type="button" class="btn btn-primary btn-lg mat-elevation-z8" (click)="openAddPartDialog()">Add Part</button>
+<button *ngIf="rol =='admin'" type="button" class="btn btn-primary btn-lg mat-elevation-z8" (click)="openAddPartDialog()">Add Part</button>

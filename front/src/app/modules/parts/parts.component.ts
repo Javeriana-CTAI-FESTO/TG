@@ -9,6 +9,7 @@ import { DefaultWorkPlanComponent } from './Dialogs/default-work-plan/default-wo
 import { DefaultMRPComponent } from './Dialogs/default-mrp/default-mrp.component';
 import { DefaultOtherSettingsComponent } from './Dialogs/default-other-settings/default-other-settings.component';
 import { AddPartComponent } from './Dialogs/add-part/add-part.component';
+import { LoginService } from 'src/app/login/login.service';
 @Component({
   selector: 'app-parts',
   templateUrl: './parts.component.html',
@@ -20,10 +21,11 @@ export class PartsComponent implements OnInit {
   dataSource: MatTableDataSource<Pieza>;
   columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
   selectedRow: any;
+  rol: string = '';
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  constructor(private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
+  constructor(private loginService: LoginService,private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
     this.dataSource = new MatTableDataSource<Pieza>([]);
   }
 
@@ -38,6 +40,7 @@ export class PartsComponent implements OnInit {
         console.error(error);
       }
     );
+    this.rol = this.loginService.getRole();
   }
 
   piezaSeleccionada: Pieza | null = null;

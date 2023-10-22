@@ -218,9 +218,9 @@ export class PostsComponent implements OnInit {
     form.reset();
 
   }
-  allFieldsFilled(): boolean {
-    return !!this.workPlanNumber && !!this.description && !!this.workPlanType && !!this.shortDescription && !!this.pictureNumber && !!this.partNumber;
-  }
+ allFieldsFilled(): boolean {
+  return !!this.workPlanNumber && !!this.description && !!this.workPlanType && !!this.shortDescription && !!this.pictureNumber && !!this.partNumber;
+}
 
 }
 
