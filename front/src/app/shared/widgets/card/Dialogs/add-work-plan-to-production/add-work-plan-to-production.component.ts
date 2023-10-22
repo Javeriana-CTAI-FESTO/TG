@@ -55,7 +55,8 @@ export class AddWorkPlanToProductionComponent implements OnInit {
               id_workPlan: part.workPlanNumber,
               cliente_Cedula: cedulaResponse.cedula,
               title: part.description,
-              orderNumber: 4
+              orderNumber: 4,
+              image_filePath: part.picture
             };
             return this.DashboradService.saveOrder(orderData, authToken);
           }),

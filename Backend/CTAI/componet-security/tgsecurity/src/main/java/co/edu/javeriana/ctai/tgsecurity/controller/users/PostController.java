@@ -35,6 +35,7 @@ public class PostController {
         String response = null;
         try {
             if (orderRequest == null) {
+                System.out.println("El objeto es nulo");
                 return ResponseEntity.badRequest().build();
             }
 

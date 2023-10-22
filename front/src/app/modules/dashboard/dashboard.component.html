@@ -19,10 +19,10 @@
 
 
     <div fxLayout.gt-sm="row" fxLayout.lt-sm="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
-        <div fxFlex="49" class="pie">
+        <div fxFlex.gt-sm="49" fxFlex.lt-sm="100" class="pie">
             <app-widget-gantt [data]="ganttChart"></app-widget-gantt>
         </div>
-        <div fxFlex="49" class="pie">
+        <div fxFlex.gt-sm="49" fxFlex.lt-sm="100" class="pie">
             <app-widget-pie-chart [data]="pieChart"></app-widget-pie-chart>
         </div>
     </div>

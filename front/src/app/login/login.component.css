@@ -14,6 +14,10 @@
     width:100% !important;
     transition: background .5s;
 }
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+}
 
 .login-card-form select:focus {
     background: white;

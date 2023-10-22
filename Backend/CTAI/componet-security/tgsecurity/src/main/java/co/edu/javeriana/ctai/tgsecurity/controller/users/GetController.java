@@ -48,13 +48,12 @@ public class GetController {
         if (user_name != null) {
 
             User user = userRepository.findByUsername(user_name).get();
-            System.out.println("Hello user: "+user.getUsername());
 
             Cliente cliente = clientService.findByUsuario(user);
 
+
             if (cliente != null) {
                 // El objeto cliente no es nulo, puedes acceder a sus propiedades
-
                 System.out.println("Cliente: " + cliente.getNombre());
 
                 // Determine the role
@@ -70,6 +69,7 @@ public class GetController {
                 } else {
                     role = "cliente";
                 }
+                System.out.println("Rol: "+ role );
 
                 // Return a JSON response with the role
                 return ResponseEntity.ok().body("{\"rol\":\"" + role + "\"}");

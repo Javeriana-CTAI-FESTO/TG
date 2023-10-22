@@ -1,9 +1,13 @@
 <body style="overflow-y: auto;">
   <div class="login-card-container">
     <br><br><br><br><br><br><br>
+    <div *ngIf="showRegisterForm" fxShow.lt-md>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+
     <div class="login-card">
       <div class="login-card-logo">
-        <img src="assets/Javeriana.svg" alt="logo">
+        <img src="assets/Javeriana.svg" alt="logo" class="responsive-image">
       </div>
       <div *ngIf="!showRegisterForm">
         <!-- Formulario de inicio de sesión -->
@@ -13,12 +17,14 @@
         </div>
         <form (ngSubmit)="onSubmit()" class="login-card-form">
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">person_outline</i></span>
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">person_outline</i></span>
             <input type="text" [(ngModel)]="username" name="username" placeholder="Ingrese su Usuario" id="emailForm"
               autofocus required>
           </div>
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">lock_outline</i></span>
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">lock_outline</i></span>
             <input type="password" [(ngModel)]="password" name="password" placeholder="Insgrese su Contraseña"
               id="passwordForm" required>
           </div>
@@ -37,23 +43,27 @@
         </div>
         <form #form="ngForm" (ngSubmit)="onRegister()" class="login-card-form">
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">person_outline</i></span>
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">person_outline</i></span>
             <input type="text" [(ngModel)]="registerData.username" name="registerUsername" placeholder="Username"
               id="registerUsernameForm" autofocus required>
           </div>
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">lock_outline</i></span>
-            <input type="password" [(ngModel)]="registerData.password" name="registerPassword" placeholder="Password"
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">lock_outline</i></span>
+            <input type="password" [(ngModel)]="registerData.password" name="registerPassword" placeholder="Contraseña"
               id="registerPasswordForm" required>
           </div>
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">account_circle</i></span>
-            <input type="text" [(ngModel)]="registerData.name" name="registerName" placeholder="Name"
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">account_circle</i></span>
+            <input type="text" [(ngModel)]="registerData.name" name="registerName" placeholder="Nombre"
               id="registerNameForm" required>
           </div>
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">account_circle</i></span>
-            <input type="text" [(ngModel)]="registerData.lastName" name="registerLastName" placeholder="Last Name"
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">account_circle</i></span>
+            <input type="text" [(ngModel)]="registerData.lastName" name="registerLastName" placeholder="Apellido"
               id="registerLastNameForm" required>
           </div>
           <div class="form-item">
@@ -62,19 +72,19 @@
               id="registerEmailForm" required>
           </div>
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">badge</i></span>
+            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">credit_card</i></span>
             <input type="number" [(ngModel)]="registerData.identification" name="registerIdentification"
-              placeholder="Identification" id="registerIdentificationForm" required min="1">
+              placeholder="Cedula" id="registerIdentificationForm" required min="1">
           </div>
           <div class="form-item">
             <span class="form-item-icon"><i class="material-icons" style="background: transparent;">phone</i></span>
-            <input type="tel" [(ngModel)]="registerData.phone" name="registerPhone" placeholder="Phone"
+            <input type="tel" [(ngModel)]="registerData.phone" name="registerPhone" placeholder="Telefono"
               id="registerPhoneForm" required min="1">
           </div>
           <div class="form-item">
             <span class="form-item-icon"><i class="material-icons" style="background: transparent;">people</i></span>
             <select class="form-select" id="Role" name="Role" [(ngModel)]="selected" required>
-              <option value="">Select a role</option>
+              <option value="">Seleccione un Rol</option>
               <option value="Student">Student</option>
               <option value="Buyer">Buyer</option>
             </select>
