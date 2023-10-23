@@ -1,6 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.service.external;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import java.util.concurrent.Executors;
@@ -46,13 +47,16 @@ public class OrderFilter {
 
                 // Inicializa una lista para almacenar los números de orden
                 List<Long> orderNumbers = new ArrayList<>();
+                
 
                 // Itera a través de cada objeto JSON en la matriz
-                for (JsonElement jsonElement : jsonArray) {
-                    // Obtiene el número de orden de cada objeto JSON
+                Iterator<JsonElement> iterator = jsonArray.iterator();
+                while (iterator.hasNext()) {
+                    JsonElement jsonElement = iterator.next();
                     long orderNumber = jsonElement.getAsJsonObject().get("orderNumber").getAsLong();
                     orderNumbers.add(orderNumber);
                 }
+
 
                 // Ahora 'orderNumbers' contiene la lista de números de orden
                 System.out.println("Números de Orden: " + orderNumbers);
