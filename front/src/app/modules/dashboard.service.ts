@@ -122,7 +122,6 @@ export class DashboardService {
     const headers = {
       Authorization: `Bearer ${authToken}`
     };
-    console.log(orderData);
     return this.http.post(this.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
   }
 

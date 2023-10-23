@@ -17,6 +17,10 @@
             <div class="product-stripe">
                 <div [ngClass]="{'stripe-container': filteredCards.length > 0}">
                     <div *ngFor="let card of filteredCards" class="card" style="height: 25rem;">
+                        <div class="d-flex justify-content-center">
+                            <img [src]="card.image" alt="Imagen de la pieza"
+                                onerror="this.src='../../../assets/Pictures/Default/NoPicture.png'">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ card.title }}</h5> 
                             <span class="badge bg-primary">id: {{ card.id }}</span>

@@ -48,7 +48,8 @@ export class PurchaseHistoryDialogComponent {
               id_workPlan: partWithQuantity.workPlanNumber,
               cliente_Cedula: cedulaResponse.cedula,
               title: partWithQuantity.description,
-              orderNumber: 4
+              orderNumber: 4,
+              image_filePath: partWithQuantity.picture
             };
             return this.dashboardService.saveOrder(orderData, authToken);
           })

@@ -19,8 +19,8 @@ export class CardComponent implements OnInit {
 
   @Output() dataChanged = new EventEmitter<string>();
 
-  cards: { id: number, idworkPlan: number, title: string, OrderNumber: string}[] = [];
-  filteredCards: { id: number, idworkPlan: number, title: string, OrderNumber: string}[] = [];
+  cards: { id: number, idworkPlan: number, title: string, OrderNumber: string, image: string}[] = [];
+  filteredCards: { id: number, idworkPlan: number, title: string, OrderNumber: string, image: string}[] = [];
   searchTerm: string = '';
 
   constructor(
@@ -44,7 +44,8 @@ export class CardComponent implements OnInit {
             id: order.id_part,
             idworkPlan: order.id_workPlan,
             title: order.title,
-            OrderNumber: order.orderNumber          
+            OrderNumber: order.orderNumber,
+            image: order.image_filePath
           });
         });
         this.filteredCards = this.cards;
@@ -69,7 +70,8 @@ export class CardComponent implements OnInit {
             id: card.id,
             idworkPlan: card.idworkPlan,
             title: card.title,
-            OrderNumber: card.OrderNumber
+            OrderNumber: card.OrderNumber,
+            image: card.imageUrl
           });
         });
         this.filteredCards = this.cards;
