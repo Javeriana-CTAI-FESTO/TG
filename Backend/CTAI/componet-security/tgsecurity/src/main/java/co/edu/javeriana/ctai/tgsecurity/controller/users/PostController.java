@@ -49,6 +49,7 @@ public class PostController {
             order.setCliente(clientService.findByCedula(orderRequest.getCliente_Cedula()));
             order.setId_part(orderRequest.getId_part());
             order.setId_workPlan(orderRequest.getId_workPlan());
+            order.setImage_filePath(orderRequest.getImage_filePath());
 
             // Nueva ordenResponse
             OrderRequest orderResponse = new OrderRequest();
@@ -57,6 +58,7 @@ public class PostController {
             orderResponse.setCliente_Cedula(order.getCliente().getIdentificacion());
             orderResponse.setId_part(order.getId_part());
             orderResponse.setId_workPlan(order.getId_workPlan());
+            orderResponse.setImage_filePath(order.getImage_filePath());
 
             // Llama al servicio externo de FESTO para obtener el número de orden
             orderProcessingService.enqueueOrder(order);

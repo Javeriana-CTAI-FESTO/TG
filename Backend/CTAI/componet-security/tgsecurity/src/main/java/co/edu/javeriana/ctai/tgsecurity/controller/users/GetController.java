@@ -147,7 +147,8 @@ public class GetController {
                         order.getId_workPlan(),
                         order.getCliente().getIdentificacion(),
                         order.getTitle(),
-                        order.getOrderNumber()
+                        order.getOrderNumber(),
+                        order.getImage_filePath()
                 ));
             }
 
@@ -162,7 +163,5 @@ public class GetController {
             return ResponseEntity.badRequest().build();
         }
     }
-
-
 
 }
