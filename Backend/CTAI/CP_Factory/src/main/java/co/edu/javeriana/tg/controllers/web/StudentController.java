@@ -125,12 +125,28 @@ public class StudentController {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         try {
-            workPlans = studentService.getOrdersWithStatus();
+            workPlans = studentService.getOrdersWithTime();
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
+
+        //Enviar las mas recientes
+        workPlans.sort((o1, o2) -> {
+            // Comparar las fechas de inicio planificadas en orden descendente
+            if (o1.getOrderNumber() == null && o2.getOrderNumber() == null) {
+                return 0; // Ambos son nulos
+            } else if (o1.getOrderNumber() == null) {
+                return 1; // o1 es nulo, o2 es no nulo
+            } else if (o2.getOrderNumber() == null) {
+                return -1; // o1 es no nulo, o2 es nulo
+            } else {
+                return o2.getOrderNumber().compareTo(o1.getOrderNumber());
+            }
+        });
+
+
 
         return new ResponseEntity<List<OrderDTO>>(workPlans, status);
     }
