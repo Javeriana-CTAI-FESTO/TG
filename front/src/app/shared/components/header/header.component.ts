@@ -18,16 +18,11 @@ export class HeaderComponent {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
   string1: string = '';
   string2: string = '';
-  rol: string = '';
 
   constructor(private loginService: LoginService,
     private dashboardsService: DashboardService,
     private toastr: ToastrService,
     private dialog: MatDialog) { }
-
-  ngOnInit() {
-    this.rol = this.loginService.getRole();
-  }
 
   toggleSideBar() {
     this.toggleSideBarForMe.emit();
@@ -38,21 +33,6 @@ export class HeaderComponent {
 
   onLogout() {
     this.loginService.logout();
-  }
-
-  openPrompt() {
-    const dialogRef = this.dialog.open(DialogRutasComponent, {
-      width: '250px',
-      data: { string1: this.string1, string2: this.string2 }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.string1 = result.string1;
-        this.string2 = "3";
-        this.onSubmit();
-      }
-    });
   }
 
   onSubmit() {
@@ -66,6 +46,5 @@ export class HeaderComponent {
       console.log(err);
     }
     );
-   // localStorage.setItem('rutaModuloJar', this.string2);
   }
 }
