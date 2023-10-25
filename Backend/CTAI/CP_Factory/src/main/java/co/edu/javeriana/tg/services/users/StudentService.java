@@ -17,18 +17,17 @@ import co.edu.javeriana.tg.services.components.OrderService;
 import co.edu.javeriana.tg.services.components.PartService;
 import co.edu.javeriana.tg.services.components.WorkPlanService;
 
-
 @Service
 @Transactional
 public class StudentService {
-  
+
   private final OrderService orderService;
 
   private final PartService partService;
 
   private WorkPlanService workPlanService;
 
-  public StudentService( OrderService orderService,  PartService partService, WorkPlanService workPlanService) {
+  public StudentService(OrderService orderService, PartService partService, WorkPlanService workPlanService) {
     this.orderService = orderService;
     this.partService = partService;
     this.workPlanService = workPlanService;
@@ -54,7 +53,7 @@ public class StudentService {
     return orderService.getOrdersWithStatus();
   }
 
-  public List<Map<Long,ZonedDateTime>> getAllOrdersPlannedEnds() {
+  public List<Map<Long, ZonedDateTime>> getAllOrdersPlannedEnds() {
     return orderService.getAllOrdersPlannedEnds();
   }
 

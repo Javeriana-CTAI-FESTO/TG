@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +81,10 @@ public class OrderService {
     }
 
     public List<Map<Long, ZonedDateTime>> getAllOrdersPlannedEnds() {
-        return orderPositionRepository.findAll().stream().map(orderPosition -> Map.of(orderPosition.getOrder(), orderPosition.getPlannedEnd().toInstant().atZone(ZoneId.of("America/Bogota")))).collect(Collectors.toList());
+        return orderPositionRepository.findAll().stream()
+                .map(orderPosition -> Map.of(orderPosition.getOrder(),
+                        orderPosition.getPlannedEnd().toInstant().atZone(ZoneId.of("America/Bogota"))))
+                .collect(Collectors.toList());
     }
 
     private List<OrderDTO> getAllFinishedOrders() {
@@ -211,16 +215,19 @@ public class OrderService {
                 .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
                         "Finished"))
                 .collect(Collectors.toList()));
+        Collections.reverse(orders);
         return orders;
     }
 
     public List<OrderDTO> getOrdersWithTime() {
-        return orderRepository.findAll().stream()
+        List<OrderDTO> list = orderRepository.findAll().stream()
                 .map(order -> new OrderDTO(order, clientService.getClientByClientNumber(order.getClientNumber()),
                         this.timeForWorkPlan(
                                 orderPositionRepository.getWorkPlanNumberByOrderNumber(order.getOrderNumber()),
                                 orderPositionRepository.countByOrder(order.getOrderNumber()))))
                 .collect(Collectors.toList());
+        Collections.reverse(list);
+        return list;
     }
 
     public Map<Long, String> getPossibleStatus() {

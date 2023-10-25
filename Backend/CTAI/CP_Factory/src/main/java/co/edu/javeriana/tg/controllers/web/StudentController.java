@@ -125,7 +125,7 @@ public class StudentController {
         List<OrderDTO> workPlans = null;
         HttpStatus status = HttpStatus.OK;
         try {
-            workPlans = studentService.getOrdersWithStatus();
+            workPlans = studentService.getOrdersWithTime();
             if (workPlans.isEmpty())
                 status = HttpStatus.NO_CONTENT;
         } catch (Exception e) {
