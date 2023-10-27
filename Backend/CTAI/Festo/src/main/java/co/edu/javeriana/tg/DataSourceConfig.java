@@ -17,8 +17,9 @@ public class DataSourceConfig {
     public DataSource createDataSourceDev() throws Exception {
         ComboPooledDataSource ds = new ComboPooledDataSource();        
         //ds.setJdbcUrl("jdbc:ucanaccess://"+datasource+";showSchema=true");
-        ds.setJdbcUrl("jdbc:ucanaccess://"+"/home/capitan/Documentos/GitHub/TG/Backend/CTAI/Festo/"+"/FestoMES_be.accdb;showSchema=true");
+        ds.setJdbcUrl("jdbc:ucanaccess://"+"/home/capitan/Documentos/GitHub/TG/Backend/CTAI/Festo/"+"FestoMES_be.accdb;showSchema=true");
         ds.setDriverClass("net.ucanaccess.jdbc.UcanaccessDriver");
         return ds;
     }
 }//ds.setJdbcUrl("jdbc:ucanaccess://"+"/home/capitan/Documentos/GitHub/TG/Backend/CTAI/Festo/"+"/FestoMES_be.accdb;showSchema=true");
+///home/capitan/Documentos/GitHub/TG/Backend/CTAI/Festo/FestoMES_be.accdb
