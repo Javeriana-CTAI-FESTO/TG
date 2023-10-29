@@ -9,10 +9,6 @@ server:
 spring:
   main:
     allow-circular-references: true
-    logging:
-      org.springframework.web: DEBUG
-      file:
-        name: logs/log.log
   # Configuración de Spring JPA
   jpa:
     generate-ddl: false
@@ -31,8 +27,28 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
-    ### Logbook Configurations ###
 
+# Configuraciones de Logbook
+logbook:
+  format:
+    style: http
+  strategy: body-only-if-status-at-least
+  minimum-status: 400
+  obfuscate:
+    headers:
+      - Authorization
+      - X-Secret
+    parameters:
+      - access_token
+      - password
+  write:
+    chunk-size: 1000
+  filter:
+    form-request-mode: parameter
 
-
-
+# Configuración de registro
+logging:
+  level:
+    org.springframework.web: DEBUG
+  file:
+    name: logs/register.log
