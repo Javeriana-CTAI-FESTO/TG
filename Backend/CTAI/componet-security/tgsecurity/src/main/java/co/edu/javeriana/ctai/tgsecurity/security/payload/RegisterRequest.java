@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.security.payload;
 
-
+import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.Rol;
 
 public class RegisterRequest {
 
@@ -11,10 +11,7 @@ public class RegisterRequest {
     private String email;
     private Long identification;
     private Long phone;
-    private boolean admin;
-    private boolean student;
-    private boolean teacher;
-    private boolean comprador;
+    private Rol rol;
 
     public RegisterRequest() {
     }
@@ -75,36 +72,12 @@ public class RegisterRequest {
         this.phone = phone;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    public boolean isStudent() {
-        return student;
-    }
-
-    public void setStudent(boolean student) {
-        this.student = student;
-    }
-
-    public boolean isTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(boolean teacher) {
-        this.teacher = teacher;
-    }
-
-    public boolean isComprador() {
-        return comprador;
-    }
-
-    public void setComprador(boolean comprador) {
-        this.comprador = comprador;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     @Override
@@ -117,10 +90,7 @@ public class RegisterRequest {
                 ", email='" + email + '\'' +
                 ", identification=" + identification +
                 ", phone=" + phone +
-                ", admin=" + admin +
-                ", student=" + student +
-                ", teacher=" + teacher +
-                ", comprador=" + comprador +
+                ", rol=" + rol + // Actualizado para incluir el rol en el toString
                 '}';
     }
 }

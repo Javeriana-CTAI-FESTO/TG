@@ -176,10 +176,7 @@ public class AuthController {
                         .setUsuario(user)
                         .setIdentificacion(signUpRequest.getIdentification())
                         .setCelular(signUpRequest.getPhone())
-                        .setAdmin(signUpRequest.isAdmin())
-                        .setEstudiante(signUpRequest.isStudent())
-                        .setProfesor(signUpRequest.isTeacher())
-                        .setComprador(signUpRequest.isComprador())
+                        .setRol(signUpRequest.getRol())
                         .build();
 
                 clientService.save(cliente);

@@ -74,13 +74,13 @@ public class GetController {
 
                 // Determine the role
                 String role;
-                if (cliente.isAdmin()) {
+                if (cliente.getRol().name().contains("ADMIN")) {
                     role = "admin";
-                } else if (cliente.isProfesor()) {
+                } else if (cliente.getRol().name().contains("PROFESOR")) {
                     role = "profesor";
-                } else if (cliente.isEstudiante()) {
+                } else if (cliente.getRol().name().contains("ESTUDIANTE")) {
                     role = "estudiante";
-                }else if (cliente.isComprador()) {
+                }else if (cliente.getRol().name().contains("COMPRADOR")) {
                     role = "comprador";
                 } else {
                     role = "cliente";

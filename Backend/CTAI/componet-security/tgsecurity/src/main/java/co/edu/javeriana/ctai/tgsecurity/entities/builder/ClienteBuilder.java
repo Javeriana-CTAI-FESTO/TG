@@ -3,11 +3,12 @@ package co.edu.javeriana.ctai.tgsecurity.entities.builder;
 import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
 import co.edu.javeriana.ctai.tgsecurity.entities.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.Rol;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteBuilder {
+public class ClienteBuilder implements IBuilder<Cliente> {
 
     private User usuario;
     private String nombre;
@@ -15,11 +16,8 @@ public class ClienteBuilder {
     private Long identificacion;
     private Long celular;
     private String correoElectronico;
-    private boolean admin;
-    private boolean estudiante;
-    private boolean profesor;
-    private boolean comprador;
-    private List<Order> orders = new ArrayList<>(); // Inicializa la lista de órdenes como vacía por defecto
+    private Rol rol; // Enum para el rol
+    private List<Order> orders = new ArrayList<>();
 
     public ClienteBuilder setUsuario(User usuario) {
         this.usuario = usuario;
@@ -51,23 +49,8 @@ public class ClienteBuilder {
         return this;
     }
 
-    public ClienteBuilder setAdmin(Boolean admin) {
-        this.admin = admin;
-        return this;
-    }
-
-    public ClienteBuilder setEstudiante(Boolean estudiante) {
-        this.estudiante = estudiante;
-        return this;
-    }
-
-    public ClienteBuilder setProfesor(Boolean profesor) {
-        this.profesor = profesor;
-        return this;
-    }
-
-    public ClienteBuilder setComprador(Boolean comprador){
-        this.comprador = comprador;
+    public ClienteBuilder setRol(Rol rol) { // Método para establecer el rol
+        this.rol = rol;
         return this;
     }
 
@@ -76,8 +59,9 @@ public class ClienteBuilder {
         return this;
     }
 
+    @Override
     public Cliente build() {
-        Cliente cliente = new Cliente(usuario, nombre, apellido, identificacion, celular, correoElectronico, admin, estudiante, profesor, comprador);
+        Cliente cliente = new Cliente(usuario, nombre, apellido, identificacion, celular, correoElectronico, rol);
         cliente.setOrders(orders);
         return cliente;
     }

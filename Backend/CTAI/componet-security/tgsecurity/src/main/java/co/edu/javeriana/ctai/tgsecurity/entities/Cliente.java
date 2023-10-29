@@ -1,9 +1,9 @@
 package co.edu.javeriana.ctai.tgsecurity.entities;
 
+import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.Rol;
 
 import javax.persistence.*;
 import java.util.List;
-
 
 @Entity
 @Table(name = "cliente")
@@ -32,17 +32,9 @@ public class Cliente {
     @Column(name = "correo_electronico")
     private String correoElectronico;
 
-    @Column(name = "admin")
-    private Boolean admin;
-
-    @Column(name = "estudiante")
-    private Boolean estudiante;
-
-    @Column(name = "profesor")
-    private Boolean profesor;
-
-    @Column(name = "comprador")
-    private Boolean comprador;
+    @Column(name = "rol")
+    @Enumerated(EnumType.STRING)
+    private Rol rol; // Enumeración para el rol
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Order> orders;
@@ -50,20 +42,19 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(User usuario, String nombre, String apellido, Long identificacion, Long celular, String correoElectronico, boolean admin, boolean estudiante, boolean profesor, boolean comprador) {
+    public Cliente(User usuario, String nombre, String apellido, Long identificacion, Long celular, String correoElectronico, Rol rol) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.identificacion = identificacion;
         this.celular = celular;
         this.correoElectronico = correoElectronico;
-        this.admin = admin;
-        this.estudiante = estudiante;
-        this.profesor = profesor;
-        this.comprador = comprador;
+        this.rol = rol; // Configura el rol
     }
 
-
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -117,36 +108,12 @@ public class Cliente {
         this.correoElectronico = correoElectronico;
     }
 
-    public Boolean getAdmin() {
-        return admin;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
-    public Boolean getEstudiante() {
-        return estudiante;
-    }
-
-    public void setEstudiante(Boolean estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public Boolean getProfesor() {
-        return profesor;
-    }
-
-    public void setProfesor(Boolean profesor) {
-        this.profesor = profesor;
-    }
-
-    public Boolean getComprador() {
-        return comprador;
-    }
-
-    public void setComprador(Boolean comprador) {
-        this.comprador = comprador;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public List<Order> getOrders() {
@@ -156,39 +123,4 @@ public class Cliente {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public boolean isProfesor() {
-        return profesor;
-    }
-
-    public boolean isEstudiante() {
-        return estudiante;
-    }
-
-    public boolean isComprador() {
-        return comprador;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Cliente [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido
-                + ", identificacion=" + identificacion + ", celular=" + celular + ", correoElectronico="
-                + correoElectronico + "]";
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-
 }
