@@ -46,7 +46,6 @@ import { PurchaseHistoryDialogComponent } from '../modules/buy/Dialogs/purchase-
 import { AddPartComponent } from '../modules/parts/Dialogs/add-part/add-part.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     HeaderComponent,

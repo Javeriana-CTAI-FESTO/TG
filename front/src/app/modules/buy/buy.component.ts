@@ -8,7 +8,7 @@ import { PurchaseHistoryDialogComponent } from './Dialogs/purchase-history-dialo
   templateUrl: './buy.component.html',
   styleUrls: ['./buy.component.css']
 })
-export class BuyComponent implements OnInit{
+export class BuyComponent implements OnInit {
   quantity: number = 0;
   searchTerm: string = '';
   parts: PartWithQuantity[] = [];
@@ -23,14 +23,14 @@ export class BuyComponent implements OnInit{
 
   ngOnInit(): void {
     this.dashboardService.getParts().subscribe(
-        (parts: Part[]) => {
-            this.parts = parts.map(part => ({ ...part, quantity: 0 }));
-            this.filteredParts = this.parts;
-            console.log(this.parts);
-        },
-        (error: any) => {
-            console.error(error);
-        }
+      (parts: Part[]) => {
+        this.parts = parts.map(part => ({ ...part, quantity: 0 }));
+        this.filteredParts = this.parts;
+        console.log(this.parts);
+      },
+      (error: any) => {
+        console.error(error);
+      }
     );
   }
 
@@ -39,10 +39,10 @@ export class BuyComponent implements OnInit{
     this.purchaseCount = 0;
     this.purchases = [];
   }
-  
+
   search(): void {
     if (this.searchTerm) {
-      this.filteredParts = this.parts.filter(part => 
+      this.filteredParts = this.parts.filter(part =>
         part.description.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         part.partNumber.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
       );
@@ -58,21 +58,21 @@ export class BuyComponent implements OnInit{
       this.toastr.success(`${part.quantity} of ${part.description} were added to the shopping cart.`, '¡Succecs!');
       part.quantity = 0;
     }
-}
-openDialog(): void {
-  const dialogRef = this.dialog.open(PurchaseHistoryDialogComponent, {
-    width: '250px',
-    data: { purchases: this.purchases }
-  });
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PurchaseHistoryDialogComponent, {
+      width: '250px',
+      data: { purchases: this.purchases }
+    });
 
-  dialogRef.componentInstance.emptyCart.subscribe(() => {
-    this.resetValues();
-  });
+    dialogRef.componentInstance.emptyCart.subscribe(() => {
+      this.resetValues();
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-  });
-}
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
 
 export interface PartWithQuantity extends Part {

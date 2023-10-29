@@ -21,6 +21,7 @@ export class PurchaseHistoryDialogComponent {
   @Output() emptyCart = new EventEmitter<void>();
 
   isLoading = false;
+  formCompleted = false;
 
   constructor(
     public dialogRef: MatDialogRef<PurchaseHistoryDialogComponent>,
@@ -32,6 +33,18 @@ export class PurchaseHistoryDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  checkFormCompletion(): void {
+    const name = (document.getElementById('inputName') as HTMLInputElement).value;
+    const card = (document.getElementById('inputCard') as HTMLInputElement).value;
+    const expiration = (document.getElementById('inputExpiration') as HTMLInputElement).value;
+
+    if (name && card && expiration) {
+      this.formCompleted = true;
+    } else {
+      this.formCompleted = false;
+    }
   }
 
   async addPart(): Promise<void> {
@@ -70,6 +83,7 @@ export class PurchaseHistoryDialogComponent {
       this.isLoading = false;
     }
   }
+
   emptyShoppingCart(): void {
     this.emptyCart.emit();
     this.dialogRef.close();
