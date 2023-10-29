@@ -9,6 +9,10 @@ server:
 spring:
   main:
     allow-circular-references: true
+    logging:
+      org.springframework.web: DEBUG
+      file:
+        name: logs/log.log
   # Configuración de Spring JPA
   jpa:
     generate-ddl: false
@@ -27,3 +31,8 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
+    ### Logbook Configurations ###
+
+
+
+

@@ -1,9 +1,11 @@
 package co.edu.javeriana.ctai.tgsecurity.config;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.springframework.http.HttpHeaders;
 
+import java.util.Collections;
+
+
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,68 +28,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	public static final String AUTHORIZATION_HEADER = "Authorization";
-
-	/**
-	 * Define el esquema de autenticación JWT.
-	 *
-	 * @return ApiKey
-	 */
-	private ApiKey apiKey() {
-		return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
-	}
-
-	/**
-	 * Configura Docket, que es el principal punto de entrada de Swagger.
-	 *
-	 * @return Docket
-	 */
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.apiInfo(apiDetails())
-				.securityContexts(Arrays.asList(securityContext()))
-				.securitySchemes(Arrays.asList(apiKey()))
 				.select()
-				.apis(RequestHandlerSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("co.edu.javeriana.ctai.tgsecurity.controller")) // Reemplaza con el paquete donde se encuentran tus controladores
 				.paths(PathSelectors.any())
 				.build();
 	}
-
-	/**
-	 * Define el contexto de seguridad para Swagger.
-	 *
-	 * @return SecurityContext
-	 */
-	private SecurityContext securityContext() {
-		return SecurityContext.builder().securityReferences(defaultAuth()).build();
-	}
-
-	/**
-	 * Define los detalles de autorización por defecto.
-	 *
-	 * @return Lista de SecurityReference
-	 */
-	private List<SecurityReference> defaultAuth() {
-		AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-		authorizationScopes[0] = authorizationScope;
-		return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
-	}
-
-	/**
-	 * Define los detalles generales de la API.
-	 *
-	 * @return ApiInfo
-	 */
-	private ApiInfo apiDetails() {
-		return new ApiInfo("Awesome API REST",
-				"Pruebas Spring Boot API REST",
-				"1.0",
-				"http://localhost/terms",
-				new Contact("Prueba", "Prueba", "Prueba"),
-				"Prueba",
-				"Prueba",
-				Collections.emptyList());
-	}
 }
+
+
