@@ -17,10 +17,10 @@ export class SidebarComponent implements OnInit {
     this.rol = this.loginService.getRole();
   
     const roleMap: Record<string, string> = {
-      'admin': 'Administrador',
-      'estudiante': 'Estudiante',
-      'profesor': 'Profesor',
-      'comprador': 'Comprador'
+      'ADMIN': 'Administrador',
+      'STUDENT': 'Estudiante',
+      'TEACHER': 'Profesor',
+      'SHOPPER': 'Comprador'
     };
   
     this.rol = roleMap[this.rol] || this.rol;

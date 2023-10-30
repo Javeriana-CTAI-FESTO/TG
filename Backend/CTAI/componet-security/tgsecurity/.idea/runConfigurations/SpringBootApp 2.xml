@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="SpringBootApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <envs>
-      <env name="SSL_KEY_PATH" value="$PROJECT_DIR$/../server.p12" />
-      <env name="RUTA_MODULO_FESTO_JAR" value="$PROJECT_DIR$/../../Festo/target/tg-0.0.1-SNAPSHOT.jar" />
-    </envs>
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <module name="tgsecurity" />
+    <selectedOptions>
+      <option name="environmentVariables" />
+    </selectedOptions>
     <option name="SPRING_BOOT_MAIN_CLASS" value="co.edu.javeriana.ctai.tgsecurity.SpringBootApp" />
     <extension name="coverage">
       <pattern>

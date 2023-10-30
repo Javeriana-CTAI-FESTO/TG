@@ -20,13 +20,9 @@ export class LoginComponent {
     email: '',
     identification: null,
     phone: null,
-    admin: false,
-    student: false,
-    teacher: false,
-    comprador: false
+    rol: ''
   };
-  selected = '';
-  constructor(private loginService: LoginService, private router: Router, private toastr: ToastrService) {}
+  constructor(private loginService: LoginService, private router: Router, private toastr: ToastrService) { }
 
   onSubmit() {
     this.loginService.login(this.username, this.password).subscribe(response => {
@@ -42,14 +38,10 @@ export class LoginComponent {
       this.toastr.error('Login fallido');
     });
   }
-  
+
 
   onRegister() {
-    if(this.selected == 'Buyer'){
-      this.registerData.comprador= true;
-    }else if(this.selected == 'Student'){
-      this.registerData.student= true;
-    }
+
     this.loginService.register(this.registerData).subscribe(response => {
       this.toastr.success(response.message);
       this.showRegisterForm = false;
@@ -64,14 +56,9 @@ export class LoginComponent {
       email: '',
       identification: null,
       phone: null,
-      admin: false,
-      student: false,
-      teacher: false,
-      comprador: false,
+      rol: ''
     };
-    this.selected = '';
   }
-
 
   toggleRegisterForm() {
     this.showRegisterForm = !this.showRegisterForm;

@@ -1,0 +1,54 @@
+# DataSource URL
+datasource: ${DATABASE_FILE:FestoMES_be.accdb}
+
+# Configuracion del servidor
+server:
+  port: ${SERVER_PROD_PORT:8080}
+
+# Configuracion de Spring
+spring:
+  main:
+    allow-circular-references: true
+  # Configuración de Spring JPA
+  jpa:
+    generate-ddl: false
+    # Propiedades de Spring JPA
+    properties:
+      # Propiedades de Hibernate
+      hibernate:
+        dialect: net.ucanaccess.hibernate.dialect.UCanAccessDialect
+        globally_quoted_identifiers: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        hbm2ddl:
+          auto: none
+    # Configuración de Hibernate
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+
+# Configuraciones de Logbook
+logbook:
+  format:
+    style: http
+  strategy: body-only-if-status-at-least
+  minimum-status: 400
+  obfuscate:
+    headers:
+      - Authorization
+      - X-Secret
+    parameters:
+      - access_token
+      - password
+  write:
+    chunk-size: 1000
+  filter:
+    form-request-mode: parameter
+
+# Configuración de registro
+logging:
+  level:
+    org.springframework.web: DEBUG
+  file:
+    name: logs/tg-C.log

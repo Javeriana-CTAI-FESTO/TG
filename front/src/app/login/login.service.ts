@@ -16,10 +16,7 @@ export interface RegisterData {
   email: string;
   identification: number | null;
   phone: number | null;
-  admin: boolean;
-  student: boolean;
-  teacher: boolean;
-  comprador: boolean;
+  rol: string;
 }
 
 @Injectable({

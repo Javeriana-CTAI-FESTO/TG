@@ -16,10 +16,11 @@ export class PiezasServiceService {
 
   rol(){
     const rol = this.loginService.getRole();
-    if (rol === 'estudiante') {
+    
+    if (rol === 'STUDENT') {
       return 'students';
     }
-    if (rol === 'profesor') {
+    if (rol === 'TEACHER') {
       return 'teacher';
     }
     return 'admin';

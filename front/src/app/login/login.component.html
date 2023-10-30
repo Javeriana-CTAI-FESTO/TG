@@ -3,7 +3,7 @@
     <br><br><br><br><br><br><br>
     <div *ngIf="showRegisterForm" fxShow.lt-md>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  </div>
+    </div>
 
     <div class="login-card">
       <div class="login-card-logo">
@@ -72,7 +72,8 @@
               id="registerEmailForm" required>
           </div>
           <div class="form-item">
-            <span class="form-item-icon"><i class="material-icons" style="background: transparent;">credit_card</i></span>
+            <span class="form-item-icon"><i class="material-icons"
+                style="background: transparent;">credit_card</i></span>
             <input type="number" [(ngModel)]="registerData.identification" name="registerIdentification"
               placeholder="Cedula" id="registerIdentificationForm" required min="1">
           </div>
@@ -83,10 +84,10 @@
           </div>
           <div class="form-item">
             <span class="form-item-icon"><i class="material-icons" style="background: transparent;">people</i></span>
-            <select class="form-select" id="Role" name="Role" [(ngModel)]="selected" required>
+            <select class="form-select" id="Role" name="Role" [(ngModel)]="registerData.rol" required>
               <option value="">Seleccione un Rol</option>
-              <option value="Student">Student</option>
-              <option value="Buyer">Buyer</option>
+              <option value="STUDENT">Student</option>
+              <option value="SHOPPER">Buyer</option>
             </select>
           </div>
           <button type="submit" [disabled]="form.invalid">Registrarse</button>

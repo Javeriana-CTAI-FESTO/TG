@@ -16,32 +16,17 @@ export class CreateComponent {
     email: '',
     identification: 0,
     phone: 0,
-    admin: false,
-    student: false,
-    teacher: false,
-    comprador: false
+    rol: ''
   };
 
-  selected = '';
   constructor(private loginService: LoginService, private toastr: ToastrService) {}
 
   onRegister() {
-    if(this.selected == 'Admin'){
-      this.registerData.admin = true;
-    }else if(this.selected == 'Teacher'){
-      this.registerData.teacher = true;
-    }else if (this.selected == 'Student'){
-      this.registerData.student = true;
-    }else if (this.selected == 'Comprador'){
-      this.registerData.comprador = true;
-    }
-  
     this.loginService.register(this.registerData).subscribe(response => {
       this.toastr.success(response.message);
     }, error => {
       this.toastr.error(error.error.message);
-    });
-  
+    });  
     this.registerData = {
       username: '',
       password: '',
@@ -50,11 +35,7 @@ export class CreateComponent {
       email: '',
       identification: 0,
       phone: 0,
-      admin: false,
-      student: false,
-      teacher: false,
-      comprador: false,
+      rol: ''
     };
-    this.selected = '';
   }
 }

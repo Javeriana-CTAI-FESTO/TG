@@ -31,12 +31,12 @@
       </div>
       <div class="mb-3">
         <label for="Role" class="form-label">Role</label>
-        <select class="form-select" id="Role" name="Role" [(ngModel)]="selected" required>
+        <select class="form-select" id="Role" name="Role" [(ngModel)]="registerData.rol" required>
           <option value="">Select a role</option>
-          <option value="Teacher">Teacher</option>
-          <option value="Admin">Admin</option>
-          <option value="Student">Student</option>
-          <option value="Comprador">Comprador</option>
+          <option value="TEACHER">Teacher</option>
+          <option value="ADMIN">Admin</option>
+          <option value="STUDENT">Student</option>
+          <option value="SHOPPER">Buyer</option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Enviar</button>
