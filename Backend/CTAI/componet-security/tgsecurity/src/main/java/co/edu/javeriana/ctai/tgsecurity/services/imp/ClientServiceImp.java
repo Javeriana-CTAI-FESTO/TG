@@ -1,8 +1,8 @@
 package co.edu.javeriana.ctai.tgsecurity.services.imp;
 
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
-import co.edu.javeriana.ctai.tgsecurity.entities.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

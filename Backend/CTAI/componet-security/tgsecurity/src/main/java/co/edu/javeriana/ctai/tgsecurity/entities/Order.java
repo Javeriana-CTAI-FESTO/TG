@@ -1,5 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.entities;
 
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
+
 import javax.persistence.*;
 
 @Entity

@@ -2,8 +2,8 @@ package co.edu.javeriana.ctai.tgsecurity.controller.web;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.builder.ClienteBuilder;
 import co.edu.javeriana.ctai.tgsecurity.entities.builder.UserBuilder;
-import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
-import co.edu.javeriana.ctai.tgsecurity.entities.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtResponse;

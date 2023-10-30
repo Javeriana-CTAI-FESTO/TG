@@ -1,7 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.repository.interfaces;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.User;
-import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

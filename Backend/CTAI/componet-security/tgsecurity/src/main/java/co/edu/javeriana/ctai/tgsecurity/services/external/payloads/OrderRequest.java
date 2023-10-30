@@ -1,18 +1,23 @@
-package co.edu.javeriana.ctai.tgsecurity.entities.auxillary;
+package co.edu.javeriana.ctai.tgsecurity.services.external.payloads;
 
-public class OrderResponse {
+import com.sun.istack.NotNull;
+
+public class OrderRequest {
+
+    @NotNull
     private int id_part;
     private int id_workPlan;
+    @NotNull
     private Long cliente_Cedula;
     private String title;
     private long orderNumber;
+
     private String image_filePath;
 
-
-    public OrderResponse() {
+    public OrderRequest() {
     }
 
-    public OrderResponse(int id_part, int id_workPlan, Long cliente_Cedula, String title, long orderNumber, String image_filePath) {
+    public OrderRequest(int id_part, int id_workPlan, Long cliente_Cedula, String title, long orderNumber, String image_filePath) {
         this.id_part = id_part;
         this.id_workPlan = id_workPlan;
         this.cliente_Cedula = cliente_Cedula;

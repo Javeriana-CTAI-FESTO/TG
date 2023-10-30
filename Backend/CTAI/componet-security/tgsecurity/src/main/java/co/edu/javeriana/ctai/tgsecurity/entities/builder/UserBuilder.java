@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.entities.builder;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 
 public class UserBuilder implements IBuilder<User>{
 

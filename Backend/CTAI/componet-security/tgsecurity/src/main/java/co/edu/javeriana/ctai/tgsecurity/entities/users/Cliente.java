@@ -1,6 +1,6 @@
-package co.edu.javeriana.ctai.tgsecurity.entities;
+package co.edu.javeriana.ctai.tgsecurity.entities.users;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.Rol;
+import co.edu.javeriana.ctai.tgsecurity.entities.Order;
 
 import javax.persistence.*;
 import java.util.List;

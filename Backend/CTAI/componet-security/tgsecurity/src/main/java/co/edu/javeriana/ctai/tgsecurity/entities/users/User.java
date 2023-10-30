@@ -1,4 +1,4 @@
-package co.edu.javeriana.ctai.tgsecurity.entities;
+package co.edu.javeriana.ctai.tgsecurity.entities.users;
 
 
 import javax.persistence.Entity;

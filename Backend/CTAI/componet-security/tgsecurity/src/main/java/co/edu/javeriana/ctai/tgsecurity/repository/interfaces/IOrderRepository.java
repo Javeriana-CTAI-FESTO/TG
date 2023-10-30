@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.repository.interfaces;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

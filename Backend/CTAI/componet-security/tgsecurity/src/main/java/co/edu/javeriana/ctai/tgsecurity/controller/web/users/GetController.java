@@ -1,10 +1,10 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 
 
-import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
-import co.edu.javeriana.ctai.tgsecurity.entities.User;
-import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.OrderResponse;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
+import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderResponse;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IOrderRepository;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
@@ -95,15 +95,15 @@ public class GetController {
     private static String getRole(Cliente cliente) {
         String role;
         if (cliente.getRol().name().contains("ADMIN")) {
-            role = "admin";
-        } else if (cliente.getRol().name().contains("PROFESOR")) {
-            role = "profesor";
-        } else if (cliente.getRol().name().contains("ESTUDIANTE")) {
-            role = "estudiante";
-        }else if (cliente.getRol().name().contains("COMPRADOR")) {
-            role = "comprador";
+            role = "ADMIN";
+        } else if (cliente.getRol().name().contains("TEACHER")) {
+            role = "TEACHER";
+        } else if (cliente.getRol().name().contains("STUDENT")) {
+            role = "STUDENT";
+        }else if (cliente.getRol().name().contains("SHOPPER")) {
+            role = "SHOPPER";
         } else {
-            role = "cliente";
+            role = "UNKNOWN";
         }
         return role;
     }

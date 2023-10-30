@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.services;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 import org.springframework.stereotype.Service;
 
 @Service

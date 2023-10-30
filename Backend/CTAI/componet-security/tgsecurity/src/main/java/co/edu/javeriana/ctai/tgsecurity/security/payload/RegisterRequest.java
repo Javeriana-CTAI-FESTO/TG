@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.security.payload;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.Rol;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Rol;
 
 public class RegisterRequest {
 

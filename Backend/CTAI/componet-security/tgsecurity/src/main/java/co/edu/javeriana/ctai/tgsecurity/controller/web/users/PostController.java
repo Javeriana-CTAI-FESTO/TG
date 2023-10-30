@@ -14,7 +14,7 @@ import org.springframework.web.client.RestClientException; // Importa la excepci
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
 import co.edu.javeriana.ctai.tgsecurity.services.external.OrderProcessingService;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.OrderRequest;
+import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderRequest;
 
 import java.util.logging.Logger;
 
