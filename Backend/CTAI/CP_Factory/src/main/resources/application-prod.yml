@@ -51,4 +51,4 @@ logging:
   level:
     org.springframework.web: DEBUG
   file:
-    name: logs/register.log
+    name: logs/tg-C.log

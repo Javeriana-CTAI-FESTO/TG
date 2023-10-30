@@ -4,21 +4,23 @@ package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 import co.edu.javeriana.ctai.tgsecurity.entities.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
 import co.edu.javeriana.ctai.tgsecurity.entities.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.OrderResponse;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IOrderRepository;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
-import co.edu.javeriana.ctai.tgsecurity.services.external.OrderFilter;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.entities.auxillary.OrderResponse;
-
+import co.edu.javeriana.ctai.tgsecurity.services.external.OrderFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.ConnectException;
 import java.util.List;
@@ -73,18 +75,7 @@ public class GetController {
                 System.out.println("Cliente: " + cliente.getNombre());
 
                 // Determine the role
-                String role;
-                if (cliente.getRol().name().contains("ADMIN")) {
-                    role = "admin";
-                } else if (cliente.getRol().name().contains("PROFESOR")) {
-                    role = "profesor";
-                } else if (cliente.getRol().name().contains("ESTUDIANTE")) {
-                    role = "estudiante";
-                }else if (cliente.getRol().name().contains("COMPRADOR")) {
-                    role = "comprador";
-                } else {
-                    role = "cliente";
-                }
+                String role = getRole(cliente);
 
                 LOGGER.info("Rol: " + role);
 
@@ -99,6 +90,22 @@ public class GetController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("/username={user_name}");
+    }
+
+    private static String getRole(Cliente cliente) {
+        String role;
+        if (cliente.getRol().name().contains("ADMIN")) {
+            role = "admin";
+        } else if (cliente.getRol().name().contains("PROFESOR")) {
+            role = "profesor";
+        } else if (cliente.getRol().name().contains("ESTUDIANTE")) {
+            role = "estudiante";
+        }else if (cliente.getRol().name().contains("COMPRADOR")) {
+            role = "comprador";
+        } else {
+            role = "cliente";
+        }
+        return role;
     }
 
     /**
