@@ -17,6 +17,4 @@ public interface IClientService {
     Boolean existsByCelular(Long celular);
     Cliente findByCedula(Long cedula);
     Cliente findByUsuario(User usuario);
-
-
 }

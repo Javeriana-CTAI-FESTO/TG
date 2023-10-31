@@ -1,4 +1,4 @@
-package co.edu.javeriana.ctai.tgsecurity.services.external;
+package co.edu.javeriana.ctai.tgsecurity.services.utils;
 
 import com.google.gson.annotations.SerializedName;
 

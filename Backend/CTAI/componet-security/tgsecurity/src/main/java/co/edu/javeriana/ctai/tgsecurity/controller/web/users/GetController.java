@@ -8,7 +8,7 @@ import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderResponse
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IOrderRepository;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.services.external.OrderFilter;
+import co.edu.javeriana.ctai.tgsecurity.services.utils.OrderFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
