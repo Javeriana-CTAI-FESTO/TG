@@ -1,9 +1,9 @@
 package co.edu.javeriana.ctai.tgsecurity.entities.builder;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
-import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.Rol;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 
 import java.util.ArrayList;
 import java.util.List;

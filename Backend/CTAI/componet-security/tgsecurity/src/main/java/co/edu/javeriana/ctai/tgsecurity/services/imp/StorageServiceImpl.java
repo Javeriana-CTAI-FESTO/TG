@@ -5,15 +5,14 @@ import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IStorageRepository
 import co.edu.javeriana.ctai.tgsecurity.services.IStorageService;
 import co.edu.javeriana.ctai.tgsecurity.services.utils.ImageUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StorageServiceImpl implements IStorageService {
@@ -62,7 +61,7 @@ public class StorageServiceImpl implements IStorageService {
             return UPLOAD_SUCCESS_MESSAGE + originalFilename;
 
         } catch (IOException e) {
-            LOGGER.log(Level.WARNING,"No se puede cargar la imagen: "+ e.getMessage(), e);
+            LOGGER.log(Level.WARNING, "No se puede cargar la imagen: " + e.getMessage(), e);
             return ERROR_UPLOAD_MESSAGE + e.getMessage();
         }
     }
@@ -76,7 +75,7 @@ public class StorageServiceImpl implements IStorageService {
             LOGGER.log(Level.INFO, "Imagen descargada: " + fileName.toString());
             return ImageUtils.decompressImage(dbImageData.get().getImageData());
         } else {
-            LOGGER.log(Level.WARNING, "Imagen no encontrada: "+fileName.toString());
+            LOGGER.log(Level.WARNING, "Imagen no encontrada: " + fileName.toString());
             return new byte[0]; // O puedes lanzar una excepción o manejarlo de otra manera
         }
     }

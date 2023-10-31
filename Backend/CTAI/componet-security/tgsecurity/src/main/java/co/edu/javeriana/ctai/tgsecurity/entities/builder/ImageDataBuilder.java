@@ -3,7 +3,7 @@ package co.edu.javeriana.ctai.tgsecurity.entities.builder;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
 
-public class ImageDataBuilder implements IBuilder<ImageData>{
+public class ImageDataBuilder implements IBuilder<ImageData> {
 
     private ImageData imageData;
 

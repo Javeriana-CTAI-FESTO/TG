@@ -5,7 +5,8 @@ import org.zalando.logbook.*;
 import org.zalando.logbook.json.JsonHttpLogFormatter;
 
 import java.io.IOException;
-import java.time.*;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 

@@ -55,8 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Configuracion global de CORS para toda la aplicacion
      */
     @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
