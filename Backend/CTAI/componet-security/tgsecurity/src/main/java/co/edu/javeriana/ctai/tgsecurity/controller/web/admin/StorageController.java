@@ -1,4 +1,4 @@
-package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
+package co.edu.javeriana.ctai.tgsecurity.controller.web.admin;
 
 import co.edu.javeriana.ctai.tgsecurity.services.IStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("api/storage")
+@RequestMapping("api/admin/storage")
 public class StorageController {
 
     private final IStorageService service;
