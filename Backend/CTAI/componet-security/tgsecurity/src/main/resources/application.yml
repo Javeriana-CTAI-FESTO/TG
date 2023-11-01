@@ -4,7 +4,6 @@ server:
       enabled: true
       mime-types: application/json, application/xml, text/html
 
-
 spring:
   servlet:
     multipart:
@@ -26,7 +25,7 @@ spring:
 app:
   jwt:
     secret: openb
-    expiration-ms: 1200000
+    expiration-ms: 4800000
 
 # Configuraciones de Logbook
 logbook:

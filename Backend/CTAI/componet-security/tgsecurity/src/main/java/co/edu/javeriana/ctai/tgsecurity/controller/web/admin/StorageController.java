@@ -2,9 +2,13 @@ package co.edu.javeriana.ctai.tgsecurity.controller.web.admin;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
 import co.edu.javeriana.ctai.tgsecurity.services.IStorageService;
+import co.edu.javeriana.ctai.tgsecurity.services.imp.payloads.Img;
+import co.edu.javeriana.ctai.tgsecurity.services.utils.ImageUtils;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +64,28 @@ public class StorageController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+
+    @GetMapping("image/get/oo")
+    public ResponseEntity<List<Img>> getAllImagesPaged(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        List<Img> imgList = service.downloadImages().stream()
+                .filter(imageData -> imageData.getImageData() != null)
+                .map(imageData -> {
+                    Img img = new Img();
+                    img.setName(imageData.getName());
+                    img.setType(imageData.getType());
+                    //img.setData(Base64.getEncoder().encodeToString(imageData.getImageData()));
+                    return img;
+                })
+                .collect(Collectors.toList());
+
+        if (!imgList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(imgList);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
 }
 

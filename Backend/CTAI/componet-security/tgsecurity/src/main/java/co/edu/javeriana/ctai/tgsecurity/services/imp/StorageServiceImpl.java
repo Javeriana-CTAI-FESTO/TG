@@ -4,19 +4,18 @@ import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IStorageRepository;
 import co.edu.javeriana.ctai.tgsecurity.services.IStorageService;
 import co.edu.javeriana.ctai.tgsecurity.services.utils.ImageUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class StorageServiceImpl implements IStorageService {
@@ -90,5 +89,19 @@ public class StorageServiceImpl implements IStorageService {
         List<ImageData> dbImageData = repository.findAll();
         return dbImageData;
     }
+
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<ImageData> downloadImages() {
+        List<ImageData> dbImageData = repository.findAll();
+        List<ImageData> validImages = dbImageData.stream()
+                .filter(imageData -> imageData.getImageData() != null)
+                .collect(Collectors.toList());
+
+        return validImages;
+    }
+
+
+
+
 
 }

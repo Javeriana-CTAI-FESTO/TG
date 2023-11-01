@@ -1,7 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.services;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,4 +14,6 @@ public interface IStorageService {
     public byte[] downloadImage(String fileName);
 
     List<ImageData> getAllImages();
+
+    List<ImageData> downloadImages();
 }
