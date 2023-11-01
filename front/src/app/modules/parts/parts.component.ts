@@ -34,6 +34,7 @@ export class PartsComponent implements OnInit {
     this.piezasService.getPiezasPorDefecto().subscribe(
       (piezas: Pieza[]) => {
         this.piezas = piezas;
+        console.log(this.piezas);
         this.dataSource.data = this.piezas;
       },
       (error: any) => {

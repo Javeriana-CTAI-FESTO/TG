@@ -1,0 +1,275 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.entities.users.Rol",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_100278 { 
+   	label=edu
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_496592481 { 
+   	label=javeriana
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Cliente489267886[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Cliente</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   apellido: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   celular: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   correoElectronico: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   identificacion: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nombre: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orders: List&lt;Order&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   rol: Rol [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   usuario: User [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ClienteBuilder1656941467[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ClienteBuilder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   apellido: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   celular: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   correoElectronico: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   identificacion: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nombre: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orders: List&lt;Order&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   rol: Rol [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   usuario: User [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addOrder(order: Order): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ build(): Cliente</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setApellido(apellido: String): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setCelular(celular: Long): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setCorreoElectronico(correoElectronico: String): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setIdentificacion(identificacion: Long): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setNombre(nombre: String): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setRol(rol: Rol): ClienteBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setUsuario(usuario: User): ClienteBuilder</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ImageDataBuilder1656941467[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ImageDataBuilder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   imageData: ImageData [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ build(): ImageData</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Order1373588664[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Order</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   cliente: Cliente [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id_part: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id_workPlan: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   image_filePath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderNumber: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   title: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OrderProcessingService988843964[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OrderProcessingService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   orderNumber: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderQueue: ConcurrentLinkedQueue&lt;Order&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderRepository: IOrderRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   restTemplate: RestTemplate [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ enqueueOrder(order: Order)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ordenesMES()</TD></TR>
+<TR><TD ALIGN="LEFT" >- processOrders()</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendHttpRequest(order: Order): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startProcessing()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+RegisterRequest1992771287[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)RegisterRequest</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   email: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   identification: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lastName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   phone: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   rol: Rol [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   username: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Rol489267886[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(E)Rol</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   ADMIN: Rol [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   SHOPPER: Rol [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   STUDENT: Rol [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   TEACHER: Rol [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ valueOf(name: String): Rol</TD></TR>
+<TR><TD ALIGN="LEFT" >+ values(): Rol[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#DCFBD5"
+];
+
+UserBuilder1656941467[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UserBuilder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   username: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ build(): User</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setPassword(password: String): UserBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setUsername(username: String): UserBuilder</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Cliente489267886 -> Order1373588664[label="orders
+[0..*]"];
+Cliente489267886 -> Rol489267886[label="rol
+[0..1]"];
+ClienteBuilder1656941467 -> ImageDataBuilder1656941467[arrowhead=none];
+ClienteBuilder1656941467 -> Order1373588664[label="orders
+[0..*]"];
+ClienteBuilder1656941467 -> Rol489267886[label="rol
+[0..1]"];
+ClienteBuilder1656941467 -> UserBuilder1656941467[arrowhead=none];
+Order1373588664 -> Cliente489267886[label="cliente
+[0..1]"];
+OrderProcessingService988843964 -> Order1373588664[label="orderQueue
+[0..*]"];
+RegisterRequest1992771287 -> Rol489267886[label="rol
+[0..1]"];
+    
+}
+@enduml

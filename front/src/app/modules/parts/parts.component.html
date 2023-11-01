@@ -15,7 +15,7 @@
                 <th mat-header-cell *matHeaderCellDef> Picture </th>
                 <td mat-cell *matCellDef="let pieza">
                     <img [src]="pieza.picture" alt="Imagen de la pieza" (click)="$event.stopPropagation()"
-                        onerror="this.src='../../../assets/Pictures/Default/NoPicture.png'">
+                        onerror="this.src='../../../assets/NoPicture.png'">
                 </td>
             </ng-container>
 

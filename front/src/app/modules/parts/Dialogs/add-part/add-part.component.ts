@@ -28,6 +28,7 @@ export class AddPartComponent implements OnInit {
     type: new FormControl(3, Validators.required),
     workPlanNumber: new FormControl('', Validators.required),
     picture: new FormControl(''),
+    pictureName: new FormControl(''),
     pictureFolder: new FormControl(''),
     basePallet: new FormControl('', Validators.required),
     mrpType: new FormControl('', Validators.required),
@@ -36,7 +37,13 @@ export class AddPartComponent implements OnInit {
     defaultResourceId: new FormControl('', Validators.required)
   }, { validators: pictureValidator });
 
-  folders: string[] = ['AFB', 'Cylindrical material', 'Default', 'EMCO', 'Factory4', 'iCIM', 'MPS', 'MPS500', 'MPS-PA', 'PROLOG', 'Sonder', 'SpareParts', 'TransferFactoryLight', 'TransferFactory', 'TransferSystem'];
+  //folders: string[] = ['AFB', 'Cylindrical material', 'Default', 'EMCO', 'Factory4', 'iCIM', 'MPS', 'MPS500', 'MPS-PA', 'PROLOG', 'Sonder', 'SpareParts', 'TransferFactoryLight', 'TransferFactory', 'TransferSystem'];
+  folders: {name: string, image: string}[] = [
+    {name: 'AFB', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png'},
+    {name: 'Cylindrical material', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png'},
+    {name: 'Default', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png'},
+    // ... y así sucesivamente para cada carpeta
+  ];
   workPlans: Workplan[] = [];
 
   constructor(public dialogRef: MatDialogRef<AddPartComponent>, private workplanService: WorkplanServiceService, private piezasService: PiezasServiceService, private toastr: ToastrService) { }
@@ -54,25 +61,39 @@ export class AddPartComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     const pictureControl = this.partForm.get('picture');
-    if (pictureControl) {
+    const pictureNameControl = this.partForm.get('pictureName'); 
+    if (pictureControl && pictureNameControl) {
       pictureControl.setValue(file ? file : '');
+      pictureNameControl.setValue(file ? file.name : ''); 
     } else {
-      console.error('El control "picture" no existe en el formulario');
+      console.error('El control "picture" o "pictureName" no existe en el formulario');
     }
   }
 
   onSubmit() {
     if (this.partForm.valid) {
-      const pieza: Pieza = this.partForm.value;
+      const formData = this.partForm.value;
+      const pieza: Pieza = {
+        partNumber: formData.partNumber,
+        description: formData.description,
+        type: formData.type,
+        workPlanNumber: formData.workPlanNumber,
+        picture: formData.pictureName,
+        basePallet: formData.basePallet,
+        mrpType: formData.mrpType,
+        safetyStock: formData.safetyStock,
+        lotSize: formData.lotSize,
+        defaultResourceId: formData.defaultResourceId
+      };
       const file: File = this.partForm.controls['picture'].value;
-      const dropdownValue: string = this.partForm.controls['pictureFolder'].value;
+      const dropdownValue: {name: string, image: string} = this.partForm.controls['pictureFolder'].value;
   
       if (file) {
         const reader = new FileReader();
   
         reader.onload = () => {
-          pieza.picture = reader.result as string;
           console.log(pieza);
+          console.log('Imagen en base64:', reader.result); // Nuevo console.log para la imagen en base64
   
           /* this.piezasService.agregarPieza(pieza).subscribe(response => {
             this.dialogRef.close();
@@ -85,8 +106,8 @@ export class AddPartComponent implements OnInit {
         };
   
         reader.readAsDataURL(file);
-      } else if (dropdownValue && dropdownValue !== '') {
-        pieza.picture = dropdownValue;
+      } else if (dropdownValue && dropdownValue.name !== '') {
+        pieza.picture = dropdownValue.name;
         console.log(pieza);
   
         /* this.piezasService.agregarPieza(pieza).subscribe(response => {

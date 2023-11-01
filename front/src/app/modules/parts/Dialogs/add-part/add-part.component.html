@@ -40,19 +40,22 @@
     </div>
     <div class="mb-3">
       <label for="picture" class="form-label">Picture</label>
+      <ng-select formControlName="pictureFolder" class="form-select mt-2" [searchable]="true"
+        [placeholder]="partForm.controls['pictureFolder'].value ? '' : 'Search or select a picture'"
+        [disabled]="partForm.controls['picture'].value" [hidden]="partForm.controls['picture'].value">
+        <ng-option *ngFor="let folder of folders" [value]="folder">
+          <img [src]="folder.image" class="option-image"> {{folder.name}}
+        </ng-option>
+      </ng-select>
       <div class="d-flex">
         <input #pictureInput type="file" id="picture" (change)="onFileSelected($event)" class="form-control"
-          [disabled]="partForm.controls['pictureFolder'].value" [hidden]="partForm.controls['pictureFolder'].value">
+          [disabled]="partForm.controls['pictureFolder'].value" [hidden]="partForm.controls['pictureFolder'].value"
+          accept="image/*">
         <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="btn btn-light"
           (click)="clearPicture()" *ngIf="partForm.controls['picture'].value">
           <i class="material-icons">close</i>
         </button>
       </div>
-      <ng-select formControlName="pictureFolder" class="form-select mt-2" [searchable]="true"
-        [placeholder]="partForm.controls['pictureFolder'].value ? '' : 'Search or select a picture'"
-        [disabled]="partForm.controls['picture'].value" [hidden]="partForm.controls['picture'].value">
-        <ng-option *ngFor="let folder of folders" [value]="folder">{{folder}}</ng-option>
-      </ng-select>
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!partForm.valid">Submit</button>
   </form>
