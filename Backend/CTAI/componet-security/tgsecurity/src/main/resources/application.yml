@@ -1,5 +1,9 @@
 server:
   port: ${SERVER_TGPROD_PORT:8081}
+  compression:
+      enabled: true
+      mime-types: application/json, application/xml, text/html
+
 
 spring:
   servlet:
