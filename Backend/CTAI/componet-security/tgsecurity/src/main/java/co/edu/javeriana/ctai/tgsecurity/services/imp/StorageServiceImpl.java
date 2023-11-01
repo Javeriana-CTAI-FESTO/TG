@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,6 +67,7 @@ public class StorageServiceImpl implements IStorageService {
         }
     }
 
+
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public byte[] downloadImage(String fileName) {
 
@@ -78,5 +80,11 @@ public class StorageServiceImpl implements IStorageService {
             LOGGER.log(Level.WARNING, "Imagen no encontrada: " + fileName.toString());
             return new byte[0]; // O puedes lanzar una excepción o manejarlo de otra manera
         }
+    }
+
+    @Override
+    public List<ImageData> getAllImages() {
+        List<ImageData> dbImageData = repository.findAll();
+        return dbImageData;
     }
 }

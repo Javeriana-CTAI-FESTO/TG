@@ -1,5 +1,6 @@
-package co.edu.javeriana.ctai.tgsecurity.security.jwt;
+package co.edu.javeriana.ctai.tgsecurity.security.payload;
 
+import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;
 import co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

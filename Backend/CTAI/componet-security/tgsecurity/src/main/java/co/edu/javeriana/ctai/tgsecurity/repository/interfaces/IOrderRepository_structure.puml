@@ -1,0 +1,181 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IOrderRepository",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_100278 { 
+   	label=edu
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_496592481 { 
+   	label=javeriana
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   GetController1649190291[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GetController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderFilter: OrderFilter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderRepository: IOrderRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getOrdersByCedula(cedula: String): ResponseEntity&lt;Object&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getRole(cliente: Cliente): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserCedula(user_name: String): ResponseEntity&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserRole(user_name: String): ResponseEntity&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+IOrderRepository1435144217[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)IOrderRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ existsByOrderNumber(orderNumber: Long): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByCliente(cliente: Cliente): List&lt;Order&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByClienteFetchOrders(cliente: Cliente): List&lt;Order&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findById(id: long): Order</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByOrderNumber(orderNumber: Long): Order</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+OrderProcessingService988843964[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OrderProcessingService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   orderNumber: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderQueue: ConcurrentLinkedQueue&lt;Order&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderRepository: IOrderRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   restTemplate: RestTemplate [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ enqueueOrder(order: Order)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ordenesMES()</TD></TR>
+<TR><TD ALIGN="LEFT" >- processOrders()</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendHttpRequest(order: Order): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startProcessing()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PostController1649190291[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PostController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   clientService: IClientService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderProcessingService: OrderProcessingService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ saveOrder(orderRequest: OrderRequest): ResponseEntity&lt;OrderRequest&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+GetController1649190291 -> IOrderRepository1435144217[label="orderRepository
+[0..1]"];
+OrderProcessingService988843964 -> IOrderRepository1435144217[label="orderRepository
+[1]"];
+PostController1649190291 -> OrderProcessingService988843964[label="orderProcessingService
+[1]"];
+    
+}
+@enduml
