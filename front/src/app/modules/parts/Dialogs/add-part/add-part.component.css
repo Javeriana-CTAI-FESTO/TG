@@ -1,5 +1,25 @@
 .close-button {
-    position: absolute;
-    top: 0;
-    right: 0; 
-  }
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+::ng-deep .ng-dropdown-panel {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.selected,
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover {
+  background-color: #007bff;
+  color: #ffffff;
+}

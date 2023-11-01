@@ -1,5 +1,12 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 
+import co.edu.javeriana.ctai.tgsecurity.entities.Order;
+import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
+import co.edu.javeriana.ctai.tgsecurity.services.external.OrderProcessingService;
+import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,19 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClientException; // Importa la excepción específica de Spring
-
-import co.edu.javeriana.ctai.tgsecurity.entities.Order;
-import co.edu.javeriana.ctai.tgsecurity.services.external.OrderProcessingService;
-import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderRequest;
+import org.springframework.web.client.RestClientException;
 
 import java.util.logging.Logger;
-
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("api/user/post")
@@ -37,10 +34,10 @@ public class PostController {
     private OrderProcessingService orderProcessingService;
 
     @Operation(summary = "Guardar Orden", responses = {
-        @ApiResponse(responseCode = "200", description = "Orden guardada satisfactoriamente", content = @Content(schema = @Schema(implementation = OrderRequest.class)),
-        headers = {@io.swagger.v3.oas.annotations.headers.Header(name = "X-Order-Number", description = "Número de orden", schema = @Schema(type = "integer"))}),
-        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
-        @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+            @ApiResponse(responseCode = "200", description = "Orden guardada satisfactoriamente", content = @Content(schema = @Schema(implementation = OrderRequest.class)),
+                    headers = {@io.swagger.v3.oas.annotations.headers.Header(name = "X-Order-Number", description = "Número de orden", schema = @Schema(type = "integer"))}),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     }, description = "Guarda una orden en el sistema")
     @PostMapping("/save/order")
     public ResponseEntity<OrderRequest> saveOrder(@RequestBody OrderRequest orderRequest) {

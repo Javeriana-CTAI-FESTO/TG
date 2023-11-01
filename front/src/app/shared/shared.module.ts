@@ -45,7 +45,7 @@ import { CreateComponent } from '../modules/create/create.component';
 import { PurchaseHistoryDialogComponent } from '../modules/buy/Dialogs/purchase-history-dialog/purchase-history-dialog.component';
 import { AddPartComponent } from '../modules/parts/Dialogs/add-part/add-part.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -94,6 +94,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
+    NgSelectModule,
     ToastrModule.forRoot()
   ],
   exports: [

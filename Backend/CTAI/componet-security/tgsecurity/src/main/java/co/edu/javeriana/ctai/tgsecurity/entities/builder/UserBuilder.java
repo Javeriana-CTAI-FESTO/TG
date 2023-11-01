@@ -2,7 +2,7 @@ package co.edu.javeriana.ctai.tgsecurity.entities.builder;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 
-public class UserBuilder implements IBuilder<User>{
+public class UserBuilder implements IBuilder<User> {
 
     private String username;
     private String password;
@@ -19,6 +19,7 @@ public class UserBuilder implements IBuilder<User>{
         this.password = password;
         return this;
     }
+
     @Override
     public User build() {
         return new User(username, password);

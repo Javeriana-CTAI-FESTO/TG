@@ -2,6 +2,10 @@ server:
   port: ${SERVER_TGPROD_PORT:8081}
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
   datasource:
     url: jdbc:mysql://localhost:3306/tg
     username: root

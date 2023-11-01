@@ -10,7 +10,6 @@ import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.MessageResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.RegisterRequest;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,7 +27,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.Base64;
 import java.util.logging.Logger;
 
@@ -41,7 +39,7 @@ import java.util.logging.Logger;
  * Si las credenciales son válidas se genera un token JWT como respuesta
  */
 
- 
+
 // @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/auth")
@@ -52,7 +50,6 @@ public class AuthController {
     private final AuthenticationManager authManager;
     private final IUserRepository userRepository;
     private final IClientService clientService;
-
 
 
     private final PasswordEncoder encoder;
@@ -113,7 +110,7 @@ public class AuthController {
 
             return ResponseEntity.ok(new JwtResponse(jwt));
         } catch (IllegalArgumentException e) {
-            LOGGER.warning("Failed to decode Base64: {}"+ e.getMessage());
+            LOGGER.warning("Failed to decode Base64: {}" + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
@@ -136,8 +133,7 @@ public class AuthController {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
-        }
-        else {
+        } else {
             LOGGER.info("Username: " + signUpRequest.getUsername());
             User user = new UserBuilder()
                     .setUsername(signUpRequest.getUsername())
@@ -147,11 +143,11 @@ public class AuthController {
             userRepository.save(user);
 
 
-            if(
+            if (
                     clientService.existsByCedula(signUpRequest.getIdentification()) &&
                             clientService.existsByCorreoElectronico(signUpRequest.getEmail()) &&
                             clientService.existsByCelular(signUpRequest.getPhone())
-            ){
+            ) {
                 // Delete user
                 userRepository.delete(user);
                 return ResponseEntity

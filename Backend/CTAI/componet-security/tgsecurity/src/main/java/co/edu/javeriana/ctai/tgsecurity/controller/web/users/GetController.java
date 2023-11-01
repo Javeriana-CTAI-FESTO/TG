@@ -1,14 +1,14 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 
 
-import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.Order;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
-import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderResponse;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IOrderRepository;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.services.external.OrderFilter;
+import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderResponse;
+import co.edu.javeriana.ctai.tgsecurity.services.utils.OrderFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -100,7 +100,7 @@ public class GetController {
             role = "TEACHER";
         } else if (cliente.getRol().name().contains("STUDENT")) {
             role = "STUDENT";
-        }else if (cliente.getRol().name().contains("SHOPPER")) {
+        } else if (cliente.getRol().name().contains("SHOPPER")) {
             role = "SHOPPER";
         } else {
             role = "UNKNOWN";
@@ -126,7 +126,7 @@ public class GetController {
         if (user_name != null) {
 
             User user = userRepository.findByUsername(user_name).get();
-            System.out.println("Hello user: "+user.getUsername());
+            System.out.println("Hello user: " + user.getUsername());
 
             Cliente cliente = clientService.findByUsuario(user);
 

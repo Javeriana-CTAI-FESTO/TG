@@ -70,6 +70,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     /**
      * A partir de una cabecera Authorization extrae el token
+     *
      * @param request
      * @return
      */
