@@ -184,43 +184,38 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<JwtResponse> refreshToken(@RequestHeader("Authorization") String refreshTokenHeader) {
+    public ResponseEntity<JwtResponse> refreshToken(@RequestParam("Authorization") String refreshToken) {
         // Extraer el token de actualización del encabezado de autorización.
-        String refreshToken = refreshTokenHeader.replace("Bearer ", "").trim();
+        System.out.println(refreshToken);
 
         // Validar y verificar el token de actualización (refresh token).
         if (jwtTokenUtil.isValidRefreshToken(refreshToken)) {
             // Obtener la fecha de expiración del token actual.
             Date expirationDate = jwtTokenUtil.getExpirationDateFromToken(refreshToken);
+            System.out.println(expirationDate);
 
             // Calcular el tiempo restante en milisegundos.
             long timeUntilExpiration = expirationDate.getTime() - System.currentTimeMillis();
+            System.out.println(timeUntilExpiration);
 
-            // Umbral (en milisegundos) a partir del cual renovar el token.
-            long renewalThreshold = 120000; // a partir de 1 minuto
+            String username = jwtTokenUtil.getUsernameFromRefreshToken(refreshToken);
+            String password = jwtTokenUtil.getPasswordFromRefreshToken(refreshToken);
 
-            if ((timeUntilExpiration >= renewalThreshold) && (timeUntilExpiration <= renewalThreshold * 2)) {
-                // El token está a punto de vencer y esta en el umbral permitido, se debe renovar. (120000 >= timeUntilExpiration <= 240000)
-                String username = jwtTokenUtil.getUsernameFromRefreshToken(refreshToken);
-                UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                String currentUserUsername = userDetails.getUsername();
+            System.out.println(username);
+            System.out.println(password);
 
-                if (username.equals(currentUserUsername)) {
-                    // El token de actualización pertenece al usuario autenticado, se puede renovar.
+            // Generar un nuevo token de acceso.
+            UserDetails user = userDetailsService.loadUserByUsername(username);
+            String newAccessToken = jwtTokenUtil.generateAccessToken(user); // Asegúrate de que esta línea genera un nuevo token.
 
-                    // Generar un nuevo token de acceso.
-                    UserDetails user = userDetailsService.loadUserByUsername(username);
-                    String newAccessToken = jwtTokenUtil.generateAccessToken(user);
+            // Devolver el nuevo token en la respuesta.
+            return ResponseEntity.ok(new JwtResponse(newAccessToken));
 
-                    // Devolver el nuevo token en la respuesta.
-                    return ResponseEntity.ok(new JwtResponse(newAccessToken));
-                }
-            }
         }
 
-        // Si el token de actualización no cumple los criterios para la renovación, se responde con el token de actualización original.
-        return ResponseEntity.ok(new JwtResponse(refreshToken));
+        return ResponseEntity.badRequest().build();
     }
+
 
 
 }
