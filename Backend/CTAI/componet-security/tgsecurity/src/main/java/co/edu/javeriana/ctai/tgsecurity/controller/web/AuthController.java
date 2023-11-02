@@ -9,6 +9,7 @@ import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.MessageResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.RegisterRequest;
+import co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl;
 import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
@@ -24,10 +25,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -38,9 +41,6 @@ import java.util.logging.Logger;
  * <p>
  * Si las credenciales son válidas se genera un token JWT como respuesta
  */
-
-
-// @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -55,15 +55,18 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtTokenUtil jwtTokenUtil;
 
+    private final UserDetailsServiceImpl userDetailsService;
+
     public AuthController(AuthenticationManager authManager,
                           IUserRepository userRepository,
                           PasswordEncoder encoder,
-                          JwtTokenUtil jwtTokenUtil, @Qualifier("clientServiceImp") IClientService clientService) {
+                          JwtTokenUtil jwtTokenUtil, @Qualifier("clientServiceImp") IClientService clientService, UserDetailsServiceImpl userDetailsService) {
         this.authManager = authManager;
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtTokenUtil = jwtTokenUtil;
         this.clientService = clientService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Operation(
@@ -179,5 +182,48 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<JwtResponse> refreshToken(@RequestHeader("Authorization") String refreshTokenHeader) {
+        // Extraer el token de actualización del encabezado de autorización.
+        String refreshToken = refreshTokenHeader.replace("Bearer ", "").trim();
+
+        // Validar y verificar el token de actualización (refresh token).
+        if (jwtTokenUtil.isValidRefreshToken(refreshToken)) {
+            // Obtener la fecha de expiración del token actual.
+            Date expirationDate = jwtTokenUtil.getExpirationDateFromToken(refreshToken);
+
+            // Calcular el tiempo restante en milisegundos.
+            long timeUntilExpiration = expirationDate.getTime() - System.currentTimeMillis();
+
+            // Umbral (en milisegundos) a partir del cual renovar el token.
+            long renewalThreshold = 120000; // a partir de 1 minuto
+
+            if ((timeUntilExpiration >= renewalThreshold) && (timeUntilExpiration <= renewalThreshold*2)) {
+                // El token está a punto de vencer y esta en el umbral permitido, se debe renovar. (120000 >= timeUntilExpiration <= 240000)
+                String username = jwtTokenUtil.getUsernameFromRefreshToken(refreshToken);
+                UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                String currentUserUsername = userDetails.getUsername();
+
+                if (username.equals(currentUserUsername)) {
+                    // El token de actualización pertenece al usuario autenticado, se puede renovar.
+
+                    // Generar un nuevo token de acceso.
+                    UserDetails user = userDetailsService.loadUserByUsername(username);
+                    String newAccessToken = jwtTokenUtil.generateAccessToken(user);
+
+                    // Devolver el nuevo token en la respuesta.
+                    return ResponseEntity.ok(new JwtResponse(newAccessToken));
+                }
+            }
+        }
+
+        // Si el token de actualización no cumple los criterios para la renovación, se responde con el token de actualización original.
+        return ResponseEntity.ok(new JwtResponse(refreshToken));
+    }
+
+
+
+
 }
 

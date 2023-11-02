@@ -58,5 +58,72 @@ public class JwtTokenUtil {
 
         return false;
     }
+
+    public boolean isValidRefreshToken(String refreshToken) {
+        try {
+            // Parsea el token de actualización
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+
+            // Verifica que el token no haya expirado
+            Date expirationDate = claims.getExpiration();
+            Date now = new Date();
+            if (expirationDate.before(now)) {
+                return false; // El token ha expirado
+            }
+
+            // Si pasa todas las comprobaciones, el token de actualización es válido
+            return true;
+        } catch (Exception e) {
+            return false; // Error al validar el token
+        }
+    }
+
+    public String getUsernameFromRefreshToken(String refreshToken) {
+        try {
+            // Parsea el token de actualización
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+
+            // Extrae el nombre de usuario (username) de las reclamaciones
+            String username = claims.getSubject();
+
+            // Devuelve el nombre de usuario
+            return username;
+        } catch (Exception e) {
+            return null; // Error al obtener el nombre de usuario
+        }
+    }
+
+    public String generateAccessToken(UserDetails userDetails) {
+        // Crea un nuevo token de acceso
+        String accessToken = Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+
+        // Devuelve el token de acceso
+        return accessToken;
+    }
+
+    public Date getExpirationDateFromToken(String refreshToken) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret) // Reemplaza SECRET_KEY con tu clave secreta
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+
+            return claims.getExpiration();
+        } catch (Exception e) {
+            // Si ocurre algún error al obtener la fecha de expiración, puedes manejarlo aquí.
+            return null;
+        }
+    }
 }
 

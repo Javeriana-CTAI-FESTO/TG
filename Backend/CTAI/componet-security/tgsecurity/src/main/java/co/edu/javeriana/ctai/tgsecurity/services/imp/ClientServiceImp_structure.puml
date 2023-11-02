@@ -103,9 +103,11 @@ subgraph cluster_100278 {
 <TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   encoder: PasswordEncoder [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   jwtTokenUtil: JwtTokenUtil [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ login(authHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refreshToken(refreshTokenHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
 <TR><TD ALIGN="LEFT" >+ register(signUpRequest: RegisterRequest): ResponseEntity&lt;MessageResponse&gt;</TD></TR>
 </TABLE>>
 	style=filled
