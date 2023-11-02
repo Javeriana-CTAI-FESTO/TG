@@ -100,6 +100,7 @@ subgraph cluster_100278 {
 <TR><TD ALIGN="LEFT" >(I)IStorageService</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): byte[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllImageNames(): List&lt;String&gt;</TD></TR>
 <TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): String</TD></TR>
 </TABLE>>
 	style=filled
@@ -136,11 +137,29 @@ StorageController1630280410[
 	fillcolor="#FFFFFF"
 ];
 
+StorageJPARepositoryImpl389350765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StorageJPARepositoryImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   em: EntityManager [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAll(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllNames(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllNamesAndData(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByName(fileName: String): ImageData</TD></TR>
+<TR><TD ALIGN="LEFT" >+ save(imageData: ImageData)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
 StorageServiceImpl1642994765[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)StorageServiceImpl</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   repository: IStorageRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   repository: StorageJPARepositoryImpl [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): byte[]</TD></TR>
 <TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): String</TD></TR>
@@ -156,6 +175,8 @@ StorageServiceImpl1642994765[
 'edges    
 IStorageService559945045 -> StorageServiceImpl1642994765[arrowhead=none, arrowtail=empty, dir=both];
 StorageController1630280410 -> IStorageService559945045[label="service
+[0..1]"];
+StorageServiceImpl1642994765 -> StorageJPARepositoryImpl389350765[label="repository
 [0..1]"];
     
 }

@@ -1,7 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.services.imp;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IStorageRepository;
+import co.edu.javeriana.ctai.tgsecurity.repository.impl.StorageJPARepositoryImpl;
 import co.edu.javeriana.ctai.tgsecurity.services.IStorageService;
 import co.edu.javeriana.ctai.tgsecurity.services.utils.ImageUtils;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+
 
 @Service
 public class StorageServiceImpl implements IStorageService {
@@ -25,9 +24,9 @@ public class StorageServiceImpl implements IStorageService {
     private static final String UPLOAD_SUCCESS_MESSAGE = "File uploaded successfully: ";
     private static final String ERROR_UPLOAD_MESSAGE = "Error uploading the file: ";
 
-    private final IStorageRepository repository;
+    private final StorageJPARepositoryImpl repository;
 
-    public StorageServiceImpl(IStorageRepository repository) {
+    public StorageServiceImpl(StorageJPARepositoryImpl repository) {
         this.repository = repository;
     }
 
@@ -43,22 +42,26 @@ public class StorageServiceImpl implements IStorageService {
             byte[] imageData = ImageUtils.compressImage(file.getBytes());
 
             // Verificar si la imagen ya existe
-            Optional<ImageData> existingImageData = repository.findByName(originalFilename);
+            Optional<ImageData> existingImageData = Optional.ofNullable(repository.findByName(originalFilename));
             if (existingImageData.isPresent()) {
                 // Si la imagen ya existe, simplemente sobrescribe sus datos
                 ImageData imageDataEntity = existingImageData.get();
                 imageDataEntity.setType(contentType);
                 imageDataEntity.setImageData(imageData);
+                imageDataEntity.setSizeMB(String.valueOf(file.getSize() / 1024));
                 repository.save(imageDataEntity);
-                LOGGER.log(Level.INFO, "Imagen guardada: " + originalFilename.toString());
+                LOGGER.log(Level.INFO, "Imagen sobre-escrita: " + originalFilename);
+
             } else {
                 // Si la imagen no existe, crea una nueva entidad
                 ImageData imageDataEntity = new ImageData();
                 imageDataEntity.setName(originalFilename);
                 imageDataEntity.setType(contentType);
                 imageDataEntity.setImageData(imageData);
+                imageDataEntity.setSizeMB(String.valueOf(file.getSize() / 1024));
                 repository.save(imageDataEntity);
-                LOGGER.log(Level.INFO, "Imagen sobre-escrita: " + originalFilename);
+                LOGGER.log(Level.INFO, "Imagen guardada: " + originalFilename);
+
             }
 
             return UPLOAD_SUCCESS_MESSAGE + originalFilename;
@@ -73,35 +76,21 @@ public class StorageServiceImpl implements IStorageService {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public byte[] downloadImage(String fileName) {
 
-        Optional<ImageData> dbImageData = repository.findByName(fileName.toString());
+        Optional<ImageData> dbImageData = Optional.ofNullable(repository.findByName(fileName));
 
         if (dbImageData.isPresent()) {
-            LOGGER.log(Level.INFO, "Imagen descargada: " + fileName.toString());
+            LOGGER.log(Level.INFO, "Imagen descargada: " + fileName);
             return ImageUtils.decompressImage(dbImageData.get().getImageData());
         } else {
-            LOGGER.log(Level.WARNING, "Imagen no encontrada: " + fileName.toString());
-            return new byte[0]; // O puedes lanzar una excepción o manejarlo de otra manera
+            LOGGER.log(Level.WARNING, "Imagen no encontrada: " + fileName);
+            return new byte[0];
         }
     }
 
     @Override
-    public List<ImageData> getAllImages() {
-        List<ImageData> dbImageData = repository.findAll();
-        return dbImageData;
-    }
-
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    public List<ImageData> downloadImages() {
-        List<ImageData> dbImageData = repository.findAll();
-        List<ImageData> validImages = dbImageData.stream()
-                .filter(imageData -> imageData.getImageData() != null)
-                .collect(Collectors.toList());
+    public List<String> getAllImageNames() {
 
-        return validImages;
+        return repository.findAllNames();
     }
-
-
-
-
-
 }

@@ -114,6 +114,33 @@ null"
 ];
 } 
 
+subgraph cluster_1929765259 { 
+   	label=StorageJPARepositoryImpl
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   StorageJPARepositoryImpl389350765XXXfindByName1808118735[
+	label="+ findByName()"
+	style=filled
+	fillcolor=white
+	tooltip="StorageJPARepositoryImpl
+
+null"
+	fontcolor=darkgreen
+];
+
+StorageJPARepositoryImpl389350765XXXsave1125320581[
+	label="+ save()"
+	style=filled
+	fillcolor=white
+	tooltip="StorageJPARepositoryImpl
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
 subgraph cluster_308093684 { 
    	label=ImageUtils
 	labeljust=l
@@ -153,6 +180,8 @@ null"
 'edges    
 StorageController1630280410XXXuploadImage633710552 -> StorageServiceImpl1642994765XXXuploadImage633710552;
 StorageServiceImpl1642994765XXXuploadImage633710552 -> ImageUtils1641283288XXXcompressImage1374008726;
+StorageServiceImpl1642994765XXXuploadImage633710552 -> StorageJPARepositoryImpl389350765XXXfindByName1808118735;
+StorageServiceImpl1642994765XXXuploadImage633710552 -> StorageJPARepositoryImpl389350765XXXsave1125320581;
     
 }
 @enduml

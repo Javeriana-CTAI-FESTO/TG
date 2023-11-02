@@ -38,7 +38,7 @@ public class GetController {
     private final IUserRepository userRepository;
 
     private final IOrderRepository orderRepository;
-    private OrderFilter orderFilter;
+    private final OrderFilter orderFilter;
 
     public GetController(@Qualifier("clientServiceImp") IClientService clientService, IUserRepository userRepository, IOrderRepository orderRepository) {
         this.clientService = clientService;

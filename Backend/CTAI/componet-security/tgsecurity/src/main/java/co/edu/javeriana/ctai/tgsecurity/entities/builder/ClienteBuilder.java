@@ -17,7 +17,7 @@ public class ClienteBuilder implements IBuilder<Cliente> {
     private Long celular;
     private String correoElectronico;
     private Rol rol; // Enum para el rol
-    private List<Order> orders = new ArrayList<>();
+    private final List<Order> orders = new ArrayList<>();
 
     public ClienteBuilder setUsuario(User usuario) {
         this.usuario = usuario;

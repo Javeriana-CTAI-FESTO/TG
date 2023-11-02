@@ -2,6 +2,7 @@ package co.edu.javeriana.ctai.tgsecurity.entities;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class ImageData {
@@ -12,6 +13,8 @@ public class ImageData {
     private String name;
     private String type;
 
+    private String sizeMB;
+
     @Lob
     @Column(name = "imagedata", length = 1000)
     private byte[] imageData;
@@ -21,14 +24,13 @@ public class ImageData {
     }
 
     // Constructor con todos los campos
-    public ImageData(Long id, String name, String type, byte[] imageData) {
-        this.id = id;
+    public ImageData(String name, String type, String sizeMB, byte[] imageData) {
         this.name = name;
         this.type = type;
+        this.sizeMB = sizeMB;
         this.imageData = imageData;
     }
 
-    // Getters y setters para todos los campos
     public Long getId() {
         return id;
     }
@@ -53,22 +55,20 @@ public class ImageData {
         this.type = type;
     }
 
+    public String getSizeMB() {
+        return sizeMB;
+    }
+
+    public void setSizeMB(String sizeMB) {
+        this.sizeMB = sizeMB;
+    }
+
     public byte[] getImageData() {
         return imageData;
     }
 
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
-    }
-
-    // Métodos toString, equals y hashCode
-    @Override
-    public String toString() {
-        return "ImageData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                '}';
     }
 
     @Override
@@ -78,9 +78,9 @@ public class ImageData {
 
         ImageData imageData1 = (ImageData) o;
 
-        if (id != null ? !id.equals(imageData1.id) : imageData1.id != null) return false;
-        if (name != null ? !name.equals(imageData1.name) : imageData1.name != null) return false;
-        return type != null ? type.equals(imageData1.type) : imageData1.type == null;
+        if (!Objects.equals(id, imageData1.id)) return false;
+        if (!Objects.equals(name, imageData1.name)) return false;
+        return Objects.equals(type, imageData1.type);
     }
 
     @Override

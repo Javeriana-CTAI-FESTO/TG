@@ -151,6 +151,7 @@ ImageData1373588664[
 <TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   imageData: byte[] [0..*]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sizeMB: String [0..1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   type: String [0..1]</TD></TR>
 </TABLE>>
 	style=filled

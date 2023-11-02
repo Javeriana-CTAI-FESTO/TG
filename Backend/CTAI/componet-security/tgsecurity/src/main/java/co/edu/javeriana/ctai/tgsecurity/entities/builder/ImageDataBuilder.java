@@ -5,7 +5,7 @@ import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
 
 public class ImageDataBuilder implements IBuilder<ImageData> {
 
-    private ImageData imageData;
+    private final ImageData imageData;
 
     public ImageDataBuilder() {
         imageData = new ImageData();

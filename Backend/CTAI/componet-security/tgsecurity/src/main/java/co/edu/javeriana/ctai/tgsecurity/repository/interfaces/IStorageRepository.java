@@ -1,17 +1,18 @@
 package co.edu.javeriana.ctai.tgsecurity.repository.interfaces;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
-@Repository
-public interface IStorageRepository extends JpaRepository<ImageData, Long> {
-    Optional<ImageData> findByName(String fileName);
-    boolean existsByName(String originalFilename);
+
+public interface IStorageRepository {
+    ImageData findByName(String fileName);
 
     // Get all images
     List<ImageData> findAll();
+
+    List findAllNamesAndData();
+
+    void save(ImageData imageData);
+
 }
