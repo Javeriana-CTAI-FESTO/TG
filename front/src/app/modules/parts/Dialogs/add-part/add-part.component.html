@@ -43,8 +43,8 @@
       <ng-select formControlName="pictureFolder" class="form-select mt-2" [searchable]="true"
         [placeholder]="partForm.controls['pictureFolder'].value ? '' : 'Search or select a picture'"
         [disabled]="partForm.controls['picture'].value" [hidden]="partForm.controls['picture'].value">
-        <ng-option *ngFor="let folder of folders" [value]="folder">
-          <img [src]="folder.image" class="option-image"> {{folder.name}}
+        <ng-option *ngFor="let folder of data" [value]="folder">
+          <img [src]="folder.url" class="option-image"> {{folder.name}}
         </ng-option>
       </ng-select>
       <div class="d-flex">

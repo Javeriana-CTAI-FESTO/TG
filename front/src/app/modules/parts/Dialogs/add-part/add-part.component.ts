@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
 import { WorkplanServiceService, Workplan } from 'src/app/modules/posts/workplan-service.service';
 import { PiezasServiceService, Pieza } from '../../piezas-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { AbstractControl} from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 export const pictureValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const picture = (control as FormGroup).get('picture');
@@ -38,17 +38,23 @@ export class AddPartComponent implements OnInit {
   }, { validators: pictureValidator });
 
   //folders: string[] = ['AFB', 'Cylindrical material', 'Default', 'EMCO', 'Factory4', 'iCIM', 'MPS', 'MPS500', 'MPS-PA', 'PROLOG', 'Sonder', 'SpareParts', 'TransferFactoryLight', 'TransferFactory', 'TransferSystem'];
-  folders: {name: string, image: string}[] = [
-    {name: 'AFB', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png'},
-    {name: 'Cylindrical material', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png'},
-    {name: 'Default', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png'},
+  folders: { name: string, image: string }[] = [
+    { name: 'AFB', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png' },
+    { name: 'Cylindrical material', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png' },
+    { name: 'Default', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png' },
     // ... y así sucesivamente para cada carpeta
   ];
   workPlans: Workplan[] = [];
 
-  constructor(public dialogRef: MatDialogRef<AddPartComponent>, private workplanService: WorkplanServiceService, private piezasService: PiezasServiceService, private toastr: ToastrService) { }
-
+  constructor(
+    public dialogRef: MatDialogRef<AddPartComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,  // Aquí es donde inyectas los datos
+    private workplanService: WorkplanServiceService,
+    private piezasService: PiezasServiceService,
+    private toastr: ToastrService
+  ) { }
   ngOnInit() {
+    console.log(this.data);  
     this.workplanService.getWorkPlansPorDefecto().subscribe(workPlans => {
       this.workPlans = workPlans;
     });
@@ -61,10 +67,10 @@ export class AddPartComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     const pictureControl = this.partForm.get('picture');
-    const pictureNameControl = this.partForm.get('pictureName'); 
+    const pictureNameControl = this.partForm.get('pictureName');
     if (pictureControl && pictureNameControl) {
       pictureControl.setValue(file ? file : '');
-      pictureNameControl.setValue(file ? file.name : ''); 
+      pictureNameControl.setValue(file ? file.name : '');
     } else {
       console.error('El control "picture" o "pictureName" no existe en el formulario');
     }
@@ -86,15 +92,15 @@ export class AddPartComponent implements OnInit {
         defaultResourceId: formData.defaultResourceId
       };
       const file: File = this.partForm.controls['picture'].value;
-      const dropdownValue: {name: string, image: string} = this.partForm.controls['pictureFolder'].value;
-  
+      const dropdownValue: { name: string, image: string } = this.partForm.controls['pictureFolder'].value;
+
       if (file) {
         const reader = new FileReader();
-  
+
         reader.onload = () => {
           console.log(pieza);
           console.log('Imagen en base64:', reader.result); // Nuevo console.log para la imagen en base64
-  
+
           /* this.piezasService.agregarPieza(pieza).subscribe(response => {
             this.dialogRef.close();
             this.piezaAdded.emit();
@@ -104,12 +110,12 @@ export class AddPartComponent implements OnInit {
             this.toastr.error('Error adding part', 'Error');
           });*/
         };
-  
+
         reader.readAsDataURL(file);
       } else if (dropdownValue && dropdownValue.name !== '') {
         pieza.picture = dropdownValue.name;
         console.log(pieza);
-  
+
         /* this.piezasService.agregarPieza(pieza).subscribe(response => {
           this.dialogRef.close();
           this.piezaAdded.emit();
@@ -123,7 +129,7 @@ export class AddPartComponent implements OnInit {
       console.error('El formulario no es válido');
     }
   }
-  
+
   clearPicture() {
     this.partForm.controls['picture'].setValue(null);
     this.pictureInput.nativeElement.value = '';

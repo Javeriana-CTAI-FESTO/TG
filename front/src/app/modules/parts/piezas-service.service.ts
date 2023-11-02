@@ -27,7 +27,7 @@ export class PiezasServiceService {
   }
 
 
-  getPiezasPorDefecto(): Observable<Pieza[]> {
+  getPiezasPorDefecto(): Observable<{ piezas: Pieza[], picturePaths: { name: string, url: string }[] }> {
     const authToken = localStorage.getItem('authToken') ?? '';
     const headers = {
       Authorization: `Bearer ${authToken}`
@@ -35,7 +35,7 @@ export class PiezasServiceService {
   
     return this.http.get<Pieza[]>(this.urlBase + this.rol() + '/parts').pipe(
       switchMap(piezas => {
-        // Mapea cada pieza a un Observable que obtiene la imagen y luego la asigna a picture
+        const picturePaths: { name: string, url: string }[] = [];
         const piezasWithImages = piezas.map(pieza => {
           const pictureParts = pieza.picture.split('\\');
           let pictureName = pictureParts.pop();
@@ -45,22 +45,28 @@ export class PiezasServiceService {
             pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
             const picturePath = `${pictureName}_${folderName}${extension}`;
   
-            // Obtiene la imagen de la URL y luego la asigna a picture
             return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
               map(image => {
-                // Crea una URL de objeto a partir del Blob
-                const imageUrl = URL.createObjectURL(image);
-                return { ...pieza, picture: imageUrl };
+                // Verifica si el blob de la imagen tiene tamaño antes de agregarlo a picturePaths
+                if (image.size > 0) {
+                  const imageUrl = URL.createObjectURL(image);
+                  if (!picturePaths.some(path => path.name === picturePath)) {
+                    picturePaths.push({ name: picturePath, url: imageUrl });
+                  }
+                  return { ...pieza, picture: imageUrl };
+                } else {
+                  return pieza;
+                }
               })
             );
           } else {
-            // Si pictureName o folderName son undefined, retorna un Observable que emite la pieza sin modificar
             return of(pieza);
           }
         });
   
-        // Combina todos los Observables en un solo Observable que emite un array de piezas
-        return forkJoin(piezasWithImages);
+        return forkJoin(piezasWithImages).pipe(
+          map(piezas => ({ piezas, picturePaths }))
+        );
       })
     );
   }

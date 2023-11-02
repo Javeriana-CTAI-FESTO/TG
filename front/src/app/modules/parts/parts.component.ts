@@ -22,19 +22,22 @@ export class PartsComponent implements OnInit {
   columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
   selectedRow: any;
   rol: string = '';
+  picturePaths: { name: string, url: string }[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  constructor(private loginService: LoginService,private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
+  constructor(private loginService: LoginService, private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
     this.dataSource = new MatTableDataSource<Pieza>([]);
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.piezasService.getPiezasPorDefecto().subscribe(
-      (piezas: Pieza[]) => {
-        this.piezas = piezas;
-        console.log(this.piezas);
+      (data: { piezas: Pieza[], picturePaths: { name: string, url: string }[] }) => {
+        this.piezas = data.piezas;
+        this.picturePaths = data.picturePaths;
+        console.log(data.piezas);
+        console.log(data.picturePaths);
         this.dataSource.data = this.piezas;
       },
       (error: any) => {
@@ -67,14 +70,12 @@ export class PartsComponent implements OnInit {
     const dialogRef = this.dialog.open(DefaultWorkPlanComponent, {
       data: pieza
     });
-   
-
   }
   openEditDialogMRP(pieza: Pieza) {
     const dialogRef = this.dialog.open(DefaultMRPComponent, {
       data: pieza
     });
-    
+
   }
   openEditDialogOtherSettings(pieza: Pieza) {
     const dialogRef = this.dialog.open(DefaultOtherSettingsComponent, {
@@ -82,7 +83,9 @@ export class PartsComponent implements OnInit {
     });
   }
   openAddPartDialog() {
-    const dialogRef = this.dialog.open(AddPartComponent);
+    const dialogRef = this.dialog.open(AddPartComponent, {
+      data: this.picturePaths
+    });
 
     dialogRef.componentInstance.piezaAdded.subscribe(() => {
       this.ngOnInit();
