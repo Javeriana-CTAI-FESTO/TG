@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web.admin;
 
-import co.edu.javeriana.ctai.tgsecurity.services.IStorageService;
+import co.edu.javeriana.ctai.tgsecurity.services.interfaces.admin.IStorageService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,16 +1,16 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.builder.ClienteBuilder;
-import co.edu.javeriana.ctai.tgsecurity.entities.builder.UserBuilder;
+import co.edu.javeriana.ctai.tgsecurity.entities.builder.users.ClienteBuilder;
+import co.edu.javeriana.ctai.tgsecurity.entities.builder.users.UserBuilder;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
+import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.MessageResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.RegisterRequest;
 import co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl;
-import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
+import co.edu.javeriana.ctai.tgsecurity.services.interfaces.users.IClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -199,7 +199,7 @@ public class AuthController {
             // Umbral (en milisegundos) a partir del cual renovar el token.
             long renewalThreshold = 120000; // a partir de 1 minuto
 
-            if ((timeUntilExpiration >= renewalThreshold) && (timeUntilExpiration <= renewalThreshold*2)) {
+            if ((timeUntilExpiration >= renewalThreshold) && (timeUntilExpiration <= renewalThreshold * 2)) {
                 // El token está a punto de vencer y esta en el umbral permitido, se debe renovar. (120000 >= timeUntilExpiration <= 240000)
                 String username = jwtTokenUtil.getUsernameFromRefreshToken(refreshToken);
                 UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -221,8 +221,6 @@ public class AuthController {
         // Si el token de actualización no cumple los criterios para la renovación, se responde con el token de actualización original.
         return ResponseEntity.ok(new JwtResponse(refreshToken));
     }
-
-
 
 
 }

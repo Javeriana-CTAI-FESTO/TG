@@ -1,7 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.repository.impl;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.ImageData;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IStorageRepository;
+import co.edu.javeriana.ctai.tgsecurity.entities.admin.ImageData;
+import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.admin.IStorageRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

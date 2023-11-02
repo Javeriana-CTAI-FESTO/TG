@@ -70,12 +70,9 @@ public class JwtTokenUtil {
             // Verifica que el token no haya expirado
             Date expirationDate = claims.getExpiration();
             Date now = new Date();
-            if (expirationDate.before(now)) {
-                return false; // El token ha expirado
-            }
+            return !expirationDate.before(now); // El token ha expirado
 
             // Si pasa todas las comprobaciones, el token de actualización es válido
-            return true;
         } catch (Exception e) {
             return false; // Error al validar el token
         }

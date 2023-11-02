@@ -70,7 +70,7 @@ config=StructureConfiguration;
     "showPackageLevels": 2,
     "showDetailedClassStructure": true
   },
-  "rootClass": "co.edu.javeriana.ctai.tgsecurity.controller.web.AuthController",
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.entities.admin.ImageData",
   "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
 }
 diagram meta data end '/
@@ -95,70 +95,7 @@ subgraph cluster_100278 {
 	fillcolor="#d8d8d8"
 	style=filled
    
-   AuthController1732437575[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)AuthController</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   authManager: AuthenticationManager [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   encoder: PasswordEncoder [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   jwtTokenUtil: JwtTokenUtil [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+ login(authHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
-<TR><TD ALIGN="LEFT" >+ refreshToken(refreshTokenHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
-<TR><TD ALIGN="LEFT" >+ register(signUpRequest: RegisterRequest): ResponseEntity&lt;MessageResponse&gt;</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
-ClientServiceImp2047046643[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)ClientServiceImp</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   clientRepository: IClientRepository [1]</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+ deleteById(id: Long)</TD></TR>
-<TR><TD ALIGN="LEFT" >+ existsByCedula(cedula: Long): Boolean</TD></TR>
-<TR><TD ALIGN="LEFT" >+ existsByCelular(celular: Long): Boolean</TD></TR>
-<TR><TD ALIGN="LEFT" >+ existsByCorreoElectronico(correo: String): Boolean</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findAll(): List&lt;Cliente&gt;</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findByCedula(cedula: Long): Cliente</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findById(id: Long): Cliente</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findByUsuario(usuario: User): Cliente</TD></TR>
-<TR><TD ALIGN="LEFT" >+ save(cliente: Cliente): Cliente</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
-Cliente489267886[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)Cliente</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   apellido: String [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   celular: Long [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   correoElectronico: String [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   identificacion: Long [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   nombre: String [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   orders: List&lt;Order&gt; [0..*]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   rol: Rol [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   usuario: User [0..1]</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
-ClienteBuilder739831615[
+   ClienteBuilder739831615[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)ClienteBuilder</TD></TR>
 <HR/>
@@ -217,45 +154,6 @@ ImageDataBuilder720921734[
 	fillcolor="#FFFFFF"
 ];
 
-JwtTokenUtil1212346736[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)JwtTokenUtil</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   jwtExpirationMs: int [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   jwtSecret: String [0..1]</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+ generateAccessToken(userDetails: UserDetails): String</TD></TR>
-<TR><TD ALIGN="LEFT" >+ generateJwtToken(authentication: Authentication): String</TD></TR>
-<TR><TD ALIGN="LEFT" >+ getExpirationDateFromToken(refreshToken: String): Date</TD></TR>
-<TR><TD ALIGN="LEFT" >+ getUserNameFromJwtToken(token: String): String</TD></TR>
-<TR><TD ALIGN="LEFT" >+ getUsernameFromRefreshToken(refreshToken: String): String</TD></TR>
-<TR><TD ALIGN="LEFT" >+ isValidRefreshToken(refreshToken: String): boolean</TD></TR>
-<TR><TD ALIGN="LEFT" >+ validateJwtToken(authToken: String): boolean</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
-Order2119090516[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)Order</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   cliente: Cliente [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   id: long [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   id_part: int [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   id_workPlan: int [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   image_filePath: String [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   orderNumber: long [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   title: String [0..1]</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
 OrderBuilderImpl168974009[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)OrderBuilderImpl</TD></TR>
@@ -283,20 +181,6 @@ OrderBuilderImpl168974009[
 	fillcolor="#FFFFFF"
 ];
 
-User489267886[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)User</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   password: String [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   username: String [0..1]</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
-
 UserBuilder739831615[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)UserBuilder</TD></TR>
@@ -313,46 +197,15 @@ UserBuilder739831615[
 	shape=plaintext
 	fillcolor="#FFFFFF"
 ];
-
-UserDetailsServiceImpl468659198[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)UserDetailsServiceImpl</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [1]</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+ loadUserByUsername(username: String): UserDetails</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#FFFFFF"
-];
 } 
 } 
 
 'edges    
-AuthController1732437575 -> ClientServiceImp2047046643[arrowhead=none];
-AuthController1732437575 -> JwtTokenUtil1212346736[label="jwtTokenUtil
-[0..1]"];
-AuthController1732437575 -> UserDetailsServiceImpl468659198[label="userDetailsService
-[0..1]"];
-Cliente489267886 -> Order2119090516[label="orders
-[0..*]"];
-Cliente489267886 -> User489267886[label="usuario
-[0..1]"];
-ClienteBuilder739831615 -> Order2119090516[label="orders
-[0..*]"];
-ClienteBuilder739831615 -> User489267886[label="usuario
-[0..1]"];
+ImageDataBuilder720921734 -> ClienteBuilder739831615[arrowhead=none];
 ImageDataBuilder720921734 -> ImageData508177767[label="imageData
 [0..1]"];
-Order2119090516 -> Cliente489267886[label="cliente
-[0..1]"];
-OrderBuilderImpl168974009 -> Cliente489267886[label="cliente
-[0..1]"];
-UserBuilder739831615 -> ClienteBuilder739831615[arrowhead=none];
-UserBuilder739831615 -> ImageDataBuilder720921734[arrowhead=none];
-UserBuilder739831615 -> OrderBuilderImpl168974009[arrowhead=none];
+ImageDataBuilder720921734 -> OrderBuilderImpl168974009[arrowhead=none];
+ImageDataBuilder720921734 -> UserBuilder739831615[arrowhead=none];
     
 }
 @enduml

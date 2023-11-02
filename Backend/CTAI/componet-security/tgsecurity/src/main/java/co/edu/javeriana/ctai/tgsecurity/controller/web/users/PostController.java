@@ -1,9 +1,9 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.Order;
-import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.services.external.OrderProcessingService;
-import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderRequest;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.cp_factory.Order;
+import co.edu.javeriana.ctai.tgsecurity.services.cp_facrory.impl.OrderProcessingService;
+import co.edu.javeriana.ctai.tgsecurity.services.cp_facrory.impl.payloads.OrderRequest;
+import co.edu.javeriana.ctai.tgsecurity.services.interfaces.users.IClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

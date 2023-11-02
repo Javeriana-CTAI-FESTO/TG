@@ -70,7 +70,7 @@ config=StructureConfiguration;
     "showPackageLevels": 2,
     "showDetailedClassStructure": true
   },
-  "rootClass": "co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl",
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.services.imp.users.ClientServiceImp",
   "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
 }
 diagram meta data end '/
@@ -116,15 +116,21 @@ subgraph cluster_100278 {
 	fillcolor="#FFFFFF"
 ];
 
-JwtRequestFilter1212346736[
+ClientServiceImp2047046643[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)JwtRequestFilter</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)ClientServiceImp</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   jwtTokenUtil: JwtTokenUtil [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   clientRepository: IClientRepository [1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" ># doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain)</TD></TR>
-<TR><TD ALIGN="LEFT" >- parseJwt(request: HttpServletRequest): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteById(id: Long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ existsByCedula(cedula: Long): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ existsByCelular(celular: Long): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ existsByCorreoElectronico(correo: String): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAll(): List&lt;Cliente&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByCedula(cedula: Long): Cliente</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findById(id: Long): Cliente</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByUsuario(usuario: User): Cliente</TD></TR>
+<TR><TD ALIGN="LEFT" >+ save(cliente: Cliente): Cliente</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -132,19 +138,19 @@ JwtRequestFilter1212346736[
 	fillcolor="#FFFFFF"
 ];
 
-SecurityConfig2036242528[
+GetController1649190291[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)SecurityConfig</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)GetController</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   unauthorizedHandler: JwtAuthEntryPoint [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderFilter: OrderFilter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderRepository: IOrderRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ authenticationJwtTokenFilter(): JwtRequestFilter</TD></TR>
-<TR><TD ALIGN="LEFT" >+ authenticationManagerBean(): AuthenticationManager</TD></TR>
-<TR><TD ALIGN="LEFT" >+ configure(auth: AuthenticationManagerBuilder)</TD></TR>
-<TR><TD ALIGN="LEFT" ># configure(http: HttpSecurity)</TD></TR>
-<TR><TD ALIGN="LEFT" ># corsConfigurationSource(): CorsConfigurationSource</TD></TR>
-<TR><TD ALIGN="LEFT" >+ passwordEncoder(): PasswordEncoder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getOrdersByCedula(cedula: String): ResponseEntity&lt;Object&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getRole(cliente: Cliente): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserCedula(user_name: String): ResponseEntity&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserRole(user_name: String): ResponseEntity&lt;String&gt;</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -152,13 +158,14 @@ SecurityConfig2036242528[
 	fillcolor="#FFFFFF"
 ];
 
-UserDetailsServiceImpl468659198[
+PostController1649190291[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)UserDetailsServiceImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)PostController</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   clientService: IClientService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderProcessingService: OrderProcessingService [1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ loadUserByUsername(username: String): UserDetails</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveOrder(orderRequest: OrderRequest): ResponseEntity&lt;OrderRequest&gt;</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -169,12 +176,12 @@ UserDetailsServiceImpl468659198[
 } 
 
 'edges    
-AuthController1732437575 -> UserDetailsServiceImpl468659198[label="userDetailsService
-[0..1]"];
-JwtRequestFilter1212346736 -> UserDetailsServiceImpl468659198[label="userDetailsService
-[1]"];
-SecurityConfig2036242528 -> UserDetailsServiceImpl468659198[label="userDetailsService
-[1]"];
+AuthController1732437575 -> ClientServiceImp2047046643[label="clientService
+[0..1]", arrowhead=none];
+GetController1649190291 -> ClientServiceImp2047046643[label="clientService
+[0..1]", arrowhead=none];
+PostController1649190291 -> ClientServiceImp2047046643[label="clientService
+[1]", arrowhead=none];
     
 }
 @enduml

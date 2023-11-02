@@ -1,7 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.security.service;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
+import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

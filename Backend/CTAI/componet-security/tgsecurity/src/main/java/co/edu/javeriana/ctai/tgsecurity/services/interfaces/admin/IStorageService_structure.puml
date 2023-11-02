@@ -70,7 +70,7 @@ config=StructureConfiguration;
     "showPackageLevels": 2,
     "showDetailedClassStructure": true
   },
-  "rootClass": "co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl",
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.services.interfaces.admin.IStorageService",
   "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
 }
 diagram meta data end '/
@@ -95,20 +95,26 @@ subgraph cluster_100278 {
 	fillcolor="#d8d8d8"
 	style=filled
    
-   AuthController1732437575[
+   IStorageService767753676[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)AuthController</TD></TR>
+<TR><TD ALIGN="LEFT" >(I)IStorageService</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   authManager: AuthenticationManager [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   encoder: PasswordEncoder [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   jwtTokenUtil: JwtTokenUtil [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): byte[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllImageNames(): List&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+ImageUtils1641283288[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ImageUtils</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ login(authHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
-<TR><TD ALIGN="LEFT" >+ refreshToken(refreshTokenHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
-<TR><TD ALIGN="LEFT" >+ register(signUpRequest: RegisterRequest): ResponseEntity&lt;MessageResponse&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ compressImage(data: byte[]): byte[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ decompressImage(data: byte[]): byte[]</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -116,15 +122,14 @@ subgraph cluster_100278 {
 	fillcolor="#FFFFFF"
 ];
 
-JwtRequestFilter1212346736[
+StorageController1630280410[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)JwtRequestFilter</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)StorageController</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   jwtTokenUtil: JwtTokenUtil [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   service: IStorageService [0..1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" ># doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain)</TD></TR>
-<TR><TD ALIGN="LEFT" >- parseJwt(request: HttpServletRequest): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): ResponseEntity&lt;?&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): ResponseEntity&lt;?&gt;</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -132,19 +137,17 @@ JwtRequestFilter1212346736[
 	fillcolor="#FFFFFF"
 ];
 
-SecurityConfig2036242528[
+StorageJPARepositoryImpl389350765[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)SecurityConfig</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)StorageJPARepositoryImpl</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   unauthorizedHandler: JwtAuthEntryPoint [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   em: EntityManager [0..1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ authenticationJwtTokenFilter(): JwtRequestFilter</TD></TR>
-<TR><TD ALIGN="LEFT" >+ authenticationManagerBean(): AuthenticationManager</TD></TR>
-<TR><TD ALIGN="LEFT" >+ configure(auth: AuthenticationManagerBuilder)</TD></TR>
-<TR><TD ALIGN="LEFT" ># configure(http: HttpSecurity)</TD></TR>
-<TR><TD ALIGN="LEFT" ># corsConfigurationSource(): CorsConfigurationSource</TD></TR>
-<TR><TD ALIGN="LEFT" >+ passwordEncoder(): PasswordEncoder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAll(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllNames(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllNamesAndData(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByName(fileName: String): ImageData</TD></TR>
+<TR><TD ALIGN="LEFT" >+ save(imageData: ImageData)</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -152,13 +155,14 @@ SecurityConfig2036242528[
 	fillcolor="#FFFFFF"
 ];
 
-UserDetailsServiceImpl468659198[
+StorageServiceImpl2065956524[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)UserDetailsServiceImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)StorageServiceImpl</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   repository: StorageJPARepositoryImpl [0..1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ loadUserByUsername(username: String): UserDetails</TD></TR>
+<TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): byte[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): String</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -169,12 +173,11 @@ UserDetailsServiceImpl468659198[
 } 
 
 'edges    
-AuthController1732437575 -> UserDetailsServiceImpl468659198[label="userDetailsService
+IStorageService767753676 -> StorageServiceImpl2065956524[arrowhead=none, arrowtail=empty, dir=both];
+StorageController1630280410 -> IStorageService767753676[label="service
 [0..1]"];
-JwtRequestFilter1212346736 -> UserDetailsServiceImpl468659198[label="userDetailsService
-[1]"];
-SecurityConfig2036242528 -> UserDetailsServiceImpl468659198[label="userDetailsService
-[1]"];
+StorageServiceImpl2065956524 -> StorageJPARepositoryImpl389350765[label="repository
+[0..1]"];
     
 }
 @enduml
