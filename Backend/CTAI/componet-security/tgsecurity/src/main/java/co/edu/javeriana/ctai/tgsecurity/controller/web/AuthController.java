@@ -185,38 +185,25 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     public ResponseEntity<JwtResponse> refreshToken(@RequestParam("Authorization") String refreshToken) {
-        // Extraer el token de actualización del encabezado de autorización.
-        System.out.println(refreshToken);
 
-        // Validar y verificar el token de actualización (refresh token).
         if (jwtTokenUtil.isValidRefreshToken(refreshToken)) {
-            // Obtener la fecha de expiración del token actual.
-            Date expirationDate = jwtTokenUtil.getExpirationDateFromToken(refreshToken);
-            System.out.println(expirationDate);
-
-            // Calcular el tiempo restante en milisegundos.
-            long timeUntilExpiration = expirationDate.getTime() - System.currentTimeMillis();
-            System.out.println(timeUntilExpiration);
-
             String username = jwtTokenUtil.getUsernameFromRefreshToken(refreshToken);
-            String password = jwtTokenUtil.getPasswordFromRefreshToken(refreshToken);
-
-            System.out.println(username);
-            System.out.println(password);
-
             // Generar un nuevo token de acceso.
             UserDetails user = userDetailsService.loadUserByUsername(username);
-            String newAccessToken = jwtTokenUtil.generateAccessToken(user); // Asegúrate de que esta línea genera un nuevo token.
+            String newAccessToken = jwtTokenUtil.generateAccessToken(user);
+
+            LOGGER.info("username: " + username);
+            LOGGER.info("newAccessToken");
 
             // Devolver el nuevo token en la respuesta.
             return ResponseEntity.ok(new JwtResponse(newAccessToken));
-
         }
+        else {
 
-        return ResponseEntity.badRequest().build();
+            // El token ha expirado.
+            LOGGER.warning("Unauthorized access: Invalid authorization header");
+            return ResponseEntity.badRequest().build();
+        }
     }
-
-
-
 }
 

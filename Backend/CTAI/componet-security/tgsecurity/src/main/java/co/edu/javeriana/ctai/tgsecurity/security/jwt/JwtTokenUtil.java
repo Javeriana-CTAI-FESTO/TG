@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * Métodos para generar y validar los token JWT
+ * Métodos para generar y validar el token JWT
  */
 @Component
 public class JwtTokenUtil {
@@ -44,6 +44,7 @@ public class JwtTokenUtil {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
+
         } catch (SignatureException e) {
             log.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
@@ -58,28 +59,7 @@ public class JwtTokenUtil {
 
         return false;
     }
-
     public boolean isValidRefreshToken(String refreshToken) {
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(jwtSecret)
-                    .parseClaimsJws(refreshToken)
-                    .getBody();
-
-            // Obtener la fecha de expiración del token de actualización.
-            Date expirationDate = claims.getExpiration();
-            Date now = new Date();
-            long expirationThreshold = 4 * 60 * 1000; // 4 minutos en milisegundos
-
-            // Permitir un margen de 4 minutos después de la expiración.
-            return expirationDate.after(now) || (now.getTime() - expirationDate.getTime() <= expirationThreshold);
-        } catch (Exception e) {
-            return false; // Error al validar el token
-        }
-    }
-
-
-    public String getUsernameFromRefreshToken(String refreshToken) {
         try {
             // Parsea el token de actualización
             Claims claims = Jwts.parser()
@@ -87,11 +67,31 @@ public class JwtTokenUtil {
                     .parseClaimsJws(refreshToken)
                     .getBody();
 
-            // Extrae el nombre de usuario (username) de las reclamaciones
-            String username = claims.getSubject();
+            Date now = new Date();
 
+            // Verifica que el token no haya expirado
+            Date expirationDate = claims.getExpiration();
+
+            return !expirationDate.before(now); // El token ha expirado
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false; // Error al validar el token
+
+        }
+    }
+
+    public String getUsernameFromRefreshToken(String refreshToken) {
+        try {
+
+            // Parsea el token de actualización
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
             // Devuelve el nombre de usuario
-            return username;
+            return claims.getSubject();
+
         } catch (Exception e) {
             return null; // Error al obtener el nombre de usuario
         }
@@ -99,46 +99,12 @@ public class JwtTokenUtil {
 
     public String generateAccessToken(UserDetails userDetails) {
         // Crea un nuevo token de acceso
-        String accessToken = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
-
-        // Devuelve el token de acceso
-        return accessToken;
-    }
-
-    public Date getExpirationDateFromToken(String refreshToken) {
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(jwtSecret) // Reemplaza SECRET_KEY con tu clave secreta
-                    .parseClaimsJws(refreshToken)
-                    .getBody();
-
-            return claims.getExpiration();
-        } catch (Exception e) {
-            // Si ocurre algún error al obtener la fecha de expiración, puedes manejarlo aquí.
-            return null;
-        }
-    }
-
-    public String getPasswordFromRefreshToken(String refreshToken) {
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(jwtSecret)
-                    .parseClaimsJws(refreshToken)
-                    .getBody();
-
-            // Supongamos que en el token de actualización, has almacenado la contraseña en una reclamación personalizada llamada "password".
-            String password = (String) claims.get("password");
-
-            return password;
-
-        } catch (Exception e) {
-            return null; // Manejar cualquier error que pueda ocurrir al obtener la contraseña.
-        }
     }
 
 }

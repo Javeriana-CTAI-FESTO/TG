@@ -34,7 +34,6 @@ public class ImageUtils {
 
     public static byte[] decompressImage(byte[] data) {
 
-
         Inflater inflater = new Inflater();
         inflater.setInput(data);
 
@@ -49,15 +48,12 @@ public class ImageUtils {
                 e.printStackTrace();
             }
         }
-
         inflater.end();
-
         try {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return outputStream.toByteArray();
     }
 }
