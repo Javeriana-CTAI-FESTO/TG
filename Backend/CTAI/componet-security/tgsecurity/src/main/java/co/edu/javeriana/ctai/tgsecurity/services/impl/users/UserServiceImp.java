@@ -1,4 +1,4 @@
-package co.edu.javeriana.ctai.tgsecurity.services.imp.users;
+package co.edu.javeriana.ctai.tgsecurity.services.impl.users;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IUserRepository;

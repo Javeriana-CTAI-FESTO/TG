@@ -1,4 +1,4 @@
-package co.edu.javeriana.ctai.tgsecurity.services.imp.admin;
+package co.edu.javeriana.ctai.tgsecurity.services.impl.admin;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.admin.ImageData;
 import co.edu.javeriana.ctai.tgsecurity.repository.impl.StorageJPARepositoryImpl;
