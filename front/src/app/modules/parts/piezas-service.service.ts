@@ -37,30 +37,43 @@ export class PiezasServiceService {
       switchMap(piezas => {
         const picturePaths: { name: string, url: string }[] = [];
         const piezasWithImages = piezas.map(pieza => {
-          const pictureParts = pieza.picture.split('\\');
-          let pictureName = pictureParts.pop();
-          const folderName = pictureParts.pop();
-          if (pictureName && folderName) {
-            const extension = pictureName.slice(pictureName.lastIndexOf('.'));
-            pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
-            const picturePath = `${pictureName}_${folderName}${extension}`;
+          let picturePath = pieza.picture;
+          if (picturePath.includes('\\')) {
+            const pictureParts = picturePath.split('\\');
+            let pictureName = pictureParts.pop();
+            const folderName = pictureParts.pop();
+            if (pictureName && folderName) {
+              const extension = pictureName.slice(pictureName.lastIndexOf('.'));
+              pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
+              picturePath = `${pictureName}_${folderName}${extension}`;
+            }
+          }
   
+          if (picturePath.startsWith('blob:')) {
+            // Si la imagen es un blob, simplemente la usamos como está
+            return of({ ...pieza, picture: picturePath });
+          } else {
+            // Si no, hacemos una solicitud al backend para obtener la imagen
             return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
-              map(image => {
+              switchMap(image => {
                 // Verifica si el blob de la imagen tiene tamaño antes de agregarlo a picturePaths
                 if (image.size > 0) {
-                  const imageUrl = URL.createObjectURL(image);
-                  if (!picturePaths.some(path => path.name === picturePath)) {
-                    picturePaths.push({ name: picturePath, url: imageUrl });
-                  }
-                  return { ...pieza, picture: imageUrl };
+                  return new Promise<any>((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(image);
+                  }).then(imageUrl => {
+                    if (!picturePaths.some(path => path.name === picturePath)) {
+                      picturePaths.push({ name: picturePath, url: imageUrl as string });
+                    }
+                    return { ...pieza, picture: imageUrl };
+                  });
                 } else {
-                  return pieza;
+                  return of(pieza);
                 }
               })
             );
-          } else {
-            return of(pieza);
           }
         });
   
@@ -70,6 +83,7 @@ export class PiezasServiceService {
       })
     );
   }
+
   getPiezas(): Pieza[] {
     return this.piezas;
   }
@@ -81,6 +95,18 @@ export class PiezasServiceService {
   }
   agregarPieza(pieza: Pieza): Observable<Pieza> {
     return this.http.post<Pieza>(this.urlBase + this.rol() + '/parts', pieza);
+  }
+
+  uploadImage(image: Blob, fileName: string): Observable<any> {
+    const authToken = localStorage.getItem('authToken') ?? '';
+    const headers = {
+      Authorization: `Bearer ${authToken}`
+    };
+  
+    const formData = new FormData();
+    formData.append('image', image, fileName);
+  
+    return this.http.post('http://localhost:8081/api/admin/storage/image/upload', formData, { headers, responseType: 'text' });
   }
 }
 

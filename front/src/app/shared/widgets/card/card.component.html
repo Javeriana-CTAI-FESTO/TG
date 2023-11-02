@@ -1,12 +1,12 @@
 
 <div class="test">
-    <div class="d-flex align-items-center" *ngIf="rol !== 'comprador'">
+    <div class="d-flex align-items-center" *ngIf="rol !== 'SHOPPER'">
         <h2>Production Queue</h2>
         <button mat-icon-button style="margin-bottom: 15px;" (click)="openAddDialog()">
             <mat-icon>add</mat-icon>
         </button>
     </div>
-    <div class="d-flex align-items-center" *ngIf="rol == 'comprador'">
+    <div class="d-flex align-items-center" *ngIf="rol == 'SHOPPER'">
         <h2>Purchased Parts</h2>
     </div>
     <section>
@@ -18,8 +18,8 @@
                 <div [ngClass]="{'stripe-container': filteredCards.length > 0}">
                     <div *ngFor="let card of filteredCards" class="card" style="height: 25rem;">
                         <div class="d-flex justify-content-center">
-                            <img [src]="card.image" alt="Imagen de la pieza"
-                                onerror="this.src='../../../assets/Pictures/Default/NoPicture.png'">
+                          <img [src]="card.image" alt="Imagen de la pieza"
+                                onerror="this.src='../../../assets/NoPicture.png'">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ card.title }}</h5> 

@@ -1,13 +1,13 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 
 
-import co.edu.javeriana.ctai.tgsecurity.entities.Order;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IOrderRepository;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
-import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
-import co.edu.javeriana.ctai.tgsecurity.services.external.payloads.OrderResponse;
+import co.edu.javeriana.ctai.tgsecurity.entities.users.cp_factory.Order;
+import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IUserRepository;
+import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.cp_factory.IOrderRepository;
+import co.edu.javeriana.ctai.tgsecurity.services.cp_facrory.impl.payloads.OrderResponse;
+import co.edu.javeriana.ctai.tgsecurity.services.interfaces.users.IClientService;
 import co.edu.javeriana.ctai.tgsecurity.services.utils.OrderFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,7 +38,7 @@ public class GetController {
     private final IUserRepository userRepository;
 
     private final IOrderRepository orderRepository;
-    private OrderFilter orderFilter;
+    private final OrderFilter orderFilter;
 
     public GetController(@Qualifier("clientServiceImp") IClientService clientService, IUserRepository userRepository, IOrderRepository orderRepository) {
         this.clientService = clientService;

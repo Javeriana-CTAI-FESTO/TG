@@ -1,6 +1,5 @@
 package co.edu.javeriana.ctai.tgsecurity.services.utils;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
@@ -34,6 +33,7 @@ public class ImageUtils {
     }
 
     public static byte[] decompressImage(byte[] data) {
+
         Inflater inflater = new Inflater();
         inflater.setInput(data);
 
@@ -48,15 +48,12 @@ public class ImageUtils {
                 e.printStackTrace();
             }
         }
-
         inflater.end();
-
         try {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return outputStream.toByteArray();
     }
 }

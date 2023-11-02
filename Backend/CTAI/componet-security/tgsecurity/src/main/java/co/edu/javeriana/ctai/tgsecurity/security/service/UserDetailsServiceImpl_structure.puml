@@ -95,7 +95,28 @@ subgraph cluster_100278 {
 	fillcolor="#d8d8d8"
 	style=filled
    
-   JwtRequestFilter1992771287[
+   AuthController1732437575[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AuthController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authManager: AuthenticationManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   encoder: PasswordEncoder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jwtTokenUtil: JwtTokenUtil [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userDetailsService: UserDetailsServiceImpl [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ login(authHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refreshToken(refreshTokenHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ register(signUpRequest: RegisterRequest): ResponseEntity&lt;MessageResponse&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JwtRequestFilter1212346736[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)JwtRequestFilter</TD></TR>
 <HR/>
@@ -148,7 +169,9 @@ UserDetailsServiceImpl468659198[
 } 
 
 'edges    
-JwtRequestFilter1992771287 -> UserDetailsServiceImpl468659198[label="userDetailsService
+AuthController1732437575 -> UserDetailsServiceImpl468659198[label="userDetailsService
+[0..1]"];
+JwtRequestFilter1212346736 -> UserDetailsServiceImpl468659198[label="userDetailsService
 [1]"];
 SecurityConfig2036242528 -> UserDetailsServiceImpl468659198[label="userDetailsService
 [1]"];

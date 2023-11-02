@@ -16,10 +16,8 @@ public class DataSourceConfig {
     @Bean
     public DataSource createDataSourceDev() throws Exception {
         ComboPooledDataSource ds = new ComboPooledDataSource();        
-        //ds.setJdbcUrl("jdbc:ucanaccess://"+datasource+";showSchema=true");
-        ds.setJdbcUrl("jdbc:ucanaccess://"+"/home/capitan/Documentos/GitHub/TG/Backend/CTAI/CP_Factory/"+"FestoMES_be.accdb;showSchema=true");
+        ds.setJdbcUrl("jdbc:ucanaccess://"+datasource+";showSchema=true");
         ds.setDriverClass("net.ucanaccess.jdbc.UcanaccessDriver");
         return ds;
     }
 }
-///home/capitan/Documentos/GitHub/TG/Backend/CTAI/CP_Factory/FestoMES_be.accdb

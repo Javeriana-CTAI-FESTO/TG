@@ -1,8 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs'; // Importa 'of' de RxJS
+import { catchError } from 'rxjs/operators'; // Importa 'catchError' de RxJS
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,13 +26,34 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
-  getOrders(cedula: string, authToken: string): Observable<Object> {
+  getOrders(cedula: string, authToken: string): Observable<any[]> {
+    console.log("si")
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     });
-    return this.http.get(`${this.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers });
+    console.log(cedula);
+    return this.http.get<any[]>(`${this.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers }).pipe(
+      switchMap((orders: any[]) => {
+        const imageRequests = orders.map(order =>
+          this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${order.image_filePath}`, { headers, responseType: 'blob' }).pipe(
+            map(blob => {
+              // Creamos una URL del blob
+              const url = URL.createObjectURL(blob);
+              // Reemplazamos el campo de imagen en la orden original con la URL del blob
+              return { ...order, image_filePath: url };
+            }),
+            catchError(error => {
+              console.error('Error fetching image', error);
+              // En caso de error, devolvemos la orden original sin modificar
+              return of(order);
+            })
+          )
+        );
+        return forkJoin(imageRequests);
+      })
+    );
   }
-  
+
   GetOrdesBigChart(id: number): Observable<ChartData> {
     return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/' + id + '/status').pipe(
       map(steps => {
@@ -60,7 +84,7 @@ export class DashboardService {
       })
     );
   }
-  
+
   bigChartInit(): ChartData {
     return {
       categories: [],
@@ -105,36 +129,86 @@ export class DashboardService {
   }
   getParts(): Observable<Part[]> {
     return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production').pipe(
-      map(piezas => piezas.map(pieza => {
-        const picturePath = pieza.picture.replace('Pictures', '../../../assets/Pictures').replace(/\\/g, '/');
-        return { ...pieza, picture: picturePath };
+      map(parts => parts.map(part => {
+        let picturePath = part.picture;
+        if (picturePath.includes('\\')) {
+          const pictureParts = picturePath.split('\\');
+          let pictureName = pictureParts.pop();
+          const folderName = pictureParts.pop();
+          if (pictureName && folderName) {
+            const extension = pictureName.slice(pictureName.lastIndexOf('.'));
+            pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
+            picturePath = `${pictureName}_${folderName}${extension}`;
+          }
+        }
+        return { ...part, picture: picturePath };
       }))
     );
   }
-  getCedulaByUsername(username: string, authToken: string) {
-    const headers = {
+  getPartsForBuyer(): Observable<Part[]> {
+    const authToken = localStorage.getItem('authToken') ?? '';
+    const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
-    };
-    return this.http.get(this.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
-  }
-
-  saveOrder(orderData: any, authToken: string) {
-    const headers = {
-      Authorization: `Bearer ${authToken}`
-    };
-    return this.http.post(this.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
-  }
-
- postDbRoute(dbRoute: string, rutaModuloJar: string) {
+    });
   
-    const authToken = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
-    const body = {
-      dbRoute,
-      rutaModuloJar
-    };
-    return this.http.post(this.urlBaseSecurity + 'admin/dbroute', body, { headers });
+    return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production').pipe(
+      switchMap((parts: Part[]) => {
+        const imageRequests = parts.map(part => {
+          let picturePath = part.picture;
+          if (picturePath.includes('\\')) {
+            const pictureParts = picturePath.split('\\');
+            let pictureName = pictureParts.pop();
+            const folderName = pictureParts.pop();
+            if (pictureName && folderName) {
+              const extension = pictureName.slice(pictureName.lastIndexOf('.'));
+              pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
+              picturePath = `${pictureName}_${folderName}${extension}`;
+            }
+          }
+          return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+            map(blob => {
+              // Creamos una URL del blob
+              const url = URL.createObjectURL(blob);
+              // Reemplazamos el campo de imagen en la parte original con la URL del blob
+              return { ...part, picture: url };
+            }),
+            catchError(error => {
+              console.error('Error fetching image', error);
+              // En caso de error, devolvemos la parte original sin modificar
+              return of({ ...part, picture: picturePath });
+            })
+          );
+        });
+        return forkJoin(imageRequests);
+      })
+    );
   }
+
+getCedulaByUsername(username: string, authToken: string) {
+  console.log("si")
+  const headers = {
+    Authorization: `Bearer ${authToken}`
+  };
+  return this.http.get(this.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
+}
+
+saveOrder(orderData: any, authToken: string) {
+  const headers = {
+    Authorization: `Bearer ${authToken}`
+  };
+  return this.http.post(this.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
+}
+
+postDbRoute(dbRoute: string, rutaModuloJar: string) {
+
+  const authToken = localStorage.getItem('authToken');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
+  const body = {
+    dbRoute,
+    rutaModuloJar
+  };
+  return this.http.post(this.urlBaseSecurity + 'admin/dbroute', body, { headers });
+}
 }
 
 export interface Estations {

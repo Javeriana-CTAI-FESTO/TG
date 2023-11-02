@@ -20,7 +20,7 @@ spring:
 app:
   jwt:
     secret: openb
-    expiration-ms: 60000
+    expiration-ms: 1200000
 
 # Configuraciones de Logbook
 logbook:

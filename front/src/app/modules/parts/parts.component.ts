@@ -19,7 +19,7 @@ export class PartsComponent implements OnInit {
 
   piezas: Pieza[] = [];
   dataSource: MatTableDataSource<Pieza>;
-  columnas: string[] = ['Picture', 'PartNumber', 'Type ', 'operations'];
+  columnas: string[] = ['Picture', 'Description', 'operations'];
   selectedRow: any;
   rol: string = '';
   picturePaths: { name: string, url: string }[] = [];
@@ -36,8 +36,6 @@ export class PartsComponent implements OnInit {
       (data: { piezas: Pieza[], picturePaths: { name: string, url: string }[] }) => {
         this.piezas = data.piezas;
         this.picturePaths = data.picturePaths;
-        console.log(data.piezas);
-        console.log(data.picturePaths);
         this.dataSource.data = this.piezas;
       },
       (error: any) => {

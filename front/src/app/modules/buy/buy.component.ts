@@ -22,7 +22,7 @@ export class BuyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dashboardService.getParts().subscribe(
+    this.dashboardService.getPartsForBuyer().subscribe(
       (parts: Part[]) => {
         this.parts = parts.map(part => ({ ...part, quantity: 0 }));
         this.filteredParts = this.parts;
@@ -78,3 +78,4 @@ export class BuyComponent implements OnInit {
 export interface PartWithQuantity extends Part {
   quantity: number;
 }
+

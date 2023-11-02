@@ -1,7 +1,7 @@
 package co.edu.javeriana.ctai.tgsecurity.security.jwt.config;
 
 import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtAuthEntryPoint;
-import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtRequestFilter;
+import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtRequestFilter;
 import co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

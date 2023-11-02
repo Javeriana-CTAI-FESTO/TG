@@ -1,15 +1,16 @@
 package co.edu.javeriana.ctai.tgsecurity.controller.web;
 
-import co.edu.javeriana.ctai.tgsecurity.entities.builder.ClienteBuilder;
-import co.edu.javeriana.ctai.tgsecurity.entities.builder.UserBuilder;
+import co.edu.javeriana.ctai.tgsecurity.entities.builder.users.ClienteBuilder;
+import co.edu.javeriana.ctai.tgsecurity.entities.builder.users.UserBuilder;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
-import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.IUserRepository;
+import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.security.jwt.JwtTokenUtil;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.JwtResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.MessageResponse;
 import co.edu.javeriana.ctai.tgsecurity.security.payload.RegisterRequest;
-import co.edu.javeriana.ctai.tgsecurity.services.IClientService;
+import co.edu.javeriana.ctai.tgsecurity.security.service.UserDetailsServiceImpl;
+import co.edu.javeriana.ctai.tgsecurity.services.interfaces.users.IClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,10 +25,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -38,9 +41,6 @@ import java.util.logging.Logger;
  * <p>
  * Si las credenciales son válidas se genera un token JWT como respuesta
  */
-
-
-// @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -55,15 +55,18 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtTokenUtil jwtTokenUtil;
 
+    private final UserDetailsServiceImpl userDetailsService;
+
     public AuthController(AuthenticationManager authManager,
                           IUserRepository userRepository,
                           PasswordEncoder encoder,
-                          JwtTokenUtil jwtTokenUtil, @Qualifier("clientServiceImp") IClientService clientService) {
+                          JwtTokenUtil jwtTokenUtil, @Qualifier("clientServiceImp") IClientService clientService, UserDetailsServiceImpl userDetailsService) {
         this.authManager = authManager;
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtTokenUtil = jwtTokenUtil;
         this.clientService = clientService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Operation(
@@ -178,6 +181,29 @@ public class AuthController {
 
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<JwtResponse> refreshToken(@RequestParam("Authorization") String refreshToken) {
+
+        if (jwtTokenUtil.isValidRefreshToken(refreshToken)) {
+            String username = jwtTokenUtil.getUsernameFromRefreshToken(refreshToken);
+            // Generar un nuevo token de acceso.
+            UserDetails user = userDetailsService.loadUserByUsername(username);
+            String newAccessToken = jwtTokenUtil.generateAccessToken(user);
+
+            LOGGER.info("username: " + username);
+            LOGGER.info("newAccessToken");
+
+            // Devolver el nuevo token en la respuesta.
+            return ResponseEntity.ok(new JwtResponse(newAccessToken));
+        }
+        else {
+
+            // El token ha expirado.
+            LOGGER.warning("Unauthorized access: Invalid authorization header");
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
 

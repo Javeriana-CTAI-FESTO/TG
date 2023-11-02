@@ -32,6 +32,7 @@ export class AddWorkPlanToProductionComponent implements OnInit {
     this.DashboradService.getParts().subscribe(
       (parts: Part[]) => {
         this.parts = parts;
+        console.log(parts);
       },
       (error: any) => {
         console.error(error);

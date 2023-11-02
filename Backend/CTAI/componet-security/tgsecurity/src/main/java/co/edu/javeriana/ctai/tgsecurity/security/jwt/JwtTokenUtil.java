@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * Métodos para generar y validar los token JWT
+ * Métodos para generar y validar el token JWT
  */
 @Component
 public class JwtTokenUtil {
@@ -44,6 +44,7 @@ public class JwtTokenUtil {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
+
         } catch (SignatureException e) {
             log.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
@@ -58,5 +59,53 @@ public class JwtTokenUtil {
 
         return false;
     }
+    public boolean isValidRefreshToken(String refreshToken) {
+        try {
+            // Parsea el token de actualización
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+
+            Date now = new Date();
+
+            // Verifica que el token no haya expirado
+            Date expirationDate = claims.getExpiration();
+
+            return !expirationDate.before(now); // El token ha expirado
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false; // Error al validar el token
+
+        }
+    }
+
+    public String getUsernameFromRefreshToken(String refreshToken) {
+        try {
+
+            // Parsea el token de actualización
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+            // Devuelve el nombre de usuario
+            return claims.getSubject();
+
+        } catch (Exception e) {
+            return null; // Error al obtener el nombre de usuario
+        }
+    }
+
+    public String generateAccessToken(UserDetails userDetails) {
+        // Crea un nuevo token de acceso
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
+
 }
 

@@ -115,7 +115,7 @@ subgraph cluster_100278 {
 	fillcolor="#FFFFFF"
 ];
 
-ClienteBuilder1656941467[
+ClienteBuilder739831615[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)ClienteBuilder</TD></TR>
 <HR/>
@@ -144,7 +144,7 @@ ClienteBuilder1656941467[
 	fillcolor="#FFFFFF"
 ];
 
-ImageDataBuilder1656941467[
+ImageDataBuilder720921734[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)ImageDataBuilder</TD></TR>
 <HR/>
@@ -158,7 +158,7 @@ ImageDataBuilder1656941467[
 	fillcolor="#FFFFFF"
 ];
 
-Order1373588664[
+Order2119090516[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Order</TD></TR>
 <HR/>
@@ -176,7 +176,34 @@ Order1373588664[
 	fillcolor="#FFFFFF"
 ];
 
-OrderProcessingService988843964[
+OrderBuilderImpl168974009[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OrderBuilderImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   cliente: Cliente [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id_part: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id_workPlan: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   image_filePath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderNumber: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   title: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ build(): Order</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cliente(cliente: Cliente): OrderBuilderImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id(id: long): OrderBuilderImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id_part(id_part: int): OrderBuilderImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id_workPlan(id_workPlan: int): OrderBuilderImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >+ image_filePath(image_filePath: String): OrderBuilderImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >+ orderNumber(orderNumber: long): OrderBuilderImpl</TD></TR>
+<TR><TD ALIGN="LEFT" >+ title(title: String): OrderBuilderImpl</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OrderProcessingService425788027[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)OrderProcessingService</TD></TR>
 <HR/>
@@ -234,7 +261,7 @@ Rol489267886[
 	fillcolor="#DCFBD5"
 ];
 
-UserBuilder1656941467[
+UserBuilder739831615[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)UserBuilder</TD></TR>
 <HR/>
@@ -254,19 +281,22 @@ UserBuilder1656941467[
 } 
 
 'edges    
-Cliente489267886 -> Order1373588664[label="orders
+Cliente489267886 -> Order2119090516[label="orders
 [0..*]"];
 Cliente489267886 -> Rol489267886[label="rol
 [0..1]"];
-ClienteBuilder1656941467 -> ImageDataBuilder1656941467[arrowhead=none];
-ClienteBuilder1656941467 -> Order1373588664[label="orders
+ClienteBuilder739831615 -> ImageDataBuilder720921734[arrowhead=none];
+ClienteBuilder739831615 -> Order2119090516[label="orders
 [0..*]"];
-ClienteBuilder1656941467 -> Rol489267886[label="rol
+ClienteBuilder739831615 -> OrderBuilderImpl168974009[arrowhead=none];
+ClienteBuilder739831615 -> Rol489267886[label="rol
 [0..1]"];
-ClienteBuilder1656941467 -> UserBuilder1656941467[arrowhead=none];
-Order1373588664 -> Cliente489267886[label="cliente
+ClienteBuilder739831615 -> UserBuilder739831615[arrowhead=none];
+Order2119090516 -> Cliente489267886[label="cliente
 [0..1]"];
-OrderProcessingService988843964 -> Order1373588664[label="orderQueue
+OrderBuilderImpl168974009 -> Cliente489267886[label="cliente
+[0..1]"];
+OrderProcessingService425788027 -> Order2119090516[label="orderQueue
 [0..*]"];
 RegisterRequest1992771287 -> Rol489267886[label="rol
 [0..1]"];

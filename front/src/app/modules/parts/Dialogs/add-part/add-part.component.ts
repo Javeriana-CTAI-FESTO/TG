@@ -54,7 +54,6 @@ export class AddPartComponent implements OnInit {
     private toastr: ToastrService
   ) { }
   ngOnInit() {
-    console.log(this.data);  
     this.workplanService.getWorkPlansPorDefecto().subscribe(workPlans => {
       this.workPlans = workPlans;
     });
@@ -69,13 +68,24 @@ export class AddPartComponent implements OnInit {
     const pictureControl = this.partForm.get('picture');
     const pictureNameControl = this.partForm.get('pictureName');
     if (pictureControl && pictureNameControl) {
-      pictureControl.setValue(file ? file : '');
-      pictureNameControl.setValue(file ? file.name : '');
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          // Cuando el archivo se ha leído, crea un Blob a partir del resultado
+          const blob = new Blob([new Uint8Array(reader.result as ArrayBuffer)]);
+          // Almacena el Blob en lugar del archivo en el control del formulario
+          pictureControl.setValue(blob);
+        };
+        reader.readAsArrayBuffer(file);
+        pictureNameControl.setValue(file.name);
+      } else {
+        pictureControl.setValue('');
+        pictureNameControl.setValue('');
+      }
     } else {
       console.error('El control "picture" o "pictureName" no existe en el formulario');
     }
   }
-
   onSubmit() {
     if (this.partForm.valid) {
       const formData = this.partForm.value;
@@ -91,39 +101,41 @@ export class AddPartComponent implements OnInit {
         lotSize: formData.lotSize,
         defaultResourceId: formData.defaultResourceId
       };
-      const file: File = this.partForm.controls['picture'].value;
+      const file: Blob = this.partForm.controls['picture'].value;
+      const fileName: string = this.partForm.controls['pictureName'].value;
       const dropdownValue: { name: string, image: string } = this.partForm.controls['pictureFolder'].value;
 
       if (file) {
-        const reader = new FileReader();
+        this.piezasService.uploadImage(file, fileName).subscribe(response => {
+          console.log('Imagen subida con éxito:', response);
+          this.toastr.success(response, 'Successfully');
 
-        reader.onload = () => {
-          console.log(pieza);
-          console.log('Imagen en base64:', reader.result); // Nuevo console.log para la imagen en base64
-
-          /* this.piezasService.agregarPieza(pieza).subscribe(response => {
+          this.piezasService.agregarPieza(pieza).subscribe(response => {
             this.dialogRef.close();
             this.piezaAdded.emit();
             this.toastr.success('Part added successfully', 'Success');
           }, error => {
             console.error('Error al agregar la pieza', error);
             this.toastr.error('Error adding part', 'Error');
-          });*/
-        };
+          });
 
-        reader.readAsDataURL(file);
+        }, error => {
+          console.error('Error al subir la imagen', error);
+          this.toastr.error(error.error, 'Error');
+        });
+
       } else if (dropdownValue && dropdownValue.name !== '') {
         pieza.picture = dropdownValue.name;
-        console.log(pieza);
 
-        /* this.piezasService.agregarPieza(pieza).subscribe(response => {
+        this.piezasService.agregarPieza(pieza).subscribe(response => {
           this.dialogRef.close();
           this.piezaAdded.emit();
           this.toastr.success('Part added successfully', 'Success');
         }, error => {
           console.error('Error al agregar la pieza', error);
           this.toastr.error('Error adding part', 'Error');
-        });*/
+        });
+        
       }
     } else {
       console.error('El formulario no es válido');
