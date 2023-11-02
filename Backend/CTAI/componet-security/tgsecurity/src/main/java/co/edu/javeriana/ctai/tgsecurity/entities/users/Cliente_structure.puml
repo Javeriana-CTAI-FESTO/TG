@@ -213,7 +213,6 @@ OrderProcessingService425788027[
 <TR><TD ALIGN="LEFT" >-   restTemplate: RestTemplate [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ enqueueOrder(order: Order)</TD></TR>
-<TR><TD ALIGN="LEFT" >+ ordenesMES()</TD></TR>
 <TR><TD ALIGN="LEFT" >- processOrders()</TD></TR>
 <TR><TD ALIGN="LEFT" >- sendHttpRequest(order: Order): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ startProcessing()</TD></TR>

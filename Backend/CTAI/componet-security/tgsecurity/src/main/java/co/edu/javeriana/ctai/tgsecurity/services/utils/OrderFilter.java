@@ -1,19 +1,17 @@
 package co.edu.javeriana.ctai.tgsecurity.services.utils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import org.springframework.http.HttpMethod;
+import co.edu.javeriana.ctai.tgsecurity.services.cp_facrory.impl.payloads.OrderResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class OrderFilter {
 
@@ -34,48 +32,24 @@ public class OrderFilter {
     }
 
     private List<Long> sendHttpRequest() {
-
         try {
             String url = "http://localhost:8080/api/admin/orders";
-            ResponseEntity<String> responseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    String.class
-            );
-            String responseBody = responseEntity.getBody();
+            ResponseEntity<OrderResponse[]> responseEntity = restTemplate.getForEntity(url, OrderResponse[].class);
 
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                // Analiza el JSON en una matriz de elementos JSON
-                JsonParser parser = new JsonParser();
-                JsonArray jsonArray = parser.parse(responseBody).getAsJsonArray();
+                OrderResponse[] orderResponses = responseEntity.getBody();
 
-                // Inicializa una lista para almacenar los números de orden
-                List<Long> orderNumbers = new ArrayList<>();
-
-
-                // Itera a través de cada objeto JSON en la matriz
-                Iterator<JsonElement> iterator = jsonArray.iterator();
-                while (iterator.hasNext()) {
-                    JsonElement jsonElement = iterator.next();
-                    long orderNumber = jsonElement.getAsJsonObject().get("orderNumber").getAsLong();
-                    orderNumbers.add(orderNumber);
+                if (orderResponses != null) {
+                    return Arrays.stream(orderResponses)
+                            .map(OrderResponse::getOrderNumber)
+                            .collect(Collectors.toList());
                 }
-
-
-                // Ahora 'orderNumbers' contiene la lista de números de orden
-                LOGGER.info("Números de Orden: " + orderNumbers);
-
-                // Devuelve la lista de números de orden
-                return orderNumbers;
-
-            } else {
-                return Collections.emptyList();
             }
-        } catch (Exception e) {
-            LOGGER.warning("Error al realizar la solicitud HTTP" + e.getMessage());
-            return Collections.emptyList();
+        } catch (RestClientException e) {
+            LOGGER.warning("Error al realizar la solicitud HTTP a CP_FACTORY: " + e.getMessage());
         }
 
+        return Collections.emptyList();
     }
+
 }

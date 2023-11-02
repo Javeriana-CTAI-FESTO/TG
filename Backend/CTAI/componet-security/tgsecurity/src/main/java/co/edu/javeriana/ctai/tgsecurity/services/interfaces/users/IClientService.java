@@ -10,11 +10,7 @@ import java.util.List;
 public interface IClientService {
     List<Cliente> findAll();
 
-    Cliente findById(Long id);
-
     Cliente save(Cliente cliente);
-
-    void deleteById(Long id);
 
     Boolean existsByCedula(Long cedula);
 

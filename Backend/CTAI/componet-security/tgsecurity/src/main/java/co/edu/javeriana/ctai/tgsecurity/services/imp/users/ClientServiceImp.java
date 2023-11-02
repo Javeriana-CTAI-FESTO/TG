@@ -21,18 +21,8 @@ public class ClientServiceImp implements IClientService {
     }
 
     @Override
-    public Cliente findById(Long id) {
-        return clientRepository.findById(id).get();
-    }
-
-    @Override
     public Cliente save(Cliente cliente) {
         return clientRepository.save(cliente);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        clientRepository.deleteById(id);
     }
 
     @Override

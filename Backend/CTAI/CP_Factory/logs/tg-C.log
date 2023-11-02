@@ -1,0 +1,480 @@
+2023-11-02 15:41:18.542  INFO 2575 --- [main] co.edu.javeriana.tg.TgApplication        : Starting TgApplication using Java 21 on nabu with PID 2575 (/Users/nabu/Documents/GitHub/TG/Backend/CTAI/CP_Factory/target/classes started by nabu in /Users/nabu/Documents/GitHub/TG/Backend/CTAI/CP_Factory)
+2023-11-02 15:41:18.545  INFO 2575 --- [main] co.edu.javeriana.tg.TgApplication        : The following 1 profile is active: "prod"
+2023-11-02 15:41:19.614  INFO 2575 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-02 15:41:19.734  INFO 2575 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 23 JPA repository interfaces.
+2023-11-02 15:41:20.491  INFO 2575 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-11-02 15:41:20.506  INFO 2575 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-11-02 15:41:20.507  INFO 2575 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.80]
+2023-11-02 15:41:20.645  INFO 2575 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-11-02 15:41:20.646  INFO 2575 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2023 ms
+2023-11-02 15:41:20.804 DEBUG 2575 --- [main] o.springframework.web.filter.CorsFilter  : Filter 'corsFilter' configured for use
+2023-11-02 15:41:20.867  INFO 2575 --- [MLog-Init-Reporter] com.mchange.v2.log.MLog                  : MLog clients using slf4j logging.
+2023-11-02 15:41:20.902  INFO 2575 --- [main] com.mchange.v2.c3p0.C3P0Registry         : Initializing c3p0-0.9.5.5 [built 11-December-2019 22:18:33 -0800; debug? true; trace: 10]
+2023-11-02 15:41:21.174  INFO 2575 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-02 15:41:21.270  INFO 2575 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-11-02 15:41:21.543  INFO 2575 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-11-02 15:41:21.706  INFO 2575 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: net.ucanaccess.hibernate.dialect.UCanAccessDialect
+2023-11-02 15:41:22.774  INFO 2575 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-02 15:41:22.792  INFO 2575 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-02 15:41:23.869  WARN 2575 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-02 15:41:24.078 DEBUG 2575 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-11-02 15:41:24.214 DEBUG 2575 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 69 mappings in 'requestMappingHandlerMapping'
+2023-11-02 15:41:24.238 DEBUG 2575 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2023-11-02 15:41:24.249 DEBUG 2575 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-11-02 15:41:24.543  INFO 2575 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-11-02 15:41:24.558  INFO 2575 --- [main] co.edu.javeriana.tg.TgApplication        : Started TgApplication in 6.674 seconds (JVM running for 7.969)
+2023-11-02 15:41:47.060  INFO 2575 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-02 15:41:47.061  INFO 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-11-02 15:41:47.061 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2023-11-02 15:41:47.061 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2023-11-02 15:41:47.061 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2023-11-02 15:41:47.063 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7236213e
+2023-11-02 15:41:47.063 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5935eb9c
+2023-11-02 15:41:47.063 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-11-02 15:41:47.063  INFO 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-11-02 15:41:47.086 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:41:47.095 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:41:47.176  INFO 2575 --- [http-nio-8080-exec-1] c.m.v.c.i.AbstractPoolBackedDataSource   : Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1fn00maaz14g1o8rjjfaye|7b2bf745, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> net.ucanaccess.jdbc.UcanaccessDriver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1fn00maaz14g1o8rjjfaye|7b2bf745, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:ucanaccess://FestoMES_be.accdb;showSchema=true, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2023-11-02 15:41:50.982 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:41:50.983 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@4c20b4f9]
+2023-11-02 15:41:51.020 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:41:59.145 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:41:59.148 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:41:59.458 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:41:59.459 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@1c595021]
+2023-11-02 15:41:59.460 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:02.474 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:02.475 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:02.903 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:02.903 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@1ec84e34]
+2023-11-02 15:42:02.904 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:04.928 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:04.929 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:05.212 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:05.212 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@455c76f5]
+2023-11-02 15:42:05.217 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:08.235 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:08.237 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:08.515 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:08.516 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@67846637]
+2023-11-02 15:42:08.517 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:13.483 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:42:13.484 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:42:16.135 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:16.136 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@29de1563, co.edu.javeriana.tg.entities.dtos.OrderDTO@291 (truncated)...]
+2023-11-02 15:42:16.169 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:21.444 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:42:21.444 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:42:23.889 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:23.890 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@7ff673a3, co.edu.javeriana.tg.entities.dtos.OrderDTO@60f (truncated)...]
+2023-11-02 15:42:23.900 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:37.905 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:42:37.907 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:42:40.375 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:40.376 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@33b1787c, co.edu.javeriana.tg.entities.dtos.OrderDTO@2f9 (truncated)...]
+2023-11-02 15:42:40.386 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:41.832 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:42:41.833 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:42:44.240 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:44.240 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@36e7c4e1, co.edu.javeriana.tg.entities.dtos.OrderDTO@758 (truncated)...]
+2023-11-02 15:42:44.249 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:47.628 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:47.630 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:47.956 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:47.956 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@5a7a0e97]
+2023-11-02 15:42:47.958 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:49.982 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:49.984 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:50.294 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:50.294 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@a43fb60]
+2023-11-02 15:42:50.296 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:52.315 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:52.315 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:52.571 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:52.571 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@36896e48]
+2023-11-02 15:42:52.572 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:54.595 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:42:54.598 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:42:54.855 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:54.855 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@4a2411c3]
+2023-11-02 15:42:54.856 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:42:57.421 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:42:57.422 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:42:59.859 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:42:59.860 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3632fe4d, co.edu.javeriana.tg.entities.dtos.OrderDTO@4fe (truncated)...]
+2023-11-02 15:42:59.871 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:01.321 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:01.322 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:43:03.855 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:03.856 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3ceead03, co.edu.javeriana.tg.entities.dtos.OrderDTO@78e (truncated)...]
+2023-11-02 15:43:03.866 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:06.902 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:06.903 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:07.159 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:07.159 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@5155d453]
+2023-11-02 15:43:07.160 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:11.179 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:11.181 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:11.426 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:11.427 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@149fd04e]
+2023-11-02 15:43:11.427 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:13.449 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:13.450 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:13.717 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:13.717 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@6964093d]
+2023-11-02 15:43:13.718 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:15.740 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:15.741 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:15.987 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:15.988 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@18cc6df9]
+2023-11-02 15:43:15.990 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:18.018 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:18.019 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:18.276 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:18.277 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@34183624]
+2023-11-02 15:43:18.278 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:19.291 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:19.292 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:19.540 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:19.540 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@17e59a81]
+2023-11-02 15:43:19.541 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:21.560 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:21.560 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:21.854 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:21.855 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@4e745b11]
+2023-11-02 15:43:21.856 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:24.875 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:24.877 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:25.197 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:25.197 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@7e0ef7dd]
+2023-11-02 15:43:25.198 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:28.667 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:28.668 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:43:31.208 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:31.209 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@a00ab32, co.edu.javeriana.tg.entities.dtos.OrderDTO@5dce (truncated)...]
+2023-11-02 15:43:31.218 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:32.392 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:32.392 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:43:34.977 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:34.978 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@4591a616, co.edu.javeriana.tg.entities.dtos.OrderDTO@1df (truncated)...]
+2023-11-02 15:43:34.986 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:36.205 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:36.205 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:43:38.826 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:38.846 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@85f898c, co.edu.javeriana.tg.entities.dtos.OrderDTO@2362 (truncated)...]
+2023-11-02 15:43:38.857 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:42.271 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:42.271 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:42.514 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:42.515 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@7b0594cf]
+2023-11-02 15:43:42.516 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:44.539 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:44.540 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:44.792 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:44.792 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@d886c94]
+2023-11-02 15:43:44.793 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:46.818 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:46.819 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:47.063 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:47.064 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@6e583805]
+2023-11-02 15:43:47.064 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:49.087 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 15:43:49.088 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 15:43:49.326 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:49.327 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@683e6037]
+2023-11-02 15:43:49.328 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:52.165 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:52.166 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:43:54.653 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:54.653 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@4505bfa8, co.edu.javeriana.tg.entities.dtos.OrderDTO@54e (truncated)...]
+2023-11-02 15:43:54.661 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:55.594 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:55.594 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:43:58.149 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:43:58.150 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@293bdd5b, co.edu.javeriana.tg.entities.dtos.OrderDTO@734 (truncated)...]
+2023-11-02 15:43:58.158 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:43:59.320 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:43:59.321 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:44:01.848 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:44:01.850 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@2c66bf30, co.edu.javeriana.tg.entities.dtos.OrderDTO@4f8 (truncated)...]
+2023-11-02 15:44:01.858 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:47:50.258 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:47:50.259 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:47:52.787 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:47:52.794 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@2dd533d8, co.edu.javeriana.tg.entities.dtos.OrderDTO@799 (truncated)...]
+2023-11-02 15:47:52.803 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:47:55.218 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:47:55.219 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:47:57.755 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:47:57.756 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@28e32a74, co.edu.javeriana.tg.entities.dtos.OrderDTO@4a3 (truncated)...]
+2023-11-02 15:47:57.763 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:53:45.532 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:53:45.534 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:53:47.998 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:53:48.002 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@282dcf41, co.edu.javeriana.tg.entities.dtos.OrderDTO@352 (truncated)...]
+2023-11-02 15:53:48.014 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:53:50.876 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:53:50.876 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:53:53.355 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:53:53.356 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@37c7def2, co.edu.javeriana.tg.entities.dtos.OrderDTO@6b4 (truncated)...]
+2023-11-02 15:53:53.363 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:53:54.820 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:53:54.821 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:53:57.348 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:53:57.349 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@49e5d3f7, co.edu.javeriana.tg.entities.dtos.OrderDTO@2ed (truncated)...]
+2023-11-02 15:53:57.357 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:53:58.654 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:53:58.655 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:54:01.215 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:54:01.216 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@7f45a982, co.edu.javeriana.tg.entities.dtos.OrderDTO@baf (truncated)...]
+2023-11-02 15:54:01.225 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:54:02.623 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:54:02.623 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:54:05.128 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:54:05.129 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@2da496e2, co.edu.javeriana.tg.entities.dtos.OrderDTO@4df (truncated)...]
+2023-11-02 15:54:05.136 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:54:06.371 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:54:06.372 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:54:08.841 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:54:08.842 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@32c5bee9, co.edu.javeriana.tg.entities.dtos.OrderDTO@48e (truncated)...]
+2023-11-02 15:54:08.850 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:54:10.116 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:54:10.117 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:54:12.650 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:54:12.651 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@714c1ed2, co.edu.javeriana.tg.entities.dtos.OrderDTO@7b9 (truncated)...]
+2023-11-02 15:54:12.659 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:54:14.064 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:54:14.065 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:54:16.646 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:54:16.648 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@b35c199, co.edu.javeriana.tg.entities.dtos.OrderDTO@1643 (truncated)...]
+2023-11-02 15:54:16.656 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 15:54:18.314 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 15:54:18.315 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 15:54:21.089 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 15:54:21.090 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@65c82d74, co.edu.javeriana.tg.entities.dtos.OrderDTO@53e (truncated)...]
+2023-11-02 15:54:21.099 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:04:11.389 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:04:11.391 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:04:14.612 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:04:14.627 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6b0d5d99, co.edu.javeriana.tg.entities.dtos.OrderDTO@7fb (truncated)...]
+2023-11-02 16:04:14.647 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:04:24.964 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:04:24.965 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:04:27.730 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:04:27.731 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6c5f4346, co.edu.javeriana.tg.entities.dtos.OrderDTO@25a (truncated)...]
+2023-11-02 16:04:27.741 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:04:35.795 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:04:35.796 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:04:38.488 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:04:38.489 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@24e89e1a, co.edu.javeriana.tg.entities.dtos.OrderDTO@61f (truncated)...]
+2023-11-02 16:04:38.500 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:05:44.196 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:05:44.198 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:05:46.744 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:05:46.745 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@5941b5c6, co.edu.javeriana.tg.entities.dtos.OrderDTO@72a (truncated)...]
+2023-11-02 16:05:46.753 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:08:56.339 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:08:56.340 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:08:59.015 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:08:59.020 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@629cbaf5, co.edu.javeriana.tg.entities.dtos.OrderDTO@503 (truncated)...]
+2023-11-02 16:08:59.031 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:09:11.116 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:09:11.117 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:09:13.607 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:09:13.608 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@73324662, co.edu.javeriana.tg.entities.dtos.OrderDTO@7f1 (truncated)...]
+2023-11-02 16:09:13.616 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:09:17.716 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:09:17.717 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:09:20.219 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:09:20.220 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@7c51ed52, co.edu.javeriana.tg.entities.dtos.OrderDTO@7ac (truncated)...]
+2023-11-02 16:09:20.230 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:09:51.674 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:09:51.675 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:09:51.994 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:09:51.997 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@6a091f5]
+2023-11-02 16:09:51.998 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:09:58.839 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:09:58.840 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:10:01.306 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:10:01.307 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@172094a3, co.edu.javeriana.tg.entities.dtos.OrderDTO@7b9 (truncated)...]
+2023-11-02 16:10:01.316 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:10:06.900 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:10:06.901 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:10:09.444 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:10:09.445 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@62381cc1, co.edu.javeriana.tg.entities.dtos.OrderDTO@388 (truncated)...]
+2023-11-02 16:10:09.452 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:10:18.884 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:10:18.884 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:10:21.356 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:10:21.357 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3f4460f7, co.edu.javeriana.tg.entities.dtos.OrderDTO@3b2 (truncated)...]
+2023-11-02 16:10:21.365 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:11.056 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:12:11.057 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:12:13.771 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:13.773 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6b4e4449, co.edu.javeriana.tg.entities.dtos.OrderDTO@684 (truncated)...]
+2023-11-02 16:12:13.792 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:15.793 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:12:15.794 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:12:18.290 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:18.291 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3ceca052, co.edu.javeriana.tg.entities.dtos.OrderDTO@5ea (truncated)...]
+2023-11-02 16:12:18.298 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:19.781 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:12:19.782 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:12:22.291 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:22.291 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@1af98d73, co.edu.javeriana.tg.entities.dtos.OrderDTO@3fc (truncated)...]
+2023-11-02 16:12:22.298 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:23.624 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:12:23.625 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:12:26.111 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:26.112 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@15eb17b8, co.edu.javeriana.tg.entities.dtos.OrderDTO@29b (truncated)...]
+2023-11-02 16:12:26.120 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:34.124 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:12:34.126 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:12:34.440 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:34.443 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@302f7829]
+2023-11-02 16:12:34.443 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:43.560 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:12:43.569 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:12:43.863 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:43.863 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@61c953b5]
+2023-11-02 16:12:43.864 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:47.234 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:12:47.235 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:12:49.879 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:49.880 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@7d37f99d, co.edu.javeriana.tg.entities.dtos.OrderDTO@78a (truncated)...]
+2023-11-02 16:12:49.889 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:12:53.961 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:12:53.961 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:12:56.433 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:12:56.434 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@20af76af, co.edu.javeriana.tg.entities.dtos.OrderDTO@54c (truncated)...]
+2023-11-02 16:12:56.441 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:13:00.344 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:13:00.345 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:13:02.872 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:13:02.873 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@47a8305, co.edu.javeriana.tg.entities.dtos.OrderDTO@6523 (truncated)...]
+2023-11-02 16:13:02.881 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:13:04.982 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:13:04.982 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:13:07.429 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:13:07.430 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@66c37c8, co.edu.javeriana.tg.entities.dtos.OrderDTO@24a6 (truncated)...]
+2023-11-02 16:13:07.437 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:13:11.965 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:13:11.966 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:13:12.229 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:13:12.229 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@24223101]
+2023-11-02 16:13:12.231 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:15:47.531 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:15:47.532 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:15:47.873 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:15:47.873 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@23cb2fe8]
+2023-11-02 16:15:47.875 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:15:54.998 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:15:54.999 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:15:57.584 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:15:57.586 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@2544e6ea, co.edu.javeriana.tg.entities.dtos.OrderDTO@6fc (truncated)...]
+2023-11-02 16:15:57.595 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:03.084 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:03.084 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:05.680 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:05.681 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3b31c06d, co.edu.javeriana.tg.entities.dtos.OrderDTO@3e8 (truncated)...]
+2023-11-02 16:16:05.690 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:08.964 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:08.965 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:11.464 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:11.465 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6019cec4, co.edu.javeriana.tg.entities.dtos.OrderDTO@6dd (truncated)...]
+2023-11-02 16:16:11.475 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:13.207 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:13.207 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:15.696 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:15.696 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3acde2cf, co.edu.javeriana.tg.entities.dtos.OrderDTO@477 (truncated)...]
+2023-11-02 16:16:15.704 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:16.977 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:16.977 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:19.563 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:19.564 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@7bf95537, co.edu.javeriana.tg.entities.dtos.OrderDTO@7ee (truncated)...]
+2023-11-02 16:16:19.572 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:20.761 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:20.762 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:23.269 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:23.270 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@fbfda07, co.edu.javeriana.tg.entities.dtos.OrderDTO@2126 (truncated)...]
+2023-11-02 16:16:23.277 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:24.612 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:24.613 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:27.117 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:27.118 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@5919c3d0, co.edu.javeriana.tg.entities.dtos.OrderDTO@588 (truncated)...]
+2023-11-02 16:16:27.126 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:16:28.338 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:16:28.339 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:16:30.914 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:16:30.915 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6bfebd06, co.edu.javeriana.tg.entities.dtos.OrderDTO@79f (truncated)...]
+2023-11-02 16:16:30.924 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:24:56.862 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:24:56.864 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:24:59.465 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:24:59.471 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6f237dc3, co.edu.javeriana.tg.entities.dtos.OrderDTO@110 (truncated)...]
+2023-11-02 16:24:59.484 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:25:02.352 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:25:02.352 DEBUG 2575 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:25:04.884 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:25:04.885 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3b35f440, co.edu.javeriana.tg.entities.dtos.OrderDTO@2f3 (truncated)...]
+2023-11-02 16:25:04.895 DEBUG 2575 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:25:05.957 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:25:05.958 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:25:08.450 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:25:08.450 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@6b5c455d, co.edu.javeriana.tg.entities.dtos.OrderDTO@2f2 (truncated)...]
+2023-11-02 16:25:08.458 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:25:09.446 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:25:09.465 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:25:11.947 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:25:11.947 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@5f3b1ee2, co.edu.javeriana.tg.entities.dtos.OrderDTO@5da (truncated)...]
+2023-11-02 16:25:11.955 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:25:13.011 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:25:13.011 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:25:15.529 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:25:15.529 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@1ac05c1, co.edu.javeriana.tg.entities.dtos.OrderDTO@356a (truncated)...]
+2023-11-02 16:25:15.539 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:25:58.500 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:25:58.500 DEBUG 2575 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:26:01.003 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:26:01.004 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@766aca30, co.edu.javeriana.tg.entities.dtos.OrderDTO@3d5 (truncated)...]
+2023-11-02 16:26:01.013 DEBUG 2575 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:26:05.755 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:26:05.755 DEBUG 2575 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:26:08.478 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:26:08.479 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3b8262c1, co.edu.javeriana.tg.entities.dtos.OrderDTO@4b7 (truncated)...]
+2023-11-02 16:26:08.486 DEBUG 2575 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:26:12.870 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:26:12.871 DEBUG 2575 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:26:15.382 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:26:15.382 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@db6dd22, co.edu.javeriana.tg.entities.dtos.OrderDTO@631f (truncated)...]
+2023-11-02 16:26:15.390 DEBUG 2575 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:26:29.349 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:26:29.350 DEBUG 2575 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:26:29.668 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:26:29.670 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@95e4a2e]
+2023-11-02 16:26:29.671 DEBUG 2575 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:26:35.017 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:26:35.017 DEBUG 2575 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:26:37.495 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:26:37.495 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@5c3e4ad7, co.edu.javeriana.tg.entities.dtos.OrderDTO@4d3 (truncated)...]
+2023-11-02 16:26:37.504 DEBUG 2575 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:28:17.843 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=47&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:28:17.844 DEBUG 2575 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:28:18.214 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:28:18.214 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@38d580c5]
+2023-11-02 16:28:18.215 DEBUG 2575 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:28:34.168 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:28:34.169 DEBUG 2575 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:28:36.669 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:28:36.670 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@43e0afc5, co.edu.javeriana.tg.entities.dtos.OrderDTO@55e (truncated)...]
+2023-11-02 16:28:36.678 DEBUG 2575 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:29:07.124 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-11-02 16:29:07.129 DEBUG 2575 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-11-02 16:29:07.406 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:29:07.406 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@71f84099]
+2023-11-02 16:29:07.407 DEBUG 2575 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-02 16:29:11.526 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-11-02 16:29:11.526 DEBUG 2575 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-11-02 16:29:14.036 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-11-02 16:29:14.037 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@35aeae1, co.edu.javeriana.tg.entities.dtos.OrderDTO@475d (truncated)...]
+2023-11-02 16:29:14.045 DEBUG 2575 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

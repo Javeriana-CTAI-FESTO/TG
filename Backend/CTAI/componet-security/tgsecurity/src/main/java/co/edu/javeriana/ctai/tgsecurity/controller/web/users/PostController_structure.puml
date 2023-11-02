@@ -101,13 +101,11 @@ subgraph cluster_100278 {
 <HR/>
 <TR><TD ALIGN="LEFT" >-   clientRepository: IClientRepository [1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ deleteById(id: Long)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCedula(cedula: Long): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCelular(celular: Long): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCorreoElectronico(correo: String): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findAll(): List&lt;Cliente&gt;</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findByCedula(cedula: Long): Cliente</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findById(id: Long): Cliente</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findByUsuario(usuario: User): Cliente</TD></TR>
 <TR><TD ALIGN="LEFT" >+ save(cliente: Cliente): Cliente</TD></TR>
 </TABLE>>
@@ -165,7 +163,6 @@ OrderProcessingService425788027[
 <TR><TD ALIGN="LEFT" >-   restTemplate: RestTemplate [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ enqueueOrder(order: Order)</TD></TR>
-<TR><TD ALIGN="LEFT" >+ ordenesMES()</TD></TR>
 <TR><TD ALIGN="LEFT" >- processOrders()</TD></TR>
 <TR><TD ALIGN="LEFT" >- sendHttpRequest(order: Order): boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ startProcessing()</TD></TR>

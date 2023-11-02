@@ -23,7 +23,6 @@ public class StorageServiceImpl implements IStorageService {
     private static final String FILE_EMPTY_MESSAGE = "File is empty. Please select a valid file.";
     private static final String UPLOAD_SUCCESS_MESSAGE = "File uploaded successfully: ";
     private static final String ERROR_UPLOAD_MESSAGE = "Error uploading the file: ";
-
     private final StorageJPARepositoryImpl repository;
 
     public StorageServiceImpl(StorageJPARepositoryImpl repository) {
@@ -71,7 +70,6 @@ public class StorageServiceImpl implements IStorageService {
             return ERROR_UPLOAD_MESSAGE + e.getMessage();
         }
     }
-
 
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public byte[] downloadImage(String fileName) {

@@ -159,10 +159,4 @@ public class OrderProcessingService implements IOrderProcessingService {
         }
     }
 
-    //http REQUEST A MES
-    public void ordenesMES() {
-
-    }
-
-
 }
