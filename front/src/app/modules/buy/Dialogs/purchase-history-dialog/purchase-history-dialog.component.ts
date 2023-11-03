@@ -83,11 +83,6 @@ export class PurchaseHistoryDialogComponent {
       this.dialogRef.close();
       this.isLoading = false;
     }
-
-   /* const tasks = this.data.purchases.flatMap(partWithQuantity => {
-      console.log(partWithQuantity);
-      console.log(partWithQuantity.modifiedPictureName);
-    });*/
   }
 
   emptyShoppingCart(): void {

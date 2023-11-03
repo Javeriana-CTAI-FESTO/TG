@@ -26,7 +26,6 @@ export class BuyComponent implements OnInit {
       (parts: Part[]) => {
         this.parts = parts.map(part => ({ ...part, quantity: 0 }));
         this.filteredParts = this.parts;
-        console.log(this.parts);
       },
       (error: any) => {
         console.error(error);

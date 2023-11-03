@@ -2,22 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { retryWhen, delayWhen, take } from 'rxjs/operators';
 import { timer } from 'rxjs';
-
+import { LoginService } from 'src/app/login/login.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  rol: string = '';
   bigChart: any = [];
   pieChart: any = [];
   ganttChart: any = [];
   cardData = '';
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService,
+    private loginService: LoginService) { }
 
   ngOnInit() {
-
+    this.rol=this.loginService.getRole();
     this.bigChart = this.dashboardService.bigChartInit();
     this.dashboardService.getPieChartData().pipe(
       retryWhen(errors => errors.pipe(
@@ -42,7 +44,7 @@ export class DashboardComponent implements OnInit {
       };
       setTimeout(retryGanttChart, 10000);
     });
-
+  
   }
 
   updateCardData(data: string) {

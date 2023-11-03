@@ -27,11 +27,9 @@ export class DashboardService {
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   getOrders(cedula: string, authToken: string): Observable<any[]> {
-    console.log("si")
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     });
-    console.log(cedula);
     return this.http.get<any[]>(`${this.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers }).pipe(
       switchMap((orders: any[]) => {
         const imageRequests = orders.map(order =>
@@ -186,7 +184,6 @@ export class DashboardService {
   }
 
 getCedulaByUsername(username: string, authToken: string) {
-  console.log("si")
   const headers = {
     Authorization: `Bearer ${authToken}`
   };

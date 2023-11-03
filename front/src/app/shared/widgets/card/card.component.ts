@@ -35,10 +35,8 @@ export class CardComponent implements OnInit {
   ngOnInit() {
     const authToken = localStorage.getItem('authToken') ?? '';
     const username = this.loginService.getUsername();
-    console.log("wi");
     this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
       const cedula = cedulaResponse.cedula;
-      console.log(cedula);
       this.dashboardService.getOrders(cedula, authToken).subscribe((orders: Object) => {
         const ordersArray = orders as any[];
         ordersArray.forEach((order, index) => {
@@ -51,7 +49,6 @@ export class CardComponent implements OnInit {
           });
         });
         this.filteredCards = this.cards;
-        console.log(this.cards);
       });
     });
     this.rol=this.loginService.getRole();
