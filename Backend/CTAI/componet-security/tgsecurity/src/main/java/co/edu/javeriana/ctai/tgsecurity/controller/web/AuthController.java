@@ -30,7 +30,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -197,8 +196,7 @@ public class AuthController {
 
             // Devolver el nuevo token en la respuesta.
             return ResponseEntity.ok(new JwtResponse(newAccessToken));
-        }
-        else {
+        } else {
 
             // El token ha expirado.
             LOGGER.warning("Unauthorized access: Invalid authorization header");

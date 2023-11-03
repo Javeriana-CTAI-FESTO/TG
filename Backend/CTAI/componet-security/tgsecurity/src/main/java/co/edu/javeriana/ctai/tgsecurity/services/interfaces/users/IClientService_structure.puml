@@ -107,7 +107,7 @@ subgraph cluster_100278 {
 <TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ login(authHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
-<TR><TD ALIGN="LEFT" >+ refreshToken(refreshTokenHeader: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refreshToken(refreshToken: String): ResponseEntity&lt;JwtResponse&gt;</TD></TR>
 <TR><TD ALIGN="LEFT" >+ register(signUpRequest: RegisterRequest): ResponseEntity&lt;MessageResponse&gt;</TD></TR>
 </TABLE>>
 	style=filled
@@ -122,13 +122,11 @@ ClientServiceImp2047046643[
 <HR/>
 <TR><TD ALIGN="LEFT" >-   clientRepository: IClientRepository [1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ deleteById(id: Long)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCedula(cedula: Long): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCelular(celular: Long): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCorreoElectronico(correo: String): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findAll(): List&lt;Cliente&gt;</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findByCedula(cedula: Long): Cliente</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findById(id: Long): Cliente</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findByUsuario(usuario: User): Cliente</TD></TR>
 <TR><TD ALIGN="LEFT" >+ save(cliente: Cliente): Cliente</TD></TR>
 </TABLE>>
@@ -162,13 +160,11 @@ IClientService748843795[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(I)IClientService</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ deleteById(id: Long)</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCedula(cedula: Long): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCelular(celular: Long): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ existsByCorreoElectronico(correo: String): Boolean</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findAll(): List&lt;Cliente&gt;</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findByCedula(cedula: Long): Cliente</TD></TR>
-<TR><TD ALIGN="LEFT" >+ findById(id: Long): Cliente</TD></TR>
 <TR><TD ALIGN="LEFT" >+ findByUsuario(usuario: User): Cliente</TD></TR>
 <TR><TD ALIGN="LEFT" >+ save(cliente: Cliente): Cliente</TD></TR>
 </TABLE>>

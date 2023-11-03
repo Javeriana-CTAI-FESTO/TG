@@ -57,7 +57,7 @@ export class AddWorkPlanToProductionComponent implements OnInit {
               cliente_Cedula: cedulaResponse.cedula,
               title: part.description,
               orderNumber: 4,
-              image_filePath: part.picture
+              image_filePath: part.modifiedPictureName
             };
             return this.DashboradService.saveOrder(orderData, authToken);
           }),
@@ -67,7 +67,7 @@ export class AddWorkPlanToProductionComponent implements OnInit {
               idworkPlan: part?.workPlanNumber || startingId + this.cards.length,
               title: part?.description || '',
               OrderNumber: response.orderNumber,
-              imageUrl: part?.picture || ''
+              imageUrl: part?.modifiedPictureName || ''
             });
             return from(this.cards);
           })

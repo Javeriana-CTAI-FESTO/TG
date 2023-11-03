@@ -3,7 +3,6 @@ package co.edu.javeriana.ctai.tgsecurity.controller.web.users;
 
 import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
-import co.edu.javeriana.ctai.tgsecurity.entities.users.cp_factory.Order;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IUserRepository;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.cp_factory.IOrderRepository;
 import co.edu.javeriana.ctai.tgsecurity.services.cp_facrory.impl.payloads.OrderResponse;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.ConnectException;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/user/get")
@@ -164,50 +162,25 @@ public class GetController {
     @GetMapping("/order/cedula={cedula}")
     public ResponseEntity<Object> getOrdersByCedula(@PathVariable("cedula") String cedula) {
         try {
-            // Buscar al cliente por su número de cédula
             Cliente cliente = clientService.findByCedula(Long.valueOf(cedula));
 
             if (cliente == null) {
-                System.out.println("Cliente no existe");
+                LOGGER.info("Cliente no existe");
                 return ResponseEntity.badRequest().body("Cliente no existe");
             }
 
-            // Cargar las órdenes de forma ansiosa (eager loading)
-            List<Order> eagerLoadedOrders = orderRepository.findByClienteFetchOrders(cliente);
+            List<OrderResponse> orderResponses = orderRepository
+                    .findRecentOrdersByClienteAndMESOrders(cliente, this.orderFilter.getMESOrders());
 
-            // Obtener las órdenes del MES
-            List<Long> mesOrders = this.orderFilter.getMESOrders();
-            // ordenar la lista de números de orden
-
-
-            // Filtrar las órdenes del cliente que coinciden con las órdenes del MES
-            List<Order> recentClientOrders = eagerLoadedOrders.stream()
-                    .filter(order -> mesOrders.contains(order.getOrderNumber()))
-                    .collect(Collectors.toList());
-
-            // Mapear las órdenes a OrderResponse utilizando expresiones lambda
-            List<OrderResponse> orderResponses = recentClientOrders.stream()
-                    .map(order -> new OrderResponse(
-                            order.getId_part(),
-                            order.getId_workPlan(),
-                            order.getCliente().getIdentificacion(),
-                            order.getTitle(),
-                            order.getOrderNumber(),
-                            order.getImage_filePath()
-                    ))
-                    .collect(Collectors.toList());
-
-            System.out.println("Ordenes Filtradas para: " + cliente.getNombre());
-            System.out.println(orderResponses);
+            LOGGER.info("Ordenes Filtradas para: " + cliente.getNombre());
 
             return ResponseEntity.ok().body(orderResponses);
 
-
         } catch (NumberFormatException e) {
-            // Manejo de errores si la cédula no es un número válido
             LOGGER.info("Cédula no válida");
             return ResponseEntity.badRequest().body("Cédula no válida");
         }
     }
+
 
 }

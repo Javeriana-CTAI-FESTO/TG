@@ -126,21 +126,38 @@ export class DashboardService {
     return this.http.get<Estations[]>(this.urlBase + this.rol() + '/resources');
   }
   getParts(): Observable<Part[]> {
+    const authToken = localStorage.getItem('authToken') ?? '';
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+  
     return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production').pipe(
-      map(parts => parts.map(part => {
-        let picturePath = part.picture;
-        if (picturePath.includes('\\')) {
-          const pictureParts = picturePath.split('\\');
-          let pictureName = pictureParts.pop();
-          const folderName = pictureParts.pop();
-          if (pictureName && folderName) {
-            const extension = pictureName.slice(pictureName.lastIndexOf('.'));
-            pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
-            picturePath = `${pictureName}_${folderName}${extension}`;
+      switchMap((parts: Part[]) => {
+        const imageRequests = parts.map(part => {
+          let picturePath = part.picture;
+          if (picturePath.includes('\\')) {
+            const pictureParts = picturePath.split('\\');
+            let pictureName = pictureParts.pop();
+            const folderName = pictureParts.pop();
+            if (pictureName && folderName) {
+              const extension = pictureName.slice(pictureName.lastIndexOf('.'));
+              pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
+              picturePath = `${pictureName}_${folderName}${extension}`;
+            }
           }
-        }
-        return { ...part, picture: picturePath };
-      }))
+          return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+            map(blob => {
+              const url = URL.createObjectURL(blob);
+              return { ...part, picture: url, modifiedPictureName: picturePath };
+            }),
+            catchError(error => {
+              console.error('Error fetching image', error);
+              return of({ ...part, picture: picturePath });
+            })
+          );
+        });
+        return forkJoin(imageRequests);
+      })
     );
   }
   getPartsForBuyer(): Observable<Part[]> {
@@ -242,6 +259,8 @@ export interface Part {
   safetyStock: number;
   lotSize: number;
   defaultResourceId: number;
+  modifiedPictureName?: string;
+
 }
 interface IndicatorData {
   indicatorName: string;

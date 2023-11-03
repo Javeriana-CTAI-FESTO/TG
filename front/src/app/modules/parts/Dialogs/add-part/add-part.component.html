@@ -2,6 +2,25 @@
   <h1 class="modal-title mb-4">Add Part</h1>
   <form [formGroup]="partForm" (ngSubmit)="onSubmit()" class="mt-4">
     <div class="mb-3">
+      <label for="picture" class="form-label">Picture</label>
+      <ng-select formControlName="pictureFolder" class="form-select mt-2" [searchable]="true"
+        [placeholder]="partForm.controls['pictureFolder'].value ? '' : 'Search or select a picture'"
+        [disabled]="partForm.controls['picture'].value" [hidden]="partForm.controls['picture'].value">
+        <ng-option *ngFor="let folder of data" [value]="folder">
+          <img [src]="folder.url" class="option-image"> {{processFolderName(folder.name)}}
+        </ng-option>
+      </ng-select>
+      <div class="d-flex">
+        <input #pictureInput type="file" id="picture" (change)="onFileSelected($event)" class="form-control"
+          [disabled]="partForm.controls['pictureFolder'].value" [hidden]="partForm.controls['pictureFolder'].value"
+          accept="image/*">
+        <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="btn btn-light"
+          (click)="clearPicture()" *ngIf="partForm.controls['picture'].value">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </div>
+    <div class="mb-3">
       <label for="partNumber" class="form-label">Part Number</label>
       <input type="number" id="partNumber" formControlName="partNumber" class="form-control">
     </div>
@@ -38,25 +57,7 @@
       <label for="defaultResourceId" class="form-label">Default Resource ID</label>
       <input type="number" id="defaultResourceId" formControlName="defaultResourceId" class="form-control">
     </div>
-    <div class="mb-3">
-      <label for="picture" class="form-label">Picture</label>
-      <ng-select formControlName="pictureFolder" class="form-select mt-2" [searchable]="true"
-        [placeholder]="partForm.controls['pictureFolder'].value ? '' : 'Search or select a picture'"
-        [disabled]="partForm.controls['picture'].value" [hidden]="partForm.controls['picture'].value">
-        <ng-option *ngFor="let folder of data" [value]="folder">
-          <img [src]="folder.url" class="option-image"> {{folder.name}}
-        </ng-option>
-      </ng-select>
-      <div class="d-flex">
-        <input #pictureInput type="file" id="picture" (change)="onFileSelected($event)" class="form-control"
-          [disabled]="partForm.controls['pictureFolder'].value" [hidden]="partForm.controls['pictureFolder'].value"
-          accept="image/*">
-        <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="btn btn-light"
-          (click)="clearPicture()" *ngIf="partForm.controls['picture'].value">
-          <i class="material-icons">close</i>
-        </button>
-      </div>
-    </div>
+    
     <button type="submit" class="btn btn-primary" [disabled]="!partForm.valid">Submit</button>
   </form>
 </div>

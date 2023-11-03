@@ -146,4 +146,15 @@ export class AddPartComponent implements OnInit {
     this.partForm.controls['picture'].setValue(null);
     this.pictureInput.nativeElement.value = '';
   }
+  processFolderName(folderName: string): string {
+    let extension = folderName.slice(folderName.lastIndexOf('.'));
+    let nameWithoutExtension = folderName.slice(0, folderName.lastIndexOf('.'));
+    let parts = nameWithoutExtension.split('_');
+    if (parts.length > 1) {
+      let lastPart = parts.pop();
+      parts.unshift(lastPart + '/');
+    }
+    let processedName = parts.join('_') + extension;
+    return processedName.replace('/_', '/');
+  }
 }

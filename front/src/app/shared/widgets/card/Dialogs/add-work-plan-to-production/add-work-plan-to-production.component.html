@@ -5,7 +5,7 @@
         <ng-select id="partSelect" [(ngModel)]="selectedPart" class="form-control" [searchable]="true"
             [placeholder]="selectedPart ? '' : 'Search or select a part'">
             <ng-option *ngFor="let workplan of parts" [value]="workplan">
-                {{workplan.partNumber}}: {{workplan.description}}
+                <img [src]="workplan.picture" class="option-image" onerror="this.src='assets/NoPicture.png'"> {{workplan.partNumber}}: {{workplan.description}}
             </ng-option>
         </ng-select>
     </div>

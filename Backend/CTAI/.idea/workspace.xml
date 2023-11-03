@@ -4,703 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbb52072-13b4-481f-b224-e3f2a32fba1b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7a7535fc-1e0f-4cc1-9168-7770464eba33" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CP_Factory/FestoMES_be.accdb" beforeDir="false" afterPath="$PROJECT_DIR$/CP_Factory/FestoMES_be.accdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CP_Factory/logs/tg-C.log" beforeDir="false" afterPath="$PROJECT_DIR$/CP_Factory/logs/tg-C.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CP_Factory/src/main/java/co/edu/javeriana/tg/DataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/CP_Factory/src/main/java/co/edu/javeriana/tg/DataSourceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/logs/tg-S.log.2023-11-01.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/logs/tg-S.log.2023-11-01.1.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/logs/tg-S.log.2023-11-01.2.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/logs/tg-S.log.2023-11-01.3.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/LogBookConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/LogBookConfig_0_logbook_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/LogBookConfig_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/PrincipalHttpLogFormatter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/PrincipalHttpLogFormatter_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/SwaggerConfig_0_api_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/config/SwaggerConfig_structure.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CP_Factory/logs/tg-C.log.2023-11-02.0.gz" beforeDir="false" afterPath="$PROJECT_DIR$/CP_Factory/logs/tg-C.log.2023-11-02.0.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CP_Factory/logs/tg-C.log.2023-11-02.1.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CP_Factory/logs/tg-C.log.2023-11-02.2.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/logs/register.log.2023-11-01.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/AuthController_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/AuthController_structure.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController_0_StorageController_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController_1_uploadImage_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController_2_downloadImage_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/admin/StorageController_structure.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController_0_GetController_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController_1_getUserRole_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController_2_getUserCedula_calls.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController_3_getOrdersByCedula_calls.puml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/GetController_structure.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/PostController_0_saveOrder_calls.puml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/PostController_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/controller/web/users/PostController_structure.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/ImageData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/ImageData_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/Order_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/ClienteBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/ClienteBuilder_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/IBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/IBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/ImageDataBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/ImageDataBuilder_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/UserBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/builder/UserBuilder_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/Cliente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/Cliente_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/Cliente_structure.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/Rol_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/Rol_structure.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/User_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/entities/users/User_structure.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IClientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IClientRepository_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IOrderRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IOrderRepository_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IStorageRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IStorageRepository_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IUserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/IUserRepository_structure.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/users/IClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/users/IClientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/users/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/users/IUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/users/cp_factory/IOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/repository/interfaces/users/cp_factory/IOrderRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/jwt/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/jwt/JwtTokenUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/jwt/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/jwt/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/payload/JwtRequestFilter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/payload/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/payload/JwtResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/service/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/service/UserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/service/UserDetailsServiceImpl_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/security/service/UserDetailsServiceImpl_structure.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/IClientService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/IClientService_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/IStorageService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/IStorageService_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/IUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/IUserService_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/external/OrderProcessingService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/external/OrderProcessingService_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/external/payloads/OrderRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/external/payloads/OrderRequest_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/external/payloads/OrderResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/external/payloads/OrderResponse_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/ClientServiceImp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/ClientServiceImp_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/StorageServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/StorageServiceImpl_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/UserServiceImp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/UserServiceImp_structure.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/utils/ImageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/utils/ImageUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/resources/application-prod.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/register.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/buy/buy.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/buy/buy.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/buy/buy.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/buy/buy.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/dashboard.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/dashboard.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/parts/Dialogs/add-part/add-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/parts/Dialogs/add-part/add-part.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/parts/parts.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/parts/parts.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/parts/parts.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/parts/parts.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/modules/parts/piezas-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/modules/parts/piezas-service.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/shared/widgets/card/Dialogs/add-work-plan-to-production/add-work-plan-to-production.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/shared/widgets/card/Dialogs/add-work-plan-to-production/add-work-plan-to-production.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/shared/widgets/card/card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/shared/widgets/card/card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/app/shared/widgets/card/card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/src/app/shared/widgets/card/card.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/AFB-ASRS.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleEmpty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleExpired.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleFluid0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleFluid100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleFluid50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleSolid0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleSolid100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleSolid50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/BottleUndefined.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_170.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_170_Bottles.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_170_Bottles_Empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_170_Trays.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_170_Trays_empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Box_170_undefined.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Conveyor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Conveyor2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Filling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/In-Out-Portal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/In-Out-Recycling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/In-Out-SixPack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/In-Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Packaging.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Recycling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Recycling_ABB_IRB120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Robotino.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/SixPack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Tray.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Tray_undefined.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/AFB/Unpackaging.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Cylindrical material/0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Cylindrical material/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Cylindrical material/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Cylindrical material/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Cylindrical material/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/NoPicture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/AssPCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/AssPCB1Fuse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/AssPCB1FuseR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/AssPCB2Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Camera.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Dosing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Drilling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Feeding.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Heating.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/ManualAssembly.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Measure.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Milling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Output.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/PB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/PickByLight.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Pressing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Printing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Release.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Store.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Turning.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/Turning2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/release2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Operations/store2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Orders.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Service.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/1S_1Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/1S_1Out_+_1S_2Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/1S_2Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/1S_2Out_+_1S_3Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/1S_3Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/1S_XOut.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/Topology/2x_1S_1Out.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Default/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/EMCO/Mill_55.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/BottleOpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/BoxBottleOpenerEmpty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/BoxBottleOpenerFull.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/BoxingDM.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/BoxingDMR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/DockingBelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/F4-Box-ASRS.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/HandlingInOut.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/In-Out-Portal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Factory4/WT4BottleOpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS-PA/Bottling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS-PA/Filtering.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS-PA/Mixing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS-PA/Reactor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS/Assembly.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS/Painting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS/Programming.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS/Sorting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS/Storage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/ASRS.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/BottleOpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/BoxBottleOpenerEmpty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/BoxBottleOpenerFull.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/BoxingDM.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/BoxingDMR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/DockingBelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/F4-Box-ASRS.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/HandlingInOut.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/In-Out-Portal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Factory4/WT4BottleOpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/GettingStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/HandlingStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/OutgoingGoods.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Pallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Part_Black.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Part_Black_Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Part_Red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Part_Red_Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Part_Silver.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/ProcessingStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Receipt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Robot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/SortingStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/TestingStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Transport.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Vision.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/MPS500/Working.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_BlackProd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_BlackRaw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_PalletBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_PalletCustom.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_PalletRed.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_PalletSilver.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_PalletWithParts.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_RedProd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_RedRaw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_SilverProd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_SilverRaw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PL_TransparentRaw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/PaletteProlog.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResCommissioning.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResDistributing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResInventory.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResRobotino.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResSeparating.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResTable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Prolog/ResVerifying.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Augsburg/2 Euro.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Augsburg/WT-Coins.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Augsburg/WT_Full.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Augsburg/agilus.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Augsburg/iiwa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_black_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_black_back_RFID.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_black_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_black_full.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_blue_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_blue_back_RFID.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_blue_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_blue_full.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_customized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_grey_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_grey_back_RFID.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_grey_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_grey_full.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_red_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_red_back_RFID.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_red_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Bassgeige_red_full.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/Box-Bassgeige.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bassgeige/TF_Palette_Bassgeige.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_100Coffee.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_100Corn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_1x25Coffee.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_1x25Corn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_2Gray.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_2White.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_2gray_2red_2black.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_2red_2black.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_2white_2red_2black.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_2x25Coffee_2x25Corn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_50Coffee_50Corn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_50Corn_50Coffee.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_6black.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_6gray.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_6red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_6white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_work.pdn" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Bottle_work2.pdn" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/CarrierBosch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/AMG12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/AMG15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/AMG15_4x4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/AMG18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Classic12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Classic15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Classic18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/HandlingEnde.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/HandlingLang.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/HandlingLangMitte.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/HandlingStart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Presse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Pruefen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Rohmaterial.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Sport12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Sport15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Sport18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Sport18_4x4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Urban18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Daimler/Urban18_4x4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/Box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/Felge_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/Felge_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/FullProduct.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/Magazine.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/Pallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/RASS.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/WheelsPallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/WheelsTyresPallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/WheelsTyresPalletAss.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/axis.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Diepholz/tire.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/FestoMES.accdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Abdeckung.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Achse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Dreieck.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Ecke 15x15x15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Felge.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Flachstück.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Grundplatte_45x45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Grundplatte_45x90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Kabine.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Kurbel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/LKW v1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/LKW v2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/LKW v3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Lagerbock.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Palettenverbinder kurz rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Plattenverbinder kurz gelb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Plattenverbinder lang rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Plattenverbinder winkel 10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Quader 15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Quader 30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Reifen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Umlenkrolle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Winkel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/Würfel 15x15x15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/vormontierte Achse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/vormontierte Grundplatte.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/vormontierte Kurbel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/Fischertechnik/vormontierter Kran.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/PalletFischertechnik.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/PalletPlaymobil.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/TrayFischertechnikEmpty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/TrayPlaymobil.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Fulda/TrayPlaymobilEmpty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/FullProduct.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Hannover/1_Produktion.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Hannover/2_Qualität.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Hannover/3_Verdeckeln.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Hannover/4_Lager.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Hannover/5_Werkstückausgabe.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Hannover/6_Roboter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Kirchheim/BottleOpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Kirchheim/BottleOpenerEngraved.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Kirchheim/Box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Kirchheim/TransportBelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Köln/_Weiche mit Magazin und Magazin.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Köln/_Weiche mit Presse und Drucker.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Köln/_Weiche mit Presse.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Mais.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Merseburg6Axis.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/MerseburgScara.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/MerseburgTripod.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Pallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/PilleGray.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/PilleGrün.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/PilleNatur.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/PilleRot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/PilleSchwarz.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/03_Plattform_Roof1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/04_Flat_Roof1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/05_Sawtooth_Roof1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/06_Saltbox_Roof1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/07_Pitch_Roof1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/08_PLC1500.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/09_Mindsphere.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/10_Sirius.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/11_ET200SP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/12_Sinamics.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/Baseplate1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/Palette_Default.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Smart Automation/Palette_GiveAway.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Back cover transparent.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Complete Part transparent with 3 balls blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Complete Part transparent with 3 balls green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Complete Part transparent with 3 balls grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Complete Part transparent with 3 balls mixed.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Complete Part transparent with 3 balls red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Complete Part transparent without balls.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Transparent/Front cover transparent.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/Tray_Bottles.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/ctx-alpha-500-product-picture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/Sonder/kaffee-c-10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/150395.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/152583.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/152584.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/152586.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/153366.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/153367.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/153475.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/157212.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/158962.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/165327.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/165360.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/175041.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/547304.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/547307.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/8038614.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/SpareParts/8039304.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/075-010_Lager.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/075-011_Mobile-Workstation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/075-020c_Lasergravieren.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/3D-Printer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ASRS-12-2018.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ASRS-12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ASRS20-Boxes.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ASRS32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/BackCoverForPellets.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/BackCoverForUSBCard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/BlackBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Blue Fuse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Blue PCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/BlueBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Box-Cover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Box-PCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Box-turned part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/BypassModul.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/BypassModulWithMagazin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/CP_Bridge.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/CP_Lab_Basic.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Carrier.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/CoBot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/DMR-CNC-Mill105.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/DMR-CNC-Turn105.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/DMR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Dosing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Abdeckung.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Achse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Dreieck.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Ecke 15x15x15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Felge.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Flachstück.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Grundplatte_45x45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Grundplatte_45x90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Kabine.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Kurbel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/LKW v1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/LKW v2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/LKW v3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Lagerbock.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Palettenverbinder kurz rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Plattenverbinder kurz gelb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Plattenverbinder lang rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Plattenverbinder winkel 10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Quader 15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Quader 30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Reifen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Umlenkrolle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Winkel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/Würfel 15x15x15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/vormontierte Achse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/vormontierte Grundplatte.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fischertechnik/vormontierter Kran.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/FrontCoverTransparent.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Fuse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/GreyBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Labeling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/MAN-STORAGE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Modul-RFID.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulBase.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulBohrenCECC.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulBohrenCECCNeu2015.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulBohrenNeu2014.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulHandover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulKameraPruefen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulMagazin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulMagazinNeu2014.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulMeassurement.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulPressen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulPressenMuscle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulPressenMuscleNeu2015.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulPressenNeu2014.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulPruefen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulShunt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulTrocknen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulWenden.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulWendenNeu2014.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/ModulWerkstueckausgabe.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/PCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/PNo20_Pallet Box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/PelletBlue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/PelletGreen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/PelletGrey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/PelletRed.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Pellets.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Pen-Holder+Pen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Pen-Holder-raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Pen-Holder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Pen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Red Fuse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/RedBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/RedPCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/RoboterAssembly - old.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/RoboterAssembly.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/RoboterAssemblyKuka.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Robotino_AGV.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/StopperUML.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Blue-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Grey-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Lower-Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Lower-Part_Blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Lower-Part_Grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Lower-Part_Red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Pallet-No Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Pallet-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Pallet-Two Parts.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Pallet-left Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Pallet-right Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Part-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-MPS-Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-1-Fuse-Left-Complete.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-1-Fuse-Left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-1-Fuse-Right-Complete.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-1-Fuse-Right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-2-Fuses-Complete.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-2-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Blue-1-Fuse-Left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Blue-1-Fuse-Right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Blue-2-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Blue-no-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Complete-changedOrientation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Complete.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Grey-1-Fuse-Left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Grey-1-Fuse-Right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Grey-2-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-No.PCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-PCB-customized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Red-1-Fuse-Left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Red-1-Fuse-Right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Red-2-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-Red-no-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-White-Big-Custom.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-White-Big-Lower-Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-White-Big-Upper-Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-White-Big.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-full-customized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-grey-no-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-no-Fuses-Complete.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Part-no-Fuses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Red-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part-Raw-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Blue-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Blue-Raw2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Grey-Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Grey-Raw2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Grey.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Red_Raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF-Upper-Part_Red_Raw2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF_Palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF_Robot_CNC.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/TF_Robot_Docking.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Tray_PCB_Full.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/UR5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/USB-Card Box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/USB-Card+BackCover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/USB-Card+Cover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/USB-Card.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/UndefinedPallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Universalkiste_4Full_4Frontcover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Universalkiste_4Full_4Frontcover1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Universalkiste_Frontcover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Universalkiste_Frontcover1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Universalkiste_PCB.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/Universalkiste_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/WP_20150520_11_45_13_Pro__highres.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/_Robotino mit Kistentransport.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/_Robotino mit WT-Transport.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/iPICK.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/round material bronze.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/round material.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Cover plus sharpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Cover-Sharpener 2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Cover-Sharpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Einpressdeckel_blau.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Einpressdeckel_grün.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Einpressdeckel_rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/M2x4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Pallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Sharpener 2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Sharpener.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Deckel_Blau.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Deckel_Blau.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Deckel_Grün.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Deckel_Rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Gravur_Blau.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Gravur_Grün.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer mit Gravur_Rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer_Deckel_Einpress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer_Deckel_Gravur.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer_Unterteil_Blau.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer_Unterteil_Grün.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/Spitzer_Unterteil_Rot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/sharpener/raw_material.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactory/tapa-superior.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/BasicModul.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Carrier.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Drilling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/HeatingTunnel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Magazine.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Press.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Product.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Turning.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/UpperParts.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferFactoryLight/Vision.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/BlackPart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/BlackPartInlay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/DetectionStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/RedPart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/RedPartInlay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/StoringStation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/UndefinedPart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/WhitePart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/TransferSystem/WhitePartInlay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42000.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42001.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42010.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42101.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42102.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42103.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42104.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42121.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42122.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42123.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42124.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42140.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42141.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42142.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42143.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/42144.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/ASRS.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/ASRS_new.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/BasePlate_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/BasePlate_02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Carrier.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Carrier_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullAlu0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullAlu1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullAlu2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullAlu3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullAlu4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullKupfer0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullKupfer1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullKupfer2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullKupfer3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/FullKupfer4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Hygrometer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/MPS/Assembly.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/MPS/Painting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/MPS/Programming.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/MPS/Sorting.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/MPS/Storage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Mill_105png.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Mill_155.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Mill_250.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Part_Pallet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Part_Pallet_blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Part_Pallet_green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Part_Pallet_red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Part_raw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Pen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/QualityHandling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/RobotAssembly.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Robot_Handling_Axis.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Robot_Print.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Thermometer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Transfersystem.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Turn60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/Turn_155.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/WTD.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front/src/assets/Pictures/iCIM/undefined.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/cp_facrory/impl/OrderProcessingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/cp_facrory/impl/OrderProcessingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/admin/StorageServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/admin/StorageServiceImpl_structure.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/users/ClientServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/users/ClientServiceImp_structure.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/users/UserServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/imp/users/UserServiceImp_structure.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/interfaces/users/IClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/interfaces/users/IClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/interfaces/users/IClientService_structure.puml" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/interfaces/users/IClientService_structure.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/utils/OrderFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/utils/OrderFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/utils/OrderRequestFESTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/componet-security/tgsecurity/src/main/java/co/edu/javeriana/ctai/tgsecurity/services/utils/OrderRequestFESTO_structure.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/register.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/register.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -717,31 +55,31 @@
       </list>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
-  <component name="ProjectId" id="2Xdo7RJEdZDGAxUf6Rg594uoQLO" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2XfV4IoZdYdgW7xE4fRKTNiL0BA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Spring Boot.SpringBootApp">
     <configuration name="SpringBootApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -762,12 +100,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fbb52072-13b4-481f-b224-e3f2a32fba1b" name="Changes" comment="" />
-      <created>1698968160549</created>
+      <changelist id="7a7535fc-1e0f-4cc1-9168-7770464eba33" name="Changes" comment="" />
+      <created>1699019952151</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1698968160549</updated>
-      <workItem from="1698968166732" duration="328000" />
+      <updated>1699019952151</updated>
+      <workItem from="1699019953821" duration="499000" />
+      <workItem from="1699021095947" duration="419000" />
     </task>
     <servers />
   </component>
