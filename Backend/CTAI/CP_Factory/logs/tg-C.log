@@ -1707,3 +1707,4 @@
 2023-11-03 10:11:32.701 DEBUG 25442 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2023-11-03 10:11:32.701 DEBUG 25442 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.WorkPlanWithStepsDTO@52d6badf]
 2023-11-03 10:11:32.701 DEBUG 25442 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-03 10:17:57.650  INFO 25442 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
