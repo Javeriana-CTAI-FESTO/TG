@@ -170,7 +170,8 @@ export class DashboardService {
               // Creamos una URL del blob
               const url = URL.createObjectURL(blob);
               // Reemplazamos el campo de imagen en la parte original con la URL del blob
-              return { ...part, picture: url };
+              // y agregamos el nombre modificado de la imagen
+              return { ...part, picture: url, modifiedPictureName: picturePath };
             }),
             catchError(error => {
               console.error('Error fetching image', error);

@@ -77,5 +77,7 @@ export class BuyComponent implements OnInit {
 
 export interface PartWithQuantity extends Part {
   quantity: number;
+  modifiedPictureName?: string;
+
 }
 

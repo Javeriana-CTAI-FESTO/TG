@@ -34,6 +34,7 @@ export class PurchaseHistoryDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
 
   checkFormCompletion(): void {
     const name = (document.getElementById('inputName') as HTMLInputElement).value;
@@ -62,7 +63,7 @@ export class PurchaseHistoryDialogComponent {
               cliente_Cedula: cedulaResponse.cedula,
               title: partWithQuantity.description,
               orderNumber: 4,
-              image_filePath: partWithQuantity.picture
+              image_filePath: partWithQuantity.modifiedPictureName
             };
             return this.dashboardService.saveOrder(orderData, authToken);
           })
@@ -82,6 +83,11 @@ export class PurchaseHistoryDialogComponent {
       this.dialogRef.close();
       this.isLoading = false;
     }
+
+   /* const tasks = this.data.purchases.flatMap(partWithQuantity => {
+      console.log(partWithQuantity);
+      console.log(partWithQuantity.modifiedPictureName);
+    });*/
   }
 
   emptyShoppingCart(): void {
