@@ -3,16 +3,16 @@ import { Observable, forkJoin } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs'; // Importa 'of' de RxJS
-import { catchError } from 'rxjs/operators'; // Importa 'catchError' de RxJS
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from 'src/enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  urlBase = 'http://localhost:8080/api/';
-  urlBaseSecurity = 'http://localhost:8081/api/';
+
   rol() {
     const rol = this.loginService.getRole();
     if (rol === 'STUDENT') {
@@ -30,30 +30,36 @@ export class DashboardService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     });
-    return this.http.get<any[]>(`${this.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers }).pipe(
+    return this.http.get<any[]>(`${environment.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers }).pipe(
       switchMap((orders: any[]) => {
+        if (!Array.isArray(orders) || orders.length === 0) {
+          // Emitir un valor por defecto si no hay órdenes
+          return of([]);
+        }
         const imageRequests = orders.map(order =>
-          this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${order.image_filePath}`, { headers, responseType: 'blob' }).pipe(
+          this.http.get(environment.urlBaseSecurity+`admin/storage/image/get/fileName=${order.image_filePath}`, { headers, responseType: 'blob' }).pipe(
             map(blob => {
-              // Creamos una URL del blob
               const url = URL.createObjectURL(blob);
-              // Reemplazamos el campo de imagen en la orden original con la URL del blob
               return { ...order, image_filePath: url };
             }),
             catchError(error => {
               console.error('Error fetching image', error);
-              // En caso de error, devolvemos la orden original sin modificar
               return of(order);
             })
           )
         );
         return forkJoin(imageRequests);
+      }),
+      catchError(error => {
+        console.error('Error fetching orders', error);
+        // Emitir un valor por defecto en caso de un error no manejado
+        return of([]);
       })
     );
   }
 
   GetOrdesBigChart(id: number): Observable<ChartData> {
-    return this.http.get<any[]>(this.urlBase + this.rol() + '/orders/' + id + '/status').pipe(
+    return this.http.get<any[]>(environment.urlBase + this.rol() + '/orders/' + id + '/status').pipe(
       map(steps => {
         const result: ChartData = {
           categories: [],
@@ -98,7 +104,7 @@ export class DashboardService {
   }
 
   getPieChartData() {
-    return this.http.get<IndicatorData[]>(this.urlBase + this.rol() + '/indicators')
+    return this.http.get<IndicatorData[]>(environment.urlBase + this.rol() + '/indicators')
       .pipe(
         map(data => data.map(item => ({
           name: item.indicatorName,
@@ -109,7 +115,7 @@ export class DashboardService {
   }
 
   async ganttChart() {
-    const response = await fetch(this.urlBase + this.rol() + '/orders/ends');
+    const response = await fetch(environment.urlBase + this.rol() + '/orders/ends');
     const data = await response.json();
     return data.filter((entry: any) => entry !== null).flatMap((entry: any) => {
       return Object.entries(entry).map(([key, date]: [string, any]) => {
@@ -120,10 +126,10 @@ export class DashboardService {
   }
 
   getOrdersAdmin(): Observable<any[]> {
-    return this.http.get<any[]>(this.urlBase + 'admin/orders');
+    return this.http.get<any[]>(environment.urlBase + 'admin/orders');
   }
   getStations(): Observable<Estations[]> {
-    return this.http.get<Estations[]>(this.urlBase + this.rol() + '/resources');
+    return this.http.get<Estations[]>(environment.urlBase + this.rol() + '/resources');
   }
   getParts(): Observable<Part[]> {
     const authToken = localStorage.getItem('authToken') ?? '';
@@ -131,7 +137,7 @@ export class DashboardService {
       Authorization: `Bearer ${authToken}`
     });
   
-    return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production').pipe(
+    return this.http.get<Part[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
       switchMap((parts: Part[]) => {
         const imageRequests = parts.map(part => {
           let picturePath = part.picture;
@@ -145,7 +151,7 @@ export class DashboardService {
               picturePath = `${pictureName}_${folderName}${extension}`;
             }
           }
-          return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+          return this.http.get(environment.urlBaseSecurity+`admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
             map(blob => {
               const url = URL.createObjectURL(blob);
               return { ...part, picture: url, modifiedPictureName: picturePath };
@@ -166,7 +172,7 @@ export class DashboardService {
       Authorization: `Bearer ${authToken}`
     });
   
-    return this.http.get<Part[]>(this.urlBase + this.rol() + '/parts/production').pipe(
+    return this.http.get<Part[]>( environment.urlBase + this.rol() + '/parts/production').pipe(
       switchMap((parts: Part[]) => {
         const imageRequests = parts.map(part => {
           let picturePath = part.picture;
@@ -180,7 +186,7 @@ export class DashboardService {
               picturePath = `${pictureName}_${folderName}${extension}`;
             }
           }
-          return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+          return this.http.get(environment.urlBaseSecurity+`admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
             map(blob => {
               // Creamos una URL del blob
               const url = URL.createObjectURL(blob);
@@ -204,14 +210,14 @@ getCedulaByUsername(username: string, authToken: string) {
   const headers = {
     Authorization: `Bearer ${authToken}`
   };
-  return this.http.get(this.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
+  return this.http.get(environment.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
 }
 
 saveOrder(orderData: any, authToken: string) {
   const headers = {
     Authorization: `Bearer ${authToken}`
   };
-  return this.http.post(this.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
+  return this.http.post(environment.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
 }
 
 postDbRoute(dbRoute: string, rutaModuloJar: string) {
@@ -222,7 +228,7 @@ postDbRoute(dbRoute: string, rutaModuloJar: string) {
     dbRoute,
     rutaModuloJar
   };
-  return this.http.post(this.urlBaseSecurity + 'admin/dbroute', body, { headers });
+  return this.http.post(environment.urlBaseSecurity + 'admin/dbroute', body, { headers });
 }
 }
 

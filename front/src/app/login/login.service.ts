@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/enviroments/enviroment';
 
 interface LoginResponse {
   token: string;
@@ -23,7 +24,6 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class LoginService {
-  private urlBase='http://localhost:8081/api/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -32,11 +32,11 @@ export class LoginService {
       'Authorization': 'Basic ' + btoa(username + ':' + password)
     });
     localStorage.setItem('username', username);
-    return this.http.post<LoginResponse>(this.urlBase+'auth/login', {}, { headers });
+    return this.http.post<LoginResponse>(environment.urlBaseSecurity+'auth/login', {}, { headers });
   }
 
   register(data: RegisterData): Observable<any> {
-    return this.http.post(this.urlBase+'auth/register', data);
+    return this.http.post(environment.urlBaseSecurity+'auth/register', data);
   }
 
   logout() {
@@ -58,6 +58,6 @@ export class LoginService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const username = localStorage.getItem('username');
-    return this.http.get<{ rol: string }>(this.urlBase+'user/get/rol/username=' + username, { headers });
+    return this.http.get<{ rol: string }>(environment.urlBaseSecurity+'user/get/rol/username=' + username, { headers });
   }
 }

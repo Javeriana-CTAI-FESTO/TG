@@ -1,29 +1,39 @@
 <div class="container mt-5 mb-5">
     <h1 class="mb-4">Add Parts</h1>
-    <div class="mb-3">
-        <label for="partSelect" class="form-label">Select a part</label>
-        <ng-select id="partSelect" [(ngModel)]="selectedPart" class="form-control" [searchable]="true"
-            [placeholder]="selectedPart ? '' : 'Search or select a part'">
-            <ng-option *ngFor="let workplan of parts" [value]="workplan">
-                <img [src]="workplan.picture" class="option-image" onerror="this.src='assets/NoPicture.png'"> {{workplan.partNumber}}: {{workplan.description}}
-            </ng-option>
-        </ng-select>
-    </div>
-    <div class="mb-3">
-        <div class="form-group">
-            <label for="quantityInput" class="form-label">Quantity</label>
-            <input id="quantityInput" type="number" class="form-control" placeholder="Quantity" [(ngModel)]="quantity"
-                name="quantity" required>
+    <div *ngIf="parts.length > 0" >
+        <div class="mb-3">
+            <label for="partSelect" class="form-label">Select a part</label>
+            <ng-select id="partSelect" [(ngModel)]="selectedPart" class="form-control" [searchable]="true"
+                [placeholder]="selectedPart ? '' : 'Search or select a part'">
+                <ng-option *ngFor="let workplan of parts" [value]="workplan">
+                    <img [src]="workplan.picture" class="option-image" onerror="this.src='assets/NoPicture.png'">
+                    {{workplan.partNumber}}: {{workplan.description}}
+                </ng-option>
+            </ng-select>
         </div>
-    </div>
-    <div mat-dialog-actions class="d-flex align-items-center">
-        <button type="button" class="btn btn-primary" (click)="addPart()"
-            [disabled]="!selectedPart || quantity <= 0 || isLoading">Add</button>
-        <div class="spinner-border text-primary ml-2" role="status" *ngIf="isLoading">
-            <span class="visually-hidden">Loading...</span>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="quantityInput" class="form-label">Quantity</label>
+                <input id="quantityInput" type="number" class="form-control" placeholder="Quantity"
+                    [(ngModel)]="quantity" name="quantity" required>
+            </div>
+        </div>
+        <div mat-dialog-actions class="d-flex align-items-center">
+            <button type="button" class="btn btn-primary" (click)="addPart()"
+                [disabled]="!selectedPart || quantity <= 0 || isLoading">Add</button>
+            <div class="spinner-border text-primary ml-2" role="status" *ngIf="isLoading">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </div>
 </div>
+<br>
+<div *ngIf="parts.length === 0" class="empty-message">
+    <div class="spinner-border text-primary ml-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<br>
 <button mat-icon-button mat-dialog-close aria-label="Close" type="button" class="close-button" (click)="onNoClick()">
     <mat-icon>close</mat-icon>
 </button>

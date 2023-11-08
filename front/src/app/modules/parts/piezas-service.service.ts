@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, from, mergeMap, tap, shareReplay } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/login/login.service';
 import { switchMap, map, of, forkJoin } from 'rxjs';
+import { environment } from 'src/enviroments/enviroment';
 @Injectable({
   providedIn: 'root'
 })
 export class PiezasServiceService {
-  urlBase = 'http://localhost:8080/api/';
   piezas: Pieza[] = [];
   piezaAgregada = new Subject<Pieza>();
 
@@ -26,14 +26,15 @@ export class PiezasServiceService {
 
   }
 
+  private cache: { [url: string]: Observable<Blob> } = {};
 
-  getPiezasPorDefecto(): Observable<{ piezas: Pieza[], picturePaths: { name: string, url: string }[] }> {
+  getPiezasPorDefecto(): Observable<{ piezas: Pieza[], picturePaths: { name: string, url: string }[] }> {  
     const authToken = localStorage.getItem('authToken') ?? '';
     const headers = {
       Authorization: `Bearer ${authToken}`
     };
   
-    return this.http.get<Pieza[]>(this.urlBase + this.rol() + '/parts').pipe(
+    return this.http.get<Pieza[]>(environment.urlBase + this.rol() + '/parts').pipe(
       switchMap(piezas => {
         const picturePaths: { name: string, url: string }[] = [];
         const piezasWithImages = piezas.map(pieza => {
@@ -50,25 +51,39 @@ export class PiezasServiceService {
           }
   
           if (picturePath.startsWith('blob:')) {
-            // Si la imagen es un blob, simplemente la usamos como está
             return of({ ...pieza, picture: picturePath });
           } else {
-            // Si no, hacemos una solicitud al backend para obtener la imagen
-            return this.http.get(`http://localhost:8081/api/admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
-              switchMap(image => {
-                // Verifica si el blob de la imagen tiene tamaño antes de agregarlo a picturePaths
+            const existingPath = picturePaths.find(path => path.name === picturePath);
+            if (existingPath) {
+              return of({ ...pieza, picture: existingPath.url });
+            }
+  
+            const url = environment.urlBaseSecurity+`admin/storage/image/get/fileName=${picturePath}`;
+            if (!this.cache[url]) {
+              this.cache[url] = this.http.get(url, { headers, responseType: 'blob' }).pipe(
+                shareReplay(1)
+              );
+            }
+  
+            return this.cache[url].pipe(
+              mergeMap(image => {
                 if (image.size > 0) {
-                  return new Promise<any>((resolve, reject) => {
-                    const reader = new FileReader();
+                  const reader = new FileReader();
+                  const reader$ = from(new Promise((resolve, reject) => {
                     reader.onloadend = () => resolve(reader.result);
                     reader.onerror = reject;
                     reader.readAsDataURL(image);
-                  }).then(imageUrl => {
-                    if (!picturePaths.some(path => path.name === picturePath)) {
-                      picturePaths.push({ name: picturePath, url: imageUrl as string });
-                    }
-                    return { ...pieza, picture: imageUrl };
-                  });
+                  }));
+  
+                  return reader$.pipe(
+                    map(imageUrl => {
+                      // Verificar si picturePath ya existe en picturePaths
+                      if (!picturePaths.find(path => path.name === picturePath)) {
+                        picturePaths.push({ name: picturePath, url: imageUrl as string });
+                      }
+                      return { ...pieza, picture: imageUrl as string };
+                    })
+                  );
                 } else {
                   return of(pieza);
                 }
@@ -80,10 +95,9 @@ export class PiezasServiceService {
         return forkJoin(piezasWithImages).pipe(
           map(piezas => ({ piezas, picturePaths }))
         );
-      })
+      }),
     );
   }
-
   getPiezas(): Pieza[] {
     return this.piezas;
   }
@@ -94,7 +108,7 @@ export class PiezasServiceService {
     }
   }
   agregarPieza(pieza: Pieza): Observable<Pieza> {
-    return this.http.post<Pieza>(this.urlBase + this.rol() + '/parts', pieza);
+    return this.http.post<Pieza>(environment.urlBase+ this.rol() + '/parts', pieza);
   }
 
   uploadImage(image: Blob, fileName: string): Observable<any> {
@@ -106,7 +120,7 @@ export class PiezasServiceService {
     const formData = new FormData();
     formData.append('image', image, fileName);
   
-    return this.http.post('http://localhost:8081/api/admin/storage/image/upload', formData, { headers, responseType: 'text' });
+    return this.http.post(environment.urlBaseSecurity+'admin/storage/image/upload', formData, { headers, responseType: 'text' });
   }
 }
 

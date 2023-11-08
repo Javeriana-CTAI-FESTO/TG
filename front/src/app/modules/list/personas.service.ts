@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from 'src/enviroments/enviroment';
 @Injectable({
   providedIn: 'root'
 })
 export class PersonasService {
-  urlBase = 'http://localhost:8080/api/admin/clients';
   personas: Persona[] = [];
   personaAgregada = new Subject<Persona>();
 
@@ -17,14 +16,14 @@ export class PersonasService {
   }
 
   agregarPersona(persona: Persona) {
-    return this.http.post<Persona>(this.urlBase, persona);
+    return this.http.post<Persona>(environment.urlBase+'admin/clients', persona);
   }
 
   getPersonas(): Persona[] {
     return this.personas;
   }
   getPersonasPorDefecto(): Observable<Persona[]> {
-    return this.http.get<Persona[]>(this.urlBase);
+    return this.http.get<Persona[]>(environment.urlBase+'admin/clients');
   }
 
   editarPersona(personaOriginal: Persona, personaNueva: Persona): void {

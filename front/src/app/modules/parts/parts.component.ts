@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { DefaultMRPComponent } from './Dialogs/default-mrp/default-mrp.component
 import { DefaultOtherSettingsComponent } from './Dialogs/default-other-settings/default-other-settings.component';
 import { AddPartComponent } from './Dialogs/add-part/add-part.component';
 import { LoginService } from 'src/app/login/login.service';
+
 @Component({
   selector: 'app-parts',
   templateUrl: './parts.component.html',
@@ -24,19 +25,20 @@ export class PartsComponent implements OnInit {
   rol: string = '';
   picturePaths: { name: string, url: string }[] = [];
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private loginService: LoginService, private dialog: MatDialog, private piezasService: PiezasServiceService, private toastr: ToastrService) {
     this.dataSource = new MatTableDataSource<Pieza>([]);
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
     this.piezasService.getPiezasPorDefecto().subscribe(
       (data: { piezas: Pieza[], picturePaths: { name: string, url: string }[] }) => {
         this.piezas = data.piezas;
         this.picturePaths = data.picturePaths;
         this.dataSource.data = this.piezas;
+        // Mover la asignación del paginador aquí
+        this.dataSource.paginator = this.paginator;
       },
       (error: any) => {
         console.error(error);
@@ -44,6 +46,8 @@ export class PartsComponent implements OnInit {
     );
     this.rol = this.loginService.getRole();
   }
+
+  
 
   piezaSeleccionada: Pieza | null = null;
 

@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { WorkPlan } from './posts.component';
 import { LoginService } from 'src/app/login/login.service';
+import { environment } from 'src/enviroments/enviroment';
 @Injectable({
   providedIn: 'root'
 })
 export class WorkplanServiceService {
-  urlBase = 'http://localhost:8080/api/';
   workplans: Workplan[] = [];
   workplanAgregado = new Subject<Workplan>();
   rol(){
@@ -24,14 +24,14 @@ export class WorkplanServiceService {
   constructor(private http: HttpClient, private loginService: LoginService ) { }
 
   getWorkPlansPorDefecto(): Observable<Workplan[]> {
-   return this.http.get<Workplan[]>(this.urlBase + this.rol() + '/work-plans');
+   return this.http.get<Workplan[]>(environment.urlBase + this.rol() + '/work-plans');
   }
   getWorkplanById(workplanId: number): Observable<Workplan> {
-    const url = this.urlBase + this.rol() + '/work-plans/' + workplanId;
+    const url = environment.urlBase + this.rol() + '/work-plans/' + workplanId;
     return this.http.get<Workplan>(url);
   }
   getSteps(): Observable<Step[]> {
-    return this.http.get<Step[]>(this.urlBase + this.rol() + '/steps');
+    return this.http.get<Step[]>(environment.urlBase + this.rol() + '/steps');
   }
 
   getWorkplans(): Workplan[] {
@@ -40,10 +40,10 @@ export class WorkplanServiceService {
   }
 
   addWorkPlan(workPlan: WorkPlan) {
-    return this.http.post(this.urlBase + this.rol() + '/work-plans', workPlan);
+    return this.http.post(environment.urlBase + this.rol() + '/work-plans', workPlan);
   }
   getWorkPlanTypes(): Observable<any> {
-    return this.http.get(this.urlBase + this.rol() + '/work-plans/type');
+    return this.http.get(environment.urlBase + this.rol() + '/work-plans/type');
   }
 
 }

@@ -2,7 +2,7 @@
     padding: 1.5em .5em .5em;
     border-radius: 2em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
-    height: 25rem !important; 
+    height: 25rem !important;
 }
 
 .card-title {
@@ -42,9 +42,9 @@
     text-align: center;
     display: flex;
     justify-content: center;
-
 }
+
 img {
     width: 100px;
     height: 100px;
-  }
+}

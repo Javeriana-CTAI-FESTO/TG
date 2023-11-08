@@ -37,14 +37,8 @@ export class AddPartComponent implements OnInit {
     defaultResourceId: new FormControl('', Validators.required)
   }, { validators: pictureValidator });
 
-  //folders: string[] = ['AFB', 'Cylindrical material', 'Default', 'EMCO', 'Factory4', 'iCIM', 'MPS', 'MPS500', 'MPS-PA', 'PROLOG', 'Sonder', 'SpareParts', 'TransferFactoryLight', 'TransferFactory', 'TransferSystem'];
-  folders: { name: string, image: string }[] = [
-    { name: 'AFB', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png' },
-    { name: 'Cylindrical material', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png' },
-    { name: 'Default', image: '../../../../../assets/Pictures/AFB/AFB-ASRS.png' },
-    // ... y así sucesivamente para cada carpeta
-  ];
   workPlans: Workplan[] = [];
+  isLoading = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddPartComponent>,
@@ -87,6 +81,7 @@ export class AddPartComponent implements OnInit {
     }
   }
   onSubmit() {
+    this.isLoading = true;
     if (this.partForm.valid) {
       const formData = this.partForm.value;
       const pieza: Pieza = {

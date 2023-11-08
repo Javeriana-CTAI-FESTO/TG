@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import { DashboardService } from 'src/app/modules/dashboard.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/login/login.service';
-import { mergeMap, map } from 'rxjs/operators';
 @Component({
   selector: 'app-widget-card',
   templateUrl: './card.component.html',
@@ -16,7 +15,7 @@ import { mergeMap, map } from 'rxjs/operators';
 })
 export class CardComponent implements OnInit {
   rol: string = '';
-
+  isloading: boolean = false;
   @Output() dataChanged = new EventEmitter<string>();
 
   cards: { id: number, idworkPlan: number, title: string, OrderNumber: string, image: string}[] = [];
@@ -33,6 +32,7 @@ export class CardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isloading = true;
     const authToken = localStorage.getItem('authToken') ?? '';
     const username = this.loginService.getUsername();
     this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
@@ -49,9 +49,11 @@ export class CardComponent implements OnInit {
           });
         });
         this.filteredCards = this.cards;
+        this.isloading = false;
       });
     });
     this.rol=this.loginService.getRole();
+   
   }
 
   openAddDialog() {

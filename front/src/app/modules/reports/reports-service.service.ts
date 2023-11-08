@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Estations } from '../dashboard.service';
+import { environment } from 'src/enviroments/enviroment';
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsServiceService {
-
-  baseUrl = 'http://localhost:8080/api/admin/reports';
   constructor(private http: HttpClient) { }
   getReports(): Observable<ResponseData[]> {
-    return this.http.get<ResponseData[]>(this.baseUrl);
+    return this.http.get<ResponseData[]>(environment.urlBase + 'admin/reports');
   }
   getReportsFails(): Observable<ResponseData[]> {
-    return this.http.get<ResponseData[]>(this.baseUrl + '/fails');
+    return this.http.get<ResponseData[]>(environment.urlBase + 'admin/reports/fails');
   }
   getReportById(id: number): Observable<Report[]> {
-    return this.http.get<Report[]>(this.baseUrl + '/' + id);
+    return this.http.get<Report[]>(environment.urlBase + '/' + id);
   }
   getReportFailsById(id: number): Observable<Report[]> {
-    return this.http.get<Report[]>(this.baseUrl + '/fails/' + id);
+    return this.http.get<Report[]>(environment.urlBase + 'admin/reports/fails/' + id);
   }
 }
 

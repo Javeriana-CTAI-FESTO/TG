@@ -2,7 +2,8 @@
     <div style="background-color: #FFFFFF;">
         <h2 style="text-align: center;">Parts</h2>
         <div style="display: flex;">
-            <input class="filter-input form-control" style="width: 100%;" (keyup)=" applyFilter($event)" placeholder="Filter">
+            <input class="filter-input form-control" style="width: 100%;" (keyup)=" applyFilter($event)"
+                placeholder="Filter">
         </div>
 
     </div>
@@ -22,7 +23,7 @@
             <!-- Columna de Description -->
             <ng-container matColumnDef="Description">
                 <th mat-header-cell *matHeaderCellDef> Description </th>
-                <td mat-cell *matCellDef="let pieza" > {{ pieza.description}} </td>
+                <td mat-cell *matCellDef="let pieza"> {{ pieza.description}} </td>
             </ng-container>
 
             <ng-container matColumnDef="operations">
@@ -52,4 +53,4 @@
     </div>
 </div>
 <br>
-<button *ngIf="rol =='ADMIN'" type="button" class="btn btn-primary btn-lg mat-elevation-z8" (click)="openAddPartDialog()">Add Part</button>
+<button *ngIf="rol =='ADMIN' && piezas.length > 0" type="button" class="btn btn-primary btn-lg mat-elevation-z8"    (click)="openAddPartDialog()">Add Part</button>

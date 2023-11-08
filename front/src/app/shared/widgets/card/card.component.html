@@ -23,7 +23,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ card.title }}</h5> 
-                            <span class="badge bg-primary">id: {{ card.id }}</span>
+                            <span class="badge bg-primary">ID Part: {{ card.id }}</span>
                             <br>
                             <span class="badge bg-primary">Order Number: {{ card.OrderNumber }}</span>
                             <br><br><br> 
@@ -36,11 +36,14 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="filteredCards.length === 0" class="empty-message">
+                    <div div *ngIf="isloading" class="empty-message">
                         <div class="spinner-border text-primary ml-2" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
+                    <div *ngIf="filteredCards.length === 0 && !isloading" class="empty-message">
+                        Empty
+                      </div>
                 </div>
             </div>
         </div>
