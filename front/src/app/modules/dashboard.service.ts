@@ -3,8 +3,8 @@ import { Observable, forkJoin } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs'; // Importa 'of' de RxJS
-import { catchError } from 'rxjs/operators'; // Importa 'catchError' de RxJS
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/enviroments/enviroment';
 
 @Injectable({
@@ -37,14 +37,11 @@ export class DashboardService {
         const imageRequests = orders.map(order =>
           this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${order.image_filePath}`, { headers, responseType: 'blob' }).pipe(
             map(blob => {
-              // Creamos una URL del blob
               const url = URL.createObjectURL(blob);
-              // Reemplazamos el campo de imagen en la orden original con la URL del blob
               return { ...order, image_filePath: url };
             }),
             catchError(error => {
               console.error('Error fetching image', error);
-              // En caso de error, devolvemos la orden original sin modificar
               return of(order);
             })
           )
