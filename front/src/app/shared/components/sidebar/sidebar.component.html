@@ -9,39 +9,38 @@
     <mat-divider></mat-divider>
 
     <h2 mat-subheader>Operations</h2>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/" (click)="onRouteSelected()">
         <i class="material-icons">dashboard</i>
         Dashboard
     </a>
     <div *ngIf="rol == 'Comprador'">
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/buy">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/buy" (click)="onRouteSelected()">
             <i class="material-icons">attach_money</i>
             Buy
         </a>
     </div>
     <div *ngIf="rol !== 'Estudiante' && rol !== 'Comprador'">
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/resources">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/resources" (click)="onRouteSelected()">
             <i class="material-icons">settings</i>
             Resources
-            <br>
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts" >
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/posts" (click)="onRouteSelected()">
             <i class="material-icons">assignment</i>
             WorkPlans
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/parts">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/parts" (click)="onRouteSelected()">
             <i class="material-icons">extension</i>
             Parts
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/list" *ngIf="rol !== 'Profesor'">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/list" *ngIf="rol !== 'Profesor'" (click)="onRouteSelected()">
             <i class="material-icons">contact_phone</i>
             Clients
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/reports" *ngIf="rol =='Administrador'">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/reports" *ngIf="rol =='Administrador'" (click)="onRouteSelected()">
             <i class="material-icons">description</i>
             Reports
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/create" *ngIf="rol =='Administrador'">
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/create" *ngIf="rol =='Administrador'" (click)="onRouteSelected()">
             <i class="material-icons">create</i>
             Create
         </a>

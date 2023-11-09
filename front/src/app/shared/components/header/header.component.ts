@@ -34,17 +34,4 @@ export class HeaderComponent {
   onLogout() {
     this.loginService.logout();
   }
-
-  onSubmit() {
-    this.dashboardsService.postDbRoute(this.string1, this.string2).subscribe(res => {
-
-      this.toastr.success('Rutas guardada con exito', 'Rutas');
-      localStorage.setItem('dbRoute', this.string1);
-
-    }, err => {
-      this.toastr.error('Error al guardar las rutas', 'Rutas');
-      console.log(err);
-    }
-    );
-  }
 }

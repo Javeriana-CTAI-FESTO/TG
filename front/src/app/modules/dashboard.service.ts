@@ -2,17 +2,15 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs'; // Importa 'of' de RxJS
+import { catchError } from 'rxjs/operators'; // Importa 'catchError' de RxJS
 import { environment } from 'src/enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-
-
   rol() {
     const rol = this.loginService.getRole();
     if (rol === 'STUDENT') {
@@ -26,45 +24,35 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
-  private ordersCache: { [url: string]: Observable<any> } = {};
+  getOrders(cedula: string, authToken: string): Observable<any[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.get<any[]>(`${environment.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers }).pipe(
+      switchMap((orders: any[]) => {
+        if (orders.length === 0) {
+          return of([]);
+        }
 
-getOrders(cedula: string, authToken: string): Observable<any[]> {
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${authToken}`
-  });
-  return this.http.get<any[]>(`${environment.urlBaseSecurity}user/get/order/cedula=${cedula}`, { headers }).pipe(
-    switchMap((orders: any[]) => {
-      if (!Array.isArray(orders) || orders.length === 0) {
-        // Emitir un valor por defecto si no hay órdenes
-        return of([]);
-      }
-      const imageRequests = orders.map(order => {
-        const url = environment.urlBaseSecurity+`admin/storage/image/get/fileName=${order.image_filePath}`;
-        if (!this.ordersCache[url]) {
-          this.ordersCache[url] = this.http.get(url, { headers, responseType: 'blob' }).pipe(
-            shareReplay(1),
+        const imageRequests = orders.map(order =>
+          this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${order.image_filePath}`, { headers, responseType: 'blob' }).pipe(
             map(blob => {
-              const imageUrl = URL.createObjectURL(blob);
-              return { ...order, image_filePath: imageUrl };
+              // Creamos una URL del blob
+              const url = URL.createObjectURL(blob);
+              // Reemplazamos el campo de imagen en la orden original con la URL del blob
+              return { ...order, image_filePath: url };
             }),
             catchError(error => {
               console.error('Error fetching image', error);
+              // En caso de error, devolvemos la orden original sin modificar
               return of(order);
             })
-          );
-        }
-
-        return this.ordersCache[url];
-      });
-      return forkJoin(imageRequests);
-    }),
-    catchError(error => {
-      console.error('Error fetching orders', error);
-      // Emitir un valor por defecto en caso de un error no manejado
-      return of([]);
-    })
-  );
-}
+          )
+        );
+        return forkJoin(imageRequests);
+      })
+    );
+  }
 
   GetOrdesBigChart(id: number): Observable<ChartData> {
     return this.http.get<any[]>(environment.urlBase + this.rol() + '/orders/' + id + '/status').pipe(
@@ -139,66 +127,14 @@ getOrders(cedula: string, authToken: string): Observable<any[]> {
   getStations(): Observable<Estations[]> {
     return this.http.get<Estations[]>(environment.urlBase + this.rol() + '/resources');
   }
-
-
-  
-  private partsCache: { [url: string]: Observable<any> } = {};
-
-getParts(): Observable<Part[]> {
-  const authToken = localStorage.getItem('authToken') ?? '';
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${authToken}`
-  });
-
-  return this.http.get<Part[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
-    switchMap((parts: Part[]) => {
-      const imageRequests = parts.map(part => {
-        let picturePath = part.picture;
-        if (picturePath.includes('\\')) {
-          const pictureParts = picturePath.split('\\');
-          let pictureName = pictureParts.pop();
-          const folderName = pictureParts.pop();
-          if (pictureName && folderName) {
-            const extension = pictureName.slice(pictureName.lastIndexOf('.'));
-            pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
-            picturePath = `${pictureName}_${folderName}${extension}`;
-          }
-        }
-
-        const url = environment.urlBaseSecurity+`admin/storage/image/get/fileName=${picturePath}`;
-        if (!this.partsCache[url]) {
-          this.partsCache[url] = this.http.get(url, { headers, responseType: 'blob' }).pipe(
-            shareReplay(1),
-            map(blob => {
-              const imageUrl = URL.createObjectURL(blob);
-              return { ...part, picture: imageUrl, modifiedPictureName: picturePath };
-            }),
-            catchError(error => {
-              console.error('Error fetching image', error);
-              return of({ ...part, picture: picturePath });
-            })
-          );
-        }
-
-        return this.partsCache[url];
-      });
-      return forkJoin(imageRequests);
-    })
-  );
-}
-
-
-
-  private cache: { [url: string]: Observable<any> } = {};
-
-  getPartsForBuyer(): Observable<any[]> {
+  getParts(): Observable<Part[]> {
     const authToken = localStorage.getItem('authToken') ?? '';
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     });
-  
-    return this.http.get<any[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
-      switchMap((parts: any[]) => {
+
+    return this.http.get<Part[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
+      switchMap((parts: Part[]) => {
         const imageRequests = parts.map(part => {
           let picturePath = part.picture;
           if (picturePath.includes('\\')) {
@@ -211,57 +147,76 @@ getParts(): Observable<Part[]> {
               picturePath = `${pictureName}_${folderName}${extension}`;
             }
           }
-  
-          const url = environment.urlBaseSecurity+`admin/storage/image/get/fileName=${picturePath}`;
-          if (!this.cache[url]) {
-            this.cache[url] = this.http.get(url, { headers, responseType: 'blob' }).pipe(
-              shareReplay(1),
-              map(blob => {
-                // Creamos una URL del blob
-                const imageUrl = URL.createObjectURL(blob);
-                // Reemplazamos el campo de imagen en la parte original con la URL del blob
-                // y agregamos el nombre modificado de la imagen
-                return { ...part, picture: imageUrl, modifiedPictureName: picturePath };
-              }),
-              catchError(error => {
-                console.error('Error fetching image', error);
-                // En caso de error, devolvemos la parte original sin modificar
-                return of({ ...part, picture: picturePath });
-              })
-            );
+          return this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+            map(blob => {
+              const url = URL.createObjectURL(blob);
+              return { ...part, picture: url, modifiedPictureName: picturePath };
+            }),
+            catchError(error => {
+              console.error('Error fetching image', error);
+              return of({ ...part, picture: picturePath });
+            })
+          );
+        });
+        return forkJoin(imageRequests);
+      })
+    );
+  }
+  getPartsForBuyer(): Observable<Part[]> {
+    const authToken = localStorage.getItem('authToken') ?? '';
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+
+    return this.http.get<Part[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
+      switchMap((parts: Part[]) => {
+        const imageRequests = parts.map(part => {
+          let picturePath = part.picture;
+          if (picturePath.includes('\\')) {
+            const pictureParts = picturePath.split('\\');
+            let pictureName = pictureParts.pop();
+            const folderName = pictureParts.pop();
+            if (pictureName && folderName) {
+              const extension = pictureName.slice(pictureName.lastIndexOf('.'));
+              pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
+              picturePath = `${pictureName}_${folderName}${extension}`;
+            }
           }
-  
-          return this.cache[url];
+          return this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+            map(blob => {
+              // Creamos una URL del blob
+              const url = URL.createObjectURL(blob);
+              // Reemplazamos el campo de imagen en la parte original con la URL del blob
+              // y agregamos el nombre modificado de la imagen
+              return { ...part, picture: url, modifiedPictureName: picturePath };
+            }),
+            catchError(error => {
+              console.error('Error fetching image', error);
+              // En caso de error, devolvemos la parte original sin modificar
+              return of({ ...part, picture: picturePath });
+            })
+          );
         });
         return forkJoin(imageRequests);
       })
     );
   }
 
-getCedulaByUsername(username: string, authToken: string) {
-  const headers = {
-    Authorization: `Bearer ${authToken}`
-  };
-  return this.http.get(environment.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
-}
+  getCedulaByUsername(username: string, authToken: string) {
+    const headers = {
+      Authorization: `Bearer ${authToken}`
+    };
+    return this.http.get(environment.urlBaseSecurity + `user/get/cedula/username=${username}`, { headers });
+  }
 
-saveOrder(orderData: any, authToken: string) {
-  const headers = {
-    Authorization: `Bearer ${authToken}`
-  };
-  return this.http.post(environment.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
-}
+  saveOrder(orderData: any, authToken: string) {
+    const headers = {
+      Authorization: `Bearer ${authToken}`
+    };
+    return this.http.post(environment.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
+  }
 
-postDbRoute(dbRoute: string, rutaModuloJar: string) {
-
-  const authToken = localStorage.getItem('authToken');
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
-  const body = {
-    dbRoute,
-    rutaModuloJar
-  };
-  return this.http.post(environment.urlBaseSecurity + 'admin/dbroute', body, { headers });
-}
+  
 }
 
 export interface Estations {

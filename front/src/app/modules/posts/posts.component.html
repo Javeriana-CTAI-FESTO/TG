@@ -6,42 +6,43 @@
             <input class="filter-input form-control" style="width: 100%;" (keyup)=" applyFilter($event)"
                 placeholder="Filter">
         </div>
-        <table mat-table [dataSource]="dataSource">
+        <div style="overflow-x: auto;">
+            <table mat-table [dataSource]="dataSource">
 
-            <ng-container matColumnDef="ID">
-                <th mat-header-cell *matHeaderCellDef> ID </th>
-                <td mat-cell *matCellDef="let element"> {{ element.workPlanNumber }} </td>
-            </ng-container>
+                <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.workPlanNumber }} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="Picture">
-                <th mat-header-cell *matHeaderCellDef> Picture </th>
-                <td mat-cell *matCellDef="let element"> {{ element.pictureNumber }} </td>
-            </ng-container>
+                <ng-container matColumnDef="Picture">
+                    <th mat-header-cell *matHeaderCellDef> Picture </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.pictureNumber }} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="Description">
-                <th mat-header-cell *matHeaderCellDef> Description </th>
-                <td mat-cell *matCellDef="let element"> {{ element.shortDescription }} </td>
-            </ng-container>
+                <ng-container matColumnDef="Description">
+                    <th mat-header-cell *matHeaderCellDef> Description </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.shortDescription }} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="Type">
-                <th mat-header-cell *matHeaderCellDef> Type</th>
-                <td mat-cell *matCellDef="let element"> {{ element.workPlanType }} </td>
-            </ng-container>
+                <ng-container matColumnDef="Type">
+                    <th mat-header-cell *matHeaderCellDef> Type</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.workPlanType }} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="Operaciones">
-                <th mat-header-cell *matHeaderCellDef> Operations </th>
-                <td mat-cell *matCellDef="let workplan">
+                <ng-container matColumnDef="Operaciones">
+                    <th mat-header-cell *matHeaderCellDef> Operations </th>
+                    <td mat-cell *matCellDef="let workplan">
 
-                    <button type="button" class="btn btn-outline-info" (click)="openDialog(workplan)">
-                        <i class="material-icons">visibility</i>
-                    </button>
-                </td>
-            </ng-container>
+                        <button type="button" class="btn btn-outline-info" (click)="openDialog(workplan)">
+                            <i class="material-icons">visibility</i>
+                        </button>
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
-        </table>
-
+                <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+            </table>
+        </div>
     </div>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [hidden]="showWorkplan"
         [length]="dataSource.data.length"></mat-paginator>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginService } from 'src/app/login/login.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { LoginService } from 'src/app/login/login.service';
 export class SidebarComponent implements OnInit {
   username: string = '';
   rol: string = '';
+
+  @Output() routeSelected: EventEmitter<void> = new EventEmitter();
 
   constructor(private loginService: LoginService) {}
 
@@ -24,5 +26,9 @@ export class SidebarComponent implements OnInit {
     };
   
     this.rol = roleMap[this.rol] || this.rol;
+  }
+
+  onRouteSelected() {
+    this.routeSelected.emit();
   }
 }
