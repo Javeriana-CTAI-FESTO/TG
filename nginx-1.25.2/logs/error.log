@@ -4,3 +4,54 @@
 2023/09/28 12:06:29 [emerg] 5972#12772: unexpected "}" in C:\Users\home\Downloads\nginx-1.25.2/conf/nginx.conf:20
 2023/09/28 12:46:19 [notice] 13944#9368: signal process started
 2023/09/30 12:13:30 [notice] 11732#11332: signal process started
+2023/11/07 11:54:02 [notice] 2708#16708: signal process started
+2023/11/07 11:58:10 [notice] 7652#13048: signal process started
+2023/11/07 11:58:10 [error] 7652#13048: CreateFile() "C:\Users\home\OneDrive - Pontificia Universidad Javeriana\Desktop\nginx-1.25.2/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2023/11/07 11:58:25 [notice] 16656#10164: signal process started
+2023/11/07 12:02:58 [notice] 11408#10568: signal process started
+2023/11/07 12:16:25 [notice] 14292#17940: signal process started
+2023/11/07 12:19:56 [notice] 16292#1520: signal process started
+2023/11/07 13:38:49 [error] 9740#16960: *26 CreateFile() "C:\Users\home\OneDrive - Pontificia Universidad Javeriana\Desktop\nginx-1.25.2/html/front/ng-cli-ws" failed (2: El sistema no puede encontrar el archivo especificado), client: 127.0.0.1, server: localhost, request: "GET /ng-cli-ws HTTP/1.1", host: "localhost:4200"
+2023/11/07 13:38:52 [error] 9740#16960: *27 CreateFile() "C:\Users\home\OneDrive - Pontificia Universidad Javeriana\Desktop\nginx-1.25.2/html/front/ng-cli-ws" failed (2: El sistema no puede encontrar el archivo especificado), client: 127.0.0.1, server: localhost, request: "GET /ng-cli-ws HTTP/1.1", host: "localhost:4200"
+2023/11/07 13:45:06 [notice] 7876#16824: signal process started
+2023/11/07 13:45:06 [error] 7876#16824: OpenEvent("Global\ngx_quit_11576") failed (2: The system cannot find the file specified)
+2023/11/07 13:45:06 [notice] 14828#16592: signal process started
+2023/11/07 13:45:06 [error] 14828#16592: OpenEvent("Global\ngx_quit_11576") failed (2: The system cannot find the file specified)
+2023/11/07 13:55:22 [notice] 16444#15448: signal process started
+2023/11/07 13:55:22 [error] 16444#15448: OpenEvent("Global\ngx_quit_13232") failed (2: The system cannot find the file specified)
+2023/11/07 14:01:20 [notice] 5412#15196: signal process started
+2023/11/07 14:01:20 [error] 5412#15196: OpenEvent("Global\ngx_quit_13232") failed (2: The system cannot find the file specified)
+2023/11/07 14:01:20 [notice] 15608#7660: signal process started
+2023/11/07 14:01:20 [error] 15608#7660: OpenEvent("Global\ngx_quit_13232") failed (2: The system cannot find the file specified)
+2023/11/07 14:02:16 [error] 15288#12656: *5 CreateFile() "D:\TG\nginx-1.25.2/html/front/apple-touch-icon.png" failed (2: The system cannot find the file specified), client: 172.21.28.51, server: localhost, request: "GET /apple-touch-icon.png HTTP/1.1", host: "172.21.0.90:4200"
+2023/11/07 14:02:16 [error] 15288#12656: *6 CreateFile() "D:\TG\nginx-1.25.2/html/front/apple-touch-icon-precomposed.png" failed (2: The system cannot find the file specified), client: 172.21.28.51, server: localhost, request: "GET /apple-touch-icon-precomposed.png HTTP/1.1", host: "172.21.0.90:4200"
+2023/11/07 14:02:20 [error] 15288#12656: *8 CreateFile() "D:\TG\nginx-1.25.2/html/front/apple-touch-icon-120x120-precomposed.png" failed (2: The system cannot find the file specified), client: 172.21.28.51, server: localhost, request: "GET /apple-touch-icon-120x120-precomposed.png HTTP/1.1", host: "172.21.0.90:4200"
+2023/11/07 14:02:20 [error] 15288#12656: *8 CreateFile() "D:\TG\nginx-1.25.2/html/front/apple-touch-icon-120x120.png" failed (2: The system cannot find the file specified), client: 172.21.28.51, server: localhost, request: "GET /apple-touch-icon-120x120.png HTTP/1.1", host: "172.21.0.90:4200"
+2023/11/07 14:02:20 [error] 15288#12656: *8 CreateFile() "D:\TG\nginx-1.25.2/html/front/apple-touch-icon.png" failed (2: The system cannot find the file specified), client: 172.21.28.51, server: localhost, request: "GET /apple-touch-icon.png HTTP/1.1", host: "172.21.0.90:4200"
+2023/11/07 14:02:20 [error] 15288#12656: *8 CreateFile() "D:\TG\nginx-1.25.2/html/front/apple-touch-icon.png" failed (2: The system cannot find the file specified), client: 172.21.28.51, server: localhost, request: "GET /apple-touch-icon.png HTTP/1.1", host: "172.21.0.90:4200"
+2023/11/07 14:06:40 [notice] 13716#11120: signal process started
+2023/11/07 14:06:40 [error] 13716#11120: OpenEvent("Global\ngx_quit_9204") failed (2: The system cannot find the file specified)
+2023/11/07 14:08:12 [notice] 8688#2960: signal process started
+2023/11/07 14:08:12 [error] 8688#2960: OpenEvent("Global\ngx_quit_9204") failed (2: The system cannot find the file specified)
+2023/11/07 14:08:12 [notice] 16500#12348: signal process started
+2023/11/07 14:08:12 [error] 16500#12348: OpenEvent("Global\ngx_quit_9204") failed (2: The system cannot find the file specified)
+2023/11/07 14:15:55 [notice] 16536#17356: signal process started
+2023/11/07 14:15:55 [error] 16536#17356: OpenEvent("Global\ngx_quit_16208") failed (2: The system cannot find the file specified)
+2023/11/07 14:17:19 [notice] 1584#4592: signal process started
+2023/11/07 14:17:19 [error] 1584#4592: OpenEvent("Global\ngx_quit_16208") failed (2: The system cannot find the file specified)
+2023/11/07 14:17:19 [notice] 8868#4692: signal process started
+2023/11/07 14:17:19 [error] 8868#4692: OpenEvent("Global\ngx_quit_16208") failed (2: The system cannot find the file specified)
+2023/11/07 14:23:29 [notice] 9196#7760: signal process started
+2023/11/07 14:23:29 [error] 9196#7760: OpenEvent("Global\ngx_quit_15364") failed (2: The system cannot find the file specified)
+2023/11/07 14:26:04 [notice] 3068#10412: signal process started
+2023/11/07 14:26:04 [error] 3068#10412: OpenEvent("Global\ngx_quit_15364") failed (2: The system cannot find the file specified)
+2023/11/07 14:26:04 [notice] 3028#8632: signal process started
+2023/11/07 14:26:04 [error] 3028#8632: OpenEvent("Global\ngx_quit_15364") failed (2: The system cannot find the file specified)
+2023/11/07 14:26:50 [notice] 10392#11932: signal process started
+2023/11/07 14:26:50 [error] 10392#11932: OpenEvent("Global\ngx_quit_3316") failed (2: The system cannot find the file specified)
+2023/11/07 14:27:10 [notice] 7108#3464: signal process started
+2023/11/07 14:27:10 [error] 7108#3464: OpenEvent("Global\ngx_quit_3316") failed (2: The system cannot find the file specified)
+2023/11/07 14:27:10 [notice] 11748#7792: signal process started
+2023/11/07 14:27:10 [error] 11748#7792: OpenEvent("Global\ngx_quit_3316") failed (2: The system cannot find the file specified)
+2023/11/07 14:53:29 [notice] 6976#3708: signal process started
+2023/11/07 14:53:29 [error] 6976#3708: OpenEvent("Global\ngx_quit_16860") failed (2: The system cannot find the file specified)
