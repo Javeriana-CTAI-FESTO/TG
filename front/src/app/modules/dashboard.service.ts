@@ -162,46 +162,7 @@ export class DashboardService {
       })
     );
   }
-  getPartsForBuyer(): Observable<Part[]> {
-    const authToken = localStorage.getItem('authToken') ?? '';
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${authToken}`
-    });
-
-    return this.http.get<Part[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
-      switchMap((parts: Part[]) => {
-        const imageRequests = parts.map(part => {
-          let picturePath = part.picture;
-          if (picturePath.includes('\\')) {
-            const pictureParts = picturePath.split('\\');
-            let pictureName = pictureParts.pop();
-            const folderName = pictureParts.pop();
-            if (pictureName && folderName) {
-              const extension = pictureName.slice(pictureName.lastIndexOf('.'));
-              pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
-              picturePath = `${pictureName}_${folderName}${extension}`;
-            }
-          }
-          return this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
-            map(blob => {
-              // Creamos una URL del blob
-              const url = URL.createObjectURL(blob);
-              // Reemplazamos el campo de imagen en la parte original con la URL del blob
-              // y agregamos el nombre modificado de la imagen
-              return { ...part, picture: url, modifiedPictureName: picturePath };
-            }),
-            catchError(error => {
-              console.error('Error fetching image', error);
-              // En caso de error, devolvemos la parte original sin modificar
-              return of({ ...part, picture: picturePath });
-            })
-          );
-        });
-        return forkJoin(imageRequests);
-      })
-    );
-  }
-
+  
   getCedulaByUsername(username: string, authToken: string) {
     const headers = {
       Authorization: `Bearer ${authToken}`

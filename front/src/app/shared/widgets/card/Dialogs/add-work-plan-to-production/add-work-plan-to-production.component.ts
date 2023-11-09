@@ -2,8 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Card } from 'src/app/modules/dashboard.service';
 import { DashboardService, Part } from 'src/app/modules/dashboard.service';
-import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/login/login.service';
 import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';

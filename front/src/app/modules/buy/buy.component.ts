@@ -22,7 +22,7 @@ export class BuyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dashboardService.getPartsForBuyer().subscribe(
+    this.dashboardService.getParts().subscribe(
       (parts: Part[]) => {
         this.parts = parts.map(part => ({ ...part, quantity: 0 }));
         this.filteredParts = this.parts;
