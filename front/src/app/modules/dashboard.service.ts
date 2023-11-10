@@ -3,7 +3,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, shareReplay } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/enviroments/enviroment';
 
@@ -124,42 +124,71 @@ export class DashboardService {
   getStations(): Observable<Estations[]> {
     return this.http.get<Estations[]>(environment.urlBase + this.rol() + '/resources');
   }
+
+
+  private partsCache: { [key: string]: Observable<Part[]> } = {};
+
+  clearPartsCache(): void {
+    this.partsCache = {};
+    this.getParts().subscribe();
+  }
+
   getParts(): Observable<Part[]> {
     const authToken = localStorage.getItem('authToken') ?? '';
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     });
 
-    return this.http.get<Part[]>(environment.urlBase + this.rol() + '/parts/production').pipe(
+    const url = environment.urlBase + this.rol() + '/parts/production';
+
+    if (this.partsCache[url]) {
+      return this.partsCache[url];
+    }
+
+    const partsRequest = this.http.get<Part[]>(url).pipe(
       switchMap((parts: Part[]) => {
-        const imageRequests = parts.map(part => {
-          let picturePath = part.picture;
-          if (picturePath.includes('\\')) {
-            const pictureParts = picturePath.split('\\');
-            let pictureName = pictureParts.pop();
-            const folderName = pictureParts.pop();
-            if (pictureName && folderName) {
-              const extension = pictureName.slice(pictureName.lastIndexOf('.'));
-              pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
-              picturePath = `${pictureName}_${folderName}${extension}`;
-            }
-          }
-          return this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
-            map(blob => {
-              const url = URL.createObjectURL(blob);
-              return { ...part, picture: url, modifiedPictureName: picturePath };
-            }),
-            catchError(error => {
-              console.error('Error fetching image', error);
-              return of({ ...part, picture: picturePath });
-            })
-          );
-        });
+        const imageRequests = parts.map(part => this.getImage(part, headers));
         return forkJoin(imageRequests);
+      }),
+      shareReplay(1)
+    );
+
+    this.partsCache[url] = partsRequest;
+    return partsRequest;
+  }
+
+  getImage(part: Part, headers: HttpHeaders): Observable<Part> {
+    let picturePath = this.getPicturePath(part);
+    return this.http.get(environment.urlBaseSecurity + `admin/storage/image/get/fileName=${picturePath}`, { headers, responseType: 'blob' }).pipe(
+      map(blob => {
+        const url = URL.createObjectURL(blob);
+        return { ...part, picture: url, modifiedPictureName: picturePath };
+      }),
+      catchError(error => {
+        console.error('Error fetching image', error);
+        return of({ ...part, picture: picturePath });
       })
     );
   }
-  
+
+
+
+
+  getPicturePath(part: Part): string {
+    let picturePath = part.picture;
+    if (picturePath.includes('\\')) {
+      const pictureParts = picturePath.split('\\');
+      let pictureName = pictureParts.pop();
+      const folderName = pictureParts.pop();
+      if (pictureName && folderName) {
+        const extension = pictureName.slice(pictureName.lastIndexOf('.'));
+        pictureName = pictureName.substring(0, pictureName.lastIndexOf('.'));
+        picturePath = `${pictureName}_${folderName}${extension}`;
+      }
+    }
+    return picturePath;
+  }
+
   getCedulaByUsername(username: string, authToken: string) {
     const headers = {
       Authorization: `Bearer ${authToken}`
@@ -174,7 +203,7 @@ export class DashboardService {
     return this.http.post(environment.urlBaseSecurity + 'user/post/save/order', orderData, { headers });
   }
 
-  
+
 }
 
 export interface Estations {

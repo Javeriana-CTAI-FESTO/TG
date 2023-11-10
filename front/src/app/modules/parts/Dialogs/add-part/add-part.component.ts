@@ -6,7 +6,7 @@ import { WorkplanServiceService, Workplan } from 'src/app/modules/posts/workplan
 import { PiezasServiceService, Pieza } from '../../piezas-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { AbstractControl } from '@angular/forms';
-
+import { DashboardService } from 'src/app/modules/dashboard.service';
 export const pictureValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const picture = (control as FormGroup).get('picture');
   const pictureFolder = (control as FormGroup).get('pictureFolder');
@@ -42,10 +42,11 @@ export class AddPartComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddPartComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,  // Aquí es donde inyectas los datos
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private workplanService: WorkplanServiceService,
     private piezasService: PiezasServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dashboardService: DashboardService
   ) { }
   ngOnInit() {
     this.workplanService.getWorkPlansPorDefecto().subscribe(workPlans => {
@@ -109,6 +110,7 @@ export class AddPartComponent implements OnInit {
             this.dialogRef.close();
             this.piezaAdded.emit();
             this.toastr.success('Part added successfully', 'Success');
+            this.dashboardService.clearPartsCache();
           }, error => {
             console.error('Error al agregar la pieza', error);
             this.toastr.error('Error adding part', 'Error');
@@ -126,6 +128,8 @@ export class AddPartComponent implements OnInit {
           this.dialogRef.close();
           this.piezaAdded.emit();
           this.toastr.success('Part added successfully', 'Success');
+          this.dashboardService.clearPartsCache();
+
         }, error => {
           console.error('Error al agregar la pieza', error);
           this.toastr.error('Error adding part', 'Error');

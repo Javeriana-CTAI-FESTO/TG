@@ -22,6 +22,7 @@ export class DefaultComponent implements OnInit {
     private loginService: LoginService) { }
 
   ngOnInit(): void {
+    this.dashboardService.getParts().subscribe();    
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe(result => {
@@ -30,14 +31,6 @@ export class DefaultComponent implements OnInit {
     this.reportsService.getReports().subscribe();
     this.reportsService.getReportsFails().subscribe();
     this.piezasService.getPiezasPorDefecto().subscribe();
-
-    const authToken = localStorage.getItem('authToken') ?? '';
-    const username = this.loginService.getUsername();
-    this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
-      const cedula = cedulaResponse.cedula;
-      this.dashboardService.getOrders(cedula, authToken).subscribe();
-    });
-    this.dashboardService.getParts().subscribe();    
   }
 
   sideBarToggler(event: any) {
