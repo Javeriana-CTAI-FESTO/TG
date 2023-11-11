@@ -4,7 +4,7 @@ const path = require('path');
 const FormData = require('form-data');
 
 const directoryPath = path.join(__dirname, 'New_Pictures');
-const authToken = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTY0MzczMiwiZXhwIjoxNjk5NjQ0OTMyfQ.wl_W6iOXXIeVOVhy3XFCAMINJJx7DQfHc076sQErbbJdErnb00T8V2JZZdIBQKCh9-S9o5tCgf9iuLgLoAIyBg';
+const authToken = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTY1NDg1NCwiZXhwIjoxNjk5NjU2MDU0fQ.ebw9L6YiLa3Fnc9TNyhxBkKMug6F0VlzkPO7vqDyh2KJUHoa9PYgGtx5Q2Z8HwJ4pxg-gSeDRZYyd5cq77h-Lg';
 
 fs.readdir(directoryPath, async (err, files) => {
     if (err) {

@@ -39,8 +39,12 @@
 body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background: linear-gradient(to right, #193366, #FDBC30);
     display: flex;
+    background: url('../../assets/Fondo_de_pantalla.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-color:rgba(0,0,0,0.6);
+    background-blend-mode: darken;
     justify-content: center;
     align-items: center;
 }

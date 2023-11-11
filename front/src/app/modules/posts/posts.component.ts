@@ -56,13 +56,13 @@ export class PostsComponent implements OnInit {
         console.error(error);
       }
     );
-  
+
     this.workplanService.getWorkPlanTypes().subscribe(data => {
       for (const key in data) {
         this.workPlanTypes.push({ key: key, value: data[key] });
       }
     });
-  
+
     this.workplanService.getSteps().subscribe(data => {
       this.todo = data;
       this.filteredTodo = data;
@@ -75,10 +75,10 @@ export class PostsComponent implements OnInit {
   moveItem(item: any, sourceList: any[], destList: any[]) {
     const index = sourceList.indexOf(item);
     if (index >= 0) {
-        sourceList.splice(index, 1);
-        destList.push(item);
+      sourceList.splice(index, 1);
+      destList.push(item);
     }
-}
+  }
 
 
   pageEvent(event: PageEvent) {
@@ -89,7 +89,7 @@ export class PostsComponent implements OnInit {
     const endIndex = startIndex + pageSize;
 
     this.filteredTodo = this.todo.slice(startIndex, endIndex);
-}
+  }
 
 
   applyFilter(event: Event) {
@@ -120,13 +120,13 @@ export class PostsComponent implements OnInit {
       }
     }
   }
- 
+
   applyFilterTodo(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredTodo = this.todo.filter(item => item.description.toLowerCase().includes(filterValue.toLowerCase()));
     this.totalItems = this.filteredTodo.length;
     this.filteredTodo = this.filteredTodo.slice(0, this.itemsPerPage);
-}
+  }
 
 
   toggleWorkplan() {
@@ -154,7 +154,7 @@ export class PostsComponent implements OnInit {
     const partNumber = this.partNumber;
     const steps: Step[] = [];
 
-    
+
 
     let minThisStepNumber = Infinity;
     for (let item of this.done) {
@@ -211,16 +211,21 @@ export class PostsComponent implements OnInit {
         console.error(error);
       }
     );
-    
-    
+
+
     this.toggleWorkplan();
     this.done = [];
     form.reset();
 
   }
- allFieldsFilled(): boolean {
-  return !!this.workPlanNumber && !!this.description && !!this.workPlanType && !!this.shortDescription && !!this.pictureNumber && !!this.partNumber;
-}
+  allFieldsFilled(): boolean {
+    return this.workPlanNumber !== null && this.workPlanNumber !== undefined &&
+      this.description !== null && this.description !== undefined &&
+      this.workPlanType !== null && this.workPlanType !== undefined &&
+      this.shortDescription !== null && this.shortDescription !== undefined &&
+      this.pictureNumber !== null && this.pictureNumber !== undefined &&
+      this.partNumber !== null && this.partNumber !== undefined;
+  }
 
 }
 

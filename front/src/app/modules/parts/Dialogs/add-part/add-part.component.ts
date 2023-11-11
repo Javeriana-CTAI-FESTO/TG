@@ -112,11 +112,13 @@ export class AddPartComponent implements OnInit {
             this.toastr.success('Part added successfully', 'Success');
             this.dashboardService.clearPartsCache();
           }, error => {
+            this.dialogRef.close();
             console.error('Error al agregar la pieza', error);
             this.toastr.error('Error adding part', 'Error');
           });
 
         }, error => {
+          this.dialogRef.close();
           console.error('Error al subir la imagen', error);
           this.toastr.error(error.error, 'Error');
         });
@@ -131,6 +133,7 @@ export class AddPartComponent implements OnInit {
           this.dashboardService.clearPartsCache();
 
         }, error => {
+          this.dialogRef.close();
           console.error('Error al agregar la pieza', error);
           this.toastr.error('Error adding part', 'Error');
         });
