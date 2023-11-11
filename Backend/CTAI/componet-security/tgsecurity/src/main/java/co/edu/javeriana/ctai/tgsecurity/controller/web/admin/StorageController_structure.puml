@@ -1,0 +1,167 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.controller.web.admin.StorageController",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_100278 { 
+   	label=edu
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_496592481 { 
+   	label=javeriana
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ImageUtils1641283288[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ImageUtils</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compressImage(data: byte[]): byte[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ decompressImage(data: byte[]): byte[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StorageController1630280410[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StorageController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   service: IStorageService [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): ResponseEntity&lt;?&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): ResponseEntity&lt;?&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StorageJPARepositoryImpl389350765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StorageJPARepositoryImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   em: EntityManager [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAll(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllNames(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllNamesAndData(): List</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByName(fileName: String): ImageData</TD></TR>
+<TR><TD ALIGN="LEFT" >+ save(imageData: ImageData)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StorageServiceImpl2065956524[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StorageServiceImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   repository: StorageJPARepositoryImpl [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ downloadImage(fileName: String): byte[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ uploadImage(file: MultipartFile): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+StorageController1630280410 -> StorageServiceImpl2065956524[arrowhead=none];
+StorageServiceImpl2065956524 -> StorageJPARepositoryImpl389350765[label="repository
+[0..1]"];
+    
+}
+@enduml

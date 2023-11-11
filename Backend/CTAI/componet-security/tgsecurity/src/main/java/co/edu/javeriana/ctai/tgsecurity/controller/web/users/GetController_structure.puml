@@ -1,0 +1,161 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "co.edu.javeriana.ctai.tgsecurity.controller.web.users.GetController",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_100278 { 
+   	label=edu
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_496592481 { 
+   	label=javeriana
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ClientServiceImp2047046643[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ClientServiceImp</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   clientRepository: IClientRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ existsByCedula(cedula: Long): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ existsByCelular(celular: Long): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ existsByCorreoElectronico(correo: String): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAll(): List&lt;Cliente&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByCedula(cedula: Long): Cliente</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findByUsuario(usuario: User): Cliente</TD></TR>
+<TR><TD ALIGN="LEFT" >+ save(cliente: Cliente): Cliente</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GetController1649190291[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GetController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   clientService: IClientService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderFilter: OrderFilter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderRepository: IOrderRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: IUserRepository [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getOrdersByCedula(cedula: String): ResponseEntity&lt;Object&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getRole(cliente: Cliente): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserCedula(user_name: String): ResponseEntity&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUserRole(user_name: String): ResponseEntity&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OrderFilter1641283288[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OrderFilter</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   executorService: ScheduledExecutorService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   restTemplate: RestTemplate [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- sendHttpRequest(): List&lt;Long&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+GetController1649190291 -> ClientServiceImp2047046643[arrowhead=none];
+GetController1649190291 -> OrderFilter1641283288[label="orderFilter
+[0..1]"];
+    
+}
+@enduml

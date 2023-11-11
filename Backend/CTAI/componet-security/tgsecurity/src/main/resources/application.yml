@@ -1,0 +1,50 @@
+server:
+  port: ${SERVER_TGPROD_PORT:8081}
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 1024MB
+
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/tg
+    username: root
+    password: atoncode
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+# Config JWT
+app:
+  jwt:
+    secret: openb
+    expiration-ms: 1200000
+
+# Configuraciones de Logbook
+logbook:
+  format:
+    style: http
+  strategy: body-only-if-status-at-least
+  minimum-status: 400
+  obfuscate:
+    headers:
+      - Authorization
+      - X-Secret
+    parameters:
+      - access_token
+      - password
+  write:
+    chunk-size: 1000
+  filter:
+    form-request-mode: parameter
+
+# Configuración de registro
+logging:
+  level:
+    org.springframework.web: DEBUG
+  file:
+    name: logs/register.log

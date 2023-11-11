@@ -1,0 +1,70 @@
+2023-10-29 22:04:24.786  INFO 87016 --- [main] co.edu.javeriana.tg.TgApplication        : Starting TgApplication v0.0.1-SNAPSHOT using Java 21 on nabu with PID 87016 (/Users/nabu/Documents/GitHub/TG/Backend/CTAI/CP_Factory/target/tg-2.7.16-prod.jar started by nabu in /Users/nabu/Documents/GitHub/TG)
+2023-10-29 22:04:24.798  INFO 87016 --- [main] co.edu.javeriana.tg.TgApplication        : The following 1 profile is active: "prod"
+2023-10-29 22:04:26.538  INFO 87016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-29 22:04:26.809  INFO 87016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 247 ms. Found 23 JPA repository interfaces.
+2023-10-29 22:04:28.100  INFO 87016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-29 22:04:28.119  INFO 87016 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-29 22:04:28.121  INFO 87016 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.80]
+2023-10-29 22:04:28.267  INFO 87016 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-29 22:04:28.268  INFO 87016 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3350 ms
+2023-10-29 22:04:28.515 DEBUG 87016 --- [main] o.springframework.web.filter.CorsFilter  : Filter 'corsFilter' configured for use
+2023-10-29 22:04:28.597  INFO 87016 --- [MLog-Init-Reporter] com.mchange.v2.log.MLog                  : MLog clients using slf4j logging.
+2023-10-29 22:04:28.898  INFO 87016 --- [main] com.mchange.v2.c3p0.C3P0Registry         : Initializing c3p0-0.9.5.5 [built 11-December-2019 22:18:33 -0800; debug? true; trace: 10]
+2023-10-29 22:04:29.268  INFO 87016 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-29 22:04:29.427  INFO 87016 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-10-29 22:04:29.797  INFO 87016 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-10-29 22:04:30.026  INFO 87016 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: net.ucanaccess.hibernate.dialect.UCanAccessDialect
+2023-10-29 22:04:31.448  INFO 87016 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-29 22:04:31.470  INFO 87016 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-29 22:04:33.177  WARN 87016 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-29 22:04:33.461 DEBUG 87016 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-10-29 22:04:33.770 DEBUG 87016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 69 mappings in 'requestMappingHandlerMapping'
+2023-10-29 22:04:33.810 DEBUG 87016 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2023-10-29 22:04:33.823 DEBUG 87016 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-10-29 22:04:34.200  INFO 87016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-29 22:04:34.217  INFO 87016 --- [main] co.edu.javeriana.tg.TgApplication        : Started TgApplication in 10.483 seconds (JVM running for 11.766)
+2023-10-29 22:05:41.335  INFO 87016 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-29 22:05:41.335  INFO 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-29 22:05:41.336 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2023-10-29 22:05:41.336 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2023-10-29 22:05:41.336 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2023-10-29 22:05:41.338 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@111c229c
+2023-10-29 22:05:41.339 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@209f3887
+2023-10-29 22:05:41.339 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-10-29 22:05:41.340  INFO 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2023-10-29 22:05:41.377 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=45&clientNumber=0&positions=1", parameters={masked}
+2023-10-29 22:05:41.389 DEBUG 87016 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-10-29 22:05:41.512  INFO 87016 --- [http-nio-8080-exec-1] c.m.v.c.i.AbstractPoolBackedDataSource   : Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1gqugs0azz3yz251cbpmf4|2453f95d, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> net.ucanaccess.jdbc.UcanaccessDriver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1gqugs0azz3yz251cbpmf4|2453f95d, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:ucanaccess:///Users/nabu/Documents/GitHub/TG/Backend/CTAI/CP_Factory/FestoMES_be.accdb;showSchema=true, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2023-10-29 22:05:47.020 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:05:47.022 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@34b1094c]
+2023-10-29 22:05:47.060 DEBUG 87016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-29 22:05:54.825 DEBUG 87016 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/students/parts/production/new-order?partNumber=47&clientNumber=0&positions=1", parameters={masked}
+2023-10-29 22:05:54.826 DEBUG 87016 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.StudentController#newOrder(Long, Long, Long)
+2023-10-29 22:05:55.112 DEBUG 87016 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:05:55.112 DEBUG 87016 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [co.edu.javeriana.tg.entities.dtos.OrderDTO@5a13fe17]
+2023-10-29 22:05:55.114 DEBUG 87016 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-29 22:06:15.709 DEBUG 87016 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-10-29 22:06:15.710 DEBUG 87016 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-10-29 22:06:17.647 DEBUG 87016 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:06:17.649 DEBUG 87016 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@5936df83, co.edu.javeriana.tg.entities.dtos.OrderDTO@406 (truncated)...]
+2023-10-29 22:06:17.726 DEBUG 87016 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-29 22:06:56.597 DEBUG 87016 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-10-29 22:06:56.598 DEBUG 87016 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-10-29 22:06:57.960 DEBUG 87016 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:06:57.961 DEBUG 87016 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@55e62ac, co.edu.javeriana.tg.entities.dtos.OrderDTO@3008 (truncated)...]
+2023-10-29 22:06:57.975 DEBUG 87016 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-29 22:07:20.096 DEBUG 87016 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-10-29 22:07:20.096 DEBUG 87016 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-10-29 22:07:21.366 DEBUG 87016 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:07:21.367 DEBUG 87016 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@c447f6f, co.edu.javeriana.tg.entities.dtos.OrderDTO@310e (truncated)...]
+2023-10-29 22:07:21.377 DEBUG 87016 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-29 22:08:31.161 DEBUG 87016 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-10-29 22:08:31.162 DEBUG 87016 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-10-29 22:08:32.459 DEBUG 87016 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:08:32.459 DEBUG 87016 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@549c2e64, co.edu.javeriana.tg.entities.dtos.OrderDTO@745 (truncated)...]
+2023-10-29 22:08:32.469 DEBUG 87016 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-29 22:08:37.426 DEBUG 87016 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/admin/orders", parameters={}
+2023-10-29 22:08:37.427 DEBUG 87016 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.edu.javeriana.tg.controllers.web.AdminController#getAllWorkPlanStatus()
+2023-10-29 22:08:38.731 DEBUG 87016 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [text/plain, application/json, application/*+json, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2023-10-29 22:08:38.732 DEBUG 87016 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@3f4729ff, co.edu.javeriana.tg.entities.dtos.OrderDTO@4d5 (truncated)...]
+2023-10-29 22:08:38.739 DEBUG 87016 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
