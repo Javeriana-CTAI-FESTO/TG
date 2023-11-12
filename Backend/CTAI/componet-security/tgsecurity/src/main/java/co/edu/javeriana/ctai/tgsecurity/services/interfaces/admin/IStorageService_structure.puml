@@ -155,7 +155,7 @@ StorageJPARepositoryImpl389350765[
 	fillcolor="#FFFFFF"
 ];
 
-StorageServiceImpl2065956524[
+StorageServiceImpl1892611014[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)StorageServiceImpl</TD></TR>
 <HR/>
@@ -173,10 +173,10 @@ StorageServiceImpl2065956524[
 } 
 
 'edges    
-IStorageService767753676 -> StorageServiceImpl2065956524[arrowhead=none, arrowtail=empty, dir=both];
+IStorageService767753676 -> StorageServiceImpl1892611014[arrowhead=none, arrowtail=empty, dir=both];
 StorageController1630280410 -> IStorageService767753676[label="service
 [0..1]"];
-StorageServiceImpl2065956524 -> StorageJPARepositoryImpl389350765[label="repository
+StorageServiceImpl1892611014 -> StorageJPARepositoryImpl389350765[label="repository
 [0..1]"];
     
 }

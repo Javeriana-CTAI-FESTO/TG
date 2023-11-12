@@ -131,10 +131,11 @@ public class AuthController {
 
 
         // Check 1: username
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername()) ) {
+
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse("Error: User is already taken!"));
         } else {
             LOGGER.info("Username: " + signUpRequest.getUsername());
             User user = new UserBuilder()
@@ -146,15 +147,13 @@ public class AuthController {
 
 
             if (
-                    clientService.existsByCedula(signUpRequest.getIdentification()) &&
-                            clientService.existsByCorreoElectronico(signUpRequest.getEmail()) &&
-                            clientService.existsByCelular(signUpRequest.getPhone())
+                    clientService.existsByCedula(signUpRequest.getIdentification())
             ) {
                 // Delete user
                 userRepository.delete(user);
                 return ResponseEntity
                         .badRequest()
-                        .body(new MessageResponse("Error: Identification, Email and Phone are already taken!"));
+                        .body(new MessageResponse("Error: Identification are already taken!"));
 
             } else {
 
@@ -175,11 +174,9 @@ public class AuthController {
 
                 clientService.save(cliente);
             }
-
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
         }
 
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
     @PostMapping("/refresh-token")

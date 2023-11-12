@@ -4,7 +4,6 @@ import co.edu.javeriana.ctai.tgsecurity.entities.users.Cliente;
 import co.edu.javeriana.ctai.tgsecurity.entities.users.User;
 import co.edu.javeriana.ctai.tgsecurity.repository.interfaces.users.IClientRepository;
 import co.edu.javeriana.ctai.tgsecurity.services.interfaces.users.IClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 @Service
 public class ClientServiceImp implements IClientService {
 
-    @Autowired
-    private IClientRepository clientRepository;
+    private final IClientRepository clientRepository;
+
+    public ClientServiceImp(IClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     @Override
     public List<Cliente> findAll() {

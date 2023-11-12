@@ -1,0 +1,48 @@
+@startuml
+
+class Install {
+  - instance: Install
+  - mainDirectory: Path
+  - osName: String
+  - mvnwCommand: String
+  - mes4DDBBpath: String
+  - pidTgSecurity: Long
+  - pidTgFesto: Long
+  - tools: Tools
+  + getInstance(): Install
+  + getOsName(): String
+  + getMvnwCommand(): String
+  + getMainDirectory(): String
+  + setMes4DDBBpath(String mes4DDBBpath): void
+  + setMvnwCommand(): void
+  + getTools(): Tools
+  + execSecurityModule(): void
+  + runTgfestoModule(): void
+  + getProceso(): Process
+  + stopOlds(String processName): void
+  + navExE(): void
+  + stopProcesses(): void
+  + killFrond(): void
+  + exitFronEndPID(): void
+}
+
+class Tools {
+  - loggingService: LoggingService
+  + getLoggingService(): LoggingService
+  + printProcess(Process process): void
+  + stopProcess(String processName): void
+  + runCmdCommand(String command): void
+  + frontendPID(Path mainDirectory): long
+}
+
+class LoggingService {
+  + logInfo(String message): void
+  + logError(String message): void
+  + logWarning(String message): void
+  + close(): void
+}
+
+Install *-right-> Tools
+Install *-down-> LoggingService
+
+@enduml

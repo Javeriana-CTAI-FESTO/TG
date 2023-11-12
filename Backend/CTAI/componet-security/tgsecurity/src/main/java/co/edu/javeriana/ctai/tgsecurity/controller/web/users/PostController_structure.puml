@@ -95,7 +95,7 @@ subgraph cluster_100278 {
 	fillcolor="#d8d8d8"
 	style=filled
    
-   ClientServiceImp2047046643[
+   ClientServiceImp1873701133[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)ClientServiceImp</TD></TR>
 <HR/>
@@ -195,7 +195,7 @@ Order2119090516 -> Cliente489267886[label="cliente
 [0..1]"];
 OrderProcessingService425788027 -> Order2119090516[label="orderQueue
 [0..*]"];
-PostController1649190291 -> ClientServiceImp2047046643[arrowhead=none];
+PostController1649190291 -> ClientServiceImp1873701133[arrowhead=none];
 PostController1649190291 -> OrderProcessingService425788027[label="orderProcessingService
 [1]"];
     
