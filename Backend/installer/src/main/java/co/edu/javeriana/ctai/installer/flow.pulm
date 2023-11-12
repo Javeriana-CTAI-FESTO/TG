@@ -1,0 +1,25 @@
+@startuml
+
+start
+
+-> [Iniciar aplicación]
+    -> Iniciar ventana principal
+
+-> [Seleccionar archivo de base de datos]
+    -> Setear variable de entorno para el path de la BD ACCES para el módulo CP_Factory
+
+-> [Hacer clic en botón de ejecución]
+    -> Deshabilitar botones de ejecución y salida
+    -> Detener procesos antiguos
+    -> Ejecutar módulos de seguridad y CP_Factory
+    -> Generar códigos QR
+    -> Habilitar botón de salida
+    -> Mostrar mensaje de éxito
+
+-> [Salir]
+    -> Desahabilitar el botón de salida y ejecución
+    -> Llamar al método `onExitButtonClick()`
+
+stop
+
+@enduml

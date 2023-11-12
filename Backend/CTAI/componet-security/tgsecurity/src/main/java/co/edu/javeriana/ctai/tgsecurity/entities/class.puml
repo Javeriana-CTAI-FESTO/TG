@@ -1,0 +1,131 @@
+@startuml
+
+class User {
+  +id: Long
+  +username: String
+  +password: String
+}
+
+enum Rol {
+  CLIENTE
+}
+
+class Cliente {
+  +id: Long
+  +usuario: User
+  +nombre: String
+  +apellido: String
+  +identificacion: Long
+  +celular: Long
+  +correoElectronico: String
+  +rol: Rol
+  +orders: List<Order>
+}
+
+class Order {
+  +id: Long
+  +id_part: String
+  +id_workPlan: String
+  +title: String
+  +orderNumber: Long
+  +image_filePath: String
+  +cliente: Cliente
+}
+
+class ImageData {
+  +id: Long
+  +name: String
+  +type: String
+  +imageData: byte[]
+  +sizeMB: String
+}
+
+class UserDetailsServiceImpl {
+  +loadUserByUsername(username: String): UserDetails
+}
+
+class StorageJPARepositoryImpl {
+  +save(imageData: ImageData): void
+  +findByName(fileName: String): ImageData
+  +findAll(): List
+  +findAllNamesAndData(): List
+}
+
+class IStorageRepository {
+  +findByName(fileName: String): ImageData
+  +findAll(): List<ImageData>
+  +findAllNamesAndData(): List
+  +save(imageData: ImageData): void
+}
+
+class IClientRepository {
+  +findByIdentificacion(identificacion: Long): Cliente
+  +existsByIdentificacion(identificacion: Long): Boolean
+  +existsByCorreoElectronico(correo: String): Boolean
+  +existsByCelular(celular: Long): Boolean
+  +findByUsuario(usuario: User): Cliente
+}
+
+class IUserRepository {
+  +findByUsername(username: String): Optional<User>
+  +existsByUsername(username: String): Boolean
+}
+
+class IOrderRepository {
+  +findRecentOrdersByClienteAndMESOrders(cliente: Cliente, mesOrders: List<Long>): List<OrderResponse>
+}
+
+class OrderProcessingService {
+  +startProcessing(): void
+  +getOrderNumber(): int
+  +setOrderNumber(orderNumber: int): void
+  +enqueueOrder(order: Order): void
+  -processOrders(): void
+  -sendHttpRequest(order: Order): boolean
+}
+
+class OrderFilter {
+  +getMESOrders(): List<Long>
+  -sendHttpRequest(): List<Long>
+}
+
+class OrderResponse {
+  -id_part: String
+  -id_workPlan: String
+  -identificacion: Long
+  -title: String
+  -orderNumber: Long
+  -image_filePath: String
+}
+
+class UserServiceImp {
+  +findByUsername(username: String): User
+}
+
+class StorageServiceImpl {
+  +uploadImage(file: MultipartFile): String
+  +downloadImage(fileName: String): byte[]
+  +getAllImageNames(): List<String>
+}
+
+class ImageUtils {
+  +compressImage(data: byte[]): byte[]
+  +decompressImage(data: byte[]): byte[]
+}
+
+User -- Cliente
+Cliente "1" *-- "0..*" Order : has
+Order -- ImageData
+StorageServiceImpl -- ImageUtils
+StorageServiceImpl -- IStorageRepository
+StorageJPARepositoryImpl -- IStorageRepository
+IClientRepository -- Cliente
+IUserRepository -- User
+IOrderRepository -- Order
+OrderProcessingService -- Order
+OrderProcessingService -- IOrderRepository
+OrderFilter -- OrderResponse
+OrderFilter -- IOrderRepository
+UserServiceImp -- IUserRepository
+
+@enduml

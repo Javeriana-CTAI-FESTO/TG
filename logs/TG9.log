@@ -1,8 +1,26 @@
-oct 29, 2023 10:14:53 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+nov 11, 2023 7:54:08 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
 INFO: Sistema operativo: Mac OS X
-oct 29, 2023 10:14:53 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+nov 11, 2023 7:54:08 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
 INFO: Directorio de trabajo: /Users/nabu/Documents/GitHub/TG
-oct 29, 2023 10:14:53 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+nov 11, 2023 7:54:08 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
 INFO: Sistema operativo Linux o Mac detectado.
-oct 29, 2023 10:14:55 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logWarning
+nov 11, 2023 7:54:11 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logWarning
+WARNING: No es Windows, no se puede reiniciar el proceso.
+nov 11, 2023 7:54:11 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: Ruta del jar: /Users/nabu/Documents/GitHub/TG/Backend/CTAI/componet-security/tgsecurity/target/tgsecurity-2.5.3-prod.jar
+nov 11, 2023 7:54:11 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logError
+SEVERE: Error al ejecutar el Frondend.
+nov 11, 2023 7:54:11 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: Modulo Security. Encendido Codigo 
+nov 11, 2023 7:54:11 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: Modulo FESTO. Encendido Codigo 
+nov 11, 2023 7:54:24 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: Modulo Security. DETENIDO Codigo: 1
+nov 11, 2023 7:54:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: Proceso detenido tg-s: 23193
+nov 11, 2023 7:54:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: Proceso detenido tg: 23193
+nov 11, 2023 7:54:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+INFO: kill tg-2.7.16-prod.jar 23193
+nov 11, 2023 7:54:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logWarning
 WARNING: No es Windows, no se puede reiniciar el proceso.
