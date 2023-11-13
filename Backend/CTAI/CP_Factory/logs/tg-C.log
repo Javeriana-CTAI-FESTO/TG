@@ -2436,3 +2436,4 @@ Caused by: java.net.BindException: La dirección ya se está usando
 2023-11-13 12:37:40.628 DEBUG 17861 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json, application/json, application/*+json]
 2023-11-13 12:37:40.628 DEBUG 17861 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.edu.javeriana.tg.entities.dtos.OrderDTO@19e7e9f5, co.edu.javeriana.tg.entities.dtos.OrderDTO@62f (truncated)...]
 2023-11-13 12:37:40.633 DEBUG 17861 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-11-13 12:44:13.909  INFO 17861 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
