@@ -22,7 +22,7 @@ export class DefaultComponent implements OnInit {
     private loginService: LoginService) { }
 
   ngOnInit(): void {
-   // this.dashboardService.getParts().subscribe();    
+    this.dashboardService.getParts().subscribe();    
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe(result => {
