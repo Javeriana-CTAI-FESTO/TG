@@ -3,6 +3,7 @@ import { DashboardService } from '../dashboard.service';
 import { retryWhen, delayWhen, take } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
+import { PiezasServiceService } from '../parts/piezas-service.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,7 +17,8 @@ export class DashboardComponent implements OnInit {
   cardData = '';
 
   constructor(private dashboardService: DashboardService,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private piezasService: PiezasServiceService) { }
 
   ngOnInit() {
     this.rol=this.loginService.getRole();

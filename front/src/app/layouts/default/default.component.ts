@@ -18,11 +18,9 @@ export class DefaultComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
     private reportsService: ReportsServiceService, 
     private piezasService: PiezasServiceService,
-    private dashboardService: DashboardService,
-    private loginService: LoginService) { }
+    private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
-    this.dashboardService.getParts().subscribe();    
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe(result => {
@@ -31,6 +29,9 @@ export class DefaultComponent implements OnInit {
     this.reportsService.getReports().subscribe();
     this.reportsService.getReportsFails().subscribe();
     this.piezasService.getPiezasPorDefecto().subscribe();
+
+   
+    this.dashboardService.getParts().subscribe();    
   }
 
   sideBarToggler(event: any) {

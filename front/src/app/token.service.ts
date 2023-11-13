@@ -14,7 +14,6 @@ export class TokenService {
   }
 
   refreshToken() {
-    console.log('refreshing token...');
     const authToken = localStorage.getItem('authToken') ?? '';
     const headers = { 'Authorization': authToken };
     return this.http.post(environment.urlBaseSecurity+'auth/refresh-token', {}, { headers })

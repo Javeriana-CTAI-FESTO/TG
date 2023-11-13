@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService, RegisterData } from './login.service';
 import { ToastrService } from 'ngx-toastr';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ export class LoginComponent {
       this.toastr.error('Login fallido');
     });
   }
+
 
 
   onRegister() {
