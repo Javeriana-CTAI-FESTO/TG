@@ -55,3 +55,4 @@
 2023/11/07 14:27:10 [error] 11748#7792: OpenEvent("Global\ngx_quit_3316") failed (2: The system cannot find the file specified)
 2023/11/07 14:53:29 [notice] 6976#3708: signal process started
 2023/11/07 14:53:29 [error] 6976#3708: OpenEvent("Global\ngx_quit_16860") failed (2: The system cannot find the file specified)
+2023/11/13 12:54:07 [emerg] 10360#15224: CreateDirectory() "C:\Users\home\OneDrive - Pontificia Universidad Javeriana\Documents\javeriana\TG\nginx-1.25.2/temp/client_body_temp" failed (3: El sistema no puede encontrar la ruta especificada)
