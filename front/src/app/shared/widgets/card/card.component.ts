@@ -32,6 +32,7 @@ export class CardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dashboardService.getParts().subscribe();   
     this.isloading = true;
     const authToken = localStorage.getItem('authToken') ?? '';
     const username = this.loginService.getUsername();
