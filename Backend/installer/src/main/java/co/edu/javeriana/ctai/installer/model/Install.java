@@ -1,7 +1,6 @@
 package co.edu.javeriana.ctai.installer.model;
 
-import co.edu.javeriana.ctai.installer.model.tools.LoggingService;
-import co.edu.javeriana.ctai.installer.model.tools.Tools;
+import co.edu.javeriana.ctai.installer.tools.Tools;
 
 import java.awt.*;
 import java.io.BufferedReader;

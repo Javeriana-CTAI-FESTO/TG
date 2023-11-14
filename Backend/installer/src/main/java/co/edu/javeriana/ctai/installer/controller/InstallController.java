@@ -1,6 +1,6 @@
 package co.edu.javeriana.ctai.installer.controller;
 
-import co.edu.javeriana.ctai.installer.model.tools.Tools;
+import co.edu.javeriana.ctai.installer.tools.Tools;
 import co.edu.javeriana.ctai.installer.model.Install;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

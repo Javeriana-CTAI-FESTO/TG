@@ -1,4 +1,4 @@
-package co.edu.javeriana.ctai.installer.model.tools;
+package co.edu.javeriana.ctai.installer.tools;
 
 import java.io.IOException;
 import java.util.logging.*;

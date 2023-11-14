@@ -1,8 +1,8 @@
-oct 29, 2023 7:38:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+oct 29, 2023 7:38:28 P. M. co.edu.javeriana.ctai.installer.tools.LoggingService logInfo
 INFO: Sistema operativo: Mac OS X
-oct 29, 2023 7:38:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+oct 29, 2023 7:38:28 P. M. co.edu.javeriana.ctai.installer.tools.LoggingService logInfo
 INFO: Directorio de trabajo: /Users/nabu/Documents/GitHub/TG/Backend/installer
-oct 29, 2023 7:38:28 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logInfo
+oct 29, 2023 7:38:28 P. M. co.edu.javeriana.ctai.installer.tools.LoggingService logInfo
 INFO: Sistema operativo Linux o Mac detectado.
-oct 29, 2023 7:38:41 P. M. co.edu.javeriana.ctai.installer.model.tools.LoggingService logWarning
+oct 29, 2023 7:38:41 P. M. co.edu.javeriana.ctai.installer.tools.LoggingService logWarning
 WARNING: No es Windows, no se puede reiniciar el proceso.
