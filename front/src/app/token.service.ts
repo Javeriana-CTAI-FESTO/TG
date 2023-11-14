@@ -10,15 +10,16 @@ export class TokenService {
   constructor(private http: HttpClient) { }
 
   startTokenRefresh() {
-    setInterval(() => this.refreshToken().subscribe(), 120000);
+    setInterval(() => this.refreshToken().subscribe(), 30000);
   }
 
   refreshToken() {
     const authToken = localStorage.getItem('authToken') ?? '';
-    const headers = { 'Authorization': authToken };
-    return this.http.post(environment.urlBaseSecurity+'auth/refresh-token', {}, { headers })
+    const formData = new FormData();
+    formData.append('Authorization', authToken);
+    return this.http.post(environment.urlBaseSecurity+'auth/refresh-token', formData)
       .pipe(tap((res: any) => {
-        localStorage.setItem('authToken', res.newToken);
+        localStorage.setItem('authToken', res.token);
       }));
-  }
+}
 }

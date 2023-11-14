@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/enviroments/enviroment';
-
+import { TokenService } from '../token.service';
 interface LoginResponse {
   token: string;
 }
@@ -25,14 +25,16 @@ export interface RegisterData {
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private tokenService: TokenService) {}
 
   login(username: string, password: string): Observable<LoginResponse> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic ' + btoa(username + ':' + password)
     });
     localStorage.setItem('username', username);
+    this.tokenService.startTokenRefresh();
     return this.http.post<LoginResponse>(environment.urlBaseSecurity+'auth/login', {}, { headers });
+
   }
 
   register(data: RegisterData): Observable<any> {
@@ -40,10 +42,9 @@ export class LoginService {
   }
 
   logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('username');
-    localStorage.removeItem('userRole');
+    localStorage.clear();
     this.router.navigate(['/login']);
+    location.reload();
   }
 
   getUsername(): string {

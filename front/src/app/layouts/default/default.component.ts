@@ -30,13 +30,6 @@ export class DefaultComponent implements OnInit {
     this.reportsService.getReports().subscribe();
     this.reportsService.getReportsFails().subscribe();
     this.piezasService.getPiezasPorDefecto().subscribe();
-
-    const authToken = localStorage.getItem('authToken') ?? '';
-    const username = this.loginService.getUsername();
-    this.dashboardService.getCedulaByUsername(username, authToken).subscribe((cedulaResponse: any) => {
-      const cedula = cedulaResponse.cedula;
-      this.dashboardService.getOrders(cedula, authToken).subscribe();
-    });
     this.dashboardService.getParts().subscribe(); 
     
   }
